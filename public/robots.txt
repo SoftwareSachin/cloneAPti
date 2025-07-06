@@ -1,0 +1,31 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://aptivon-solutions.vercel.app/sitemap.xml
+
+# Crawl-delay for bots
+Crawl-delay: 1
+
+# Allow all search engines to index the site
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Block certain paths if needed (none currently)
+# Disallow: /admin/
+# Disallow: /api/
+
+# Allow CSS and JS files
+Allow: /src/
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.gif$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
