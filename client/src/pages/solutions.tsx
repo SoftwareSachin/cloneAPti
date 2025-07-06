@@ -1,6 +1,8 @@
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
+import { useLocation } from "wouter";
+import { useState } from "react";
 import { 
   Cloud, 
   Shield, 
@@ -8,7 +10,10 @@ import {
   Smartphone, 
   Cpu, 
   Globe,
-  CheckCircle
+  CheckCircle,
+  Phone,
+  Mail,
+  Calendar
 } from "lucide-react";
 
 const SOLUTIONS_DATA = [
@@ -57,6 +62,21 @@ const SOLUTIONS_DATA = [
 ];
 
 export default function Solutions() {
+  const [, setLocation] = useLocation();
+  const [selectedSolution, setSelectedSolution] = useState<number | null>(null);
+
+  const handleScheduleConsultation = () => {
+    setLocation("/contact");
+  };
+
+  const handleViewCaseStudies = () => {
+    setLocation("/case-studies");
+  };
+
+  const handleContactExperts = () => {
+    setLocation("/contact");
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
@@ -73,10 +93,19 @@ export default function Solutions() {
               technology solutions that transform your business operations and accelerate growth.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-slate-900 hover:bg-slate-800 text-white">
+              <Button 
+                size="lg" 
+                className="bg-slate-900 hover:bg-slate-800 text-white"
+                onClick={handleScheduleConsultation}
+              >
+                <Calendar className="h-5 w-5 mr-2" />
                 Schedule Consultation
               </Button>
-              <Button variant="outline" size="lg">
+              <Button 
+                variant="outline" 
+                size="lg"
+                onClick={handleViewCaseStudies}
+              >
                 View Case Studies
               </Button>
             </div>
@@ -99,7 +128,15 @@ export default function Solutions() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {SOLUTIONS_DATA.map((solution, index) => (
-              <div key={index} className="bg-white p-8 rounded-xl border border-slate-200 hover:shadow-lg transition-all duration-300">
+              <div 
+                key={index} 
+                className={`bg-white p-8 rounded-xl border transition-all duration-300 cursor-pointer ${
+                  selectedSolution === index 
+                    ? 'border-slate-900 shadow-xl scale-105' 
+                    : 'border-slate-200 hover:shadow-lg hover:border-slate-300'
+                }`}
+                onClick={() => setSelectedSolution(selectedSolution === index ? null : index)}
+              >
                 <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center mb-6">
                   <solution.icon className="h-6 w-6 text-slate-900" />
                 </div>
@@ -118,11 +155,27 @@ export default function Solutions() {
                   </ul>
                 </div>
                 
-                <div className="p-4 bg-slate-50 rounded-lg border-l-4 border-slate-900">
+                <div className="p-4 bg-slate-50 rounded-lg border-l-4 border-slate-900 mb-4">
                   <p className="text-sm text-slate-700 font-medium">
                     {solution.benefits}
                   </p>
                 </div>
+
+                {selectedSolution === index && (
+                  <div className="mt-4 pt-4 border-t border-slate-200">
+                    <Button 
+                      size="sm" 
+                      className="w-full bg-slate-900 hover:bg-slate-800 text-white"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleScheduleConsultation();
+                      }}
+                    >
+                      <Phone className="h-4 w-4 mr-2" />
+                      Get Started with {solution.title}
+                    </Button>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -176,6 +229,42 @@ export default function Solutions() {
         </div>
       </section>
 
+      {/* Quick Contact Section */}
+      <section className="py-20">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
+            Need a Custom Solution?
+          </h2>
+          <p className="text-lg text-slate-600 mb-8">
+            Our experts are ready to design a tailored technology solution for your unique business needs.
+          </p>
+          <div className="grid md:grid-cols-3 gap-6 mb-8">
+            <div className="p-6 bg-slate-50 rounded-lg">
+              <Phone className="h-8 w-8 text-slate-900 mx-auto mb-3" />
+              <h3 className="font-semibold text-slate-900 mb-2">Call Us</h3>
+              <p className="text-slate-600">+1 (555) 123-4567</p>
+            </div>
+            <div className="p-6 bg-slate-50 rounded-lg">
+              <Mail className="h-8 w-8 text-slate-900 mx-auto mb-3" />
+              <h3 className="font-semibold text-slate-900 mb-2">Email Us</h3>
+              <p className="text-slate-600">solutions@aptivon.com</p>
+            </div>
+            <div className="p-6 bg-slate-50 rounded-lg">
+              <Calendar className="h-8 w-8 text-slate-900 mx-auto mb-3" />
+              <h3 className="font-semibold text-slate-900 mb-2">Schedule Call</h3>
+              <p className="text-slate-600">Book a free consultation</p>
+            </div>
+          </div>
+          <Button 
+            size="lg" 
+            className="bg-slate-900 hover:bg-slate-800 text-white"
+            onClick={handleScheduleConsultation}
+          >
+            Start Your Project Today
+          </Button>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20 bg-slate-900">
         <div className="max-w-7xl mx-auto px-6 text-center">
@@ -186,13 +275,20 @@ export default function Solutions() {
             Let's discuss how our technology solutions can drive your business forward.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-slate-900 hover:bg-slate-100">
+            <Button 
+              size="lg" 
+              className="bg-white text-slate-900 hover:bg-slate-100"
+              onClick={handleScheduleConsultation}
+            >
+              <Calendar className="h-5 w-5 mr-2" />
               Get Free Consultation
             </Button>
             <Button 
               size="lg" 
               className="border-2 border-white bg-transparent text-white hover:bg-white hover:text-slate-900 transition-all duration-300 font-semibold"
+              onClick={handleContactExperts}
             >
+              <Mail className="h-5 w-5 mr-2" />
               Contact Our Experts
             </Button>
           </div>
