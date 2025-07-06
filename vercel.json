@@ -1,8 +1,8 @@
 {
-  "framework": "vite",
-  "buildCommand": "vite build",
+  "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "installCommand": "npm install",
+  "framework": "vite",
   "functions": {
     "api/**/*.ts": {
       "runtime": "@vercel/node@3.0.0"
@@ -15,7 +15,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/$1"
+      "dest": "/index.html"
     }
   ]
 }
