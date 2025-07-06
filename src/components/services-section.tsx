@@ -82,16 +82,16 @@ export default function ServicesSection() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
+
               className="h-full"
             >
-              <Card className="h-full bg-white hover:bg-gray-50 transition-all duration-500 border border-gray-100 shadow-xl hover:shadow-2xl group relative overflow-hidden">
+              <Card className="h-full bg-white border border-gray-100 shadow-xl group relative overflow-hidden">
                 <CardContent className="p-10 relative">
                   <div className={`absolute top-0 right-0 w-40 h-40 bg-gradient-to-br ${service.accent} rounded-full -mr-20 -mt-20`}></div>
-                  <div className={`w-20 h-20 bg-gradient-to-br ${service.gradient} rounded-3xl flex items-center justify-center mb-8 shadow-xl group-hover:scale-105 group-hover:shadow-2xl transition-all duration-300 relative z-10`}>
+                  <div className={`w-20 h-20 bg-gradient-to-br ${service.gradient} rounded-3xl flex items-center justify-center mb-8 shadow-xl relative z-10`}>
                     <service.icon className="text-white" size={36} />
                   </div>
-                  <h3 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-slate-800 transition-colors font-display">{service.title}</h3>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-4 font-display">{service.title}</h3>
                   <p className="text-slate-600 mb-8 leading-relaxed text-base">{service.description}</p>
                   <ul className="text-sm text-slate-500 space-y-4">
                     {service.features.map((feature, idx) => (
