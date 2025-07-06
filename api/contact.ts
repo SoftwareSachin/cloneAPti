@@ -1,7 +1,12 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import { storage } from '../server/storage';
-import { insertContactSchema } from '../shared/schema';
+import { insertContactSchema, contacts } from '../shared/schema';
+import { drizzle } from 'drizzle-orm/neon-http';
+import { neon } from '@neondatabase/serverless';
 import { z } from 'zod';
+
+// Initialize database connection
+const sql = neon(process.env.DATABASE_URL || '');
+const db = drizzle(sql);
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Enable CORS
@@ -21,7 +26,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     const contactData = insertContactSchema.parse(req.body);
-    const contact = await storage.createContact(contactData);
+    const [contact] = await db.insert(contacts).values(contactData).returning();
     
     console.log("New contact submission:", contact);
     

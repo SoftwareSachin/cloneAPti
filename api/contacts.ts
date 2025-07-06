@@ -1,5 +1,12 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import { storage } from '../server/storage';
+import { contacts } from '../shared/schema';
+import { drizzle } from 'drizzle-orm/neon-http';
+import { neon } from '@neondatabase/serverless';
+import { desc } from 'drizzle-orm';
+
+// Initialize database connection
+const sql = neon(process.env.DATABASE_URL || '');
+const db = drizzle(sql);
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Enable CORS
@@ -18,8 +25,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const contacts = await storage.getContacts();
-    res.json(contacts);
+    const contactsList = await db.select().from(contacts).orderBy(desc(contacts.createdAt));
+    res.json(contactsList);
   } catch (error) {
     console.error("Error fetching contacts:", error);
     res.status(500).json({ message: "Internal server error" });
