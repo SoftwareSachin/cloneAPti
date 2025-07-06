@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, Zap } from "lucide-react";
+import { ChevronDown, Sparkles, ArrowRight } from "lucide-react";
 
 export default function HeroSection() {
   const scrollToSection = (sectionId: string) => {
@@ -42,36 +42,37 @@ export default function HeroSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mb-8"
           >
-            <div className="inline-block px-6 py-3 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 mb-6">
+            <div className="inline-block px-8 py-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 mb-8 shadow-2xl">
               <div className="flex items-center">
-                <Zap className="w-4 h-4 text-white mr-2" />
-                <span className="text-white text-sm font-medium">Leading IT Innovation Since 2024</span>
+                <Sparkles className="w-5 h-5 text-white mr-3" />
+                <span className="text-white text-base font-medium tracking-wide">Enterprise Technology Excellence</span>
               </div>
             </div>
           </motion.div>
           
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight font-display">
-            Transforming Business Through{" "}
-            <span className="gradient-text-accent">
-              Intelligent Technology
+          <h1 className="text-6xl md:text-8xl font-bold text-white mb-10 leading-tight font-display">
+            Elevating Enterprise Through{" "}
+            <span className="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+              Strategic Innovation
             </span>
           </h1>
-          <p className="text-xl md:text-2xl text-white/80 mb-12 max-w-4xl mx-auto font-light">
-            Full-stack IT services and consulting firm empowering enterprises with Cloud, AI/ML, DevOps, and cutting-edge application development.
+          <p className="text-2xl md:text-3xl text-white/90 mb-14 max-w-5xl mx-auto font-light leading-relaxed">
+            Premium technology consulting and enterprise solutions architected for Fortune 500 companies and high-growth organizations.
           </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+          <div className="flex flex-col sm:flex-row gap-8 justify-center">
             <Button
               onClick={() => scrollToSection("contact")}
-              className="bg-white text-primary px-10 py-5 text-lg font-semibold hover:bg-white/90 transition-all duration-300 shadow-premium hover:shadow-glow hover:scale-105 rounded-full hover-lift"
+              className="bg-white text-slate-900 px-12 py-6 text-xl font-semibold hover:bg-gray-50 transition-all duration-500 shadow-2xl hover:shadow-white/20 hover:scale-105 rounded-2xl group"
             >
-              Start Your Digital Journey
+              Discuss Your Vision
+              <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button
               onClick={() => scrollToSection("services")}
               variant="outline"
-              className="bg-transparent text-white px-10 py-5 text-lg font-semibold glass-effect hover:bg-white/10 transition-all duration-300 shadow-modern border-white/30 hover:border-white/50 rounded-full hover-lift"
+              className="bg-white/5 text-white px-12 py-6 text-xl font-semibold backdrop-blur-md hover:bg-white/10 transition-all duration-500 shadow-2xl border-white/20 hover:border-white/40 rounded-2xl"
             >
-              Explore Our Services
+              Explore Capabilities
             </Button>
           </div>
         </motion.div>

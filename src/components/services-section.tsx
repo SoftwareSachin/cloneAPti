@@ -1,36 +1,56 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
-import { Cloud, GitBranch, Brain, Smartphone, Target } from "lucide-react";
+import { Cloud, GitBranch, Brain, Smartphone, Target, Shield, Zap, Globe, Database } from "lucide-react";
 
 export default function ServicesSection() {
   const services = [
     {
       icon: Cloud,
-      title: "Cloud Strategy & Migration",
-      description: "Assess, plan, and execute seamless cloud migrations across AWS, Azure, and GCP with cost optimization.",
-      features: ["Multi-region architectures", "Lift-and-shift projects", "Cost optimization strategies"],
-      gradient: "from-primary to-secondary"
+      title: "Cloud Architecture & Migration",
+      description: "Enterprise-grade cloud strategies with multi-region deployments, hybrid solutions, and comprehensive security frameworks.",
+      features: ["Multi-cloud orchestration", "Zero-downtime migrations", "FinOps optimization"],
+      gradient: "from-blue-600 to-indigo-600",
+      accent: "from-blue-500/20 to-indigo-500/20"
     },
     {
-      icon: GitBranch,
-      title: "DevOps & CI/CD",
-      description: "Implement Infrastructure as Code and automated pipelines for efficient build, test, and deployment processes.",
-      features: ["Infrastructure as Code", "Automated pipelines", "Containerization & Kubernetes"],
-      gradient: "from-accent to-success"
+      icon: Shield,
+      title: "DevSecOps & Automation",
+      description: "Security-first DevOps pipelines with automated compliance, infrastructure as code, and continuous monitoring.",
+      features: ["Security-first pipelines", "Compliance automation", "Container orchestration"],
+      gradient: "from-emerald-600 to-teal-600",
+      accent: "from-emerald-500/20 to-teal-500/20"
     },
     {
       icon: Brain,
-      title: "AI/ML Solutions",
-      description: "Custom AI/ML applications with end-to-end pipelines for data ingestion, training, and monitoring.",
-      features: ["Computer vision & NLP", "Predictive analytics", "MLOps implementations"],
-      gradient: "from-purple-500 to-pink-500"
+      title: "AI & Machine Learning",
+      description: "Advanced AI solutions including computer vision, natural language processing, and predictive analytics for enterprise scale.",
+      features: ["Neural network architectures", "Real-time inference", "Model governance"],
+      gradient: "from-purple-600 to-violet-600",
+      accent: "from-purple-500/20 to-violet-500/20"
     },
     {
-      icon: Smartphone,
-      title: "Web & Mobile Development",
-      description: "Responsive web applications and native mobile apps with modern frameworks and microservices architecture.",
-      features: ["React, Angular, Vue.js", "Native & cross-platform", "API design & microservices"],
-      gradient: "from-green-500 to-blue-500"
+      icon: Database,
+      title: "Data Engineering & Analytics",
+      description: "Modern data platforms with real-time streaming, data lakes, and advanced analytics infrastructure.",
+      features: ["Real-time data pipelines", "Data lake architecture", "Advanced analytics"],
+      gradient: "from-orange-600 to-red-600",
+      accent: "from-orange-500/20 to-red-500/20"
+    },
+    {
+      icon: Globe,
+      title: "Digital Transformation",
+      description: "End-to-end digital transformation strategies including legacy modernization and enterprise application development.",
+      features: ["Legacy modernization", "Microservices architecture", "API-first design"],
+      gradient: "from-cyan-600 to-blue-600",
+      accent: "from-cyan-500/20 to-blue-500/20"
+    },
+    {
+      icon: Zap,
+      title: "Performance Engineering",
+      description: "High-performance computing solutions with optimization for scalability, reliability, and ultra-low latency requirements.",
+      features: ["Performance optimization", "Scalability engineering", "Reliability architecture"],
+      gradient: "from-yellow-600 to-orange-600",
+      accent: "from-yellow-500/20 to-orange-500/20"
     }
   ];
 
