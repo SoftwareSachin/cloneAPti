@@ -1,0 +1,96 @@
+[16:56:58.498] Running build in Washington, D.C., USA (East) – iad1
+[16:56:58.499] Build machine configuration: 2 cores, 8 GB
+[16:56:58.545] Cloning github.com/12sachingupta/aptivon-solutionsj (Branch: main, Commit: 0afbf6d)
+[16:56:58.619] Skipping build cache, deployment was triggered without cache.
+[16:56:59.463] Cloning completed: 918.000ms
+[16:56:59.845] Running "vercel build"
+[16:57:00.334] Vercel CLI 44.2.10
+[16:57:01.242] > Installing Builder: @vercel/node@3.0.0
+[16:57:11.098] Running "install" command: `npm install`...
+[16:57:16.455] npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+[16:57:16.456] npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+[16:57:23.461] 
+[16:57:23.462] added 588 packages, and audited 589 packages in 12s
+[16:57:23.462] 
+[16:57:23.463] 71 packages are looking for funding
+[16:57:23.463]   run `npm fund` for details
+[16:57:23.499] 
+[16:57:23.500] 12 vulnerabilities (1 low, 9 moderate, 2 high)
+[16:57:23.500] 
+[16:57:23.501] To address issues that do not require attention, run:
+[16:57:23.501]   npm audit fix
+[16:57:23.501] 
+[16:57:23.501] To address all issues (including breaking changes), run:
+[16:57:23.501]   npm audit fix --force
+[16:57:23.502] 
+[16:57:23.502] Run `npm audit` for details.
+[16:57:23.783] 
+[16:57:23.786] > rest-express@1.0.0 build
+[16:57:23.786] > vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+[16:57:23.787] 
+[16:57:24.016] [36mvite v5.4.19 [32mbuilding for production...[36m[39m
+[16:57:24.080] transforming...
+[16:57:24.444] Browserslist: browsers data (caniuse-lite) is 9 months old. Please run:
+[16:57:24.445]   npx update-browserslist-db@latest
+[16:57:24.446]   Why you should do it regularly: https://github.com/browserslist/update-db#readme
+[16:57:30.050] [32m✓[39m 1848 modules transformed.
+[16:57:30.280] rendering chunks...
+[16:57:30.568] computing gzip size...
+[16:57:30.708] [2m../dist/public/[22m[32mindex.html                       [39m[1m[2m  6.57 kB[22m[1m[22m[2m │ gzip:   1.91 kB[22m
+[16:57:30.709] [2m../dist/public/[22m[2massets/[22m[32mlogo-CZ7M2lx8.gif         [39m[1m[2m328.84 kB[22m[1m[22m
+[16:57:30.709] [2m../dist/public/[22m[2massets/[22m[35mindex-CsbJkBjq.css        [39m[1m[2m 78.12 kB[22m[1m[22m[2m │ gzip:  13.25 kB[22m
+[16:57:30.709] [2m../dist/public/[22m[2massets/[22m[36mfilter-CMvOii6Q.js        [39m[1m[2m  0.33 kB[22m[1m[22m[2m │ gzip:   0.26 kB[22m
+[16:57:30.717] [2m../dist/public/[22m[2massets/[22m[36mbook-open-3PprL496.js     [39m[1m[2m  0.45 kB[22m[1m[22m[2m │ gzip:   0.31 kB[22m
+[16:57:30.719] [2m../dist/public/[22m[2massets/[22m[36mfile-text-2tvhJfJY.js     [39m[1m[2m  0.50 kB[22m[1m[22m[2m │ gzip:   0.32 kB[22m
+[16:57:30.721] [2m../dist/public/[22m[2massets/[22m[36mstethoscope-CnUhUZcP.js   [39m[1m[2m  1.07 kB[22m[1m[22m[2m │ gzip:   0.47 kB[22m
+[16:57:30.722] [2m../dist/public/[22m[2massets/[22m[36msolutions-BCgmvUxU.js     [39m[1m[2m  8.97 kB[22m[1m[22m[2m │ gzip:   2.79 kB[22m
+[16:57:30.723] [2m../dist/public/[22m[2massets/[22m[36mcontact-BsQpud28.js       [39m[1m[2m  9.50 kB[22m[1m[22m[2m │ gzip:   2.87 kB[22m
+[16:57:30.724] [2m../dist/public/[22m[2massets/[22m[36mabout-gk1aWNDq.js         [39m[1m[2m 11.01 kB[22m[1m[22m[2m │ gzip:   3.07 kB[22m
+[16:57:30.725] [2m../dist/public/[22m[2massets/[22m[36mservices-C1Efjy-w.js      [39m[1m[2m 12.43 kB[22m[1m[22m[2m │ gzip:   3.31 kB[22m
+[16:57:30.725] [2m../dist/public/[22m[2massets/[22m[36mcase-studies-Cc3EoCXo.js  [39m[1m[2m 12.72 kB[22m[1m[22m[2m │ gzip:   4.10 kB[22m
+[16:57:30.726] [2m../dist/public/[22m[2massets/[22m[36mblog-BgNcstuH.js          [39m[1m[2m 12.98 kB[22m[1m[22m[2m │ gzip:   3.94 kB[22m
+[16:57:30.726] [2m../dist/public/[22m[2massets/[22m[36mportfolio-CFdHXymM.js     [39m[1m[2m 15.43 kB[22m[1m[22m[2m │ gzip:   4.45 kB[22m
+[16:57:30.728] [2m../dist/public/[22m[2massets/[22m[36mindustries-B_hOcQAw.js    [39m[1m[2m 15.85 kB[22m[1m[22m[2m │ gzip:   5.11 kB[22m
+[16:57:30.729] [2m../dist/public/[22m[2massets/[22m[36msupport-mPadHoOP.js       [39m[1m[2m 17.38 kB[22m[1m[22m[2m │ gzip:   5.25 kB[22m
+[16:57:30.729] [2m../dist/public/[22m[2massets/[22m[36mcareers-CPsi0nYD.js       [39m[1m[2m 27.98 kB[22m[1m[22m[2m │ gzip:   8.11 kB[22m
+[16:57:30.730] [2m../dist/public/[22m[2massets/[22m[36mresources-CWi18EOJ.js     [39m[1m[2m 30.54 kB[22m[1m[22m[2m │ gzip:   7.75 kB[22m
+[16:57:30.731] [2m../dist/public/[22m[2massets/[22m[36mindex-Bo1wfc3p.js         [39m[1m[33m518.06 kB[39m[22m[2m │ gzip: 154.65 kB[22m
+[16:57:30.732] [32m✓ built in 6.67s[39m
+[16:57:30.732] [33m
+[16:57:30.734] (!) Some chunks are larger than 500 kB after minification. Consider:
+[16:57:30.734] - Using dynamic import() to code-split the application
+[16:57:30.734] - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+[16:57:30.739] - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+[16:57:30.763] 
+[16:57:30.764]   dist/index.js  24.7kb
+[16:57:30.764] 
+[16:57:30.764] ⚡ Done in 5ms
+[16:57:30.799] Installing dependencies...
+[16:57:32.222] 
+[16:57:32.223] up to date in 1s
+[16:57:32.223] 
+[16:57:32.223] 71 packages are looking for funding
+[16:57:32.224]   run `npm fund` for details
+[16:57:32.485] Using TypeScript 5.6.3 (local user-provided)
+[16:57:38.967] Using TypeScript 5.6.3 (local user-provided)
+[16:57:40.166] Using TypeScript 5.6.3 (local user-provided)
+[16:57:41.216] api/job-application.ts(40,36): error TS2551: Property 'createTransporter' does not exist on type 'typeof import("/vercel/path0/node_modules/@types/nodemailer/index")'. Did you mean 'createTransport'?
+[16:57:41.216] 
+[16:57:41.605] Using TypeScript 5.6.3 (local user-provided)
+[16:57:42.012] api/newsletter.ts(43,36): error TS2551: Property 'createTransporter' does not exist on type 'typeof import("/vercel/path0/node_modules/@types/nodemailer/index")'. Did you mean 'createTransport'?
+[16:57:42.013] 
+[16:57:42.345] Using TypeScript 5.6.3 (local user-provided)
+[16:57:42.725] api/resources.ts(47,36): error TS2551: Property 'createTransporter' does not exist on type 'typeof import("/vercel/path0/node_modules/@types/nodemailer/index")'. Did you mean 'createTransport'?
+[16:57:42.725] 
+[16:57:43.048] Using TypeScript 5.6.3 (local user-provided)
+[16:57:43.335] Using TypeScript 5.6.3 (local user-provided)
+[16:57:44.609] Using TypeScript 5.6.3 (local user-provided)
+[16:57:45.052] api/webinar-registration.ts(46,36): error TS2551: Property 'createTransporter' does not exist on type 'typeof import("/vercel/path0/node_modules/@types/nodemailer/index")'. Did you mean 'createTransport'?
+[16:57:45.053] 
+[16:57:45.455] Build Completed in /vercel/output [34s]
+[16:57:45.631] Deploying outputs...
+[16:57:50.106] 
+[16:57:50.241] Deployment completed
+[16:58:38.104] Uploading build cache [108.57 MB]...
+[16:58:39.909] Build cache uploaded: 1.810s
+[16:58:42.139] Exiting build container
