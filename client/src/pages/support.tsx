@@ -1,8 +1,15 @@
+import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useMutation } from "@tanstack/react-query";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest } from "@/lib/queryClient";
 import { 
   Phone, 
   Mail, 
@@ -16,8 +23,23 @@ import {
   Search,
   CheckCircle,
   AlertCircle,
-  Info
+  Info,
+  ChevronDown,
+  ChevronUp,
+  ExternalLink,
+  Loader2
 } from "lucide-react";
+
+// Form validation schema
+const supportTicketSchema = z.object({
+  fullName: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
+  subject: z.string().min(5, "Subject must be at least 5 characters"),
+  priority: z.enum(['Low', 'Medium', 'High', 'Critical']),
+  description: z.string().min(10, "Description must be at least 10 characters"),
+});
+
+type SupportTicketForm = z.infer<typeof supportTicketSchema>;
 
 const SUPPORT_CHANNELS = [
     {
@@ -115,6 +137,107 @@ const SUPPORT_CHANNELS = [
 ];
 
 export default function Support() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+  const [chatOpen, setChatOpen] = useState(false);
+  const { toast } = useToast();
+
+  // Form handling
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<SupportTicketForm>({
+    resolver: zodResolver(supportTicketSchema),
+    defaultValues: {
+      priority: 'Medium'
+    }
+  });
+
+  // Support ticket submission
+  const supportMutation = useMutation({
+    mutationFn: async (data: SupportTicketForm) => {
+      return await apiRequest("POST", "/api/support-ticket", data);
+    },
+    onSuccess: (data) => {
+      toast({
+        title: "Support ticket submitted successfully!",
+        description: data.message,
+      });
+      reset();
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Error submitting support ticket",
+        description: error.message || "Please try again or contact us directly.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  // Search functionality
+  const searchSupport = async (query: string) => {
+    if (!query || query.trim().length < 2) {
+      setSearchResults([]);
+      return;
+    }
+
+    setIsSearching(true);
+    try {
+      const response = await fetch(`/api/search-support?q=${encodeURIComponent(query.trim())}`);
+      const data = await response.json();
+      
+      if (data.success) {
+        setSearchResults(data.results);
+      } else {
+        toast({
+          title: "Search error",
+          description: "Unable to search at this time. Please try again.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error('Search error:', error);
+      toast({
+        title: "Search error",
+        description: "Unable to search at this time. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
+  // Debounced search
+  useEffect(() => {
+    const delayedSearch = setTimeout(() => {
+      if (searchQuery) {
+        searchSupport(searchQuery);
+      }
+    }, 300);
+
+    return () => clearTimeout(delayedSearch);
+  }, [searchQuery]);
+
+  // Contact actions
+  const handlePhoneCall = () => {
+    window.open('tel:+917852099010', '_self');
+  };
+
+  const handleEmailSupport = () => {
+    window.open('mailto:singhal3.sachin7@gmail.com?subject=Support Request', '_self');
+  };
+
+  const handleLiveChat = () => {
+    setChatOpen(true);
+    toast({
+      title: "Chat feature coming soon!",
+      description: "For immediate assistance, please call us or send an email.",
+    });
+  };
+
+  const onSubmitTicket = (data: SupportTicketForm) => {
+    supportMutation.mutate(data);
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
@@ -137,15 +260,40 @@ export default function Support() {
               <Input 
                 placeholder="Search help articles..." 
                 className="pl-10 pr-4 py-3 text-lg"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
+              {isSearching && (
+                <Loader2 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 h-5 w-5 animate-spin" />
+              )}
             </div>
 
+            {/* Search Results */}
+            {searchResults.length > 0 && (
+              <div className="max-w-2xl mx-auto mb-8">
+                <div className="bg-white rounded-lg border border-slate-200 shadow-lg">
+                  <div className="p-4 border-b border-slate-200">
+                    <h3 className="font-semibold text-slate-900">Search Results ({searchResults.length})</h3>
+                  </div>
+                  <div className="max-h-96 overflow-y-auto">
+                    {searchResults.map((result: any) => (
+                      <div key={result.id} className="p-4 border-b border-slate-100 hover:bg-slate-50 cursor-pointer">
+                        <h4 className="font-medium text-slate-900 mb-2">{result.title}</h4>
+                        <p className="text-slate-600 text-sm mb-2">{result.content.substring(0, 150)}...</p>
+                        <span className="inline-block px-2 py-1 bg-slate-100 text-slate-700 text-xs rounded">{result.category}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-slate-900 hover:bg-slate-800 text-white">
+              <Button size="lg" className="bg-slate-900 hover:bg-slate-800 text-white" onClick={handleLiveChat}>
                 Start Live Chat
                 <MessageCircle className="ml-2 h-5 w-5" />
               </Button>
-              <Button variant="outline" size="lg">
+              <Button variant="outline" size="lg" onClick={handlePhoneCall}>
                 Call Support
                 <Phone className="ml-2 h-5 w-5" />
               </Button>
@@ -184,7 +332,15 @@ export default function Support() {
                     <CheckCircle className="h-4 w-4 text-slate-900 mr-2" />
                     <span className="text-slate-600">Response: {channel.response}</span>
                   </div>
-                  <Button className="w-full mt-4 bg-slate-900 hover:bg-slate-800 text-white">
+                  <Button 
+                    className="w-full mt-4 bg-slate-900 hover:bg-slate-800 text-white"
+                    onClick={() => {
+                      if (channel.title === "Phone Support") handlePhoneCall();
+                      else if (channel.title === "Email Support") handleEmailSupport();
+                      else if (channel.title === "Live Chat") handleLiveChat();
+                      else toast({ title: "Feature coming soon!", description: "This feature will be available soon." });
+                    }}
+                  >
                     {channel.contact}
                   </Button>
                 </div>
@@ -206,60 +362,67 @@ export default function Support() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="max-w-4xl mx-auto space-y-4">
             {[
               {
-                title: "Technical Implementation",
-                questions: [
-                  "How long does a typical implementation take?",
-                  "What are the system requirements?",
-                  "How do you handle data migration?",
-                  "What security measures do you implement?"
-                ]
+                id: 1,
+                question: "How long does a typical implementation take?",
+                answer: "Implementation timelines vary based on project complexity and scope. Typical timelines are: Small projects (1-2 weeks), Medium projects (3-6 weeks), Large enterprise projects (8-16 weeks). We provide detailed project timelines during the planning phase.",
+                category: "Technical Implementation"
               },
               {
-                title: "Billing & Pricing",
-                questions: [
-                  "How is pricing calculated?",
-                  "What payment methods do you accept?",
-                  "Are there any hidden costs?",
-                  "Can I change my plan later?"
-                ]
+                id: 2,
+                question: "What are the system requirements?",
+                answer: "Our solutions are cloud-native and platform agnostic. Minimum requirements include: Modern web browser (Chrome, Firefox, Safari, Edge), Stable internet connection (10+ Mbps recommended), Operating System: Windows 10+, macOS 10.14+, or Linux Ubuntu 18.04+.",
+                category: "Technical Implementation"
               },
               {
-                title: "Training & Onboarding",
-                questions: [
-                  "What training is included?",
-                  "How long is the onboarding process?",
-                  "Do you provide user documentation?",
-                  "Is ongoing training available?"
-                ]
+                id: 3,
+                question: "How is pricing calculated?",
+                answer: "Our pricing is transparent and based on: Project scope and complexity, Required features and integrations, Number of users or transactions, Support level required, Implementation timeline. We provide detailed quotes with no hidden fees.",
+                category: "Billing & Pricing"
               },
               {
-                title: "Maintenance & Support",
-                questions: [
-                  "What's included in maintenance?",
-                  "How do you handle system updates?",
-                  "What are your SLA guarantees?",
-                  "How do you provide ongoing support?"
-                ]
+                id: 4,
+                question: "What training is included?",
+                answer: "Comprehensive training is included with all implementations: Initial administrator training (4-8 hours), End-user training sessions, Video tutorials and documentation, Live Q&A sessions, Train-the-trainer programs for large organizations, Ongoing training for new features.",
+                category: "Training & Onboarding"
+              },
+              {
+                id: 5,
+                question: "What are your SLA guarantees?",
+                answer: "Our Service Level Agreements include: 99.9% uptime guarantee, Response times: Critical (1 hour), High (4 hours), Medium/Low (24 hours), Resolution times based on priority, Financial credits for SLA breaches, 24/7 monitoring and alerting.",
+                category: "Maintenance & Support"
+              },
+              {
+                id: 6,
+                question: "How do you handle data migration?",
+                answer: "We follow a comprehensive data migration process: Data assessment and mapping, Migration strategy development, Test migrations in staging environment, Validation and integrity checks, Scheduled production migration with minimal downtime, Post-migration verification and optimization.",
+                category: "Technical Implementation"
               }
-            ].map((category: any, index: number) => (
-              <div key={index} className="bg-white p-8 rounded-xl border border-slate-200 shadow-lg">
-                <h3 className="text-xl font-bold text-slate-900 mb-6">{category.title}</h3>
-                <ul className="space-y-3">
-                  {category.questions.map((question: string, idx: number) => (
-                    <li key={idx} className="flex items-start">
-                      <HelpCircle className="h-5 w-5 text-slate-900 mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-slate-600 hover:text-slate-900 cursor-pointer">
-                        {question}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-                <Button variant="outline" className="w-full mt-4">
-                  View All {category.title} FAQs
-                </Button>
+            ].map((faq) => (
+              <div key={faq.id} className="bg-white rounded-xl border border-slate-200 shadow-sm">
+                <button
+                  className="w-full p-6 text-left flex items-center justify-between hover:bg-slate-50 transition-colors"
+                  onClick={() => setExpandedFaq(expandedFaq === faq.id ? null : faq.id)}
+                >
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-slate-900 mb-1">{faq.question}</h3>
+                    <span className="text-sm text-slate-500">{faq.category}</span>
+                  </div>
+                  {expandedFaq === faq.id ? (
+                    <ChevronUp className="h-5 w-5 text-slate-400 flex-shrink-0" />
+                  ) : (
+                    <ChevronDown className="h-5 w-5 text-slate-400 flex-shrink-0" />
+                  )}
+                </button>
+                {expandedFaq === faq.id && (
+                  <div className="px-6 pb-6">
+                    <div className="border-t border-slate-200 pt-4">
+                      <p className="text-slate-600 leading-relaxed">{faq.answer}</p>
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -329,19 +492,34 @@ export default function Support() {
 
             <div className="bg-white rounded-xl border border-slate-200 shadow-xl">
               <div className="p-8">
-                <form className="space-y-6">
+                <form onSubmit={handleSubmit(onSubmitTicket)} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Full Name *
                       </label>
-                      <Input placeholder="Your full name" required />
+                      <Input 
+                        placeholder="Your full name" 
+                        {...register("fullName")}
+                        className={errors.fullName ? "border-red-500" : ""}
+                      />
+                      {errors.fullName && (
+                        <p className="text-red-500 text-sm mt-1">{errors.fullName.message}</p>
+                      )}
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Email Address *
                       </label>
-                      <Input type="email" placeholder="your@email.com" required />
+                      <Input 
+                        type="email" 
+                        placeholder="your@email.com" 
+                        {...register("email")}
+                        className={errors.email ? "border-red-500" : ""}
+                      />
+                      {errors.email && (
+                        <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+                      )}
                     </div>
                   </div>
 
@@ -349,18 +527,28 @@ export default function Support() {
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Subject *
                     </label>
-                    <Input placeholder="Brief description of your issue" required />
+                    <Input 
+                      placeholder="Brief description of your issue" 
+                      {...register("subject")}
+                      className={errors.subject ? "border-red-500" : ""}
+                    />
+                    {errors.subject && (
+                      <p className="text-red-500 text-sm mt-1">{errors.subject.message}</p>
+                    )}
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Priority Level
                     </label>
-                    <select className="w-full p-3 border border-gray-300 rounded-md">
-                      <option>Low - General question</option>
-                      <option>Medium - Non-urgent issue</option>
-                      <option>High - Urgent issue affecting work</option>
-                      <option>Critical - System down or security issue</option>
+                    <select 
+                      className="w-full p-3 border border-gray-300 rounded-md"
+                      {...register("priority")}
+                    >
+                      <option value="Low">Low - General question</option>
+                      <option value="Medium">Medium - Non-urgent issue</option>
+                      <option value="High">High - Urgent issue affecting work</option>
+                      <option value="Critical">Critical - System down or security issue</option>
                     </select>
                   </div>
 
@@ -371,8 +559,12 @@ export default function Support() {
                     <Textarea 
                       placeholder="Please provide as much detail as possible about your issue or question..."
                       rows={6}
-                      required
+                      {...register("description")}
+                      className={errors.description ? "border-red-500" : ""}
                     />
+                    {errors.description && (
+                      <p className="text-red-500 text-sm mt-1">{errors.description.message}</p>
+                    )}
                   </div>
 
                   <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
@@ -389,9 +581,23 @@ export default function Support() {
                     </div>
                   </div>
 
-                  <Button size="lg" className="w-full bg-blue-600 hover:bg-blue-700">
-                    Submit Support Request
-                    <ArrowRight className="ml-2 h-5 w-5" />
+                  <Button 
+                    type="submit" 
+                    size="lg" 
+                    className="w-full bg-blue-600 hover:bg-blue-700"
+                    disabled={supportMutation.isPending}
+                  >
+                    {supportMutation.isPending ? (
+                      <>
+                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                        Submitting...
+                      </>
+                    ) : (
+                      <>
+                        Submit Support Request
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                      </>
+                    )}
                   </Button>
                 </form>
               </div>
