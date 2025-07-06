@@ -1,8 +1,7 @@
+import Navigation from "@/components/navigation";
+import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Link } from "wouter";
 import { 
   FileText, 
   Video, 
@@ -20,8 +19,7 @@ import {
   Database
 } from "lucide-react";
 
-export default function Resources() {
-  const whitepapers = [
+const WHITEPAPERS_DATA = [
     {
       title: "Digital Transformation Roadmap for Healthcare",
       description: "A comprehensive guide to implementing technology solutions in healthcare organizations while maintaining HIPAA compliance.",
@@ -46,9 +44,9 @@ export default function Resources() {
       pages: "28 pages",
       date: "October 2024"
     }
-  ];
+];
 
-  const webinars = [
+const WEBINARS_DATA = [
     {
       title: "Cybersecurity Trends 2025: What Every CTO Should Know",
       description: "Join our cybersecurity experts as they discuss emerging threats and protective strategies for the coming year.",
@@ -127,29 +125,28 @@ export default function Resources() {
       icon: Database,
       category: "Diagnostic Tool"
     }
-  ];
+];
 
+export default function Resources() {
   return (
     <div className="min-h-screen bg-white">
+      <Navigation />
+      
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-indigo-50 to-purple-100 py-20">
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <Badge variant="outline" className="mb-4">
-              Knowledge Center
-            </Badge>
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              Technology Resources &
-              <span className="text-indigo-600"> Insights</span>
+      <section className="pt-32 pb-20 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center">
+            <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6">
+              Technology Resources & Insights
             </h1>
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+            <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed mb-8">
               Access our comprehensive library of whitepapers, webinars, case studies, 
               and tools to accelerate your digital transformation journey.
             </p>
             
             {/* Search Bar */}
             <div className="max-w-md mx-auto relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 h-5 w-5" />
               <Input 
                 placeholder="Search resources..." 
                 className="pl-10 pr-4 py-3 text-lg"

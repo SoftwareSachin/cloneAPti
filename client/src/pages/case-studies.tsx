@@ -1,7 +1,6 @@
+import Navigation from "@/components/navigation";
+import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Link } from "wouter";
 import { 
   TrendingUp, 
   Clock, 
@@ -15,8 +14,7 @@ import {
   Factory
 } from "lucide-react";
 
-export default function CaseStudies() {
-  const caseStudies = [
+const CASE_STUDIES_DATA = [
     {
       industry: "Healthcare",
       icon: Stethoscope,
@@ -89,29 +87,28 @@ export default function CaseStudies() {
       testimonial: "The new banking system has positioned us for future growth. We can now offer innovative services that compete with larger banks.",
       clientRole: "Chief Information Officer"
     }
-  ];
+];
 
-  const metrics = [
+const METRICS_DATA = [
     { icon: TrendingUp, value: "250%", label: "Average ROI Delivered" },
     { icon: Clock, value: "40%", label: "Time-to-Market Improvement" },
     { icon: Users, value: "98%", label: "Client Satisfaction Rate" },
     { icon: DollarSign, value: "$50M+", label: "Cost Savings Generated" }
-  ];
+];
 
+export default function CaseStudies() {
   return (
     <div className="min-h-screen bg-white">
+      <Navigation />
+      
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-green-50 to-blue-100 py-20">
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <Badge variant="outline" className="mb-4">
-              Success Stories
-            </Badge>
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              Real Results from
-              <span className="text-green-600"> Real Clients</span>
+      <section className="pt-32 pb-20 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center">
+            <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6">
+              Real Results from Real Clients
             </h1>
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+            <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed mb-8">
               Discover how we've helped businesses across industries achieve digital transformation 
               and drive measurable growth through innovative technology solutions.
             </p>
@@ -121,19 +118,19 @@ export default function CaseStudies() {
 
       {/* Impact Metrics */}
       <section className="py-16 bg-white">
-        <div className="container mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Track Record</h2>
-            <p className="text-lg text-gray-600">Proven results across all our client engagements</p>
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Our Track Record</h2>
+            <p className="text-lg text-slate-600">Proven results across all our client engagements</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {metrics.map((metric, index) => (
+            {METRICS_DATA.map((metric: any, index: number) => (
               <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <metric.icon className="h-8 w-8 text-green-600" />
+                <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <metric.icon className="h-8 w-8 text-slate-900" />
                 </div>
-                <div className="text-3xl font-bold text-gray-900 mb-1">{metric.value}</div>
-                <div className="text-gray-600">{metric.label}</div>
+                <div className="text-3xl font-bold text-slate-900 mb-1">{metric.value}</div>
+                <div className="text-slate-600">{metric.label}</div>
               </div>
             ))}
           </div>
@@ -141,46 +138,46 @@ export default function CaseStudies() {
       </section>
 
       {/* Case Studies */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-6">
+      <section className="py-20 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
               Client Success Stories
             </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
               See how our technology solutions have transformed businesses and delivered 
               exceptional results across different industries.
             </p>
           </div>
 
           <div className="space-y-16">
-            {caseStudies.map((study, index) => (
-              <Card key={index} className="border-0 shadow-xl overflow-hidden">
+            {CASE_STUDIES_DATA.map((study: any, index: number) => (
+              <div key={index} className="bg-white rounded-xl border border-slate-200 shadow-lg overflow-hidden">
                 <div className="grid lg:grid-cols-3 gap-0">
                   {/* Left Column - Overview */}
-                  <div className="lg:col-span-1 bg-gradient-to-br from-blue-600 to-purple-700 text-white p-8">
+                  <div className="lg:col-span-1 bg-slate-900 text-white p-8">
                     <div className="flex items-center mb-4">
                       <study.icon className="h-8 w-8 mr-3" />
-                      <Badge variant="secondary" className="bg-white/20 text-white">
+                      <span className="bg-white/20 text-white px-2 py-1 rounded text-sm">
                         {study.industry}
-                      </Badge>
+                      </span>
                     </div>
                     <h3 className="text-2xl font-bold mb-2">{study.client}</h3>
-                    <h4 className="text-lg mb-4 text-blue-100">{study.title}</h4>
+                    <h4 className="text-lg mb-4 text-slate-300">{study.title}</h4>
                     
                     <div className="space-y-4">
                       <div>
                         <h5 className="font-semibold mb-2">Timeline</h5>
-                        <p className="text-blue-100">{study.timeline}</p>
+                        <p className="text-slate-300">{study.timeline}</p>
                       </div>
                       
                       <div>
                         <h5 className="font-semibold mb-2">Technologies</h5>
                         <div className="flex flex-wrap gap-1">
-                          {study.technologies.map((tech, idx) => (
-                            <Badge key={idx} variant="outline" className="border-white/30 text-white text-xs">
+                          {study.technologies.map((tech: string, idx: number) => (
+                            <span key={idx} className="border border-white/30 text-white text-xs px-2 py-1 rounded">
                               {tech}
-                            </Badge>
+                            </span>
                           ))}
                         </div>
                       </div>
@@ -191,35 +188,35 @@ export default function CaseStudies() {
                   <div className="lg:col-span-2 p-8">
                     <div className="space-y-6">
                       <div>
-                        <h5 className="font-semibold text-gray-900 mb-2">Challenge</h5>
-                        <p className="text-gray-600">{study.challenge}</p>
+                        <h5 className="font-semibold text-slate-900 mb-2">Challenge</h5>
+                        <p className="text-slate-600">{study.challenge}</p>
                       </div>
 
                       <div>
-                        <h5 className="font-semibold text-gray-900 mb-2">Solution</h5>
-                        <p className="text-gray-600">{study.solution}</p>
+                        <h5 className="font-semibold text-slate-900 mb-2">Solution</h5>
+                        <p className="text-slate-600">{study.solution}</p>
                       </div>
 
                       <div>
-                        <h5 className="font-semibold text-gray-900 mb-4">Results Achieved</h5>
+                        <h5 className="font-semibold text-slate-900 mb-4">Results Achieved</h5>
                         <div className="grid grid-cols-2 gap-4">
-                          {study.results.map((result, idx) => (
-                            <div key={idx} className="bg-green-50 p-4 rounded-lg border-l-4 border-green-400">
-                              <div className="text-2xl font-bold text-green-600">{result.value}</div>
-                              <div className="text-sm text-gray-600">{result.metric}</div>
+                          {study.results.map((result: any, idx: number) => (
+                            <div key={idx} className="bg-slate-50 p-4 rounded-lg border-l-4 border-slate-900">
+                              <div className="text-2xl font-bold text-slate-900">{result.value}</div>
+                              <div className="text-sm text-slate-600">{result.metric}</div>
                             </div>
                           ))}
                         </div>
                       </div>
 
-                      <div className="bg-gray-50 p-6 rounded-lg border-l-4 border-blue-400">
-                        <p className="text-gray-700 italic mb-3">"{study.testimonial}"</p>
-                        <p className="text-sm font-semibold text-gray-900">- {study.clientRole}, {study.client}</p>
+                      <div className="bg-slate-50 p-6 rounded-lg border-l-4 border-slate-900">
+                        <p className="text-slate-700 italic mb-3">"{study.testimonial}"</p>
+                        <p className="text-sm font-semibold text-slate-900">- {study.clientRole}, {study.client}</p>
                       </div>
                     </div>
                   </div>
                 </div>
-              </Card>
+              </div>
             ))}
           </div>
         </div>
@@ -273,26 +270,26 @@ export default function CaseStudies() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-green-600">
-        <div className="container mx-auto px-6 text-center">
+      <section className="py-20 bg-slate-900">
+        <div className="max-w-7xl mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
             Ready to Create Your Success Story?
           </h2>
-          <p className="text-xl text-green-100 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
             Join our portfolio of successful clients and transform your business with proven technology solutions.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary">
+            <Button size="lg" className="bg-white text-slate-900 hover:bg-slate-100">
               Start Your Project
             </Button>
-            <Link href="/contact">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-green-600">
-                Discuss Your Challenge
-              </Button>
-            </Link>
+            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-slate-900">
+              Discuss Your Challenge
+            </Button>
           </div>
         </div>
       </section>
+      
+      <Footer />
     </div>
   );
 }

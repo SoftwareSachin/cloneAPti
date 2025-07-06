@@ -1,7 +1,6 @@
+import Navigation from "@/components/navigation";
+import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Link } from "wouter";
 import { 
   Building2, 
   Stethoscope, 
@@ -17,8 +16,7 @@ import {
   Shield
 } from "lucide-react";
 
-export default function Industries() {
-  const industries = [
+const INDUSTRIES_DATA = [
     {
       icon: Stethoscope,
       title: "Healthcare & Life Sciences",
@@ -83,36 +81,34 @@ export default function Industries() {
       solutions: ["Content Management Systems", "Streaming Platforms", "Analytics Dashboards", "Digital Rights Management"],
       caseStudy: "Scaled video streaming to 10M+ concurrent users with 99.9% uptime"
     }
-  ];
+];
 
-  const stats = [
+const STATS_DATA = [
     { icon: Users, value: "500+", label: "Enterprise Clients" },
     { icon: TrendingUp, value: "95%", label: "Project Success Rate" },
     { icon: Shield, value: "100%", label: "Security Compliance" },
     { icon: Building2, value: "15+", label: "Industries Served" }
-  ];
+];
 
+export default function Industries() {
   return (
     <div className="min-h-screen bg-white">
+      <Navigation />
+      
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-purple-50 to-blue-100 py-20">
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <Badge variant="outline" className="mb-4">
-              Industry Expertise
-            </Badge>
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              Technology Solutions for
-              <span className="text-purple-600"> Every Industry</span>
+      <section className="pt-32 pb-20 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center">
+            <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6">
+              Technology Solutions for Every Industry
             </h1>
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+            <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed mb-8">
               We understand the unique challenges of your industry and deliver tailored 
               technology solutions that drive measurable business outcomes.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-purple-600 hover:bg-purple-700">
+              <Button size="lg" className="bg-slate-900 hover:bg-slate-800 text-white">
                 Explore Your Industry
-                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button variant="outline" size="lg">
                 Schedule Consultation
@@ -124,15 +120,15 @@ export default function Industries() {
 
       {/* Stats Section */}
       <section className="py-16 bg-white">
-        <div className="container mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
+            {STATS_DATA.map((stat: any, index: number) => (
               <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <stat.icon className="h-8 w-8 text-purple-600" />
+                <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <stat.icon className="h-8 w-8 text-slate-900" />
                 </div>
-                <div className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</div>
-                <div className="text-gray-600">{stat.label}</div>
+                <div className="text-3xl font-bold text-slate-900 mb-1">{stat.value}</div>
+                <div className="text-slate-600">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -140,62 +136,57 @@ export default function Industries() {
       </section>
 
       {/* Industries Grid */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-6">
+      <section className="py-20 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
               Industries We Serve
             </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
               Our deep industry expertise enables us to deliver solutions that address 
               specific challenges and drive innovation across diverse sectors.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {industries.map((industry, index) => (
-              <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <CardHeader className="pb-4">
-                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                    <industry.icon className="h-6 w-6 text-purple-600" />
+            {INDUSTRIES_DATA.map((industry: any, index: number) => (
+              <div key={index} className="bg-white p-8 rounded-xl border border-slate-200 hover:shadow-lg transition-all duration-300">
+                <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center mb-6">
+                  <industry.icon className="h-6 w-6 text-slate-900" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">{industry.title}</h3>
+                <p className="text-slate-600 mb-6">{industry.description}</p>
+                
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold text-slate-900 mb-2">Key Challenges:</h4>
+                    <div className="flex flex-wrap gap-1">
+                      {industry.challenges.map((challenge: string, idx: number) => (
+                        <span key={idx} className="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded border">
+                          {challenge}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                  <CardTitle className="text-xl text-gray-900">{industry.title}</CardTitle>
-                  <CardDescription className="text-gray-600">
-                    {industry.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="pt-0">
-                  <div className="space-y-4">
-                    <div>
-                      <h4 className="font-semibold text-gray-900 mb-2">Key Challenges:</h4>
-                      <div className="flex flex-wrap gap-1">
-                        {industry.challenges.map((challenge, idx) => (
-                          <Badge key={idx} variant="outline" className="text-xs">
-                            {challenge}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <h4 className="font-semibold text-gray-900 mb-2">Our Solutions:</h4>
-                      <ul className="space-y-1">
-                        {industry.solutions.map((solution, idx) => (
-                          <li key={idx} className="text-sm text-gray-600">
-                            • {solution}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                  
+                  <div>
+                    <h4 className="font-semibold text-slate-900 mb-2">Our Solutions:</h4>
+                    <ul className="space-y-1">
+                      {industry.solutions.map((solution: string, idx: number) => (
+                        <li key={idx} className="text-sm text-slate-600">
+                          • {solution}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
-                    <div className="p-3 bg-green-50 rounded-lg border-l-4 border-green-400">
-                      <p className="text-sm text-green-800 font-medium">
-                        Success Story: {industry.caseStudy}
-                      </p>
-                    </div>
+                  <div className="p-3 bg-slate-50 rounded-lg border-l-4 border-slate-900">
+                    <p className="text-sm text-slate-700 font-medium">
+                      Success Story: {industry.caseStudy}
+                    </p>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -203,13 +194,13 @@ export default function Industries() {
 
       {/* Why Choose Us Section */}
       <section className="py-20">
-        <div className="container mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
                 Why Industry Leaders Choose Aptivon
               </h2>
-              <p className="text-lg text-gray-600">
+              <p className="text-lg text-slate-600">
                 Our industry-specific expertise and proven track record make us the trusted partner 
                 for digital transformation across all sectors.
               </p>
@@ -229,10 +220,10 @@ export default function Industries() {
                   title: "Compliance Expertise",
                   description: "Complete understanding of industry regulations including HIPAA, SOX, PCI-DSS, and other compliance standards."
                 }
-              ].map((item, index) => (
+              ].map((item: any, index: number) => (
                 <div key={index} className="text-center">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3">{item.title}</h3>
-                  <p className="text-gray-600">{item.description}</p>
+                  <h3 className="text-xl font-semibold text-slate-900 mb-3">{item.title}</h3>
+                  <p className="text-slate-600">{item.description}</p>
                 </div>
               ))}
             </div>
@@ -241,26 +232,26 @@ export default function Industries() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-purple-600">
-        <div className="container mx-auto px-6 text-center">
+      <section className="py-20 bg-slate-900">
+        <div className="max-w-7xl mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
             Ready to Transform Your Industry?
           </h2>
-          <p className="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
             Let's discuss how our industry-specific solutions can drive your business forward.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary">
+            <Button size="lg" className="bg-white text-slate-900 hover:bg-slate-100">
               Schedule Industry Consultation
             </Button>
-            <Link href="/contact">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-purple-600">
-                Contact Our Experts
-              </Button>
-            </Link>
+            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-slate-900">
+              Contact Our Experts
+            </Button>
           </div>
         </div>
       </section>
+      
+      <Footer />
     </div>
   );
 }

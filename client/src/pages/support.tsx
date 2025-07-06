@@ -1,9 +1,8 @@
+import Navigation from "@/components/navigation";
+import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Link } from "wouter";
 import { 
   Phone, 
   Mail, 
@@ -20,8 +19,7 @@ import {
   Info
 } from "lucide-react";
 
-export default function Support() {
-  const supportChannels = [
+const SUPPORT_CHANNELS = [
     {
       icon: Phone,
       title: "Phone Support",
@@ -114,29 +112,28 @@ export default function Support() {
       description: "Searchable articles and troubleshooting guides",
       link: "/resources"
     }
-  ];
+];
 
+export default function Support() {
   return (
     <div className="min-h-screen bg-white">
+      <Navigation />
+      
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 to-cyan-100 py-20">
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <Badge variant="outline" className="mb-4">
-              Customer Support
-            </Badge>
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              We're Here to
-              <span className="text-blue-600"> Help You Succeed</span>
+      <section className="pt-32 pb-20 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center">
+            <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6">
+              We're Here to Help You Succeed
             </h1>
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+            <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed mb-8">
               Get the support you need, when you need it. Our expert team is ready to assist 
               with technical questions, implementation guidance, and ongoing support.
             </p>
             
             {/* Quick Search */}
             <div className="max-w-md mx-auto relative mb-8">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 h-5 w-5" />
               <Input 
                 placeholder="Search help articles..." 
                 className="pl-10 pr-4 py-3 text-lg"
@@ -144,7 +141,7 @@ export default function Support() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
+              <Button size="lg" className="bg-slate-900 hover:bg-slate-800 text-white">
                 Start Live Chat
                 <MessageCircle className="ml-2 h-5 w-5" />
               </Button>
@@ -159,42 +156,39 @@ export default function Support() {
 
       {/* Support Channels */}
       <section className="py-20">
-        <div className="container mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
               Multiple Ways to Get Support
             </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
               Choose the support channel that works best for your needs and urgency.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {supportChannels.map((channel, index) => (
-              <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-shadow text-center">
-                <CardHeader>
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <channel.icon className="h-8 w-8 text-blue-600" />
+            {SUPPORT_CHANNELS.map((channel: any, index: number) => (
+              <div key={index} className="bg-white p-8 rounded-xl border border-slate-200 hover:shadow-lg transition-shadow text-center">
+                <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <channel.icon className="h-8 w-8 text-slate-900" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">{channel.title}</h3>
+                <p className="text-slate-600 mb-6">{channel.description}</p>
+                
+                <div className="space-y-3 text-sm">
+                  <div className="flex items-center justify-center">
+                    <Clock className="h-4 w-4 text-slate-400 mr-2" />
+                    <span className="text-slate-600">{channel.availability}</span>
                   </div>
-                  <CardTitle className="text-xl">{channel.title}</CardTitle>
-                  <CardDescription>{channel.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3 text-sm">
-                    <div className="flex items-center justify-center">
-                      <Clock className="h-4 w-4 text-gray-400 mr-2" />
-                      <span className="text-gray-600">{channel.availability}</span>
-                    </div>
-                    <div className="flex items-center justify-center">
-                      <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                      <span className="text-gray-600">Response: {channel.response}</span>
-                    </div>
-                    <Button className="w-full mt-4">
-                      {channel.contact}
-                    </Button>
+                  <div className="flex items-center justify-center">
+                    <CheckCircle className="h-4 w-4 text-slate-900 mr-2" />
+                    <span className="text-slate-600">Response: {channel.response}</span>
                   </div>
-                </CardContent>
-              </Card>
+                  <Button className="w-full mt-4 bg-slate-900 hover:bg-slate-800 text-white">
+                    {channel.contact}
+                  </Button>
+                </div>
+              </div>
             ))}
           </div>
         </div>
