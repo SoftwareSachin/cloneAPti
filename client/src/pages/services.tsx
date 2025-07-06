@@ -3,121 +3,59 @@ import Footer from "@/components/footer";
 import { Cloud, Server, Brain, Smartphone, Shield, Database, Cpu, Code } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+// Optimize by reducing data size on initial load
+const SERVICES_DATA = [
+  {
+    icon: Cloud,
+    title: "Cloud Infrastructure & Migration",
+    description: "Complete cloud transformation services with enterprise-grade security and cost optimization.",
+    features: [
+      "Multi-cloud strategy and architecture",
+      "AWS, Azure, GCP migration services", 
+      "Infrastructure as Code (IaC) implementation",
+      "Cloud cost optimization and monitoring"
+    ],
+    benefits: "Reduce infrastructure costs by 40% while improving scalability and reliability"
+  },
+  {
+    icon: Server,
+    title: "DevOps & Automation", 
+    description: "Streamline development and operations with automated CI/CD pipelines and infrastructure management.",
+    features: [
+      "CI/CD pipeline design and implementation",
+      "Container orchestration with Kubernetes",
+      "Infrastructure automation and monitoring", 
+      "Release management and deployment strategies"
+    ],
+    benefits: "Accelerate deployment cycles by 75% and reduce manual errors significantly"
+  },
+  {
+    icon: Brain,
+    title: "AI & Machine Learning Solutions",
+    description: "Data-driven insights and intelligent automation through custom AI/ML implementations.",
+    features: [
+      "Custom machine learning model development",
+      "Predictive analytics and forecasting",
+      "Natural language processing solutions",
+      "Computer vision and image recognition"
+    ],
+    benefits: "Improve decision-making accuracy by 60% with data-driven insights"
+  },
+  {
+    icon: Smartphone,
+    title: "Application Development",
+    description: "Modern web and mobile applications built with scalable architectures and user-centric design.",
+    features: [
+      "Progressive web applications (PWA)",
+      "Native iOS and Android development",
+      "Cross-platform mobile solutions",
+      "API design and microservices architecture"
+    ],
+    benefits: "Launch products 50% faster with scalable, maintainable code architecture"
+  }
+];
+
 export default function Services() {
-  const services = [
-    {
-      icon: Cloud,
-      title: "Cloud Infrastructure & Migration",
-      description: "Complete cloud transformation services with enterprise-grade security and cost optimization.",
-      features: [
-        "Multi-cloud strategy and architecture",
-        "AWS, Azure, GCP migration services",
-        "Infrastructure as Code (IaC) implementation",
-        "Cloud cost optimization and monitoring",
-        "Disaster recovery and backup solutions",
-        "Cloud security and compliance setup"
-      ],
-      benefits: "Reduce infrastructure costs by 40% while improving scalability and reliability"
-    },
-    {
-      icon: Server,
-      title: "DevOps & Automation",
-      description: "Streamline development and operations with automated CI/CD pipelines and infrastructure management.",
-      features: [
-        "CI/CD pipeline design and implementation",
-        "Container orchestration with Kubernetes",
-        "Infrastructure automation and monitoring",
-        "Release management and deployment strategies",
-        "Performance monitoring and alerting",
-        "Security integration and compliance automation"
-      ],
-      benefits: "Accelerate deployment cycles by 75% and reduce manual errors significantly"
-    },
-    {
-      icon: Brain,
-      title: "AI & Machine Learning Solutions",
-      description: "Data-driven insights and intelligent automation through custom AI/ML implementations.",
-      features: [
-        "Custom machine learning model development",
-        "Predictive analytics and forecasting",
-        "Natural language processing solutions",
-        "Computer vision and image recognition",
-        "MLOps and model lifecycle management",
-        "Business intelligence and data visualization"
-      ],
-      benefits: "Improve decision-making accuracy by 60% with data-driven insights"
-    },
-    {
-      icon: Smartphone,
-      title: "Application Development",
-      description: "Modern web and mobile applications built with scalable architectures and user-centric design.",
-      features: [
-        "Progressive web applications (PWA)",
-        "Native iOS and Android development",
-        "Cross-platform mobile solutions",
-        "API design and microservices architecture",
-        "Database design and optimization",
-        "Performance optimization and testing"
-      ],
-      benefits: "Launch products 50% faster with scalable, maintainable code architecture"
-    },
-    {
-      icon: Shield,
-      title: "Cybersecurity & Compliance",
-      description: "Comprehensive security solutions to protect your digital assets and ensure regulatory compliance.",
-      features: [
-        "Security assessment and penetration testing",
-        "Zero-trust architecture implementation",
-        "Identity and access management (IAM)",
-        "SOC 2, HIPAA, GDPR compliance",
-        "Security monitoring and incident response",
-        "Employee security training and awareness"
-      ],
-      benefits: "Achieve 99.9% security uptime with proactive threat detection and response"
-    },
-    {
-      icon: Database,
-      title: "Data Engineering & Analytics",
-      description: "Transform raw data into actionable insights with modern data infrastructure and analytics platforms.",
-      features: [
-        "Data pipeline design and implementation",
-        "Data warehouse and lake architecture",
-        "Real-time streaming and processing",
-        "ETL/ELT process automation",
-        "Data quality and governance frameworks",
-        "Advanced analytics and reporting dashboards"
-      ],
-      benefits: "Process data 10x faster with automated pipelines and real-time insights"
-    },
-    {
-      icon: Cpu,
-      title: "Enterprise Integration",
-      description: "Seamlessly connect disparate systems and applications for unified business operations.",
-      features: [
-        "API integration and management",
-        "Legacy system modernization",
-        "Enterprise service bus (ESB) implementation",
-        "Workflow automation and orchestration",
-        "Third-party software integration",
-        "Real-time data synchronization"
-      ],
-      benefits: "Eliminate data silos and improve operational efficiency by 45%"
-    },
-    {
-      icon: Code,
-      title: "Digital Transformation Consulting",
-      description: "Strategic guidance and implementation support for comprehensive digital transformation initiatives.",
-      features: [
-        "Digital strategy development",
-        "Technology roadmap planning",
-        "Process optimization and automation",
-        "Change management and training",
-        "ROI measurement and optimization",
-        "Ongoing support and maintenance"
-      ],
-      benefits: "Accelerate digital initiatives with proven frameworks and methodologies"
-    }
-  ];
 
   const scrollToContact = () => {
     const element = document.getElementById("contact");
@@ -162,7 +100,7 @@ export default function Services() {
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {services.map((service, index) => (
+            {SERVICES_DATA.map((service, index) => (
               <div key={index} className="bg-white border border-slate-200 rounded-lg p-8 hover:shadow-lg transition-shadow duration-300">
                 <div className="flex items-start space-x-4 mb-6">
                   <div className="w-12 h-12 bg-slate-900 rounded-lg flex items-center justify-center flex-shrink-0">

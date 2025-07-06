@@ -2,36 +2,38 @@ import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import { Users, Target, Award, Globe } from "lucide-react";
 
-export default function About() {
-  const stats = [
-    { number: "500+", label: "Projects Delivered" },
-    { number: "50+", label: "Enterprise Clients" },
-    { number: "15+", label: "Years Experience" },
-    { number: "99.9%", label: "Uptime SLA" }
-  ];
+// Optimized data structures
+const COMPANY_STATS = [
+  { number: "500+", label: "Projects Delivered" },
+  { number: "50+", label: "Enterprise Clients" },
+  { number: "15+", label: "Years Experience" },
+  { number: "99.9%", label: "Uptime SLA" }
+];
 
-  const values = [
-    {
-      icon: Target,
-      title: "Innovation First",
-      description: "We stay ahead of technology trends to deliver cutting-edge solutions that give our clients a competitive advantage."
-    },
-    {
-      icon: Users,
-      title: "Client Partnership",
-      description: "We build long-term relationships based on trust, transparency, and shared success in achieving business goals."
-    },
-    {
-      icon: Award,
-      title: "Excellence Standards",
-      description: "Our commitment to quality ensures every solution meets the highest standards of performance and reliability."
-    },
-    {
-      icon: Globe,
-      title: "Global Reach",
-      description: "With expertise spanning multiple industries and regions, we deliver solutions that scale globally."
-    }
-  ];
+const CORE_VALUES = [
+  {
+    icon: Target,
+    title: "Innovation First",
+    description: "We stay ahead of technology trends to deliver cutting-edge solutions that give our clients a competitive advantage."
+  },
+  {
+    icon: Users,
+    title: "Client Partnership", 
+    description: "We build long-term relationships based on trust, transparency, and shared success in achieving business goals."
+  },
+  {
+    icon: Award,
+    title: "Excellence Standards",
+    description: "Our commitment to quality ensures every solution meets the highest standards of performance and reliability."
+  },
+  {
+    icon: Globe,
+    title: "Global Reach",
+    description: "With expertise spanning multiple industries and regions, we deliver solutions that scale globally."
+  }
+];
+
+export default function About() {
 
   return (
     <div className="min-h-screen bg-white">
@@ -94,7 +96,7 @@ export default function About() {
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
+            {COMPANY_STATS.map((stat, index) => (
               <div key={index} className="text-center">
                 <div className="text-4xl md:text-5xl font-bold text-slate-900 mb-2">
                   {stat.number}
@@ -116,7 +118,7 @@ export default function About() {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {values.map((value, index) => (
+            {CORE_VALUES.map((value, index) => (
               <div key={index} className="bg-white p-8 rounded-lg border border-slate-200">
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-slate-900 rounded-lg flex items-center justify-center flex-shrink-0">

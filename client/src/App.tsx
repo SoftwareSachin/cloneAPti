@@ -3,25 +3,64 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Suspense, lazy } from "react";
 import Home from "@/pages/home";
-import About from "@/pages/about";
-import Services from "@/pages/services";
-import Portfolio from "@/pages/portfolio";
-import Careers from "@/pages/careers";
-import Blog from "@/pages/blog";
-import Contact from "@/pages/contact";
 import NotFound from "@/pages/not-found";
+
+// Lazy load pages to reduce initial bundle size
+const About = lazy(() => import("@/pages/about"));
+const Services = lazy(() => import("@/pages/services"));
+const Portfolio = lazy(() => import("@/pages/portfolio"));
+const Careers = lazy(() => import("@/pages/careers"));
+const Blog = lazy(() => import("@/pages/blog"));
+const Contact = lazy(() => import("@/pages/contact"));
+
+// Loading component
+function Loading() {
+  return (
+    <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="text-center">
+        <div className="w-8 h-8 border-4 border-slate-300 border-t-slate-900 rounded-full animate-spin mx-auto mb-4"></div>
+        <p className="text-slate-600">Loading...</p>
+      </div>
+    </div>
+  );
+}
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
-      <Route path="/about" component={About} />
-      <Route path="/services" component={Services} />
-      <Route path="/portfolio" component={Portfolio} />
-      <Route path="/careers" component={Careers} />
-      <Route path="/blog" component={Blog} />
-      <Route path="/contact" component={Contact} />
+      <Route path="/about">
+        <Suspense fallback={<Loading />}>
+          <About />
+        </Suspense>
+      </Route>
+      <Route path="/services">
+        <Suspense fallback={<Loading />}>
+          <Services />
+        </Suspense>
+      </Route>
+      <Route path="/portfolio">
+        <Suspense fallback={<Loading />}>
+          <Portfolio />
+        </Suspense>
+      </Route>
+      <Route path="/careers">
+        <Suspense fallback={<Loading />}>
+          <Careers />
+        </Suspense>
+      </Route>
+      <Route path="/blog">
+        <Suspense fallback={<Loading />}>
+          <Blog />
+        </Suspense>
+      </Route>
+      <Route path="/contact">
+        <Suspense fallback={<Loading />}>
+          <Contact />
+        </Suspense>
+      </Route>
       <Route component={NotFound} />
     </Switch>
   );
