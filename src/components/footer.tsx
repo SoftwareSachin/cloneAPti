@@ -24,7 +24,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-gray-900 text-white py-16 relative overflow-hidden border-t border-gray-800">
+    <footer className="bg-slate-900 text-white py-20 relative overflow-hidden border-t border-slate-800">
       {/* Background effects */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
@@ -48,7 +48,7 @@ export default function Footer() {
                   className="h-10 w-auto mr-3 filter drop-shadow-lg"
                 />
               </div>
-              <h3 className="text-3xl font-bold text-white">
+              <h3 className="text-3xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                 Aptivon Solutions Pvt. Ltd.
               </h3>
             </div>
@@ -62,7 +62,7 @@ export default function Footer() {
                   href={social.href}
                   whileHover={{ scale: 1.2, y: -2 }}
                   whileTap={{ scale: 0.9 }}
-                  className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300 border border-white/30"
+                  className="w-14 h-14 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 border border-white/20 shadow-xl"
                   aria-label={social.label}
                 >
                   <social.icon size={20} />

@@ -69,13 +69,13 @@ export default function ServicesSection() {
               <span className="text-primary font-semibold text-sm">WHAT WE DO</span>
             </div>
           </div>
-          <h2 className="text-5xl font-bold text-primary-dark mb-6 font-display">Core Services</h2>
-          <p className="text-xl text-text-gray max-w-4xl mx-auto leading-relaxed">
-            Comprehensive technology solutions designed to accelerate your digital transformation journey with cutting-edge innovation.
+          <h2 className="text-5xl font-bold text-slate-900 mb-6 font-display">Enterprise Solutions</h2>
+          <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
+            Comprehensive technology solutions architected for enterprise scale with security, performance, and reliability at the core.
           </p>
         </motion.div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
@@ -85,19 +85,19 @@ export default function ServicesSection() {
               whileHover={{ y: -10 }}
               className="h-full"
             >
-              <Card className="h-full glass-card hover:shadow-premium transition-all duration-500 border-0 shadow-modern group hover-lift">
-                <CardContent className="p-8 relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/5 to-transparent rounded-full -mr-16 -mt-16"></div>
-                  <div className={`w-16 h-16 bg-gradient-to-br ${service.gradient} rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300 animate-pulse-slow`}>
-                    <service.icon className="text-white text-2xl" size={32} />
+              <Card className="h-full bg-white hover:bg-gray-50 transition-all duration-500 border border-gray-100 shadow-xl hover:shadow-2xl group relative overflow-hidden">
+                <CardContent className="p-10 relative">
+                  <div className={`absolute top-0 right-0 w-40 h-40 bg-gradient-to-br ${service.accent} rounded-full -mr-20 -mt-20`}></div>
+                  <div className={`w-20 h-20 bg-gradient-to-br ${service.gradient} rounded-3xl flex items-center justify-center mb-8 shadow-xl group-hover:scale-110 group-hover:shadow-2xl transition-all duration-500 relative z-10`}>
+                    <service.icon className="text-white" size={36} />
                   </div>
-                  <h3 className="text-xl font-bold text-primary-dark mb-4 group-hover:text-primary transition-colors font-display">{service.title}</h3>
-                  <p className="text-text-gray mb-6 leading-relaxed">{service.description}</p>
-                  <ul className="text-sm text-text-gray space-y-3">
+                  <h3 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-slate-800 transition-colors font-display">{service.title}</h3>
+                  <p className="text-slate-600 mb-8 leading-relaxed text-base">{service.description}</p>
+                  <ul className="text-sm text-slate-500 space-y-4">
                     {service.features.map((feature, idx) => (
                       <li key={idx} className="flex items-center">
-                        <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                        {feature}
+                        <div className={`w-3 h-3 bg-gradient-to-r ${service.gradient} rounded-full mr-4 flex-shrink-0`}></div>
+                        <span className="font-medium">{feature}</span>
                       </li>
                     ))}
                   </ul>

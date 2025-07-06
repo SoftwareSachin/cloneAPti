@@ -56,8 +56,8 @@ export default function HeroSection() {
               Strategic Innovation
             </span>
           </h1>
-          <p className="text-2xl md:text-3xl text-white/90 mb-14 max-w-5xl mx-auto font-light leading-relaxed">
-            Premium technology consulting and enterprise solutions architected for Fortune 500 companies and high-growth organizations.
+          <p className="text-xl md:text-2xl text-white/80 mb-12 max-w-4xl mx-auto font-light">
+            Full-stack IT services and consulting firm empowering enterprises with Cloud, AI/ML, DevOps, and cutting-edge application development.
           </p>
           <div className="flex flex-col sm:flex-row gap-8 justify-center">
             <Button

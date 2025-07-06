@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Mail, Phone, Globe, Sparkles } from "lucide-react";
+import { Mail, Phone, Globe, Sparkles, Send, CheckCircle } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { insertContactSchema } from "@shared/schema";
@@ -93,13 +93,13 @@ export default function ContactSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-20"
         >
-          <div className="inline-block px-6 py-3 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 mb-6">
+          <div className="inline-block px-8 py-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 mb-8 shadow-2xl">
             <div className="flex items-center">
-              <Sparkles className="w-4 h-4 text-white mr-2" />
-              <span className="text-white font-semibold text-sm">GET IN TOUCH</span>
+              <Send className="w-5 h-5 text-white mr-3" />
+              <span className="text-white font-semibold text-base tracking-wide">GET IN TOUCH</span>
             </div>
           </div>
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 font-display">Let's Build Something Amazing</h2>
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 font-display">Let's Build Something Exceptional</h2>
           <p className="text-xl max-w-4xl mx-auto text-white/90 leading-relaxed">
             Ready to transform your business with intelligent technology? Let's discuss your vision and create solutions that drive real results.
           </p>
@@ -120,7 +120,7 @@ export default function ContactSection() {
                 whileHover={{ x: 10 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mr-6 group-hover:bg-white/30 transition-all duration-300 border border-white/30">
+                <div className="w-20 h-20 bg-white/10 backdrop-blur-md rounded-3xl flex items-center justify-center mr-6 group-hover:bg-white/20 transition-all duration-300 border border-white/20 shadow-xl">
                   <info.icon className="text-2xl text-white" />
                 </div>
                 <div>
@@ -130,11 +130,14 @@ export default function ContactSection() {
               </motion.div>
             ))}
 
-            <div className="mt-8">
-              <h3 className="text-xl font-semibold mb-4">Why Choose Aptivon Solutions?</h3>
-              <ul className="space-y-2 text-gray-300">
+            <div className="mt-12">
+              <h3 className="text-2xl font-semibold mb-6 text-white">Why Choose Aptivon Solutions?</h3>
+              <ul className="space-y-4">
                 {whyChooseUs.map((reason, index) => (
-                  <li key={index}>• {reason}</li>
+                  <li key={index} className="flex items-center text-white/90">
+                    <CheckCircle className="w-5 h-5 mr-3 text-white flex-shrink-0" />
+                    <span className="font-medium">{reason}</span>
+                  </li>
                 ))}
               </ul>
             </div>
@@ -146,9 +149,9 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Card className="bg-white/95 backdrop-blur-lg text-gray-900 border-0 shadow-modern-lg">
-              <CardContent className="p-10">
-                <h3 className="text-3xl font-bold mb-8 text-primary-dark">Send us a Message</h3>
+            <Card className="bg-white/95 backdrop-blur-lg text-gray-900 border-0 shadow-2xl rounded-3xl">
+              <CardContent className="p-12">
+                <h3 className="text-3xl font-bold mb-8 text-slate-900">Send us a Message</h3>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
@@ -242,10 +245,11 @@ export default function ContactSection() {
 
                   <Button
                     type="submit"
-                    className="w-full bg-primary text-white hover:bg-primary-dark transition-colors"
+                    className="w-full bg-gradient-to-r from-slate-900 to-slate-700 text-white hover:from-slate-800 hover:to-slate-600 transition-all duration-300 py-4 text-lg font-semibold rounded-xl shadow-xl hover:shadow-2xl group"
                     disabled={contactMutation.isPending}
                   >
                     {contactMutation.isPending ? "Sending..." : "Send Message"}
+                    <Send className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </form>
               </CardContent>
