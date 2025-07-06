@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import logoGif from "../assets/logo.gif";
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,7 +22,7 @@ export default function Navigation() {
             <div className="flex-shrink-0 flex items-center">
               <div className="relative">
                 <img 
-                  src="/logo.gif" 
+                  src={logoGif} 
                   alt="Aptivon Solutions" 
                   className="h-10 w-auto mr-3 filter drop-shadow-lg"
                 />
