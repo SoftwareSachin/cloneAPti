@@ -1,6 +1,11 @@
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
 import { 
   Building2, 
   Stethoscope, 
@@ -13,7 +18,14 @@ import {
   ArrowRight,
   TrendingUp,
   Users,
-  Shield
+  Shield,
+  Search,
+  Filter,
+  Calendar,
+  MessageSquare,
+  Phone,
+  Mail,
+  X
 } from "lucide-react";
 
 const INDUSTRIES_DATA = [
@@ -91,6 +103,75 @@ const STATS_DATA = [
 ];
 
 export default function Industries() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedIndustry, setSelectedIndustry] = useState<any>(null);
+  const [consultationForm, setConsultationForm] = useState({
+    firstName: "",
+    lastName: "", 
+    email: "",
+    company: "",
+    industry: "",
+    phone: "",
+    message: ""
+  });
+  const [showConsultationForm, setShowConsultationForm] = useState(false);
+  
+  const { toast } = useToast();
+  
+  const categories = ["All", "Technology", "Traditional", "Service"];
+  
+  const getIndustryCategory = (industry: any) => {
+    const techIndustries = ["Entertainment & Media"];
+    const serviceIndustries = ["Healthcare & Life Sciences", "Financial Services", "Education"];
+    if (techIndustries.includes(industry.title)) return "Technology";
+    if (serviceIndustries.includes(industry.title)) return "Service";
+    return "Traditional";
+  };
+  
+  const filteredIndustries = INDUSTRIES_DATA.filter(industry => {
+    const matchesSearch = industry.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         industry.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         industry.challenges.some(c => c.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                         industry.solutions.some(s => s.toLowerCase().includes(searchTerm.toLowerCase()));
+    const matchesCategory = selectedCategory === "All" || getIndustryCategory(industry) === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  const consultationMutation = useMutation({
+    mutationFn: async (data: any) => {
+      return apiRequest('/api/industry-consultation', {
+        method: 'POST',
+        body: JSON.stringify(data)
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: "Consultation Request Sent!",
+        description: "Our industry experts will contact you within 24 hours to discuss your specific needs.",
+      });
+      setConsultationForm({
+        firstName: "", lastName: "", email: "", company: "", industry: "", phone: "", message: ""
+      });
+      setShowConsultationForm(false);
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to send consultation request. Please try again.",
+        variant: "destructive"
+      });
+    }
+  });
+
+  const handleConsultationSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    consultationMutation.mutate({
+      ...consultationForm,
+      industry: selectedIndustry?.title || consultationForm.industry
+    });
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
@@ -107,10 +188,18 @@ export default function Industries() {
               technology solutions that drive measurable business outcomes.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-slate-900 hover:bg-slate-800 text-white">
+              <Button 
+                size="lg" 
+                className="bg-slate-900 hover:bg-slate-800 text-white"
+                onClick={() => document.getElementById('industries-section')?.scrollIntoView({ behavior: 'smooth' })}
+              >
                 Explore Your Industry
               </Button>
-              <Button variant="outline" size="lg">
+              <Button 
+                variant="outline" 
+                size="lg"
+                onClick={() => setShowConsultationForm(true)}
+              >
                 Schedule Consultation
               </Button>
             </div>
@@ -135,8 +224,42 @@ export default function Industries() {
         </div>
       </section>
 
+      {/* Search and Filter */}
+      <section className="py-12 bg-white border-b">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+            <div className="relative flex-1 max-w-md">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 h-4 w-4" />
+              <Input
+                type="text"
+                placeholder="Search industries, solutions, challenges..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+            <div className="flex gap-2 flex-wrap">
+              {categories.map((category) => (
+                <Button
+                  key={category}
+                  variant={selectedCategory === category ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setSelectedCategory(category)}
+                  className="text-sm"
+                >
+                  {category}
+                </Button>
+              ))}
+            </div>
+          </div>
+          <div className="mt-4 text-sm text-slate-600">
+            Showing {filteredIndustries.length} of {INDUSTRIES_DATA.length} industries
+          </div>
+        </div>
+      </section>
+
       {/* Industries Grid */}
-      <section className="py-20 bg-slate-50">
+      <section id="industries-section" className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
@@ -148,47 +271,73 @@ export default function Industries() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {INDUSTRIES_DATA.map((industry: any, index: number) => (
-              <div key={index} className="bg-white p-8 rounded-xl border border-slate-200 hover:shadow-lg transition-all duration-300">
-                <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center mb-6">
-                  <industry.icon className="h-6 w-6 text-slate-900" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">{industry.title}</h3>
-                <p className="text-slate-600 mb-6">{industry.description}</p>
-                
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="font-semibold text-slate-900 mb-2">Key Challenges:</h4>
-                    <div className="flex flex-wrap gap-1">
-                      {industry.challenges.map((challenge: string, idx: number) => (
-                        <span key={idx} className="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded border">
-                          {challenge}
-                        </span>
-                      ))}
+          {filteredIndustries.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-slate-600 mb-4">No industries found matching your criteria.</p>
+              <Button 
+                onClick={() => {
+                  setSearchTerm("");
+                  setSelectedCategory("All");
+                }}
+              >
+                Clear Filters
+              </Button>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredIndustries.map((industry: any, index: number) => (
+                <div key={index} className="bg-white p-8 rounded-xl border border-slate-200 hover:shadow-lg transition-all duration-300">
+                  <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center mb-6">
+                    <industry.icon className="h-6 w-6 text-slate-900" />
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-3">{industry.title}</h3>
+                  <p className="text-slate-600 mb-6">{industry.description}</p>
+                  
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="font-semibold text-slate-900 mb-2">Key Challenges:</h4>
+                      <div className="flex flex-wrap gap-1">
+                        {industry.challenges.map((challenge: string, idx: number) => (
+                          <span key={idx} className="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded border">
+                            {challenge}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <h4 className="font-semibold text-slate-900 mb-2">Our Solutions:</h4>
+                      <ul className="space-y-1">
+                        {industry.solutions.map((solution: string, idx: number) => (
+                          <li key={idx} className="text-sm text-slate-600">
+                            • {solution}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="p-3 bg-slate-50 rounded-lg border-l-4 border-slate-900">
+                      <p className="text-sm text-slate-700 font-medium">
+                        Success Story: {industry.caseStudy}
+                      </p>
+                    </div>
+
+                    <div className="pt-4 border-t">
+                      <Button 
+                        className="w-full"
+                        onClick={() => {
+                          setSelectedIndustry(industry);
+                          setShowConsultationForm(true);
+                        }}
+                      >
+                        Get Industry Consultation
+                      </Button>
                     </div>
                   </div>
-                  
-                  <div>
-                    <h4 className="font-semibold text-slate-900 mb-2">Our Solutions:</h4>
-                    <ul className="space-y-1">
-                      {industry.solutions.map((solution: string, idx: number) => (
-                        <li key={idx} className="text-sm text-slate-600">
-                          • {solution}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="p-3 bg-slate-50 rounded-lg border-l-4 border-slate-900">
-                    <p className="text-sm text-slate-700 font-medium">
-                      Success Story: {industry.caseStudy}
-                    </p>
-                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -231,28 +380,129 @@ export default function Industries() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-slate-900">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Ready to Transform Your Industry?
-          </h2>
-          <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
-            Let's discuss how our industry-specific solutions can drive your business forward.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-slate-900 hover:bg-slate-100">
-              Schedule Industry Consultation
-            </Button>
-            <Button 
-              size="lg" 
-              className="border-2 border-white bg-transparent text-white hover:bg-white hover:text-slate-900 transition-all duration-300 font-semibold"
-            >
-              Contact Our Experts
-            </Button>
+      {/* Consultation Form Modal */}
+      {showConsultationForm && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl max-w-md w-full p-6 max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-xl font-bold text-slate-900">
+                Industry Consultation Request
+              </h2>
+              <button 
+                onClick={() => setShowConsultationForm(false)}
+                className="text-slate-400 hover:text-slate-600"
+              >
+                <X size={24} />
+              </button>
+            </div>
+
+            {selectedIndustry && (
+              <div className="mb-4 p-3 bg-slate-50 rounded-lg">
+                <p className="text-sm text-slate-600">
+                  Industry: <span className="font-semibold text-slate-900">{selectedIndustry.title}</span>
+                </p>
+              </div>
+            )}
+
+            <form onSubmit={handleConsultationSubmit} className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                    First Name *
+                  </label>
+                  <Input
+                    type="text"
+                    required
+                    value={consultationForm.firstName}
+                    onChange={(e) => setConsultationForm(prev => ({ ...prev, firstName: e.target.value }))}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                    Last Name *
+                  </label>
+                  <Input
+                    type="text"
+                    required
+                    value={consultationForm.lastName}
+                    onChange={(e) => setConsultationForm(prev => ({ ...prev, lastName: e.target.value }))}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">
+                  Email Address *
+                </label>
+                <Input
+                  type="email"
+                  required
+                  value={consultationForm.email}
+                  onChange={(e) => setConsultationForm(prev => ({ ...prev, email: e.target.value }))}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">
+                  Company
+                </label>
+                <Input
+                  type="text"
+                  value={consultationForm.company}
+                  onChange={(e) => setConsultationForm(prev => ({ ...prev, company: e.target.value }))}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">
+                  Phone Number
+                </label>
+                <Input
+                  type="tel"
+                  value={consultationForm.phone}
+                  onChange={(e) => setConsultationForm(prev => ({ ...prev, phone: e.target.value }))}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">
+                  Message *
+                </label>
+                <textarea
+                  required
+                  rows={4}
+                  className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent"
+                  placeholder="Tell us about your specific industry challenges and requirements..."
+                  value={consultationForm.message}
+                  onChange={(e) => setConsultationForm(prev => ({ ...prev, message: e.target.value }))}
+                />
+              </div>
+
+              <div className="flex gap-3 pt-4">
+                <Button 
+                  type="button" 
+                  variant="outline" 
+                  onClick={() => setShowConsultationForm(false)}
+                  className="flex-1"
+                >
+                  Cancel
+                </Button>
+                <Button 
+                  type="submit" 
+                  disabled={consultationMutation.isPending}
+                  className="flex-1"
+                >
+                  {consultationMutation.isPending ? "Sending..." : "Request Consultation"}
+                </Button>
+              </div>
+            </form>
+
+            <p className="text-xs text-slate-500 mt-4 text-center">
+              By submitting this form, you agree to receive updates about our services.
+            </p>
           </div>
         </div>
-      </section>
+      )}
       
       <Footer />
     </div>

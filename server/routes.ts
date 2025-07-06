@@ -538,6 +538,41 @@ This application was submitted through the Aptivon Solutions careers page.
     }
   });
 
+  // Industry consultation endpoint
+  app.post("/api/industry-consultation", async (req, res) => {
+    try {
+      const { firstName, lastName, email, company, industry, phone, message } = z.object({
+        firstName: z.string().min(1, "First name required"),
+        lastName: z.string().min(1, "Last name required"),
+        email: z.string().email("Valid email required"),
+        company: z.string().optional(),
+        industry: z.string().optional(),
+        phone: z.string().optional(),
+        message: z.string().min(10, "Message must be at least 10 characters"),
+      }).parse(req.body);
+
+      console.log(`Industry consultation request: ${industry} - ${firstName} ${lastName} (${email})`);
+
+      return res.status(200).json({ 
+        success: true, 
+        message: "Industry consultation request received! Our experts will contact you within 24 hours.",
+        consultationId: `IC-${Date.now()}`
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ 
+          success: false, 
+          message: error.errors[0].message 
+        });
+      }
+
+      return res.status(500).json({ 
+        success: false, 
+        message: "Failed to submit consultation request" 
+      });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
