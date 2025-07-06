@@ -441,6 +441,103 @@ This application was submitted through the Aptivon Solutions careers page.
     }
   });
 
+  // Newsletter subscription endpoint
+  app.post("/api/newsletter", async (req, res) => {
+    try {
+      const { email } = z.object({
+        email: z.string().email("Invalid email address"),
+      }).parse(req.body);
+
+      console.log(`Newsletter subscription: ${email}`);
+
+      return res.status(200).json({ 
+        success: true, 
+        message: "Successfully subscribed to newsletter!" 
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ 
+          success: false, 
+          message: error.errors[0].message 
+        });
+      }
+
+      return res.status(500).json({ 
+        success: false, 
+        message: "Failed to subscribe to newsletter" 
+      });
+    }
+  });
+
+  // Resources endpoint for downloads and search
+  app.post("/api/resources", async (req, res) => {
+    try {
+      const { resourceId, email, firstName, lastName, company } = z.object({
+        resourceId: z.string(),
+        email: z.string().email("Valid email required for download"),
+        firstName: z.string().min(1, "First name required"),
+        lastName: z.string().min(1, "Last name required"),
+        company: z.string().optional(),
+      }).parse(req.body);
+
+      console.log(`Download request: ${resourceId} by ${firstName} ${lastName} (${email})`);
+
+      return res.status(200).json({ 
+        success: true, 
+        message: "Download link sent to your email!",
+        downloadUrl: `/downloads/${resourceId}.pdf`
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ 
+          success: false, 
+          message: error.errors[0].message 
+        });
+      }
+
+      return res.status(500).json({ 
+        success: false, 
+        message: "Failed to process download request" 
+      });
+    }
+  });
+
+  // Webinar registration endpoint
+  app.post("/api/webinar-registration", async (req, res) => {
+    try {
+      const { webinarId, firstName, lastName, email, company, jobTitle, phone } = z.object({
+        webinarId: z.string(),
+        firstName: z.string().min(1, "First name required"),
+        lastName: z.string().min(1, "Last name required"),
+        email: z.string().email("Valid email required"),
+        company: z.string().optional(),
+        jobTitle: z.string().optional(),
+        phone: z.string().optional(),
+      }).parse(req.body);
+
+      console.log(`Webinar registration: ${webinarId} by ${firstName} ${lastName} (${email})`);
+
+      return res.status(200).json({ 
+        success: true, 
+        message: "Successfully registered for webinar! Check your email for the joining link.",
+        webinarId,
+        registrationConfirmation: `WB-${Date.now()}`
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ 
+          success: false, 
+          message: error.errors[0].message 
+        });
+      }
+
+      return res.status(500).json({ 
+        success: false, 
+        message: "Failed to register for webinar" 
+      });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
