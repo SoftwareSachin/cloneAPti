@@ -72,13 +72,75 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const applicationData = validationResult.data;
 
-      // Store application data for email notifications
-      // For now, we'll log to console and provide instructions to set up email
-      console.log('📧 EMAIL NOTIFICATION NEEDED:');
-      console.log('To receive job applications by email, please:');
-      console.log('1. Go to SendGrid.com and verify singhal3.sachin7@gmail.com as a sender');
-      console.log('2. Or contact your system administrator to set up email notifications');
-      console.log('');
+      // Try to send email using SendGrid if API key is available
+      if (process.env.SENDGRID_API_KEY) {
+        try {
+          sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+          const emailSubject = `New Job Application - ${applicationData.position}`;
+          const emailHtml = `
+            <h2>New Job Application Received</h2>
+            
+            <h3>Position Details:</h3>
+            <ul>
+              <li><strong>Position:</strong> ${applicationData.position}</li>
+              <li><strong>Department:</strong> ${applicationData.department}</li>
+              <li><strong>Location:</strong> ${applicationData.location}</li>
+            </ul>
+            
+            <h3>Applicant Details:</h3>
+            <ul>
+              <li><strong>Full Name:</strong> ${applicationData.fullName}</li>
+              <li><strong>Email:</strong> ${applicationData.email}</li>
+              <li><strong>Phone:</strong> ${applicationData.phone}</li>
+              <li><strong>Experience:</strong> ${applicationData.experience || 'Fresher/Entry Level'}</li>
+            </ul>
+            
+            <h3>Cover Letter:</h3>
+            <p style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; white-space: pre-wrap;">${applicationData.coverLetter}</p>
+            
+            <hr>
+            <p><em>This application was submitted through the Aptivon Solutions careers page.</em></p>
+          `;
+
+          const emailText = `
+New Job Application Received
+
+Position: ${applicationData.position}
+Department: ${applicationData.department}
+Location: ${applicationData.location}
+
+Applicant Details:
+- Full Name: ${applicationData.fullName}
+- Email: ${applicationData.email}
+- Phone: ${applicationData.phone}
+- Experience: ${applicationData.experience || 'Fresher/Entry Level'}
+
+Cover Letter:
+${applicationData.coverLetter}
+
+This application was submitted through the Aptivon Solutions careers page.
+          `.trim();
+
+          const msg = {
+            to: 'singhal3.sachin7@gmail.com',
+            from: 'singhal3.sachin7@gmail.com',
+            subject: emailSubject,
+            text: emailText,
+            html: emailHtml,
+          };
+
+          await sgMail.send(msg);
+          console.log('✅ Email sent successfully via SendGrid to singhal3.sachin7@gmail.com');
+        } catch (emailError: any) {
+          console.error('❌ SendGrid email error:', emailError.message);
+          if (emailError.response && emailError.response.body && emailError.response.body.errors) {
+            console.error('SendGrid error details:', emailError.response.body.errors);
+          }
+        }
+      } else {
+        console.log('⚠️ SendGrid API key not configured - email not sent');
+      }
 
       // Always log the application details for backup
       console.log('=== NEW JOB APPLICATION RECEIVED ===');
