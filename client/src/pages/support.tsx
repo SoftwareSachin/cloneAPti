@@ -48,7 +48,7 @@ const SUPPORT_CHANNELS = [
       description: "Speak directly with our technical experts",
       availability: "24/7 for Enterprise clients",
       response: "Immediate",
-      contact: "+1 (555) 123-4567"
+      contact: "+917852099010"
     },
     {
       icon: Mail,
@@ -56,7 +56,7 @@ const SUPPORT_CHANNELS = [
       description: "Send detailed queries to our support team",
       availability: "Monday - Friday, 9 AM - 6 PM EST",
       response: "Within 4 hours",
-      contact: "support@aptivon.com"
+      contact: "singhal3.sachin7@gmail.com"
     },
     {
       icon: MessageCircle,
