@@ -1,97 +1,145 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { User, Star, Trophy, Target } from "lucide-react";
+import { Shield, Cpu, Target } from "lucide-react";
 
 const teamMembers = [
   {
     id: 1,
     name: "Sarah Chen",
-    role: "Technical Lead",
+    role: "Chief Technology Officer",
+    title: "Technical Lead",
     avatar: "SC",
-    expertise: ["Full-Stack Development", "Cloud Architecture", "DevOps"],
-    experience: "8+ years",
-    icon: Trophy,
-    background: "Former Senior Engineer at Google, specializing in scalable distributed systems and cloud-native applications."
+    expertise: ["Cloud Architecture", "AI/ML Systems", "DevOps Excellence"],
+    experience: "12+ years",
+    icon: Cpu,
+    achievements: ["AWS Solutions Architect Professional", "Former Google Senior Engineer", "Patents in Distributed Systems"],
+    background: "Architected cloud infrastructure serving 50M+ users at Google. Led engineering teams building next-generation AI platforms and scalable microservices architectures.",
+    specialization: "Enterprise Cloud Solutions"
   },
   {
     id: 2,
     name: "Marcus Rodriguez",
-    role: "Product Manager",
+    role: "VP of Product Strategy",
+    title: "Senior Product Manager",
     avatar: "MR",
-    expertise: ["Product Strategy", "Market Analysis", "Agile Methodology"],
-    experience: "6+ years",
+    expertise: ["Enterprise Strategy", "Digital Transformation", "Market Innovation"],
+    experience: "10+ years",
     icon: Target,
-    background: "Led product teams at Microsoft, with expertise in B2B SaaS platforms and digital transformation initiatives."
+    achievements: ["Microsoft Distinguished PM", "Harvard MBA", "Product Leader of the Year 2023"],
+    background: "Scaled B2B SaaS products from $10M to $100M+ ARR at Microsoft. Expert in enterprise digital transformation and strategic product roadmapping for Fortune 500 companies.",
+    specialization: "Strategic Product Leadership"
   },
   {
     id: 3,
     name: "Priya Sharma",
-    role: "Product Manager",
+    role: "Head of Customer Success",
+    title: "Product Manager",
     avatar: "PS",
-    expertise: ["UX Strategy", "Data Analytics", "Customer Success"],
-    experience: "7+ years",
-    icon: Star,
-    background: "Former Amazon PM with extensive experience in e-commerce platforms and customer-centric product development."
+    expertise: ["Customer Experience", "Data Analytics", "Growth Strategy"],
+    experience: "9+ years",
+    icon: Shield,
+    achievements: ["Amazon Principal PM", "Stanford MS", "Customer Success Excellence Award"],
+    background: "Drove customer-centric product innovations at Amazon, managing P&L for $200M+ product lines. Specialized in leveraging data analytics to optimize user experiences and drive growth.",
+    specialization: "Customer-Centric Innovation"
   }
 ];
 
 export default function TeamSection() {
   return (
-    <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
-      <div className="container mx-auto px-4">
+    <section id="team" className="py-24 bg-gradient-to-br from-slate-50 to-blue-50">
+      <div className="container mx-auto px-6">
+        {/* Header section */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Meet Our Leadership Team
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full mb-6">
+            <div className="w-2 h-2 bg-primary rounded-full"></div>
+            <span className="text-primary font-medium text-sm">Leadership Team</span>
+          </div>
+          
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            Meet Our Leadership
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Industry veterans with proven track records in delivering exceptional technology solutions
+          
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Industry veterans with proven track records in delivering exceptional technology solutions 
+            for enterprise clients worldwide.
           </p>
         </div>
 
+        {/* Team grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {teamMembers.map((member) => {
             const IconComponent = member.icon;
             return (
-              <Card key={member.id} className="group hover:shadow-xl transition-all duration-300 border-0 bg-white/80 backdrop-blur-sm">
+              <Card 
+                key={member.id} 
+                className="group relative overflow-hidden border-0 bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              >
                 <CardContent className="p-8">
+                  {/* Profile header */}
                   <div className="text-center mb-6">
                     <div className="relative mx-auto mb-4">
-                      <div className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-2xl font-bold mx-auto shadow-lg">
+                      <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-xl font-bold shadow-lg mx-auto">
                         {member.avatar}
                       </div>
-                      <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center">
-                        <IconComponent className="w-4 h-4 text-blue-600" />
+                      <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-white rounded-xl shadow-lg flex items-center justify-center border border-gray-100">
+                        <IconComponent className="w-4 h-4 text-primary" />
                       </div>
                     </div>
+                    
                     <h3 className="text-xl font-bold text-gray-900 mb-1">
                       {member.name}
                     </h3>
-                    <p className="text-blue-600 font-semibold mb-2">
+                    <p className="text-primary font-semibold mb-2">
                       {member.role}
                     </p>
-                    <Badge variant="secondary" className="bg-blue-100 text-blue-700">
-                      {member.experience}
-                    </Badge>
+                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-gray-100 rounded-full">
+                      <span className="text-gray-700 text-sm font-medium">{member.experience}</span>
+                    </div>
                   </div>
 
-                  <div className="space-y-4">
-                    <p className="text-gray-600 text-sm leading-relaxed">
-                      {member.background}
-                    </p>
+                  {/* Content */}
+                  <div className="space-y-6">
+                    {/* Specialization */}
+                    <div className="text-center">
+                      <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/5 rounded-lg border border-primary/10">
+                        <span className="text-primary font-medium text-sm">{member.specialization}</span>
+                      </div>
+                    </div>
                     
+                    {/* Background */}
                     <div>
-                      <h4 className="text-sm font-semibold text-gray-900 mb-2">Core Expertise</h4>
+                      <p className="text-gray-600 text-sm leading-relaxed">
+                        {member.background}
+                      </p>
+                    </div>
+                    
+                    {/* Expertise */}
+                    <div>
+                      <h4 className="text-gray-900 font-semibold mb-3 text-sm">Core Expertise</h4>
                       <div className="flex flex-wrap gap-2">
-                        {member.expertise.map((skill, index) => (
+                        {member.expertise.map((skill, skillIndex) => (
                           <Badge 
-                            key={index} 
+                            key={skillIndex} 
                             variant="outline" 
-                            className="text-xs border-blue-200 text-blue-700 hover:bg-blue-50"
+                            className="text-xs border-primary/20 text-primary bg-primary/5 hover:bg-primary/10 transition-colors"
                           >
                             {skill}
                           </Badge>
                         ))}
                       </div>
+                    </div>
+
+                    {/* Achievements */}
+                    <div>
+                      <h4 className="text-gray-900 font-semibold mb-3 text-sm">Key Achievements</h4>
+                      <ul className="space-y-2">
+                        {member.achievements.map((achievement, achIndex) => (
+                          <li key={achIndex} className="text-gray-600 text-sm flex items-start gap-2">
+                            <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                            {achievement}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
                 </CardContent>
@@ -100,10 +148,21 @@ export default function TeamSection() {
           })}
         </div>
 
-        <div className="text-center mt-12">
-          <div className="inline-flex items-center gap-2 px-6 py-3 bg-white/70 backdrop-blur-sm rounded-full border border-blue-200">
-            <User className="w-5 h-5 text-blue-600" />
-            <span className="text-gray-700 font-medium">Building the future, one solution at a time</span>
+        {/* Bottom section */}
+        <div className="text-center mt-16">
+          <div className="inline-flex items-center gap-3 px-6 py-3 bg-white rounded-xl shadow-lg border border-gray-100">
+            <div className="flex -space-x-2">
+              {teamMembers.map((member) => (
+                <div 
+                  key={member.id}
+                  className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-xs font-bold border-2 border-white"
+                >
+                  {member.avatar}
+                </div>
+              ))}
+            </div>
+            <div className="h-4 w-px bg-gray-200"></div>
+            <span className="text-gray-700 font-medium">Driving innovation with proven expertise</span>
           </div>
         </div>
       </div>
