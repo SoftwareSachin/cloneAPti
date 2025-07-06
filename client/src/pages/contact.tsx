@@ -1,70 +1,80 @@
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import ContactSection from "@/components/contact-section";
-import { MapPin, Phone, Mail, Clock, Globe, Users } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Globe, Users, MessageCircle, Copy, ExternalLink } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Contact() {
-  const offices = [
-    {
-      city: "Mumbai, India",
-      address: "Tech Hub, Lower Parel, Mumbai, Maharashtra 400013",
-      phone: "+91 22 6789 0123",
-      email: "mumbai@aptivonsolutions.com",
-      hours: "Mon-Fri: 9:00 AM - 6:00 PM IST"
-    },
-    {
-      city: "Bangalore, India", 
-      address: "Innovation District, Electronic City, Bangalore, Karnataka 560100",
-      phone: "+91 80 4567 8901",
-      email: "bangalore@aptivonsolutions.com",
-      hours: "Mon-Fri: 9:00 AM - 6:00 PM IST"
-    },
-    {
-      city: "Singapore",
-      address: "Marina Bay Financial Centre, Singapore 018981",
-      phone: "+65 6789 0123",
-      email: "singapore@aptivonsolutions.com",
-      hours: "Mon-Fri: 9:00 AM - 6:00 PM SGT"
-    },
-    {
-      city: "New York, USA",
-      address: "Manhattan Financial District, New York, NY 10004",
-      phone: "+1 212 567 8901",
-      email: "newyork@aptivonsolutions.com",
-      hours: "Mon-Fri: 9:00 AM - 6:00 PM EST"
-    }
-  ];
+  const { toast } = useToast();
+
+  const office = {
+    city: "Jaipur, India",
+    address: "Jagatpura, Jaipur, India",
+    phone: "+917852099010",
+    email: "singhal3.sachin7@gmail.com",
+    hours: "Mon-Fri: 9:00 AM - 6:00 PM IST"
+  };
 
   const supportChannels = [
     {
       icon: Phone,
       title: "Phone Support",
-      description: "24/7 technical support for enterprise clients",
-      contact: "+1-800-APTIVON",
-      availability: "24/7 Global Support"
+      description: "Direct phone support for all inquiries",
+      contact: "+917852099010",
+      availability: "Mon-Fri: 9:00 AM - 6:00 PM IST",
+      action: "call"
     },
     {
       icon: Mail,
       title: "Email Support",
       description: "General inquiries and business development",
-      contact: "info@aptivonsolutions.com",
-      availability: "Response within 2 hours"
+      contact: "singhal3.sachin7@gmail.com",
+      availability: "Response within 4 hours",
+      action: "email"
     },
     {
       icon: Users,
       title: "Enterprise Support",
       description: "Dedicated support for enterprise accounts",
-      contact: "enterprise@aptivonsolutions.com",
-      availability: "Dedicated Account Manager"
+      contact: "singhal3.sachin7@gmail.com",
+      availability: "Priority Response",
+      action: "email"
     },
     {
       icon: Globe,
       title: "Partner Network",
       description: "Connect with our certified partner network",
-      contact: "partners@aptivonsolutions.com",
-      availability: "Regional Partner Support"
+      contact: "singhal3.sachin7@gmail.com",
+      availability: "Partnership Inquiries",
+      action: "email"
     }
   ];
+
+  const handleContactAction = (channel: any) => {
+    if (channel.action === "call") {
+      window.open(`tel:${channel.contact}`, '_blank');
+      toast({
+        title: "Opening Phone Dialer",
+        description: `Calling ${channel.contact}`,
+      });
+    } else if (channel.action === "email") {
+      window.open(`mailto:${channel.contact}?subject=Inquiry from Aptivon Website`, '_blank');
+      toast({
+        title: "Opening Email Client",
+        description: `Composing email to ${channel.contact}`,
+      });
+    }
+  };
+
+  const handleCopyContact = (contact: string) => {
+    navigator.clipboard.writeText(contact);
+    toast({
+      title: "Contact Copied",
+      description: `${contact} copied to clipboard`,
+    });
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -97,14 +107,31 @@ export default function Contact() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {supportChannels.map((channel, index) => (
-              <div key={index} className="bg-white p-6 rounded-lg border border-slate-200 text-center hover:shadow-lg transition-shadow duration-300">
+              <div key={index} className="bg-white p-6 rounded-lg border border-slate-200 text-center hover:shadow-lg transition-all duration-300 hover:scale-105">
                 <div className="w-12 h-12 bg-slate-900 rounded-lg flex items-center justify-center mx-auto mb-4">
                   <channel.icon className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-lg font-bold text-slate-900 mb-2">{channel.title}</h3>
                 <p className="text-slate-600 text-sm mb-4">{channel.description}</p>
                 <div className="text-slate-900 font-medium text-sm mb-2">{channel.contact}</div>
-                <div className="text-slate-500 text-xs">{channel.availability}</div>
+                <div className="text-slate-500 text-xs mb-4">{channel.availability}</div>
+                <div className="flex gap-2 justify-center">
+                  <Button 
+                    size="sm" 
+                    className="bg-slate-900 hover:bg-slate-800 text-white"
+                    onClick={() => handleContactAction(channel)}
+                  >
+                    {channel.action === "call" ? <Phone className="h-4 w-4 mr-1" /> : <Mail className="h-4 w-4 mr-1" />}
+                    {channel.action === "call" ? "Call" : "Email"}
+                  </Button>
+                  <Button 
+                    size="sm" 
+                    variant="outline"
+                    onClick={() => handleCopyContact(channel.contact)}
+                  >
+                    <Copy className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
             ))}
           </div>
@@ -114,40 +141,83 @@ export default function Contact() {
       {/* Contact Form Section */}
       <ContactSection />
 
-      {/* Office Locations */}
+      {/* Office Location */}
       <section className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-6">Global Offices</h2>
+            <h2 className="text-4xl font-bold text-slate-900 mb-6">Our Office</h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              With offices across major business hubs, we provide local expertise with global reach
+              Visit us at our headquarters in Jaipur for in-person consultations and meetings
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {offices.map((office, index) => (
-              <div key={index} className="bg-white p-8 rounded-lg border border-slate-200">
-                <h3 className="text-xl font-bold text-slate-900 mb-4">{office.city}</h3>
-                <div className="space-y-3">
-                  <div className="flex items-start gap-3">
-                    <MapPin className="w-5 h-5 text-slate-500 mt-0.5 flex-shrink-0" />
+          <div className="max-w-2xl mx-auto">
+            <div className="bg-white p-8 rounded-lg border border-slate-200 hover:shadow-lg transition-all duration-300">
+              <h3 className="text-xl font-bold text-slate-900 mb-6 text-center">{office.city}</h3>
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <MapPin className="w-5 h-5 text-slate-500 mt-0.5 flex-shrink-0" />
+                  <div className="flex-1">
                     <span className="text-slate-600">{office.address}</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Phone className="w-5 h-5 text-slate-500 flex-shrink-0" />
-                    <span className="text-slate-600">{office.phone}</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Mail className="w-5 h-5 text-slate-500 flex-shrink-0" />
-                    <span className="text-slate-600">{office.email}</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Clock className="w-5 h-5 text-slate-500 flex-shrink-0" />
-                    <span className="text-slate-600">{office.hours}</span>
+                    <Button 
+                      size="sm" 
+                      variant="outline" 
+                      className="ml-3"
+                      onClick={() => {
+                        window.open(`https://maps.google.com/?q=${encodeURIComponent(office.address)}`, '_blank');
+                        toast({
+                          title: "Opening Maps",
+                          description: "Opening location in Google Maps",
+                        });
+                      }}
+                    >
+                      <ExternalLink className="h-3 w-3 mr-1" />
+                      Map
+                    </Button>
                   </div>
                 </div>
+                <div className="flex items-center gap-3">
+                  <Phone className="w-5 h-5 text-slate-500 flex-shrink-0" />
+                  <span className="text-slate-600 flex-1">{office.phone}</span>
+                  <Button 
+                    size="sm" 
+                    className="bg-slate-900 hover:bg-slate-800 text-white"
+                    onClick={() => {
+                      window.open(`tel:${office.phone}`, '_blank');
+                      toast({
+                        title: "Opening Phone Dialer",
+                        description: `Calling ${office.phone}`,
+                      });
+                    }}
+                  >
+                    <Phone className="h-3 w-3 mr-1" />
+                    Call
+                  </Button>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Mail className="w-5 h-5 text-slate-500 flex-shrink-0" />
+                  <span className="text-slate-600 flex-1">{office.email}</span>
+                  <Button 
+                    size="sm" 
+                    variant="outline"
+                    onClick={() => {
+                      window.open(`mailto:${office.email}?subject=Meeting Request`, '_blank');
+                      toast({
+                        title: "Opening Email Client",
+                        description: `Composing email to ${office.email}`,
+                      });
+                    }}
+                  >
+                    <Mail className="h-3 w-3 mr-1" />
+                    Email
+                  </Button>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Clock className="w-5 h-5 text-slate-500 flex-shrink-0" />
+                  <span className="text-slate-600">{office.hours}</span>
+                </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
