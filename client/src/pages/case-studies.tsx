@@ -1,6 +1,8 @@
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
 import { 
   TrendingUp, 
   Clock, 
@@ -11,7 +13,9 @@ import {
   Building2,
   Stethoscope,
   ShoppingCart,
-  Factory
+  Factory,
+  Search,
+  Filter
 } from "lucide-react";
 
 const CASE_STUDIES_DATA = [
@@ -97,6 +101,19 @@ const METRICS_DATA = [
 ];
 
 export default function CaseStudies() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedIndustry, setSelectedIndustry] = useState("All");
+  
+  const industries = ["All", "Healthcare", "E-commerce", "Manufacturing", "Financial Services"];
+  
+  const filteredCaseStudies = CASE_STUDIES_DATA.filter(study => {
+    const matchesSearch = study.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         study.client.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         study.challenge.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesIndustry = selectedIndustry === "All" || study.industry === selectedIndustry;
+    return matchesSearch && matchesIndustry;
+  });
+
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
@@ -137,6 +154,40 @@ export default function CaseStudies() {
         </div>
       </section>
 
+      {/* Search and Filter */}
+      <section className="py-12 bg-white border-b">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+            <div className="relative flex-1 max-w-md">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 h-4 w-4" />
+              <Input
+                type="text"
+                placeholder="Search case studies..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+            <div className="flex gap-2 flex-wrap">
+              {industries.map((industry) => (
+                <Button
+                  key={industry}
+                  variant={selectedIndustry === industry ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setSelectedIndustry(industry)}
+                  className="text-sm"
+                >
+                  {industry}
+                </Button>
+              ))}
+            </div>
+          </div>
+          <div className="mt-4 text-sm text-slate-600">
+            Showing {filteredCaseStudies.length} of {CASE_STUDIES_DATA.length} case studies
+          </div>
+        </div>
+      </section>
+
       {/* Case Studies */}
       <section className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6">
@@ -150,75 +201,98 @@ export default function CaseStudies() {
             </p>
           </div>
 
-          <div className="space-y-16">
-            {CASE_STUDIES_DATA.map((study: any, index: number) => (
-              <div key={index} className="bg-white rounded-xl border border-slate-200 shadow-lg overflow-hidden">
-                <div className="grid lg:grid-cols-3 gap-0">
-                  {/* Left Column - Overview */}
-                  <div className="lg:col-span-1 bg-slate-900 text-white p-8">
-                    <div className="flex items-center mb-4">
-                      <study.icon className="h-8 w-8 mr-3" />
-                      <span className="bg-white/20 text-white px-2 py-1 rounded text-sm">
-                        {study.industry}
-                      </span>
-                    </div>
-                    <h3 className="text-2xl font-bold mb-2">{study.client}</h3>
-                    <h4 className="text-lg mb-4 text-slate-300">{study.title}</h4>
-                    
-                    <div className="space-y-4">
-                      <div>
-                        <h5 className="font-semibold mb-2">Timeline</h5>
-                        <p className="text-slate-300">{study.timeline}</p>
+          {filteredCaseStudies.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-slate-600 mb-4">No case studies found matching your criteria.</p>
+              <Button 
+                onClick={() => {
+                  setSearchTerm("");
+                  setSelectedIndustry("All");
+                }}
+              >
+                Clear Filters
+              </Button>
+            </div>
+          ) : (
+            <div className="space-y-16">
+              {filteredCaseStudies.map((study: any, index: number) => (
+                <div key={index} className="bg-white rounded-xl border border-slate-200 shadow-lg overflow-hidden">
+                  <div className="grid lg:grid-cols-3 gap-0">
+                    {/* Left Column - Overview */}
+                    <div className="lg:col-span-1 bg-slate-900 text-white p-8">
+                      <div className="flex items-center mb-4">
+                        <study.icon className="h-8 w-8 mr-3" />
+                        <span className="bg-white/20 text-white px-2 py-1 rounded text-sm">
+                          {study.industry}
+                        </span>
                       </div>
+                      <h3 className="text-2xl font-bold mb-2">{study.client}</h3>
+                      <h4 className="text-lg mb-4 text-slate-300">{study.title}</h4>
                       
-                      <div>
-                        <h5 className="font-semibold mb-2">Technologies</h5>
-                        <div className="flex flex-wrap gap-1">
-                          {study.technologies.map((tech: string, idx: number) => (
-                            <span key={idx} className="border border-white/30 text-white text-xs px-2 py-1 rounded">
-                              {tech}
-                            </span>
-                          ))}
+                      <div className="space-y-4">
+                        <div>
+                          <h5 className="font-semibold mb-2">Timeline</h5>
+                          <p className="text-slate-300">{study.timeline}</p>
+                        </div>
+                        
+                        <div>
+                          <h5 className="font-semibold mb-2">Technologies</h5>
+                          <div className="flex flex-wrap gap-1">
+                            {study.technologies.map((tech: string, idx: number) => (
+                              <span key={idx} className="border border-white/30 text-white text-xs px-2 py-1 rounded">
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Right Column - Details */}
-                  <div className="lg:col-span-2 p-8">
-                    <div className="space-y-6">
-                      <div>
-                        <h5 className="font-semibold text-slate-900 mb-2">Challenge</h5>
-                        <p className="text-slate-600">{study.challenge}</p>
-                      </div>
-
-                      <div>
-                        <h5 className="font-semibold text-slate-900 mb-2">Solution</h5>
-                        <p className="text-slate-600">{study.solution}</p>
-                      </div>
-
-                      <div>
-                        <h5 className="font-semibold text-slate-900 mb-4">Results Achieved</h5>
-                        <div className="grid grid-cols-2 gap-4">
-                          {study.results.map((result: any, idx: number) => (
-                            <div key={idx} className="bg-slate-50 p-4 rounded-lg border-l-4 border-slate-900">
-                              <div className="text-2xl font-bold text-slate-900">{result.value}</div>
-                              <div className="text-sm text-slate-600">{result.metric}</div>
-                            </div>
-                          ))}
+                    {/* Right Column - Details */}
+                    <div className="lg:col-span-2 p-8">
+                      <div className="space-y-6">
+                        <div>
+                          <h5 className="font-semibold text-slate-900 mb-2">Challenge</h5>
+                          <p className="text-slate-600">{study.challenge}</p>
                         </div>
-                      </div>
 
-                      <div className="bg-slate-50 p-6 rounded-lg border-l-4 border-slate-900">
-                        <p className="text-slate-700 italic mb-3">"{study.testimonial}"</p>
-                        <p className="text-sm font-semibold text-slate-900">- {study.clientRole}, {study.client}</p>
+                        <div>
+                          <h5 className="font-semibold text-slate-900 mb-2">Solution</h5>
+                          <p className="text-slate-600">{study.solution}</p>
+                        </div>
+
+                        <div>
+                          <h5 className="font-semibold text-slate-900 mb-4">Results Achieved</h5>
+                          <div className="grid grid-cols-2 gap-4">
+                            {study.results.map((result: any, idx: number) => (
+                              <div key={idx} className="bg-slate-50 p-4 rounded-lg border-l-4 border-slate-900">
+                                <div className="text-2xl font-bold text-slate-900">{result.value}</div>
+                                <div className="text-sm text-slate-600">{result.metric}</div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="bg-slate-50 p-6 rounded-lg border-l-4 border-slate-900">
+                          <p className="text-slate-700 italic mb-3">"{study.testimonial}"</p>
+                          <p className="text-sm font-semibold text-slate-900">- {study.clientRole}, {study.client}</p>
+                        </div>
+
+                        <div className="pt-4 border-t">
+                          <Button 
+                            className="w-full"
+                            onClick={() => window.location.href = '/contact'}
+                          >
+                            Request Similar Project
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -269,22 +343,32 @@ export default function CaseStudies() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-slate-900">
+      {/* Industries We Serve */}
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Ready to Create Your Success Story?
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
+            Industries We Transform
           </h2>
-          <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
-            Join our portfolio of successful clients and transform your business with proven technology solutions.
+          <p className="text-xl text-slate-600 mb-12 max-w-3xl mx-auto">
+            Our proven methodologies work across diverse industries, delivering measurable results for businesses of all sizes.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-slate-900 hover:bg-slate-100">
-              Start Your Project
-            </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-slate-900">
-              Discuss Your Challenge
-            </Button>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {[
+              { name: "Healthcare", projects: "15+ Projects", icon: "🏥" },
+              { name: "Financial Services", projects: "12+ Projects", icon: "🏦" },
+              { name: "E-commerce", projects: "20+ Projects", icon: "🛒" },
+              { name: "Manufacturing", projects: "8+ Projects", icon: "🏭" },
+              { name: "Education", projects: "10+ Projects", icon: "🎓" },
+              { name: "Logistics", projects: "6+ Projects", icon: "🚛" },
+              { name: "Real Estate", projects: "5+ Projects", icon: "🏢" },
+              { name: "Media & Entertainment", projects: "7+ Projects", icon: "🎬" }
+            ].map((industry, index) => (
+              <div key={index} className="text-center p-6 bg-slate-50 rounded-lg border hover:shadow-lg transition-shadow">
+                <div className="text-4xl mb-3">{industry.icon}</div>
+                <h3 className="font-semibold text-slate-900 mb-1">{industry.name}</h3>
+                <p className="text-sm text-slate-600">{industry.projects}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
