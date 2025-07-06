@@ -443,6 +443,8 @@ export default function Support() {
           </div>
         </div>
       </section>
+      
+      <Footer />
     </div>
   );
 }
