@@ -29,9 +29,9 @@ export default function Navigation() {
         ? 'bg-white/95 backdrop-blur-lg border-b border-gray-200/50 shadow-lg py-2' 
         : 'bg-white/80 backdrop-blur-md border-b border-gray-200/30 shadow-md py-3'
     }`}>
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-5xl mx-auto px-4">
         <div className={`flex justify-between items-center transition-all duration-300 ${
-          isScrolled ? 'h-16' : 'h-20'
+          isScrolled ? 'h-14' : 'h-16'
         }`}>
           <div className="flex items-center">
             <div className="flex-shrink-0 flex items-center">
@@ -39,12 +39,12 @@ export default function Navigation() {
                 <img 
                   src={logoGif} 
                   alt="Aptivon Solutions" 
-                  className={`w-auto mr-3 filter drop-shadow-lg transition-all duration-300 ${
-                    isScrolled ? 'h-8' : 'h-10'
+                  className={`w-auto mr-2 filter drop-shadow-lg transition-all duration-300 ${
+                    isScrolled ? 'h-6' : 'h-8'
                   }`}
                 />
               </div>
-              <h1 className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+              <h1 className="text-lg font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
                 Aptivon Solutions
               </h1>
             </div>
