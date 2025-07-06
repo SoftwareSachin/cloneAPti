@@ -49,7 +49,7 @@ export default function ServicesSection() {
               <span className="text-primary font-semibold text-sm">WHAT WE DO</span>
             </div>
           </div>
-          <h2 className="text-5xl font-bold text-primary-dark mb-6">Core Services</h2>
+          <h2 className="text-5xl font-bold text-primary-dark mb-6 font-display">Core Services</h2>
           <p className="text-xl text-text-gray max-w-4xl mx-auto leading-relaxed">
             Comprehensive technology solutions designed to accelerate your digital transformation journey with cutting-edge innovation.
           </p>
@@ -65,13 +65,13 @@ export default function ServicesSection() {
               whileHover={{ y: -10 }}
               className="h-full"
             >
-              <Card className="h-full hover:shadow-modern-lg transition-all duration-500 border-0 shadow-modern group">
+              <Card className="h-full glass-card hover:shadow-premium transition-all duration-500 border-0 shadow-modern group hover-lift">
                 <CardContent className="p-8 relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/5 to-transparent rounded-full -mr-16 -mt-16"></div>
-                  <div className={`w-16 h-16 bg-gradient-to-br ${service.gradient} rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                  <div className={`w-16 h-16 bg-gradient-to-br ${service.gradient} rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300 animate-pulse-slow`}>
                     <service.icon className="text-white text-2xl" size={32} />
                   </div>
-                  <h3 className="text-xl font-bold text-primary-dark mb-4 group-hover:text-primary transition-colors">{service.title}</h3>
+                  <h3 className="text-xl font-bold text-primary-dark mb-4 group-hover:text-primary transition-colors font-display">{service.title}</h3>
                   <p className="text-text-gray mb-6 leading-relaxed">{service.description}</p>
                   <ul className="text-sm text-text-gray space-y-3">
                     {service.features.map((feature, idx) => (

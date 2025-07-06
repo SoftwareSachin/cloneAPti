@@ -49,7 +49,7 @@ export default function AdvancedCapabilities() {
               <span className="text-success font-semibold text-sm">ADVANCED CAPABILITIES</span>
             </div>
           </div>
-          <h2 className="text-5xl font-bold text-primary-dark mb-6">Innovation at Scale</h2>
+          <h2 className="text-5xl font-bold text-primary-dark mb-6 font-display">Innovation at Scale</h2>
           <p className="text-xl text-text-gray max-w-4xl mx-auto leading-relaxed">
             Cutting-edge innovations and specialized services designed to give your business a distinctive competitive advantage in the market.
           </p>
@@ -65,15 +65,15 @@ export default function AdvancedCapabilities() {
               whileHover={{ scale: 1.02 }}
               className="h-full"
             >
-              <Card className={`bg-gradient-to-br ${capability.gradient} p-10 rounded-3xl text-white h-full shadow-modern-lg group overflow-hidden relative`}>
+              <Card className={`bg-gradient-to-br ${capability.gradient} p-10 rounded-3xl text-white h-full shadow-premium group overflow-hidden relative hover-lift`}>
                 <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
                 <CardContent className="p-0 relative z-10">
                   <div className="flex items-start mb-8">
-                    <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300">
+                    <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300 animate-pulse-slow">
                       <capability.icon className="text-3xl" size={40} />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-2xl font-bold mb-3">{capability.title}</h3>
+                      <h3 className="text-2xl font-bold mb-3 font-display">{capability.title}</h3>
                     </div>
                   </div>
                   <p className="text-lg mb-8 text-white/90 leading-relaxed">{capability.description}</p>

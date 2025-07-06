@@ -57,7 +57,7 @@ export default function ApproachSection() {
               <span className="text-primary font-semibold text-sm">OUR METHODOLOGY</span>
             </div>
           </div>
-          <h2 className="text-5xl font-bold text-primary-dark mb-6">Proven Approach</h2>
+          <h2 className="text-5xl font-bold text-primary-dark mb-6 font-display">Proven Approach</h2>
           <p className="text-xl text-text-gray max-w-4xl mx-auto leading-relaxed">
             A systematic methodology that ensures successful delivery, exceptional quality, and measurable long-term value for your business.
           </p>

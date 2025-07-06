@@ -63,7 +63,7 @@ export default function IndustriesSection() {
               <span className="text-accent font-semibold text-sm">INDUSTRIES WE SERVE</span>
             </div>
           </div>
-          <h2 className="text-5xl font-bold text-primary-dark mb-6">Industry Solutions</h2>
+          <h2 className="text-5xl font-bold text-primary-dark mb-6 font-display">Industry Solutions</h2>
           <p className="text-xl text-text-gray max-w-4xl mx-auto leading-relaxed">
             Tailored technology solutions across diverse industries, driving innovation and accelerating growth with industry-specific expertise.
           </p>
@@ -79,7 +79,7 @@ export default function IndustriesSection() {
               whileHover={{ y: -10 }}
               className="h-full"
             >
-              <Card className="h-full hover:shadow-modern-lg transition-all duration-500 border-0 shadow-modern group overflow-hidden">
+              <Card className="h-full glass-card hover:shadow-premium transition-all duration-500 border-0 shadow-modern group overflow-hidden hover-lift">
                 <CardContent className="p-0">
                   <div className={`h-56 bg-gradient-to-br ${industry.gradient} flex items-center justify-center relative overflow-hidden`}>
                     <div 
@@ -91,10 +91,10 @@ export default function IndustriesSection() {
                       }}
                     />
                     <div className="absolute inset-0 bg-black/20"></div>
-                    <industry.icon className="text-white text-5xl relative z-10 group-hover:scale-110 transition-transform duration-300" size={64} />
+                    <industry.icon className="text-white text-5xl relative z-10 group-hover:scale-110 transition-transform duration-300 animate-float" size={64} />
                   </div>
                   <div className="p-8">
-                    <h3 className="text-xl font-bold text-primary-dark mb-4 group-hover:text-primary transition-colors">{industry.title}</h3>
+                    <h3 className="text-xl font-bold text-primary-dark mb-4 group-hover:text-primary transition-colors font-display">{industry.title}</h3>
                     <p className="text-text-gray leading-relaxed">{industry.description}</p>
                   </div>
                 </CardContent>

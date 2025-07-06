@@ -44,7 +44,7 @@ export default function TechnologySection() {
               <span className="text-secondary font-semibold text-sm">TECHNOLOGY STACK</span>
             </div>
           </div>
-          <h2 className="text-5xl font-bold text-primary-dark mb-6">Technology Expertise</h2>
+          <h2 className="text-5xl font-bold text-primary-dark mb-6 font-display">Technology Expertise</h2>
           <p className="text-xl text-text-gray max-w-4xl mx-auto leading-relaxed">
             Leveraging cutting-edge technologies to deliver robust, scalable solutions that drive innovation and growth.
           </p>
@@ -71,8 +71,8 @@ export default function TechnologySection() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="text-center group"
               >
-                <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-8 border border-white/30 group-hover:bg-white/30 transition-all duration-300">
-                  <h3 className="text-2xl font-bold text-white mb-6 group-hover:scale-105 transition-transform">{tech.title}</h3>
+                <div className="glass-effect rounded-2xl p-8 border border-white/30 group-hover:bg-white/30 transition-all duration-300 hover-lift shadow-premium">
+                  <h3 className="text-2xl font-bold text-white mb-6 group-hover:scale-105 transition-transform font-display">{tech.title}</h3>
                   <div className="space-y-3 text-white/90">
                     {tech.items.map((item, idx) => (
                       <div key={idx} className="flex items-center justify-center">

@@ -50,9 +50,9 @@ export default function HeroSection() {
             </div>
           </motion.div>
           
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight font-display">
             Transforming Business Through{" "}
-            <span className="bg-gradient-to-r from-white to-accent bg-clip-text text-transparent">
+            <span className="gradient-text-accent">
               Intelligent Technology
             </span>
           </h1>
@@ -62,14 +62,14 @@ export default function HeroSection() {
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Button
               onClick={() => scrollToSection("contact")}
-              className="bg-white text-primary px-10 py-5 text-lg font-semibold hover:bg-white/90 transition-all duration-300 shadow-modern-lg hover:shadow-xl hover:scale-105 rounded-full"
+              className="bg-white text-primary px-10 py-5 text-lg font-semibold hover:bg-white/90 transition-all duration-300 shadow-premium hover:shadow-glow hover:scale-105 rounded-full hover-lift"
             >
               Start Your Digital Journey
             </Button>
             <Button
               onClick={() => scrollToSection("services")}
               variant="outline"
-              className="bg-transparent text-white px-10 py-5 text-lg font-semibold hover:bg-white/10 transition-all duration-300 shadow-modern border-white/30 hover:border-white/50 rounded-full backdrop-blur-sm"
+              className="bg-transparent text-white px-10 py-5 text-lg font-semibold glass-effect hover:bg-white/10 transition-all duration-300 shadow-modern border-white/30 hover:border-white/50 rounded-full hover-lift"
             >
               Explore Our Services
             </Button>
