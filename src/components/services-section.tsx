@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Cloud, GitBranch, Brain, Smartphone, Target, Shield, Zap, Globe, Database } from "lucide-react";
 
@@ -57,12 +57,7 @@ export default function ServicesSection() {
   return (
     <section id="services" className="py-24 bg-gradient-to-br from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
+        <div className="text-center mb-20">
           <div className="inline-block px-6 py-3 bg-primary/10 rounded-full mb-6">
             <div className="flex items-center">
               <Target className="w-4 h-4 text-primary mr-2" />
@@ -73,16 +68,12 @@ export default function ServicesSection() {
           <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
             Comprehensive technology solutions architected for enterprise scale with security, performance, and reliability at the core.
           </p>
-        </motion.div>
+        </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <motion.div
+            <div
               key={service.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-
               className="h-full"
             >
               <Card className="h-full bg-white border border-gray-100 shadow-xl group relative overflow-hidden">
@@ -103,7 +94,7 @@ export default function ServicesSection() {
                   </ul>
                 </CardContent>
               </Card>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
