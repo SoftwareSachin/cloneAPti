@@ -1,5 +1,20 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { TrendingUp } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { 
+  TrendingUp, 
+  Search, 
+  Zap, 
+  Shield, 
+  Users, 
+  Settings,
+  ArrowRight,
+  CheckCircle,
+  Clock,
+  Target,
+  Award,
+  Lightbulb
+} from "lucide-react";
 
 export default function ApproachSection() {
   const approaches = [
@@ -7,38 +22,69 @@ export default function ApproachSection() {
       number: "1",
       title: "Discovery & Planning",
       description: "Deep dive workshops to understand objectives, existing architecture, and constraints.",
-      color: "bg-primary"
+      icon: Search,
+      gradient: "from-blue-500 to-cyan-600",
+      accentColor: "blue",
+      duration: "1-2 weeks",
+      deliverables: ["Requirements Analysis", "Technical Architecture", "Project Roadmap"]
     },
     {
-      number: "2",
+      number: "2", 
       title: "Agile Execution",
       description: "Break work into prioritized sprints with regular demos and feedback loops.",
-      color: "bg-accent"
+      icon: Zap,
+      gradient: "from-emerald-500 to-teal-600",
+      accentColor: "emerald",
+      duration: "2-8 weeks",
+      deliverables: ["Sprint Demos", "Working Software", "Continuous Integration"]
     },
     {
       number: "3",
-      title: "Quality Assurance",
+      title: "Quality Assurance", 
       description: "Automated testing at every layer and continuous code reviews for reliability.",
-      color: "bg-success"
+      icon: CheckCircle,
+      gradient: "from-violet-500 to-purple-600",
+      accentColor: "violet",
+      duration: "Ongoing",
+      deliverables: ["Test Automation", "Code Reviews", "Performance Testing"]
     },
     {
       number: "4",
       title: "Security by Design",
       description: "Embed security best practices with DevSecOps and compliance checks.",
-      color: "bg-red-500"
+      icon: Shield,
+      gradient: "from-red-500 to-pink-600",
+      accentColor: "red",
+      duration: "Integrated",
+      deliverables: ["Security Audits", "Compliance Reports", "Vulnerability Assessment"]
     },
     {
       number: "5",
       title: "Knowledge Transfer",
       description: "Comprehensive documentation and training to empower your team.",
-      color: "bg-purple-500"
+      icon: Users,
+      gradient: "from-amber-500 to-orange-600",
+      accentColor: "amber",
+      duration: "1 week",
+      deliverables: ["Documentation", "Training Sessions", "Best Practices Guide"]
     },
     {
       number: "6",
       title: "Continuous Support",
       description: "Ongoing maintenance and optimization for sustained performance.",
-      color: "bg-orange-500"
+      icon: Settings,
+      gradient: "from-indigo-500 to-purple-600",
+      accentColor: "indigo",
+      duration: "Ongoing",
+      deliverables: ["24/7 Monitoring", "Performance Optimization", "Feature Updates"]
     }
+  ];
+
+  const approachStats = [
+    { icon: Target, value: "95%", label: "On-Time Delivery", color: "text-blue-600" },
+    { icon: Award, value: "98%", label: "Client Satisfaction", color: "text-green-600" },
+    { icon: Clock, value: "30%", label: "Faster to Market", color: "text-purple-600" },
+    { icon: Lightbulb, value: "500+", label: "Projects Delivered", color: "text-orange-600" }
   ];
 
   return (
