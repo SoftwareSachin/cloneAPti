@@ -98,11 +98,11 @@ export default function Footer() {
             <div className="mt-8 space-y-3">
               <div className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-blue-400" />
-                <span className="text-gray-300 text-sm">info@aptivonsolutions.com</span>
+                <span className="text-gray-300 text-sm">singhal3.sachin7@gmail.com</span>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-green-400" />
-                <span className="text-gray-300 text-sm">+91 98765 43210</span>
+                <span className="text-gray-300 text-sm">+917852099010</span>
               </div>
             </div>
           </div>
@@ -111,7 +111,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">
-            © 2024 Aptivon Solutions. All rights reserved.
+            © 2025 Aptivon Solutions. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">

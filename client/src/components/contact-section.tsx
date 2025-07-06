@@ -80,7 +80,7 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <p className="text-slate-900 font-medium">Email</p>
-                    <p className="text-slate-600">info@aptivonsolutions.com</p>
+                    <p className="text-slate-600">singhal3.sachin7@gmail.com</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
@@ -89,7 +89,7 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <p className="text-slate-900 font-medium">Phone</p>
-                    <p className="text-slate-600">+91 98765 43210</p>
+                    <p className="text-slate-600">+917852099010</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">

@@ -80,7 +80,7 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <p className="text-white font-medium">Email</p>
-                    <p className="text-slate-300">info@aptivonsolutions.com</p>
+                    <p className="text-slate-300">singhal3.sachin7@gmail.com</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
@@ -89,7 +89,7 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <p className="text-white font-medium">Phone</p>
-                    <p className="text-slate-300">+91 98765 43210</p>
+                    <p className="text-slate-300">+917852099010</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
@@ -172,7 +172,7 @@ export default function ContactSection() {
                       id="phone"
                       {...register("phone")}
                       className="bg-white/10 border-white/20 text-white placeholder:text-slate-400"
-                      placeholder="+91 98765 43210"
+                      placeholder="+917852099010"
                     />
                   </div>
                 </div>

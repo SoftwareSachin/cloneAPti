@@ -123,7 +123,7 @@ This application was submitted through the Aptivon Solutions careers page.
           `.trim();
 
           const msg = {
-            to: 'sachingupta7852099010@gmail.com',
+            to: 'singhal3.sachin7@gmail.com',
             from: 'sachingupta1785209901@gmail.com', // Use the verified sender from SendGrid
             subject: emailSubject,
             text: emailText,
@@ -144,7 +144,7 @@ This application was submitted through the Aptivon Solutions careers page.
 
       // Always log the application details for backup
       console.log('=== NEW JOB APPLICATION RECEIVED ===');
-      console.log('To: sachingupta7852099010@gmail.com');
+      console.log('To: singhal3.sachin7@gmail.com');
       console.log('Subject: New Job Application -', applicationData.position);
       console.log('');
       console.log('Position Details:');
