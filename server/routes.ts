@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertContactSchema } from "@shared/schema";
 import { z } from "zod";
+import nodemailer from 'nodemailer';
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Contact form submission
@@ -41,6 +42,67 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error fetching contacts:", error);
       res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  // Job application submission
+  app.post("/api/job-application", async (req, res) => {
+    const jobApplicationSchema = z.object({
+      fullName: z.string().min(1, "Full name is required"),
+      email: z.string().email("Valid email is required"),
+      phone: z.string().min(1, "Phone number is required"),
+      experience: z.string().optional(),
+      coverLetter: z.string().min(1, "Cover letter is required"),
+      position: z.string().min(1, "Position is required"),
+      department: z.string().min(1, "Department is required"),
+      location: z.string().min(1, "Location is required"),
+    });
+
+    try {
+      // Validate the request body
+      const validationResult = jobApplicationSchema.safeParse(req.body);
+      
+      if (!validationResult.success) {
+        return res.status(400).json({ 
+          message: 'Validation failed', 
+          error: validationResult.error.errors,
+          success: false 
+        });
+      }
+
+      const applicationData = validationResult.data;
+
+      // Log the application details (for now, until email is set up)
+      console.log('=== NEW JOB APPLICATION RECEIVED ===');
+      console.log('To: singhal3.sachin7@gmail.com');
+      console.log('Subject: New Job Application -', applicationData.position);
+      console.log('');
+      console.log('Position Details:');
+      console.log('- Position:', applicationData.position);
+      console.log('- Department:', applicationData.department);
+      console.log('- Location:', applicationData.location);
+      console.log('');
+      console.log('Applicant Details:');
+      console.log('- Full Name:', applicationData.fullName);
+      console.log('- Email:', applicationData.email);
+      console.log('- Phone:', applicationData.phone);
+      console.log('- Experience:', applicationData.experience || 'Fresher/Entry Level');
+      console.log('');
+      console.log('Cover Letter:');
+      console.log(applicationData.coverLetter);
+      console.log('=====================================');
+
+      return res.status(200).json({ 
+        message: 'Application submitted successfully! We will review your application and get back to you soon.',
+        success: true 
+      });
+
+    } catch (error) {
+      console.error('Error processing job application:', error);
+      return res.status(500).json({ 
+        message: 'Internal server error. Please try again later.',
+        success: false 
+      });
     }
   });
 
