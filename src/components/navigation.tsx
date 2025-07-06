@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import logoGif from "../assets/logo.gif";
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -14,16 +24,24 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200/50 shadow-lg">
+    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+      isScrolled 
+        ? 'bg-white/95 backdrop-blur-lg border-b border-gray-200/50 shadow-lg py-2' 
+        : 'bg-white/80 backdrop-blur-md border-b border-gray-200/30 shadow-md py-3'
+    }`}>
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex justify-between items-center h-16">
+        <div className={`flex justify-between items-center transition-all duration-300 ${
+          isScrolled ? 'h-16' : 'h-20'
+        }`}>
           <div className="flex items-center">
             <div className="flex-shrink-0 flex items-center">
               <div className="relative">
                 <img 
-                  src="/logo.gif" 
+                  src={logoGif} 
                   alt="Aptivon Solutions" 
-                  className="h-10 w-auto mr-3 filter drop-shadow-lg"
+                  className={`w-auto mr-3 filter drop-shadow-lg transition-all duration-300 ${
+                    isScrolled ? 'h-8' : 'h-10'
+                  }`}
                 />
               </div>
               <h1 className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">

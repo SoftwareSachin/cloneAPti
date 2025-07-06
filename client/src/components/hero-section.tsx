@@ -10,7 +10,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pt-24 md:pt-28">
       {/* Modern geometric background */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,rgba(59,130,246,0.15),transparent_50%)] bg-[radial-gradient(circle_at_75%_75%,rgba(147,51,234,0.15),transparent_50%)]"></div>
       
@@ -30,7 +30,7 @@ export default function HeroSection() {
           </div>
           
           {/* Main heading */}
-          <h1 className="text-6xl md:text-8xl font-bold mb-8 leading-tight">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight">
             <span className="bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">
               Transform Your
             </span>
@@ -65,18 +65,18 @@ export default function HeroSection() {
           </div>
           
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-8 mt-20 max-w-2xl mx-auto">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-white mb-2">500+</div>
-              <div className="text-slate-400 text-sm">Projects Delivered</div>
+          <div className="grid grid-cols-3 gap-6 md:gap-8 mt-16 max-w-2xl mx-auto">
+            <div className="text-center p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
+              <div className="text-2xl md:text-3xl font-bold text-white mb-2">500+</div>
+              <div className="text-slate-400 text-xs md:text-sm">Projects Delivered</div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-white mb-2">99.9%</div>
-              <div className="text-slate-400 text-sm">Uptime SLA</div>
+            <div className="text-center p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
+              <div className="text-2xl md:text-3xl font-bold text-white mb-2">99.9%</div>
+              <div className="text-slate-400 text-xs md:text-sm">Uptime SLA</div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-white mb-2">24/7</div>
-              <div className="text-slate-400 text-sm">Support</div>
+            <div className="text-center p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
+              <div className="text-2xl md:text-3xl font-bold text-white mb-2">24/7</div>
+              <div className="text-slate-400 text-xs md:text-sm">Support</div>
             </div>
           </div>
         </div>
