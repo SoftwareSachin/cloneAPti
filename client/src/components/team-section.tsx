@@ -69,12 +69,7 @@ const teamMembers = [
   }
 ];
 
-const leadershipStats = [
-  { icon: Users, value: "50+", label: "Team Members", color: "text-blue-600" },
-  { icon: Award, value: "15+", label: "Industry Awards", color: "text-green-600" },
-  { icon: Globe, value: "25+", label: "Countries Served", color: "text-purple-600" },
-  { icon: TrendingUp, value: "99%", label: "Client Retention", color: "text-orange-600" }
-];
+
 
 export default function TeamSection() {
   return (
@@ -95,18 +90,7 @@ export default function TeamSection() {
           </p>
         </div>
 
-        {/* Leadership Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
-          {leadershipStats.map((stat, index) => (
-            <div key={index} className="text-center">
-              <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mx-auto mb-4 group hover:shadow-md transition-shadow">
-                <stat.icon className={`w-8 h-8 ${stat.color}`} />
-              </div>
-              <div className="text-3xl font-bold text-slate-900 mb-2">{stat.value}</div>
-              <div className="text-slate-600 text-sm">{stat.label}</div>
-            </div>
-          ))}
-        </div>
+
 
         {/* Team grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
