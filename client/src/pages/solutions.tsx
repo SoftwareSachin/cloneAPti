@@ -189,7 +189,10 @@ export default function Solutions() {
             <Button size="lg" className="bg-white text-slate-900 hover:bg-slate-100">
               Get Free Consultation
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-slate-900 transition-colors">
+            <Button 
+              size="lg" 
+              className="border-2 border-white bg-transparent text-white hover:bg-white hover:text-slate-900 transition-all duration-300 font-semibold"
+            >
               Contact Our Experts
             </Button>
           </div>
