@@ -35,7 +35,7 @@ const SERVICES_DATA = [
       "Cloud cost optimization and monitoring"
     ],
     benefits: "Reduce infrastructure costs by 40% while improving scalability and reliability",
-    pricing: "Starting from $10,000",
+    pricing: "Starting from ₹25,000",
     duration: "2-6 months"
   },
   {
@@ -49,7 +49,7 @@ const SERVICES_DATA = [
       "Release management and deployment strategies"
     ],
     benefits: "Accelerate deployment cycles by 75% and reduce manual errors significantly",
-    pricing: "Starting from $8,000",
+    pricing: "Starting from ₹18,000",
     duration: "1-3 months"
   },
   {
@@ -63,7 +63,7 @@ const SERVICES_DATA = [
       "Computer vision and image recognition"
     ],
     benefits: "Improve decision-making accuracy by 60% with data-driven insights",
-    pricing: "Starting from $15,000",
+    pricing: "Starting from ₹35,000",
     duration: "3-8 months"
   },
   {
@@ -77,7 +77,7 @@ const SERVICES_DATA = [
       "API design and microservices architecture"
     ],
     benefits: "Launch products 50% faster with scalable, maintainable code architecture",
-    pricing: "Starting from $12,000",
+    pricing: "Starting from ₹28,000",
     duration: "2-5 months"
   },
   {
@@ -91,7 +91,7 @@ const SERVICES_DATA = [
       "Incident response and recovery"
     ],
     benefits: "Achieve 99.9% threat detection rate with enterprise-grade security protocols",
-    pricing: "Starting from $6,000",
+    pricing: "Starting from ₹15,000",
     duration: "1-4 months"
   },
   {
@@ -105,7 +105,7 @@ const SERVICES_DATA = [
       "Business intelligence implementation"
     ],
     benefits: "Increase decision-making speed by 60% with real-time data visualization",
-    pricing: "Starting from $9,000",
+    pricing: "Starting from ₹22,000",
     duration: "2-4 months"
   }
 ];
