@@ -124,7 +124,7 @@ This application was submitted through the Aptivon Solutions careers page.
 
           const msg = {
             to: 'singhal3.sachin7@gmail.com',
-            from: 'singhal3.sachin7@gmail.com',
+            from: 'sachingupta1785209901@gmail.com', // Use the verified sender from SendGrid
             subject: emailSubject,
             text: emailText,
             html: emailHtml,
