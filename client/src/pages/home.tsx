@@ -40,19 +40,46 @@ export default function Home() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [searchTerm, setSearchTerm] = useState("");
   const [activeFilter, setActiveFilter] = useState("all");
-  const [projectProgress] = useState([
-    { name: "Cloud Migration", progress: 85, client: "TechCorp India" },
-    { name: "AI Implementation", progress: 70, client: "FinServ Ltd" },
-    { name: "Security Audit", progress: 95, client: "Healthcare Plus" },
-    { name: "Digital Transform", progress: 60, client: "Retail Chain" }
+  const [projectProgress, setProjectProgress] = useState([
+    { name: "Cloud Migration", progress: 85, client: "TechCorp India", lastUpdate: Date.now() },
+    { name: "AI Implementation", progress: 70, client: "FinServ Ltd", lastUpdate: Date.now() },
+    { name: "Security Audit", progress: 95, client: "Healthcare Plus", lastUpdate: Date.now() },
+    { name: "Digital Transform", progress: 60, client: "Retail Chain", lastUpdate: Date.now() }
   ]);
 
-  const [liveMetrics] = useState({
+  // Simulate project progress updates every 45 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProjectProgress(prev => 
+        prev.map(project => ({
+          ...project,
+          progress: Math.min(100, project.progress + (Math.random() > 0.7 ? Math.floor(Math.random() * 3) + 1 : 0)),
+          lastUpdate: Date.now()
+        }))
+      );
+    }, 45000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const [liveMetrics, setLiveMetrics] = useState({
     activeProjects: 12,
     clientsSatisfied: 150,
     teamMembers: 75,
     completionRate: 98.5
   });
+
+  // Simulate live metric updates every 30 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLiveMetrics(prev => ({
+        ...prev,
+        // Small random fluctuations to simulate real-time data
+        activeProjects: Math.max(10, prev.activeProjects + Math.floor(Math.random() * 3) - 1),
+        clientsSatisfied: prev.clientsSatisfied + (Math.random() > 0.8 ? 1 : 0)
+      }));
+    }, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   const [quickActions] = useState([
     {
@@ -60,10 +87,28 @@ export default function Home() {
       description: "Get expert advice for your project",
       icon: Phone,
       action: () => {
-        window.open("tel:+917852099010", '_blank');
+        // Try to make actual phone call on mobile, otherwise show contact options
+        if (navigator.userAgent.match(/Android|iPhone|iPad|iPod|BlackBerry|IEMobile/i)) {
+          window.location.href = "tel:+917852099010";
+        } else {
+          // Show contact options for desktop users
+          const contactOptions = confirm(
+            "Free Consultation Available!\n\n" +
+            "Choose your preferred contact method:\n" +
+            "• Phone: +91 7852099010 (Click OK)\n" +
+            "• Email: singhal3.sachin7@gmail.com (Click Cancel)\n\n" +
+            "Available: 9 AM to 6 PM IST, Monday to Saturday"
+          );
+          
+          if (contactOptions) {
+            window.open("tel:+917852099010", '_blank');
+          } else {
+            window.open("mailto:singhal3.sachin7@gmail.com?subject=Free Consultation Request&body=Hello Aptivon Solutions,%0D%0A%0D%0AI would like to schedule a free consultation to discuss my project requirements.%0D%0A%0D%0APlease contact me at your earliest convenience.%0D%0A%0D%0AThank you!", '_blank');
+          }
+        }
         toast({
-          title: "Calling Aptivon Solutions",
-          description: "Connecting you for a free consultation",
+          title: "Free Consultation",
+          description: "Connecting you with our experts for personalized advice",
         });
       }
     },
@@ -72,6 +117,37 @@ export default function Home() {
       description: "View our complete project portfolio",
       icon: Download,
       action: () => {
+        // Create a downloadable PDF or redirect to portfolio page
+        const portfolioContent = `
+APTIVON SOLUTIONS - PROJECT PORTFOLIO
+
+Recent Projects:
+1. E-commerce Platform Modernization - Rajasthan Retail Chain
+   Technology: React, Node.js, PostgreSQL
+   Duration: 6 months | Status: Completed | Rating: 5/5
+
+2. Healthcare Management System - Jaipur Medical Center  
+   Technology: Angular, .NET, SQL Server
+   Duration: 4 months | Status: In Progress | Rating: 5/5
+
+3. Financial Analytics Dashboard - Investment Firm India
+   Technology: Python, React, MongoDB
+   Duration: 8 months | Status: Completed | Rating: 5/5
+
+Contact: +91 7852099010 | singhal3.sachin7@gmail.com
+Website: aptivonsolutions.com
+        `;
+        
+        const blob = new Blob([portfolioContent], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Aptivon_Solutions_Portfolio.txt';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
         toast({
           title: "Portfolio Downloaded",
           description: "Aptivon Solutions portfolio saved to your device",
@@ -157,10 +233,15 @@ export default function Home() {
               variant="outline" 
               className="border-white text-white hover:bg-white hover:text-slate-900"
               onClick={() => {
-                window.open("tel:+917852099010", '_blank');
+                // Try to make actual phone call on mobile, otherwise show contact info
+                if (navigator.userAgent.match(/Android|iPhone|iPad|iPod|BlackBerry|IEMobile/i)) {
+                  window.location.href = "tel:+917852099010";
+                } else {
+                  window.open("tel:+917852099010", '_blank');
+                }
                 toast({
-                  title: "Quick Call",
-                  description: "Connecting you now...",
+                  title: "Calling Aptivon Solutions",
+                  description: "Phone: +91 7852099010 - Available 9 AM to 6 PM IST",
                 });
               }}
             >
@@ -372,6 +453,45 @@ export default function Home() {
                     <Button 
                       className="w-full mt-4 bg-slate-900 hover:bg-slate-800 text-white"
                       onClick={() => {
+                        // Create detailed project information modal or redirect
+                        const projectDetails = `
+PROJECT DETAILS: ${project.title}
+
+Client: ${project.client}
+Duration: ${project.duration}
+Technology Stack: ${project.technology}
+Status: ${project.status}
+Rating: ${project.rating}/5 stars
+
+Project Summary:
+This project involved comprehensive development and implementation of modern technology solutions tailored to client requirements. Our team delivered exceptional results using industry best practices and cutting-edge technologies.
+
+Key Achievements:
+- Successful delivery within timeline
+- High client satisfaction
+- Scalable and maintainable solution
+- Enhanced business efficiency
+
+Contact Aptivon Solutions for similar projects:
+Phone: +91 7852099010
+Email: singhal3.sachin7@gmail.com
+                        `;
+                        
+                        // Show project details in a new window or alert
+                        const newWindow = window.open('', '_blank', 'width=600,height=400');
+                        if (newWindow) {
+                          newWindow.document.write(`
+                            <html>
+                              <head><title>Project Details - ${project.title}</title></head>
+                              <body style="font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;">
+                                <pre style="white-space: pre-wrap; font-family: Arial, sans-serif;">${projectDetails}</pre>
+                                <button onclick="window.close()" style="margin-top: 20px; padding: 10px 20px; background: #1e293b; color: white; border: none; border-radius: 5px; cursor: pointer;">Close</button>
+                              </body>
+                            </html>
+                          `);
+                          newWindow.document.close();
+                        }
+                        
                         toast({
                           title: "Project Details",
                           description: `Viewing details for ${project.title}`,
