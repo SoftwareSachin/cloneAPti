@@ -16,12 +16,12 @@ This is a modern, responsive company website for Aptivon Solutions Pvt. Ltd., an
 - **Build Tool**: Vite for development and production builds
 
 ### Backend Architecture
-- **Runtime**: Node.js with Express.js
-- **Language**: TypeScript with ES modules
+- **Runtime**: Vercel Serverless Functions (@vercel/node)
+- **Language**: TypeScript with ES modules  
 - **Database**: PostgreSQL with Drizzle ORM
 - **Database Provider**: Neon Database (serverless PostgreSQL)
-- **Session Management**: PostgreSQL-based session storage
-- **Development**: Hot reload with Vite integration in development
+- **API Routes**: Serverless functions in `/api` folder
+- **Development**: Static frontend with Vite dev server
 
 ## Key Components
 
@@ -37,10 +37,10 @@ This is a modern, responsive company website for Aptivon Solutions Pvt. Ltd., an
 9. **Footer** - Company information and links
 
 ### Backend Components
-1. **Contact API** - Handles form submissions with validation
-2. **Storage Layer** - Abstracted storage interface with in-memory fallback
-3. **Database Schema** - Contact form data structure
-4. **Middleware** - Request logging and error handling
+1. **Contact API** - Serverless function at `/api/contact.ts` for form submissions
+2. **Contacts API** - Serverless function at `/api/contacts.ts` for data retrieval  
+3. **Database Schema** - Contact form data structure in `/shared/schema.ts`
+4. **Database Integration** - Direct Neon PostgreSQL connection via Drizzle ORM
 
 ## Data Flow
 
@@ -81,15 +81,15 @@ This is a modern, responsive company website for Aptivon Solutions Pvt. Ltd., an
 
 ### Development Environment
 - Frontend served by Vite dev server with HMR
-- Backend runs with tsx for TypeScript execution
+- API functions tested locally or deployed to Vercel
 - Database migrations handled by Drizzle Kit
-- Development scripts configured for Replit environment
+- Development scripts configured for Vercel architecture
 
-### Production Build
-- Frontend built with Vite to static assets
-- Backend compiled with esbuild for Node.js
-- Static files served from Express server
-- Database connection via environment variables
+### Production Build (Vercel)
+- Frontend built with Vite to static assets in `/dist`
+- API functions deployed as serverless functions to Vercel
+- Static files served by Vercel CDN
+- Database connection via Neon PostgreSQL with environment variables
 
 ### Database Management
 - Schema defined in `shared/schema.ts`
