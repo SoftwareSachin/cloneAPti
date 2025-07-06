@@ -29,7 +29,7 @@ export default function Footer() {
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center mb-6">
               <img 
-                src="/favicon.gif" 
+                src="/logo.gif" 
                 alt="Aptivon Solutions" 
                 className="h-10 w-auto mr-3"
               />

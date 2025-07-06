@@ -21,7 +21,7 @@ export default function Navigation() {
             <div className="flex-shrink-0 flex items-center">
               <div className="relative">
                 <img 
-                  src="/favicon.gif" 
+                  src="/logo.gif" 
                   alt="Aptivon Solutions" 
                   className="h-10 w-auto mr-3 filter drop-shadow-lg"
                 />
