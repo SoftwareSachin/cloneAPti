@@ -19,8 +19,12 @@ export default function Navigation() {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
             <div className="flex-shrink-0 flex items-center">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center mr-3">
-                <span className="text-white font-bold text-lg">A</span>
+              <div className="relative">
+                <img 
+                  src="/favicon.gif" 
+                  alt="Aptivon Solutions" 
+                  className="h-10 w-auto mr-3 filter drop-shadow-lg"
+                />
               </div>
               <h1 className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
                 Aptivon Solutions

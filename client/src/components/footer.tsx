@@ -28,9 +28,11 @@ export default function Footer() {
           {/* Company Info */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center mb-6">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center mr-3">
-                <span className="text-white font-bold text-lg">A</span>
-              </div>
+              <img 
+                src="/favicon.gif" 
+                alt="Aptivon Solutions" 
+                className="h-10 w-auto mr-3"
+              />
               <h3 className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                 Aptivon Solutions
               </h3>
