@@ -1,105 +1,94 @@
-import { motion } from "framer-motion";
+// Removed framer-motion import
 import { Card, CardContent } from "@/components/ui/card";
 import { Building, Heart, ShoppingCart, Factory, Video, Rocket, Users } from "lucide-react";
 
 export default function IndustriesSection() {
   const industries = [
     {
+      title: "Financial Services",
       icon: Building,
-      title: "FinTech & Banking",
-      description: "Secure, compliant financial technology solutions with advanced analytics and real-time processing capabilities.",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-      gradient: "from-primary to-secondary"
+      description: "Secure fintech solutions, payment processing, and regulatory compliance systems.",
+      features: ["Payment gateways", "Risk management", "Compliance automation"],
+      gradient: "from-blue-600 to-cyan-600"
     },
     {
-      icon: Heart,
       title: "Healthcare & Life Sciences",
-      description: "HIPAA-compliant healthcare solutions with AI-powered diagnostics and patient management systems.",
-      image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-      gradient: "from-success to-accent"
+      icon: Heart,
+      description: "HIPAA-compliant platforms, telemedicine solutions, and clinical data management.",
+      features: ["Patient portals", "EHR integration", "Clinical analytics"],
+      gradient: "from-green-600 to-emerald-600"
     },
     {
-      icon: ShoppingCart,
       title: "E-commerce & Retail",
-      description: "Scalable e-commerce platforms with personalized shopping experiences and advanced analytics.",
-      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-      gradient: "from-purple-500 to-pink-500"
+      icon: ShoppingCart,
+      description: "Scalable e-commerce platforms, inventory management, and customer analytics.",
+      features: ["Multi-channel sales", "Inventory optimization", "Customer insights"],
+      gradient: "from-purple-600 to-pink-600"
     },
     {
-      icon: Factory,
       title: "Manufacturing & IoT",
-      description: "Smart manufacturing solutions with IoT integration and predictive maintenance capabilities.",
-      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-      gradient: "from-orange-500 to-red-500"
+      icon: Factory,
+      description: "Smart factory solutions, predictive maintenance, and supply chain optimization.",
+      features: ["IoT sensors", "Predictive analytics", "Supply chain tracking"],
+      gradient: "from-orange-600 to-red-600"
     },
     {
-      icon: Video,
       title: "Media & Entertainment",
-      description: "Content management and streaming platforms with global CDN and real-time analytics.",
-      image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-      gradient: "from-indigo-500 to-purple-500"
+      icon: Video,
+      description: "Content management systems, streaming platforms, and audience engagement tools.",
+      features: ["Content delivery", "User engagement", "Analytics dashboards"],
+      gradient: "from-indigo-600 to-purple-600"
     },
     {
+      title: "Startups & SaaS",
       icon: Rocket,
-      title: "Startups & SMEs",
-      description: "Agile development solutions and cloud-native architectures for rapid scaling and growth.",
-      image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-      gradient: "from-green-500 to-blue-500"
+      description: "MVP development, scalable architectures, and rapid market deployment strategies.",
+      features: ["Rapid prototyping", "Scalable infrastructure", "Market validation"],
+      gradient: "from-emerald-600 to-teal-600"
     }
   ];
 
   return (
-    <section id="industries" className="py-24 bg-gradient-to-br from-gray-50 to-white">
+    <section id="industries" className="py-24 bg-gradient-to-br from-slate-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
-          <div className="inline-block px-6 py-3 bg-accent/10 rounded-full mb-6">
+        <div className="text-center mb-20">
+          <div className="inline-block px-8 py-4 bg-slate-100 rounded-2xl mb-8">
             <div className="flex items-center">
-              <Users className="w-4 h-4 text-accent mr-2" />
-              <span className="text-accent font-semibold text-sm">INDUSTRIES WE SERVE</span>
+              <Users className="w-5 h-5 text-slate-700 mr-3" />
+              <span className="text-slate-700 font-semibold text-base tracking-wide">INDUSTRIES WE SERVE</span>
             </div>
           </div>
-          <h2 className="text-5xl font-bold text-primary-dark mb-6 font-display">Industry Solutions</h2>
-          <p className="text-xl text-text-gray max-w-4xl mx-auto leading-relaxed">
+          <h2 className="text-5xl font-bold text-slate-900 mb-6 font-display">Industry Solutions</h2>
+          <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
             Tailored technology solutions across diverse industries, driving innovation and accelerating growth with industry-specific expertise.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {industries.map((industry, index) => (
-            <motion.div
-              key={industry.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
-              className="h-full"
-            >
-              <Card className="h-full glass-card hover:shadow-premium transition-all duration-500 border-0 shadow-modern group overflow-hidden hover-lift">
-                <CardContent className="p-0">
-                  <div className={`h-56 bg-gradient-to-br ${industry.gradient} flex items-center justify-center relative overflow-hidden`}>
-                    <div 
-                      className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-300"
-                      style={{
-                        backgroundImage: `url('${industry.image}')`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center"
-                      }}
-                    />
-                    <div className="absolute inset-0 bg-black/20"></div>
-                    <industry.icon className="text-white text-5xl relative z-10 group-hover:scale-110 transition-transform duration-300 animate-float" size={64} />
+            <div key={industry.title} className="h-full">
+              <Card className="h-full border-0 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-white group overflow-hidden">
+                <CardContent className="p-8 h-full flex flex-col">
+                  <div className={`w-16 h-16 bg-gradient-to-br ${industry.gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                    <industry.icon className="w-8 h-8 text-white" />
                   </div>
-                  <div className="p-8">
-                    <h3 className="text-xl font-bold text-primary-dark mb-4 group-hover:text-primary transition-colors font-display">{industry.title}</h3>
-                    <p className="text-text-gray leading-relaxed">{industry.description}</p>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-slate-700 transition-colors">
+                    {industry.title}
+                  </h3>
+                  <p className="text-slate-600 mb-6 leading-relaxed flex-grow">
+                    {industry.description}
+                  </p>
+                  <div className="space-y-3">
+                    {industry.features.map((feature, idx) => (
+                      <div key={idx} className="flex items-center text-slate-600">
+                        <div className="w-2 h-2 bg-slate-300 rounded-full mr-3 group-hover:bg-slate-400 transition-colors"></div>
+                        <span className="font-medium">{feature}</span>
+                      </div>
+                    ))}
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
