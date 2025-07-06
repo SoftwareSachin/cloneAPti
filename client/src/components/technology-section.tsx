@@ -5,32 +5,38 @@ export default function TechnologySection() {
     {
       title: "Cloud Infrastructure",
       icon: Server,
-      items: ["AWS, Azure, GCP", "Kubernetes Orchestration", "Serverless Computing", "Multi-Cloud Strategy"]
+      items: ["AWS, Azure, GCP", "Kubernetes Orchestration", "Serverless Computing", "Multi-Cloud Strategy"],
+      gradient: "from-blue-600 to-indigo-600"
     },
     {
       title: "Development Frameworks",
       icon: Code,
-      items: ["React, Next.js", "Node.js, Python", "TypeScript", "Microservices"]
+      items: ["React, Next.js", "Node.js, Python", "TypeScript", "Microservices"],
+      gradient: "from-green-600 to-emerald-600"
     },
     {
       title: "Data & Analytics",
       icon: Database,
-      items: ["PostgreSQL, MongoDB", "Redis Caching", "Data Warehouses", "Real-time Analytics"]
+      items: ["PostgreSQL, MongoDB", "Redis Caching", "Data Warehouses", "Real-time Analytics"],
+      gradient: "from-purple-600 to-violet-600"
     },
     {
       title: "Security & Compliance",
       icon: Shield,
-      items: ["Zero-Trust Architecture", "OAuth 2.0, SAML", "SOC 2 Compliance", "End-to-End Encryption"]
+      items: ["Zero-Trust Architecture", "OAuth 2.0, SAML", "SOC 2 Compliance", "End-to-End Encryption"],
+      gradient: "from-red-600 to-rose-600"
     },
     {
       title: "DevOps Automation",
       icon: Layers,
-      items: ["CI/CD Pipelines", "Infrastructure as Code", "Monitoring & Logging", "Auto-Scaling"]
+      items: ["CI/CD Pipelines", "Infrastructure as Code", "Monitoring & Logging", "Auto-Scaling"],
+      gradient: "from-orange-600 to-amber-600"
     },
     {
       title: "Performance",
       icon: Cpu,
-      items: ["Load Balancing", "CDN Optimization", "Database Indexing", "Caching Strategies"]
+      items: ["Load Balancing", "CDN Optimization", "Database Indexing", "Caching Strategies"],
+      gradient: "from-pink-600 to-rose-600"
     }
   ];
 

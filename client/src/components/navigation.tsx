@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Building2 } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import logoGif from "../assets/logo.gif";
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -31,9 +32,13 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-3">
-            <div className="flex items-center justify-center w-9 h-9 bg-slate-900 rounded-lg shadow-lg">
-              <Building2 className="w-5 h-5 text-white" />
-            </div>
+            <img 
+              src={logoGif} 
+              alt="Aptivon Solutions" 
+              className={`w-auto transition-all duration-300 ${
+                isScrolled ? 'h-8' : 'h-10'
+              }`}
+            />
             <div>
               <h1 className="text-xl font-bold text-slate-900 tracking-tight">
                 Aptivon Solutions

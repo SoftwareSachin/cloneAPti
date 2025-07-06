@@ -1,4 +1,5 @@
-import { Linkedin, Twitter, Github, Mail, Phone, Building2 } from "lucide-react";
+import { Linkedin, Twitter, Github, Mail, Phone } from "lucide-react";
+import logoGif from "../assets/logo.gif";
 
 export default function Footer() {
   const services = [
@@ -28,9 +29,11 @@ export default function Footer() {
           {/* Company Info */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-3 mb-6">
-              <div className="flex items-center justify-center w-9 h-9 bg-white rounded-lg">
-                <Building2 className="w-5 h-5 text-slate-900" />
-              </div>
+              <img 
+                src={logoGif} 
+                alt="Aptivon Solutions" 
+                className="h-10 w-auto"
+              />
               <div>
                 <h3 className="text-xl font-bold text-white">
                   Aptivon Solutions
