@@ -96,7 +96,6 @@ export default function Home() {
     {
       title: "E-commerce Platform Modernization",
       client: "Rajasthan Retail Chain",
-      budget: "₹25,00,000",
       duration: "6 months",
       technology: "React, Node.js, PostgreSQL",
       status: "Completed",
@@ -105,7 +104,6 @@ export default function Home() {
     {
       title: "Healthcare Management System",
       client: "Jaipur Medical Center",
-      budget: "₹18,00,000",
       duration: "4 months",
       technology: "Angular, .NET, SQL Server",
       status: "In Progress",
@@ -114,7 +112,6 @@ export default function Home() {
     {
       title: "Financial Analytics Dashboard",
       client: "Investment Firm India",
-      budget: "₹32,00,000",
       duration: "8 months",
       technology: "Python, React, MongoDB",
       status: "Completed",
@@ -360,10 +357,6 @@ export default function Home() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-slate-600">Budget:</span>
-                      <span className="font-medium text-slate-900">{project.budget}</span>
-                    </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-slate-600">Duration:</span>
                       <span className="font-medium text-slate-900">{project.duration}</span>
