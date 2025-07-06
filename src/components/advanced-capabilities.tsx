@@ -65,7 +65,7 @@ export default function AdvancedCapabilities() {
               whileHover={{ scale: 1.01 }}
               className="h-full"
             >
-              <Card className={`bg-gradient-to-br ${capability.gradient} p-10 rounded-3xl text-white h-full shadow-premium group overflow-hidden relative hover-lift`}>
+              <Card className={`bg-gradient-to-br ${capability.gradient} p-10 rounded-3xl text-white h-full shadow-premium group overflow-hidden relative`}>
                 <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
                 <CardContent className="p-0 relative z-10">
                   <div className="flex items-start mb-8">
