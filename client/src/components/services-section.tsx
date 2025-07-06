@@ -35,17 +35,20 @@ export default function ServicesSection() {
   ];
 
   return (
-    <section id="services" className="py-20 bg-light-gray">
+    <section id="services" className="py-24 bg-gradient-to-br from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <h2 className="text-4xl font-bold text-primary-dark mb-4">Core Services</h2>
-          <p className="text-xl text-text-gray max-w-3xl mx-auto">
-            Comprehensive technology solutions designed to accelerate your digital transformation journey.
+          <div className="inline-block px-6 py-3 bg-primary/10 rounded-full mb-6">
+            <span className="text-primary font-semibold text-sm">WHAT WE DO</span>
+          </div>
+          <h2 className="text-5xl font-bold text-primary-dark mb-6">Core Services</h2>
+          <p className="text-xl text-text-gray max-w-4xl mx-auto leading-relaxed">
+            Comprehensive technology solutions designed to accelerate your digital transformation journey with cutting-edge innovation.
           </p>
         </motion.div>
         
@@ -56,17 +59,23 @@ export default function ServicesSection() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
+              whileHover={{ y: -10 }}
+              className="h-full"
             >
-              <Card className="h-full hover:shadow-xl transition-shadow duration-300">
-                <CardContent className="p-8">
-                  <div className={`w-16 h-16 bg-gradient-to-br ${service.gradient} rounded-lg flex items-center justify-center mb-6`}>
+              <Card className="h-full hover:shadow-modern-lg transition-all duration-500 border-0 shadow-modern group">
+                <CardContent className="p-8 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/5 to-transparent rounded-full -mr-16 -mt-16"></div>
+                  <div className={`w-16 h-16 bg-gradient-to-br ${service.gradient} rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                     <service.icon className="text-white text-2xl" size={32} />
                   </div>
-                  <h3 className="text-xl font-semibold text-primary-dark mb-4">{service.title}</h3>
-                  <p className="text-text-gray mb-6">{service.description}</p>
-                  <ul className="text-sm text-text-gray space-y-2">
+                  <h3 className="text-xl font-bold text-primary-dark mb-4 group-hover:text-primary transition-colors">{service.title}</h3>
+                  <p className="text-text-gray mb-6 leading-relaxed">{service.description}</p>
+                  <ul className="text-sm text-text-gray space-y-3">
                     {service.features.map((feature, idx) => (
-                      <li key={idx}>• {feature}</li>
+                      <li key={idx} className="flex items-center">
+                        <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                        {feature}
+                      </li>
                     ))}
                   </ul>
                 </CardContent>

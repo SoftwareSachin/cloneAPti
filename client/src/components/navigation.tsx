@@ -15,47 +15,49 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="bg-white shadow-lg sticky top-0 z-50">
+    <nav className="bg-white/80 backdrop-blur-lg shadow-modern sticky top-0 z-50 border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-20">
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <h1 className="text-2xl font-bold text-primary">Aptivon Solutions</h1>
+              <h1 className="text-2xl font-bold gradient-primary bg-clip-text text-transparent">
+                Aptivon Solutions
+              </h1>
             </div>
           </div>
           
           {/* Desktop Navigation */}
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
+            <div className="ml-10 flex items-center space-x-8">
               <button
                 onClick={() => scrollToSection("services")}
-                className="text-gray-700 hover:text-primary px-3 py-2 text-sm font-medium transition-colors"
+                className="text-gray-700 hover:text-primary px-4 py-2 text-sm font-medium transition-all duration-300 hover:scale-105"
               >
                 Services
               </button>
               <button
                 onClick={() => scrollToSection("technology")}
-                className="text-gray-700 hover:text-primary px-3 py-2 text-sm font-medium transition-colors"
+                className="text-gray-700 hover:text-primary px-4 py-2 text-sm font-medium transition-all duration-300 hover:scale-105"
               >
                 Technology
               </button>
               <button
                 onClick={() => scrollToSection("industries")}
-                className="text-gray-700 hover:text-primary px-3 py-2 text-sm font-medium transition-colors"
+                className="text-gray-700 hover:text-primary px-4 py-2 text-sm font-medium transition-all duration-300 hover:scale-105"
               >
                 Industries
               </button>
               <button
                 onClick={() => scrollToSection("approach")}
-                className="text-gray-700 hover:text-primary px-3 py-2 text-sm font-medium transition-colors"
+                className="text-gray-700 hover:text-primary px-4 py-2 text-sm font-medium transition-all duration-300 hover:scale-105"
               >
                 Approach
               </button>
               <Button
                 onClick={() => scrollToSection("contact")}
-                className="bg-primary text-white hover:bg-primary-dark transition-colors"
+                className="gradient-primary text-white hover:shadow-lg transition-all duration-300 hover:scale-105 px-6 py-3 rounded-full"
               >
-                Contact
+                Get Started
               </Button>
             </div>
           </div>

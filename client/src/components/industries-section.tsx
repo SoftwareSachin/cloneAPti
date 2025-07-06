@@ -49,17 +49,20 @@ export default function IndustriesSection() {
   ];
 
   return (
-    <section id="industries" className="py-20 bg-light-gray">
+    <section id="industries" className="py-24 bg-gradient-to-br from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <h2 className="text-4xl font-bold text-primary-dark mb-4">Industry Solutions</h2>
-          <p className="text-xl text-text-gray max-w-3xl mx-auto">
-            Tailored technology solutions across diverse industries, driving innovation and growth.
+          <div className="inline-block px-6 py-3 bg-accent/10 rounded-full mb-6">
+            <span className="text-accent font-semibold text-sm">INDUSTRIES WE SERVE</span>
+          </div>
+          <h2 className="text-5xl font-bold text-primary-dark mb-6">Industry Solutions</h2>
+          <p className="text-xl text-text-gray max-w-4xl mx-auto leading-relaxed">
+            Tailored technology solutions across diverse industries, driving innovation and accelerating growth with industry-specific expertise.
           </p>
         </motion.div>
 
@@ -70,22 +73,27 @@ export default function IndustriesSection() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
+              whileHover={{ y: -10 }}
+              className="h-full"
             >
-              <Card className="h-full hover:shadow-xl transition-shadow duration-300">
-                <CardContent className="p-8">
-                  <div className={`h-48 bg-gradient-to-br ${industry.gradient} rounded-lg mb-6 flex items-center justify-center relative overflow-hidden`}>
+              <Card className="h-full hover:shadow-modern-lg transition-all duration-500 border-0 shadow-modern group overflow-hidden">
+                <CardContent className="p-0">
+                  <div className={`h-56 bg-gradient-to-br ${industry.gradient} flex items-center justify-center relative overflow-hidden`}>
                     <div 
-                      className="absolute inset-0 opacity-30"
+                      className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-300"
                       style={{
                         backgroundImage: `url('${industry.image}')`,
                         backgroundSize: "cover",
                         backgroundPosition: "center"
                       }}
                     />
-                    <industry.icon className="text-white text-4xl relative z-10" size={48} />
+                    <div className="absolute inset-0 bg-black/20"></div>
+                    <industry.icon className="text-white text-5xl relative z-10 group-hover:scale-110 transition-transform duration-300" size={64} />
                   </div>
-                  <h3 className="text-xl font-semibold text-primary-dark mb-4">{industry.title}</h3>
-                  <p className="text-text-gray">{industry.description}</p>
+                  <div className="p-8">
+                    <h3 className="text-xl font-bold text-primary-dark mb-4 group-hover:text-primary transition-colors">{industry.title}</h3>
+                    <p className="text-text-gray leading-relaxed">{industry.description}</p>
+                  </div>
                 </CardContent>
               </Card>
             </motion.div>

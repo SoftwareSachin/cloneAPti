@@ -1,8 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
   --background: hsl(0, 0%, 100%);
@@ -15,21 +15,21 @@
   --card-foreground: hsl(222, 84%, 4.9%);
   --border: hsl(214, 32%, 91%);
   --input: hsl(214, 32%, 91%);
-  --primary: hsl(220, 91%, 50%);
-  --primary-foreground: hsl(220, 100%, 99%);
+  --primary: hsl(236, 100%, 63%);
+  --primary-foreground: hsl(0, 0%, 100%);
   --primary-dark: hsl(222, 84%, 4.9%);
-  --secondary: hsl(217, 91%, 60%);
-  --secondary-foreground: hsl(222, 84%, 4.9%);
-  --accent: hsl(188, 95%, 42%);
-  --accent-foreground: hsl(220, 100%, 99%);
+  --secondary: hsl(250, 100%, 70%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --accent: hsl(199, 89%, 48%);
+  --accent-foreground: hsl(0, 0%, 100%);
   --success: hsl(142, 71%, 45%);
   --success-foreground: hsl(142, 100%, 99%);
   --destructive: hsl(0, 84%, 60%);
   --destructive-foreground: hsl(60, 9%, 98%);
-  --ring: hsl(220, 91%, 50%);
+  --ring: hsl(236, 100%, 63%);
   --light-gray: hsl(210, 40%, 98%);
   --text-gray: hsl(215, 13.8%, 34.1%);
-  --radius: 0.5rem;
+  --radius: 0.75rem;
 }
 
 .dark {
@@ -67,10 +67,40 @@
   body {
     @apply font-inter antialiased bg-background text-foreground;
     font-family: 'Inter', sans-serif;
+    line-height: 1.6;
   }
 
   html {
     scroll-behavior: smooth;
+  }
+
+  /* Modern gradients */
+  .gradient-primary {
+    background: linear-gradient(135deg, hsl(236, 100%, 63%) 0%, hsl(250, 100%, 70%) 100%);
+  }
+  
+  .gradient-secondary {
+    background: linear-gradient(135deg, hsl(199, 89%, 48%) 0%, hsl(236, 100%, 63%) 100%);
+  }
+  
+  .gradient-accent {
+    background: linear-gradient(135deg, hsl(250, 100%, 70%) 0%, hsl(199, 89%, 48%) 100%);
+  }
+
+  /* Modern blur effects */
+  .glass-effect {
+    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  /* Improved shadows */
+  .shadow-modern {
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+  }
+
+  .shadow-modern-lg {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   }
 }
 

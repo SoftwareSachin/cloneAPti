@@ -29,17 +29,20 @@ export default function TechnologySection() {
   ];
 
   return (
-    <section id="technology" className="py-20 bg-white">
+    <section id="technology" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <h2 className="text-4xl font-bold text-primary-dark mb-4">Technology Expertise</h2>
-          <p className="text-xl text-text-gray max-w-3xl mx-auto">
-            Leveraging cutting-edge technologies to deliver robust, scalable solutions.
+          <div className="inline-block px-6 py-3 bg-secondary/10 rounded-full mb-6">
+            <span className="text-secondary font-semibold text-sm">TECHNOLOGY STACK</span>
+          </div>
+          <h2 className="text-5xl font-bold text-primary-dark mb-6">Technology Expertise</h2>
+          <p className="text-xl text-text-gray max-w-4xl mx-auto leading-relaxed">
+            Leveraging cutting-edge technologies to deliver robust, scalable solutions that drive innovation and growth.
           </p>
         </motion.div>
 
@@ -47,31 +50,33 @@ export default function TechnologySection() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="relative bg-gradient-to-r from-primary-dark to-primary rounded-2xl p-12 mb-12"
+          className="relative gradient-primary rounded-3xl p-16 mb-12 shadow-modern-lg overflow-hidden"
         >
-          <div 
-            className="absolute inset-0 opacity-10 rounded-2xl"
-            style={{
-              backgroundImage: "url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&h=1080')",
-              backgroundSize: "cover",
-              backgroundPosition: "center"
-            }}
-          />
+          {/* Modern geometric background */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-0 left-0 w-40 h-40 bg-white rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 right-0 w-60 h-60 bg-accent rounded-full blur-3xl"></div>
+          </div>
           
-          <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             {technologies.map((tech, index) => (
               <motion.div
                 key={tech.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="text-center"
+                className="text-center group"
               >
-                <h3 className="text-xl font-semibold text-white mb-4">{tech.title}</h3>
-                <div className="space-y-2 text-gray-200">
-                  {tech.items.map((item, idx) => (
-                    <p key={idx}>{item}</p>
-                  ))}
+                <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-8 border border-white/30 group-hover:bg-white/30 transition-all duration-300">
+                  <h3 className="text-2xl font-bold text-white mb-6 group-hover:scale-105 transition-transform">{tech.title}</h3>
+                  <div className="space-y-3 text-white/90">
+                    {tech.items.map((item, idx) => (
+                      <div key={idx} className="flex items-center justify-center">
+                        <div className="w-2 h-2 bg-white rounded-full mr-3"></div>
+                        <p className="font-medium">{item}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </motion.div>
             ))}

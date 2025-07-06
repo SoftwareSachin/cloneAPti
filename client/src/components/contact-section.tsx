@@ -79,17 +79,26 @@ export default function ContactSection() {
   ];
 
   return (
-    <section id="contact" className="py-20 bg-primary-dark text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact" className="py-24 gradient-primary text-white relative overflow-hidden">
+      {/* Background effects */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-accent rounded-full blur-3xl"></div>
+      </div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <h2 className="text-4xl font-bold mb-4">Let's Get Started</h2>
-          <p className="text-xl max-w-3xl mx-auto">
-            Ready to transform your business with intelligent technology? Contact us for a consultation.
+          <div className="inline-block px-6 py-3 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 mb-6">
+            <span className="text-white font-semibold text-sm">GET IN TOUCH</span>
+          </div>
+          <h2 className="text-5xl md:text-6xl font-bold mb-6">Let's Build Something Amazing</h2>
+          <p className="text-xl max-w-4xl mx-auto text-white/90 leading-relaxed">
+            Ready to transform your business with intelligent technology? Let's discuss your vision and create solutions that drive real results.
           </p>
         </motion.div>
 
@@ -129,9 +138,9 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Card className="bg-white text-gray-900">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-semibold mb-6">Send us a Message</h3>
+            <Card className="bg-white/95 backdrop-blur-lg text-gray-900 border-0 shadow-modern-lg">
+              <CardContent className="p-10">
+                <h3 className="text-3xl font-bold mb-8 text-primary-dark">Send us a Message</h3>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
@@ -143,7 +152,7 @@ export default function ContactSection() {
                       />
                       {errors.firstName && (
                         <p className="text-red-500 text-sm mt-1">
-                          {errors.firstName.message}
+                          {String(errors.firstName.message)}
                         </p>
                       )}
                     </div>
@@ -156,7 +165,7 @@ export default function ContactSection() {
                       />
                       {errors.lastName && (
                         <p className="text-red-500 text-sm mt-1">
-                          {errors.lastName.message}
+                          {String(errors.lastName.message)}
                         </p>
                       )}
                     </div>
@@ -172,7 +181,7 @@ export default function ContactSection() {
                     />
                     {errors.email && (
                       <p className="text-red-500 text-sm mt-1">
-                        {errors.email.message}
+                        {String(errors.email.message)}
                       </p>
                     )}
                   </div>
@@ -186,7 +195,7 @@ export default function ContactSection() {
                     />
                     {errors.company && (
                       <p className="text-red-500 text-sm mt-1">
-                        {errors.company.message}
+                        {String(errors.company.message)}
                       </p>
                     )}
                   </div>
@@ -218,7 +227,7 @@ export default function ContactSection() {
                     />
                     {errors.message && (
                       <p className="text-red-500 text-sm mt-1">
-                        {errors.message.message}
+                        {String(errors.message.message)}
                       </p>
                     )}
                   </div>

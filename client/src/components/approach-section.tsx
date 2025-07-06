@@ -42,17 +42,20 @@ export default function ApproachSection() {
   ];
 
   return (
-    <section id="approach" className="py-20 bg-light-gray">
+    <section id="approach" className="py-24 bg-gradient-to-br from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <h2 className="text-4xl font-bold text-primary-dark mb-4">Our Approach</h2>
-          <p className="text-xl text-text-gray max-w-3xl mx-auto">
-            A proven methodology that ensures successful delivery and long-term value.
+          <div className="inline-block px-6 py-3 bg-primary/10 rounded-full mb-6">
+            <span className="text-primary font-semibold text-sm">OUR METHODOLOGY</span>
+          </div>
+          <h2 className="text-5xl font-bold text-primary-dark mb-6">Proven Approach</h2>
+          <p className="text-xl text-text-gray max-w-4xl mx-auto leading-relaxed">
+            A systematic methodology that ensures successful delivery, exceptional quality, and measurable long-term value for your business.
           </p>
         </motion.div>
 
@@ -90,14 +93,17 @@ export default function ApproachSection() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
+              whileHover={{ y: -5 }}
+              className="h-full"
             >
-              <Card className="h-full hover:shadow-xl transition-shadow duration-300">
-                <CardContent className="p-8">
-                  <div className={`w-12 h-12 ${approach.color} rounded-lg flex items-center justify-center mb-6`}>
-                    <span className="text-white font-bold text-lg">{approach.number}</span>
+              <Card className="h-full hover:shadow-modern-lg transition-all duration-500 border-0 shadow-modern group relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-primary/10 to-transparent rounded-full -mr-12 -mt-12"></div>
+                <CardContent className="p-8 relative z-10">
+                  <div className={`w-16 h-16 ${approach.color} rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                    <span className="text-white font-bold text-xl">{approach.number}</span>
                   </div>
-                  <h3 className="text-xl font-semibold text-primary-dark mb-4">{approach.title}</h3>
-                  <p className="text-text-gray">{approach.description}</p>
+                  <h3 className="text-xl font-bold text-primary-dark mb-4 group-hover:text-primary transition-colors">{approach.title}</h3>
+                  <p className="text-text-gray leading-relaxed">{approach.description}</p>
                 </CardContent>
               </Card>
             </motion.div>
