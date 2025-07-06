@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Linkedin, Twitter, Github } from "lucide-react";
+import logoPath from "@assets/fetchpik.com-iconscout-bRKW4qijJe_1751778748695.gif";
 
 export default function Footer() {
   const services = [
@@ -23,10 +24,10 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-gradient-to-r from-primary-dark to-primary text-white py-16 relative overflow-hidden">
+    <footer className="bg-gray-900 text-white py-16 relative overflow-hidden border-t border-gray-800">
       {/* Background effects */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-accent rounded-full blur-3xl"></div>
       </div>
       
@@ -39,9 +40,18 @@ export default function Footer() {
             transition={{ duration: 0.6 }}
             className="col-span-1 md:col-span-2"
           >
-            <h3 className="text-3xl font-bold mb-6 bg-gradient-to-r from-white to-accent bg-clip-text text-transparent">
-              Aptivon Solutions Pvt. Ltd.
-            </h3>
+            <div className="flex items-center mb-6">
+              <div className="relative">
+                <img 
+                  src={logoPath} 
+                  alt="Aptivon Solutions" 
+                  className="h-10 w-auto mr-3 filter drop-shadow-lg"
+                />
+              </div>
+              <h3 className="text-3xl font-bold text-white">
+                Aptivon Solutions Pvt. Ltd.
+              </h3>
+            </div>
             <p className="text-white/80 mb-6 text-lg leading-relaxed">
               Empowering businesses with end-to-end technology solutions combining Cloud, DevOps, AI/ML, and cutting-edge application development.
             </p>

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Zap } from "lucide-react";
 
 export default function HeroSection() {
   const scrollToSection = (sectionId: string) => {
@@ -42,8 +42,11 @@ export default function HeroSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mb-8"
           >
-            <div className="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 mb-6">
-              <span className="text-white text-sm font-medium">🚀 Leading IT Innovation Since 2024</span>
+            <div className="inline-block px-6 py-3 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 mb-6">
+              <div className="flex items-center">
+                <Zap className="w-4 h-4 text-white mr-2" />
+                <span className="text-white text-sm font-medium">Leading IT Innovation Since 2024</span>
+              </div>
             </div>
           </motion.div>
           

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { motion } from "framer-motion";
+import logoPath from "@assets/fetchpik.com-iconscout-bRKW4qijJe_1751778748695.gif";
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,7 +20,14 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <div className="flex items-center">
-            <div className="flex-shrink-0">
+            <div className="flex-shrink-0 flex items-center">
+              <div className="relative">
+                <img 
+                  src={logoPath} 
+                  alt="Aptivon Solutions" 
+                  className="h-12 w-auto mr-3 filter drop-shadow-lg"
+                />
+              </div>
               <h1 className="text-2xl font-bold gradient-primary bg-clip-text text-transparent">
                 Aptivon Solutions
               </h1>

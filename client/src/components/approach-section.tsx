@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
+import { TrendingUp } from "lucide-react";
 
 export default function ApproachSection() {
   const approaches = [
@@ -51,7 +52,10 @@ export default function ApproachSection() {
           className="text-center mb-20"
         >
           <div className="inline-block px-6 py-3 bg-primary/10 rounded-full mb-6">
-            <span className="text-primary font-semibold text-sm">OUR METHODOLOGY</span>
+            <div className="flex items-center">
+              <TrendingUp className="w-4 h-4 text-primary mr-2" />
+              <span className="text-primary font-semibold text-sm">OUR METHODOLOGY</span>
+            </div>
           </div>
           <h2 className="text-5xl font-bold text-primary-dark mb-6">Proven Approach</h2>
           <p className="text-xl text-text-gray max-w-4xl mx-auto leading-relaxed">

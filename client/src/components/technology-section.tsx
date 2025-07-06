@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Cpu } from "lucide-react";
 
 export default function TechnologySection() {
   const technologies = [
@@ -38,7 +39,10 @@ export default function TechnologySection() {
           className="text-center mb-20"
         >
           <div className="inline-block px-6 py-3 bg-secondary/10 rounded-full mb-6">
-            <span className="text-secondary font-semibold text-sm">TECHNOLOGY STACK</span>
+            <div className="flex items-center">
+              <Cpu className="w-4 h-4 text-secondary mr-2" />
+              <span className="text-secondary font-semibold text-sm">TECHNOLOGY STACK</span>
+            </div>
           </div>
           <h2 className="text-5xl font-bold text-primary-dark mb-6">Technology Expertise</h2>
           <p className="text-xl text-text-gray max-w-4xl mx-auto leading-relaxed">

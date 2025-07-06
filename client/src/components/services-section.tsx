@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
-import { Cloud, GitBranch, Brain, Smartphone } from "lucide-react";
+import { Cloud, GitBranch, Brain, Smartphone, Target } from "lucide-react";
 
 export default function ServicesSection() {
   const services = [
@@ -44,7 +44,10 @@ export default function ServicesSection() {
           className="text-center mb-20"
         >
           <div className="inline-block px-6 py-3 bg-primary/10 rounded-full mb-6">
-            <span className="text-primary font-semibold text-sm">WHAT WE DO</span>
+            <div className="flex items-center">
+              <Target className="w-4 h-4 text-primary mr-2" />
+              <span className="text-primary font-semibold text-sm">WHAT WE DO</span>
+            </div>
           </div>
           <h2 className="text-5xl font-bold text-primary-dark mb-6">Core Services</h2>
           <p className="text-xl text-text-gray max-w-4xl mx-auto leading-relaxed">

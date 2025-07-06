@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
-import { Lightbulb, Settings, Server, Palette } from "lucide-react";
+import { Lightbulb, Settings, Server, Palette, Star } from "lucide-react";
 
 export default function AdvancedCapabilities() {
   const capabilities = [
@@ -44,7 +44,10 @@ export default function AdvancedCapabilities() {
           className="text-center mb-20"
         >
           <div className="inline-block px-6 py-3 bg-success/10 rounded-full mb-6">
-            <span className="text-success font-semibold text-sm">ADVANCED CAPABILITIES</span>
+            <div className="flex items-center">
+              <Star className="w-4 h-4 text-success mr-2" />
+              <span className="text-success font-semibold text-sm">ADVANCED CAPABILITIES</span>
+            </div>
           </div>
           <h2 className="text-5xl font-bold text-primary-dark mb-6">Innovation at Scale</h2>
           <p className="text-xl text-text-gray max-w-4xl mx-auto leading-relaxed">

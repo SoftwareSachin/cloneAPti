@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Mail, Phone, Globe } from "lucide-react";
+import { Mail, Phone, Globe, Sparkles } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { insertContactSchema } from "@shared/schema";
@@ -94,7 +94,10 @@ export default function ContactSection() {
           className="text-center mb-20"
         >
           <div className="inline-block px-6 py-3 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 mb-6">
-            <span className="text-white font-semibold text-sm">GET IN TOUCH</span>
+            <div className="flex items-center">
+              <Sparkles className="w-4 h-4 text-white mr-2" />
+              <span className="text-white font-semibold text-sm">GET IN TOUCH</span>
+            </div>
           </div>
           <h2 className="text-5xl md:text-6xl font-bold mb-6">Let's Build Something Amazing</h2>
           <p className="text-xl max-w-4xl mx-auto text-white/90 leading-relaxed">
@@ -111,15 +114,20 @@ export default function ContactSection() {
             className="space-y-8"
           >
             {contactInfo.map((info, index) => (
-              <div key={info.title} className="flex items-center">
-                <div className="w-12 h-12 bg-accent rounded-lg flex items-center justify-center mr-4">
-                  <info.icon className="text-xl" />
+              <motion.div 
+                key={info.title} 
+                className="flex items-center group"
+                whileHover={{ x: 10 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mr-6 group-hover:bg-white/30 transition-all duration-300 border border-white/30">
+                  <info.icon className="text-2xl text-white" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold">{info.title}</h3>
-                  <p className="text-gray-300">{info.value}</p>
+                  <h3 className="text-xl font-semibold text-white">{info.title}</h3>
+                  <p className="text-white/80 font-medium">{info.value}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
 
             <div className="mt-8">

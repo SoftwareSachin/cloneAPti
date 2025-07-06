@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
-import { Building, Heart, ShoppingCart, Factory, Video, Rocket } from "lucide-react";
+import { Building, Heart, ShoppingCart, Factory, Video, Rocket, Users } from "lucide-react";
 
 export default function IndustriesSection() {
   const industries = [
@@ -58,7 +58,10 @@ export default function IndustriesSection() {
           className="text-center mb-20"
         >
           <div className="inline-block px-6 py-3 bg-accent/10 rounded-full mb-6">
-            <span className="text-accent font-semibold text-sm">INDUSTRIES WE SERVE</span>
+            <div className="flex items-center">
+              <Users className="w-4 h-4 text-accent mr-2" />
+              <span className="text-accent font-semibold text-sm">INDUSTRIES WE SERVE</span>
+            </div>
           </div>
           <h2 className="text-5xl font-bold text-primary-dark mb-6">Industry Solutions</h2>
           <p className="text-xl text-text-gray max-w-4xl mx-auto leading-relaxed">
