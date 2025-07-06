@@ -2,6 +2,8 @@ import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import DownloadModal from "@/components/download-modal";
+import WebinarModal from "@/components/webinar-modal";
 import { useState, useMemo } from "react";
 import { 
   FileText, 
@@ -18,7 +20,8 @@ import {
   Cpu,
   Database,
   Filter,
-  X
+  X,
+  ExternalLink
 } from "lucide-react";
 
 const WHITEPAPERS_DATA = [
@@ -213,6 +216,11 @@ export default function Resources() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedType, setSelectedType] = useState("all");
+  const [downloadModal, setDownloadModal] = useState<{isOpen: boolean; resource: any}>({isOpen: false, resource: null});
+  const [webinarModal, setWebinarModal] = useState<{isOpen: boolean; webinar: any}>({isOpen: false, webinar: null});
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [newsletterMessage, setNewsletterMessage] = useState("");
+  const [isSubscribing, setIsSubscribing] = useState(false);
 
   // Combine all data sources
   const allResources = [...WHITEPAPERS_DATA, ...WEBINARS_DATA, ...CASE_STUDIES_DATA, ...TOOLS_DATA];
@@ -237,29 +245,47 @@ export default function Resources() {
 
   // Handle download action
   const handleDownload = (resource: any) => {
-    if (resource.downloadUrl) {
-      // In a real app, this would trigger actual file download
-      alert(`Downloading: ${resource.title}`);
-      console.log(`Download URL: ${resource.downloadUrl}`);
-    }
+    setDownloadModal({isOpen: true, resource});
   };
 
   // Handle webinar registration/access
   const handleWebinarAccess = (webinar: any) => {
-    if (webinar.status === 'upcoming' && webinar.registrationUrl) {
-      alert(`Redirecting to registration for: ${webinar.title}`);
-      console.log(`Registration URL: ${webinar.registrationUrl}`);
-    } else if (webinar.status === 'recorded' && webinar.recordingUrl) {
-      alert(`Opening recording for: ${webinar.title}`);
-      console.log(`Recording URL: ${webinar.recordingUrl}`);
-    }
+    setWebinarModal({isOpen: true, webinar});
   };
 
   // Handle tool access
   const handleToolAccess = (tool: any) => {
-    if (tool.accessUrl) {
-      alert(`Opening tool: ${tool.title}`);
-      console.log(`Tool URL: ${tool.accessUrl}`);
+    // For tools, we can directly navigate or show in new tab
+    window.open(tool.accessUrl, '_blank');
+  };
+
+  // Handle newsletter subscription
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubscribing(true);
+    setNewsletterMessage("");
+
+    try {
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: newsletterEmail }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setNewsletterMessage("Successfully subscribed to newsletter!");
+        setNewsletterEmail("");
+      } else {
+        setNewsletterMessage(data.message || "Failed to subscribe");
+      }
+    } catch (error) {
+      setNewsletterMessage("An error occurred. Please try again.");
+    } finally {
+      setIsSubscribing(false);
     }
   };
 
@@ -526,9 +552,12 @@ export default function Resources() {
                         <div className="flex justify-between items-center text-sm text-slate-500 mb-4">
                           <span>{study.date}</span>
                         </div>
-                        <Button className="w-full bg-slate-900 hover:bg-slate-800 text-white">
+                        <Button 
+                          className="w-full bg-slate-900 hover:bg-slate-800 text-white"
+                          onClick={() => window.open(`/case-studies/${study.id}`, '_blank')}
+                        >
                           Read Case Study
-                          <BookOpen className="ml-2 h-4 w-4" />
+                          <ExternalLink className="ml-2 h-4 w-4" />
                         </Button>
                       </div>
                     ))}
@@ -581,19 +610,32 @@ export default function Resources() {
           <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
             Subscribe to our newsletter for the latest whitepapers, webinars, and technology insights.
           </p>
-          <div className="max-w-md mx-auto flex gap-4">
-            <Input 
-              placeholder="Enter your email" 
-              className="flex-1 bg-white"
-              type="email"
-            />
-            <Button 
-              className="bg-white text-slate-900 hover:bg-slate-100"
-              onClick={() => alert("Newsletter subscription functionality would be implemented here!")}
-            >
-              Subscribe
-            </Button>
-          </div>
+          <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto">
+            <div className="flex gap-4 mb-4">
+              <Input 
+                placeholder="Enter your email" 
+                className="flex-1 bg-white"
+                type="email"
+                value={newsletterEmail}
+                onChange={(e) => setNewsletterEmail(e.target.value)}
+                required
+              />
+              <Button 
+                type="submit"
+                className="bg-white text-slate-900 hover:bg-slate-100"
+                disabled={isSubscribing}
+              >
+                {isSubscribing ? "..." : "Subscribe"}
+              </Button>
+            </div>
+            {newsletterMessage && (
+              <div className={`text-sm text-center p-2 rounded ${
+                newsletterMessage.includes("Success") ? "text-green-300" : "text-red-300"
+              }`}>
+                {newsletterMessage}
+              </div>
+            )}
+          </form>
           <p className="text-sm text-slate-400 mt-4">
             Join 5,000+ professionals already receiving our weekly insights
           </p>
@@ -601,6 +643,19 @@ export default function Resources() {
       </section>
       
       <Footer />
+      
+      {/* Modals */}
+      <DownloadModal 
+        isOpen={downloadModal.isOpen}
+        onClose={() => setDownloadModal({isOpen: false, resource: null})}
+        resource={downloadModal.resource}
+      />
+      
+      <WebinarModal 
+        isOpen={webinarModal.isOpen}
+        onClose={() => setWebinarModal({isOpen: false, webinar: null})}
+        webinar={webinarModal.webinar}
+      />
     </div>
   );
 }
