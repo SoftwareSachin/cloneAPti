@@ -4,11 +4,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Disable all animations */
-*, *::before, *::after {
-  animation-duration: 0s !important;
-  animation-delay: 0s !important;
-  transition-duration: 0s !important;
+/* Enable smooth transitions */
+* {
+  transition-duration: 0.3s;
 }
 
 :root {

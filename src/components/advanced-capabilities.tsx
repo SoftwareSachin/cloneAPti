@@ -8,14 +8,14 @@ export default function AdvancedCapabilities() {
       title: "Innovation Lab & PoC Accelerator",
       description: "Rapid prototyping workshops for AR/VR, IoT and emerging technologies—validate new ideas in days, not months.",
       features: ["AR/VR prototype development", "IoT solution validation", "Emerging tech experimentation"],
-      gradient: "from-accent to-primary"
+      gradient: "from-blue-600 to-purple-600"
     },
     {
       icon: Settings,
       title: "Platform Engineering Practice",
       description: "Internal developer platforms empowering teams with self-service infrastructure and standardized toolchains.",
       features: ["Self-service infrastructure", "Standardized toolchains", "Productivity boosters"],
-      gradient: "from-success to-accent"
+      gradient: "from-green-600 to-blue-600"
     },
     {
       icon: Server,
@@ -29,7 +29,7 @@ export default function AdvancedCapabilities() {
       title: "Digital Experience Studio",
       description: "UX research, design-thinking sprints, and interactive prototypes for seamless customer journeys.",
       features: ["UX research & design sprints", "Headless CMS pipelines", "Interactive prototypes"],
-      gradient: "from-primary to-secondary"
+      gradient: "from-purple-600 to-pink-600"
     }
   ];
 
@@ -37,14 +37,14 @@ export default function AdvancedCapabilities() {
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-20">
-          <div className="inline-block px-6 py-3 bg-success/10 rounded-full mb-6">
+          <div className="inline-block px-6 py-3 bg-green-100 rounded-full mb-6">
             <div className="flex items-center">
-              <Star className="w-4 h-4 text-success mr-2" />
-              <span className="text-success font-semibold text-sm">ADVANCED CAPABILITIES</span>
+              <Star className="w-4 h-4 text-green-600 mr-2" />
+              <span className="text-green-600 font-semibold text-sm">ADVANCED CAPABILITIES</span>
             </div>
           </div>
-          <h2 className="text-5xl font-bold text-primary-dark mb-6 font-display">Innovation at Scale</h2>
-          <p className="text-xl text-text-gray max-w-4xl mx-auto leading-relaxed">
+          <h2 className="text-5xl font-bold text-gray-900 mb-6">Innovation at Scale</h2>
+          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
             Cutting-edge innovations and specialized services designed to give your business a distinctive competitive advantage in the market.
           </p>
         </div>
