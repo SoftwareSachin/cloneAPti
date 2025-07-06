@@ -74,7 +74,7 @@ export default function TechnologySection() {
               <div className="bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border border-gray-100 group-hover:border-gray-200 relative overflow-hidden">
                 <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${tech.gradient} opacity-10 rounded-full -mr-16 -mt-16`}></div>
                 
-                <div className={`w-16 h-16 bg-gradient-to-br ${tech.gradient} rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                <div className={`w-16 h-16 bg-gradient-to-br ${tech.gradient} rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-105 transition-transform duration-300`}>
                   <tech.icon className="text-white" size={32} />
                 </div>
                 
