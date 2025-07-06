@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import { motion } from "framer-motion";
-import logoPath from "@assets/fetchpik.com-iconscout-bRKW4qijJe_1751778748695.gif";
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,19 +14,15 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="bg-white/95 backdrop-blur-xl shadow-2xl sticky top-0 z-50 border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+    <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200/50 shadow-lg">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
             <div className="flex-shrink-0 flex items-center">
-              <div className="relative">
-                <img 
-                  src={logoPath} 
-                  alt="Aptivon Solutions" 
-                  className="h-12 w-auto mr-3 filter drop-shadow-lg"
-                />
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center mr-3">
+                <span className="text-white font-bold text-lg">A</span>
               </div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent font-display">
+              <h1 className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
                 Aptivon Solutions
               </h1>
             </div>
@@ -36,34 +30,34 @@ export default function Navigation() {
           
           {/* Desktop Navigation */}
           <div className="hidden md:block">
-            <div className="ml-10 flex items-center space-x-8">
+            <div className="flex items-center space-x-8">
               <button
                 onClick={() => scrollToSection("services")}
-                className="text-slate-600 hover:text-slate-900 px-4 py-2 text-base font-semibold transition-all duration-300 hover:scale-105"
+                className="text-gray-700 hover:text-blue-600 transition-colors duration-300 font-medium"
               >
                 Services
               </button>
               <button
-                onClick={() => scrollToSection("technology")}
-                className="text-slate-600 hover:text-slate-900 px-4 py-2 text-base font-semibold transition-all duration-300 hover:scale-105"
+                onClick={() => scrollToSection("team")}
+                className="text-gray-700 hover:text-blue-600 transition-colors duration-300 font-medium"
               >
-                Technology
+                Team
+              </button>
+              <button
+                onClick={() => scrollToSection("technologies")}
+                className="text-gray-700 hover:text-blue-600 transition-colors duration-300 font-medium"
+              >
+                Technologies
               </button>
               <button
                 onClick={() => scrollToSection("industries")}
-                className="text-slate-600 hover:text-slate-900 px-4 py-2 text-base font-semibold transition-all duration-300 hover:scale-105"
+                className="text-gray-700 hover:text-blue-600 transition-colors duration-300 font-medium"
               >
                 Industries
               </button>
-              <button
-                onClick={() => scrollToSection("approach")}
-                className="text-slate-600 hover:text-slate-900 px-4 py-2 text-base font-semibold transition-all duration-300 hover:scale-105"
-              >
-                Approach
-              </button>
               <Button
                 onClick={() => scrollToSection("contact")}
-                className="bg-gradient-to-r from-slate-900 to-slate-700 text-white hover:shadow-lg transition-all duration-300 hover:scale-105 px-8 py-3 rounded-xl font-semibold"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-2 rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
               >
                 Get Started
               </Button>

@@ -1,19 +1,17 @@
-import { motion } from "framer-motion";
-import { Linkedin, Twitter, Github } from "lucide-react";
-import logoPath from "@assets/fetchpik.com-iconscout-bRKW4qijJe_1751778748695.gif";
+import { Linkedin, Twitter, Github, Mail, Phone } from "lucide-react";
 
 export default function Footer() {
   const services = [
-    { name: "Cloud Migration", href: "#" },
-    { name: "DevOps & CI/CD", href: "#" },
-    { name: "AI/ML Solutions", href: "#" },
-    { name: "Web & Mobile", href: "#" }
+    { name: "Cloud Migration", href: "#services" },
+    { name: "DevOps & CI/CD", href: "#services" },
+    { name: "AI/ML Solutions", href: "#services" },
+    { name: "Web & Mobile", href: "#services" }
   ];
 
   const companyLinks = [
     { name: "About Us", href: "#" },
-    { name: "Careers", href: "#" },
-    { name: "Case Studies", href: "#" },
+    { name: "Team", href: "#team" },
+    { name: "Services", href: "#services" },
     { name: "Contact", href: "#contact" }
   ];
 
@@ -24,105 +22,99 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-gray-900 text-white py-16 relative overflow-hidden border-t border-gray-800">
-      {/* Background effects */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-accent rounded-full blur-3xl"></div>
-      </div>
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <footer className="bg-gray-900 text-white py-16 border-t border-gray-800">
+      <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Company Info */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="col-span-1 md:col-span-2"
-          >
+          <div className="col-span-1 md:col-span-2">
             <div className="flex items-center mb-6">
-              <div className="relative">
-                <img 
-                  src={logoPath} 
-                  alt="Aptivon Solutions" 
-                  className="h-10 w-auto mr-3 filter drop-shadow-lg"
-                />
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center mr-3">
+                <span className="text-white font-bold text-lg">A</span>
               </div>
-              <h3 className="text-3xl font-bold text-white">
-                Aptivon Solutions Pvt. Ltd.
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                Aptivon Solutions
               </h3>
             </div>
-            <p className="text-white/80 mb-6 text-lg leading-relaxed">
-              Empowering businesses with end-to-end technology solutions combining Cloud, DevOps, AI/ML, and cutting-edge application development.
+            <p className="text-gray-300 mb-6 leading-relaxed max-w-md">
+              Leading IT services and consulting firm empowering enterprises with cutting-edge Cloud, AI/ML, DevOps, and application development solutions.
             </p>
-            <div className="flex space-x-6">
-              {socialLinks.map((social, index) => (
-                <motion.a
+            <div className="flex space-x-4">
+              {socialLinks.map((social) => (
+                <a
                   key={social.label}
                   href={social.href}
-                  whileHover={{ scale: 1.2, y: -2 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300 border border-white/30"
+                  className="w-10 h-10 bg-gray-800 rounded-xl flex items-center justify-center hover:bg-blue-600 transition-all duration-300 hover:-translate-y-1"
                   aria-label={social.label}
                 >
                   <social.icon size={20} />
-                </motion.a>
+                </a>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* Services */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            <h4 className="text-xl font-bold mb-6 text-white">Services</h4>
-            <ul className="space-y-4">
-              {services.map((service, index) => (
+          <div>
+            <h4 className="text-lg font-bold mb-6">Services</h4>
+            <ul className="space-y-3">
+              {services.map((service) => (
                 <li key={service.name}>
                   <a
                     href={service.href}
-                    className="text-white/70 hover:text-white transition-all duration-300 hover:translate-x-2 inline-block font-medium"
+                    className="text-gray-300 hover:text-blue-400 transition-colors duration-300 hover:underline"
                   >
                     {service.name}
                   </a>
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
           {/* Company */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <h4 className="text-xl font-bold mb-6 text-white">Company</h4>
-            <ul className="space-y-4">
-              {companyLinks.map((link, index) => (
+          <div>
+            <h4 className="text-lg font-bold mb-6">Company</h4>
+            <ul className="space-y-3">
+              {companyLinks.map((link) => (
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="text-white/70 hover:text-white transition-all duration-300 hover:translate-x-2 inline-block font-medium"
+                    className="text-gray-300 hover:text-blue-400 transition-colors duration-300 hover:underline"
                   >
                     {link.name}
                   </a>
                 </li>
               ))}
             </ul>
-          </motion.div>
+            
+            <div className="mt-8 space-y-3">
+              <div className="flex items-center gap-3">
+                <Mail className="w-4 h-4 text-blue-400" />
+                <span className="text-gray-300 text-sm">info@aptivonsolutions.com</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Phone className="w-4 h-4 text-green-400" />
+                <span className="text-gray-300 text-sm">+91 98765 43210</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="border-t border-white/20 mt-12 pt-8 text-center text-white/70"
-        >
-          <p className="text-lg">&copy; 2025 Aptivon Solutions Pvt. Ltd. All rights reserved.</p>
-          <p className="mt-2 text-white/50">Transforming Business Through Intelligent Technology</p>
-        </motion.div>
+        {/* Bottom Bar */}
+        <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-gray-400 text-sm">
+            © 2024 Aptivon Solutions. All rights reserved.
+          </p>
+          <div className="flex space-x-6 mt-4 md:mt-0">
+            <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
+              Privacy Policy
+            </a>
+            <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
+              Terms of Service
+            </a>
+            <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
+              Cookie Policy
+            </a>
+          </div>
+        </div>
       </div>
     </footer>
   );

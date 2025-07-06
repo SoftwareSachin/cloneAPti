@@ -1,6 +1,5 @@
-import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
-import { Cloud, GitBranch, Brain, Smartphone, Target } from "lucide-react";
+import { Cloud, GitBranch, Brain, Smartphone, Zap } from "lucide-react";
 
 export default function ServicesSection() {
   const services = [
@@ -35,55 +34,44 @@ export default function ServicesSection() {
   ];
 
   return (
-    <section id="services" className="py-24 bg-gradient-to-br from-gray-50 to-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
-          <div className="inline-block px-6 py-3 bg-primary/10 rounded-full mb-6">
-            <div className="flex items-center">
-              <Target className="w-4 h-4 text-primary mr-2" />
-              <span className="text-primary font-semibold text-sm">WHAT WE DO</span>
-            </div>
+    <section id="services" className="py-24 bg-gradient-to-br from-white to-slate-50">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center mb-20">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-full mb-6">
+            <Zap className="w-4 h-4 text-blue-600" />
+            <span className="text-blue-600 font-medium text-sm">Our Services</span>
           </div>
-          <h2 className="text-5xl font-bold text-primary-dark mb-6 font-display">Core Services</h2>
-          <p className="text-xl text-text-gray max-w-4xl mx-auto leading-relaxed">
-            Comprehensive technology solutions designed to accelerate your digital transformation journey with cutting-edge innovation.
+          <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+            Enterprise Solutions
+          </h2>
+          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+            Comprehensive technology solutions designed to accelerate your digital transformation 
+            with cutting-edge innovation and proven methodologies.
           </p>
-        </motion.div>
+        </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service, index) => (
-            <motion.div
-              key={service.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
-              className="h-full"
-            >
-              <Card className="h-full glass-card hover:shadow-premium transition-all duration-500 border-0 shadow-modern group hover-lift">
+            <div key={service.title} className="h-full">
+              <Card className="h-full bg-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 group hover:-translate-y-2">
                 <CardContent className="p-8 relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/5 to-transparent rounded-full -mr-16 -mt-16"></div>
-                  <div className={`w-16 h-16 bg-gradient-to-br ${service.gradient} rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300 animate-pulse-slow`}>
-                    <service.icon className="text-white text-2xl" size={32} />
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-50 to-transparent rounded-full -mr-12 -mt-12"></div>
+                  <div className={`w-16 h-16 bg-gradient-to-br ${service.gradient} rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                    <service.icon className="text-white" size={32} />
                   </div>
-                  <h3 className="text-xl font-bold text-primary-dark mb-4 group-hover:text-primary transition-colors font-display">{service.title}</h3>
-                  <p className="text-text-gray mb-6 leading-relaxed">{service.description}</p>
-                  <ul className="text-sm text-text-gray space-y-3">
+                  <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">{service.title}</h3>
+                  <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
+                  <ul className="text-sm text-gray-600 space-y-3">
                     {service.features.map((feature, idx) => (
                       <li key={idx} className="flex items-center">
-                        <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                        <div className="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
                         {feature}
                       </li>
                     ))}
                   </ul>
                 </CardContent>
               </Card>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
