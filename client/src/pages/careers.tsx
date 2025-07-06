@@ -177,9 +177,13 @@ export default function Careers() {
         }),
       });
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const result = await response.json();
 
-      if (response.ok && result.success) {
+      if (result.success) {
         toast({
           title: "Application Submitted!",
           description: result.message,
@@ -199,11 +203,11 @@ export default function Careers() {
       } else {
         throw new Error(result.message || 'Failed to submit application');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error submitting application:', error);
       toast({
-        title: "Submission Failed",
-        description: "There was an error submitting your application. Please try again.",
+        title: "Submission Failed", 
+        description: error.message || "There was an error submitting your application. Please try again.",
         variant: "destructive"
       });
     }

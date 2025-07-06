@@ -160,6 +160,16 @@ Changelog:
   * Updated application form to make experience field optional
   * Integrated real-time job application submission with email notifications
   * Enhanced careers page with professional entry-level opportunities
+- July 06, 2025. Job application system and fresher-friendly careers update:
+  * Successfully migrated project from Replit Agent to standard Replit environment
+  * Added comprehensive job application email system sending to singhal3.sachin7@gmail.com
+  * Created new API endpoint `/api/job-application` for handling job submissions
+  * Updated all job positions to be fresher-friendly with "Freshers Welcome" experience level
+  * Added new technology positions: Junior Software Developer, QA Testing Associate
+  * Transformed experience requirements to focus on education and willingness to learn
+  * Updated application form to make experience field optional
+  * Integrated real-time job application submission with email notifications
+  * Enhanced careers page with professional entry-level opportunities
 ```
 
 ## User Preferences
