@@ -31,7 +31,7 @@ export default function Navigation() {
     }`}>
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex justify-between items-center">
-          <div className="flex items-center space-x-3">
+          <a href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity cursor-pointer">
             <img 
               src={logoGif} 
               alt="Aptivon Solutions" 
@@ -45,7 +45,7 @@ export default function Navigation() {
               </h1>
               <p className="text-xs text-slate-500 font-medium">Enterprise Technology</p>
             </div>
-          </div>
+          </a>
           
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-6">
