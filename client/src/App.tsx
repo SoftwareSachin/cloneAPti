@@ -10,6 +10,11 @@ import NotFound from "@/pages/not-found";
 // Lazy load pages to reduce initial bundle size
 const About = lazy(() => import("@/pages/about"));
 const Services = lazy(() => import("@/pages/services"));
+const Solutions = lazy(() => import("@/pages/solutions"));
+const Industries = lazy(() => import("@/pages/industries"));
+const CaseStudies = lazy(() => import("@/pages/case-studies"));
+const Resources = lazy(() => import("@/pages/resources"));
+const Support = lazy(() => import("@/pages/support"));
 const Portfolio = lazy(() => import("@/pages/portfolio"));
 const Careers = lazy(() => import("@/pages/careers"));
 const Blog = lazy(() => import("@/pages/blog"));
@@ -39,6 +44,31 @@ function Router() {
       <Route path="/services">
         <Suspense fallback={<Loading />}>
           <Services />
+        </Suspense>
+      </Route>
+      <Route path="/solutions">
+        <Suspense fallback={<Loading />}>
+          <Solutions />
+        </Suspense>
+      </Route>
+      <Route path="/industries">
+        <Suspense fallback={<Loading />}>
+          <Industries />
+        </Suspense>
+      </Route>
+      <Route path="/case-studies">
+        <Suspense fallback={<Loading />}>
+          <CaseStudies />
+        </Suspense>
+      </Route>
+      <Route path="/resources">
+        <Suspense fallback={<Loading />}>
+          <Resources />
+        </Suspense>
+      </Route>
+      <Route path="/support">
+        <Suspense fallback={<Loading />}>
+          <Support />
         </Suspense>
       </Route>
       <Route path="/portfolio">

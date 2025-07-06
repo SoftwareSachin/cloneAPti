@@ -12,10 +12,12 @@ export default function Footer() {
   const companyLinks = [
     { name: "About", href: "/about" },
     { name: "Services", href: "/services" },
-    { name: "Portfolio", href: "/portfolio" },
-    { name: "Careers", href: "/careers" },
-    { name: "Blog", href: "/blog" },
-    { name: "Contact", href: "/contact" }
+    { name: "Solutions", href: "/solutions" },
+    { name: "Industries", href: "/industries" },
+    { name: "Case Studies", href: "/case-studies" },
+    { name: "Resources", href: "/resources" },
+    { name: "Support", href: "/support" },
+    { name: "Careers", href: "/careers" }
   ];
 
   const socialLinks = [

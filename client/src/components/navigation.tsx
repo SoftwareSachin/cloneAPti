@@ -48,37 +48,15 @@ export default function Navigation() {
           </div>
           
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <a
-              href="/about"
-              className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium tracking-wide"
-            >
-              About
-            </a>
-            <a
-              href="/services"
-              className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium tracking-wide"
-            >
-              Services
-            </a>
-            <a
-              href="/portfolio"
-              className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium tracking-wide"
-            >
-              Portfolio
-            </a>
-            <a
-              href="/careers"
-              className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium tracking-wide"
-            >
-              Careers
-            </a>
-            <a
-              href="/blog"
-              className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium tracking-wide"
-            >
-              Blog
-            </a>
+          <div className="hidden lg:flex items-center space-x-6">
+            <a href="/about" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium">About</a>
+            <a href="/services" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium">Services</a>
+            <a href="/solutions" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium">Solutions</a>
+            <a href="/industries" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium">Industries</a>
+            <a href="/case-studies" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium">Cases</a>
+            <a href="/resources" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium">Resources</a>
+            <a href="/support" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium">Support</a>
+            <a href="/careers" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium">Careers</a>
             <a
               href="/contact"
               className="bg-slate-900 hover:bg-slate-800 text-white px-6 py-2.5 rounded-lg font-medium transition-all duration-300 hover:shadow-lg"
@@ -88,7 +66,7 @@ export default function Navigation() {
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden">
+          <div className="lg:hidden">
             <Button
               variant="ghost"
               size="icon"
@@ -101,43 +79,18 @@ export default function Navigation() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden bg-white border-t border-slate-200 shadow-lg">
-            <div className="px-6 py-4 space-y-3">
-              <a
-                href="/about"
-                className="block w-full text-left py-3 text-slate-700 hover:text-slate-900 font-medium transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                About
-              </a>
-              <a
-                href="/services"
-                className="block w-full text-left py-3 text-slate-700 hover:text-slate-900 font-medium transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Services
-              </a>
-              <a
-                href="/portfolio"
-                className="block w-full text-left py-3 text-slate-700 hover:text-slate-900 font-medium transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Portfolio
-              </a>
-              <a
-                href="/careers"
-                className="block w-full text-left py-3 text-slate-700 hover:text-slate-900 font-medium transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Careers
-              </a>
-              <a
-                href="/blog"
-                className="block w-full text-left py-3 text-slate-700 hover:text-slate-900 font-medium transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Blog
-              </a>
+          <div className="lg:hidden bg-white border-t border-slate-200 shadow-lg">
+            <div className="px-6 py-4 space-y-2">
+              <a href="/about" className="block py-2 text-slate-700 hover:text-slate-900 font-medium" onClick={() => setIsMenuOpen(false)}>About</a>
+              <a href="/services" className="block py-2 text-slate-700 hover:text-slate-900 font-medium" onClick={() => setIsMenuOpen(false)}>Services</a>
+              <a href="/solutions" className="block py-2 text-slate-700 hover:text-slate-900 font-medium" onClick={() => setIsMenuOpen(false)}>Solutions</a>
+              <a href="/industries" className="block py-2 text-slate-700 hover:text-slate-900 font-medium" onClick={() => setIsMenuOpen(false)}>Industries</a>
+              <a href="/case-studies" className="block py-2 text-slate-700 hover:text-slate-900 font-medium" onClick={() => setIsMenuOpen(false)}>Case Studies</a>
+              <a href="/resources" className="block py-2 text-slate-700 hover:text-slate-900 font-medium" onClick={() => setIsMenuOpen(false)}>Resources</a>
+              <a href="/support" className="block py-2 text-slate-700 hover:text-slate-900 font-medium" onClick={() => setIsMenuOpen(false)}>Support</a>
+              <a href="/portfolio" className="block py-2 text-slate-700 hover:text-slate-900 font-medium" onClick={() => setIsMenuOpen(false)}>Portfolio</a>
+              <a href="/careers" className="block py-2 text-slate-700 hover:text-slate-900 font-medium" onClick={() => setIsMenuOpen(false)}>Careers</a>
+              <a href="/blog" className="block py-2 text-slate-700 hover:text-slate-900 font-medium" onClick={() => setIsMenuOpen(false)}>Blog</a>
               <a
                 href="/contact"
                 className="block w-full mt-4 bg-slate-900 hover:bg-slate-800 text-white py-3 font-medium text-center rounded-lg"
