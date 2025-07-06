@@ -7,6 +7,7 @@ import {
   Video, 
   BookOpen, 
   Download,
+  ArrowRight,
   Search,
   Calendar,
   Clock,
@@ -19,51 +20,111 @@ import {
 } from "lucide-react";
 
 const WHITEPAPERS_DATA = [
-  {
-    title: "Digital Transformation Roadmap for Healthcare",
-    description: "A comprehensive guide to implementing technology solutions in healthcare organizations while maintaining HIPAA compliance.",
-    category: "Healthcare",
-    downloadCount: "2.3K",
-    pages: "24 pages",
-    date: "December 2024"
-  },
-  {
-    title: "Cloud Migration Strategy Guide",
-    description: "Best practices for migrating legacy systems to cloud infrastructure with minimal downtime and maximum cost savings.",
-    category: "Cloud Computing",
-    downloadCount: "3.1K",
-    pages: "32 pages",
-    date: "November 2024"
-  },
-  {
-    title: "AI Implementation Framework for SMBs",
-    description: "Step-by-step framework for small and medium businesses to successfully implement AI and machine learning solutions.",
-    category: "Artificial Intelligence",
-    downloadCount: "1.8K",
-    pages: "28 pages",
-    date: "October 2024"
-  }
+    {
+      title: "Digital Transformation Roadmap for Healthcare",
+      description: "A comprehensive guide to implementing technology solutions in healthcare organizations while maintaining HIPAA compliance.",
+      category: "Healthcare",
+      downloadCount: "2.3K",
+      pages: "24 pages",
+      date: "December 2024"
+    },
+    {
+      title: "Cloud Migration Strategy Guide",
+      description: "Best practices for migrating legacy systems to cloud infrastructure with minimal downtime and maximum cost savings.",
+      category: "Cloud Computing",
+      downloadCount: "3.1K",
+      pages: "32 pages",
+      date: "November 2024"
+    },
+    {
+      title: "AI Implementation Framework for SMBs",
+      description: "Step-by-step framework for small and medium businesses to successfully implement AI and machine learning solutions.",
+      category: "Artificial Intelligence",
+      downloadCount: "1.8K",
+      pages: "28 pages",
+      date: "October 2024"
+    }
 ];
 
 const WEBINARS_DATA = [
-  {
-    title: "Cybersecurity Trends 2025: What Every CTO Should Know",
-    description: "Join our cybersecurity experts as they discuss emerging threats and protective strategies for the coming year.",
-    speaker: "Sarah Chen, Head of Security",
-    duration: "45 minutes",
-    attendees: "450+",
-    date: "January 15, 2025",
-    status: "upcoming"
-  },
-  {
-    title: "Building Scalable E-commerce Platforms",
-    description: "Learn how to design and implement e-commerce solutions that can handle millions of transactions.",
-    speaker: "Marcus Rodriguez, Lead Architect",
-    duration: "60 minutes",
-    attendees: "320+",
-    date: "December 10, 2024",
-    status: "recorded"
-  }
+    {
+      title: "Cybersecurity Trends 2025: What Every CTO Should Know",
+      description: "Join our cybersecurity experts as they discuss emerging threats and protective strategies for the coming year.",
+      speaker: "Sarah Chen, Head of Security",
+      duration: "45 minutes",
+      attendees: "450+",
+      date: "January 15, 2025",
+      status: "upcoming"
+    },
+    {
+      title: "Building Scalable E-commerce Platforms",
+      description: "Learn how to design and implement e-commerce solutions that can handle millions of transactions.",
+      speaker: "Marcus Rodriguez, Lead Architect",
+      duration: "60 minutes",
+      attendees: "320+",
+      date: "December 10, 2024",
+      status: "recorded"
+    },
+    {
+      title: "Data Analytics for Business Growth",
+      description: "Discover how to leverage data analytics to drive business decisions and accelerate growth.",
+      speaker: "Priya Sharma, Data Scientist",
+      duration: "50 minutes",
+      attendees: "280+",
+      date: "November 22, 2024",
+      status: "recorded"
+    }
+  ];
+
+  const caseStudies = [
+    {
+      title: "250% ROI: Hospital System Digital Transformation",
+      industry: "Healthcare",
+      metric: "250% ROI",
+      description: "How a regional medical center reduced patient wait times by 45% and achieved remarkable ROI.",
+      icon: Shield
+    },
+    {
+      title: "E-commerce Platform: 150% Sales Increase",
+      industry: "Retail",
+      metric: "150% Growth",
+      description: "AI-powered recommendation engine drives massive sales growth for national retail chain.",
+      icon: TrendingUp
+    },
+    {
+      title: "Smart Factory: 60% Downtime Reduction",
+      industry: "Manufacturing",
+      metric: "60% Reduction",
+      description: "IoT implementation transforms manufacturing efficiency and predictive maintenance.",
+      icon: Cpu
+    }
+  ];
+
+  const tools = [
+    {
+      title: "Cloud Readiness Assessment",
+      description: "Evaluate your organization's readiness for cloud migration with our comprehensive assessment tool.",
+      icon: Cloud,
+      category: "Assessment Tool"
+    },
+    {
+      title: "ROI Calculator for Digital Transformation",
+      description: "Calculate the potential return on investment for your digital transformation initiatives.",
+      icon: TrendingUp,
+      category: "Calculator"
+    },
+    {
+      title: "Security Audit Checklist",
+      description: "Comprehensive checklist to assess your organization's cybersecurity posture.",
+      icon: Shield,
+      category: "Checklist"
+    },
+    {
+      title: "Database Performance Analyzer",
+      description: "Analyze and optimize your database performance with our free diagnostic tool.",
+      icon: Database,
+      category: "Diagnostic Tool"
+    }
 ];
 
 export default function Resources() {
@@ -97,18 +158,18 @@ export default function Resources() {
 
       {/* Resource Categories */}
       <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="container mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
               { icon: FileText, label: "Whitepapers", count: "25+" },
               { icon: Video, label: "Webinars", count: "40+" },
               { icon: BookOpen, label: "Case Studies", count: "50+" },
               { icon: Download, label: "Tools", count: "15+" }
-            ].map((category: any, index: number) => (
-              <div key={index} className="text-center p-6 border border-slate-200 rounded-lg hover:shadow-lg transition-shadow">
-                <category.icon className="h-8 w-8 text-slate-900 mx-auto mb-3" />
-                <h3 className="font-semibold text-slate-900 mb-1">{category.label}</h3>
-                <p className="text-slate-600">{category.count}</p>
+            ].map((category, index) => (
+              <div key={index} className="text-center p-6 border border-gray-200 rounded-lg hover:shadow-lg transition-shadow">
+                <category.icon className="h-8 w-8 text-indigo-600 mx-auto mb-3" />
+                <h3 className="font-semibold text-gray-900 mb-1">{category.label}</h3>
+                <p className="text-gray-600">{category.count}</p>
               </div>
             ))}
           </div>
@@ -116,13 +177,13 @@ export default function Resources() {
       </section>
 
       {/* Whitepapers Section */}
-      <section className="py-20 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Latest Whitepapers
             </h2>
-            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
               In-depth research and insights on the latest technology trends and best practices.
             </p>
           </div>
@@ -156,12 +217,12 @@ export default function Resources() {
 
       {/* Webinars Section */}
       <section className="py-20">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Expert Webinars
             </h2>
-            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
               Learn from our technology experts through live and recorded sessions.
             </p>
           </div>
@@ -206,14 +267,70 @@ export default function Resources() {
         </div>
       </section>
 
-      {/* Tools Section */}
-      <section className="py-20 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-6">
+      {/* Case Studies Preview */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Success Stories
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Real results from real clients across different industries.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: TrendingUp,
+                metric: "250% ROI",
+                title: "Hospital System Digital Transformation",
+                industry: "Healthcare",
+                description: "How a regional medical center reduced patient wait times by 45% and achieved remarkable ROI."
+              },
+              {
+                icon: TrendingUp,
+                metric: "150% Growth",
+                title: "E-commerce Platform: 150% Sales Increase",
+                industry: "Retail",
+                description: "AI-powered recommendation engine drives massive sales growth for national retail chain."
+              },
+              {
+                icon: Cpu,
+                metric: "60% Reduction",
+                title: "Smart Factory: 60% Downtime Reduction",
+                industry: "Manufacturing",
+                description: "IoT implementation transforms manufacturing efficiency and predictive maintenance."
+              }
+            ].map((study: any, index: number) => (
+              <div key={index} className="bg-white p-8 rounded-xl border border-slate-200 hover:shadow-lg transition-shadow cursor-pointer text-center">
+                <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <study.icon className="h-8 w-8 text-slate-900" />
+                </div>
+                <div className="text-3xl font-bold text-slate-900 mb-2">{study.metric}</div>
+                <h3 className="text-lg font-bold text-slate-900 mb-3">{study.title}</h3>
+                <span className="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded border">{study.industry}</span>
+                <p className="text-slate-600 text-center mt-4">{study.description}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Button size="lg" variant="outline">
+              View All Case Studies
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Tools Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Free Tools & Resources
             </h2>
-            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
               Practical tools to help you assess, plan, and implement technology solutions.
             </p>
           </div>

@@ -207,28 +207,60 @@ export default function Support() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {faqCategories.map((category, index) => (
-              <Card key={index} className="border-0 shadow-lg">
-                <CardHeader>
-                  <CardTitle className="text-xl text-gray-900">{category.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3">
-                    {category.questions.map((question, idx) => (
-                      <li key={idx} className="flex items-start">
-                        <HelpCircle className="h-5 w-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" />
-                        <span className="text-gray-700 hover:text-blue-600 cursor-pointer">
-                          {question}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Button variant="outline" className="w-full mt-4">
-                    View All {category.title} FAQs
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </CardContent>
-              </Card>
+            {[
+              {
+                title: "Technical Implementation",
+                questions: [
+                  "How long does a typical implementation take?",
+                  "What are the system requirements?",
+                  "How do you handle data migration?",
+                  "What security measures do you implement?"
+                ]
+              },
+              {
+                title: "Billing & Pricing",
+                questions: [
+                  "How is pricing calculated?",
+                  "What payment methods do you accept?",
+                  "Are there any hidden costs?",
+                  "Can I change my plan later?"
+                ]
+              },
+              {
+                title: "Training & Onboarding",
+                questions: [
+                  "What training is included?",
+                  "How long is the onboarding process?",
+                  "Do you provide user documentation?",
+                  "Is ongoing training available?"
+                ]
+              },
+              {
+                title: "Maintenance & Support",
+                questions: [
+                  "What's included in maintenance?",
+                  "How do you handle system updates?",
+                  "What are your SLA guarantees?",
+                  "How do you provide ongoing support?"
+                ]
+              }
+            ].map((category: any, index: number) => (
+              <div key={index} className="bg-white p-8 rounded-xl border border-slate-200 shadow-lg">
+                <h3 className="text-xl font-bold text-slate-900 mb-6">{category.title}</h3>
+                <ul className="space-y-3">
+                  {category.questions.map((question: string, idx: number) => (
+                    <li key={idx} className="flex items-start">
+                      <HelpCircle className="h-5 w-5 text-slate-900 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-slate-600 hover:text-slate-900 cursor-pointer">
+                        {question}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <Button variant="outline" className="w-full mt-4">
+                  View All {category.title} FAQs
+                </Button>
+              </div>
             ))}
           </div>
         </div>
@@ -247,24 +279,36 @@ export default function Support() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {resources.map((resource, index) => (
-              <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-shadow cursor-pointer">
-                <CardHeader className="text-center">
-                  <div className="w-16 h-16 bg-cyan-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <resource.icon className="h-8 w-8 text-cyan-600" />
-                  </div>
-                  <CardTitle className="text-xl">{resource.title}</CardTitle>
-                  <CardDescription>{resource.description}</CardDescription>
-                </CardHeader>
-                <CardContent className="text-center">
-                  <Link href={resource.link}>
-                    <Button variant="outline" className="w-full">
-                      Access Resource
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
+            {[
+              {
+                icon: FileText,
+                title: "Documentation",
+                description: "Comprehensive guides and API documentation",
+                link: "/resources"
+              },
+              {
+                icon: Video,
+                title: "Video Tutorials",
+                description: "Step-by-step video guides for common tasks",
+                link: "/resources"
+              },
+              {
+                icon: HelpCircle,
+                title: "Knowledge Base",
+                description: "Searchable articles and troubleshooting guides",
+                link: "/resources"
+              }
+            ].map((resource: any, index: number) => (
+              <div key={index} className="bg-white p-8 rounded-xl border border-slate-200 hover:shadow-lg transition-shadow cursor-pointer text-center">
+                <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <resource.icon className="h-8 w-8 text-slate-900" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">{resource.title}</h3>
+                <p className="text-slate-600 mb-6">{resource.description}</p>
+                <Button variant="outline" className="w-full">
+                  Access Resource
+                </Button>
+              </div>
             ))}
           </div>
         </div>
@@ -283,8 +327,8 @@ export default function Support() {
               </p>
             </div>
 
-            <Card className="border-0 shadow-xl">
-              <CardContent className="p-8">
+            <div className="bg-white rounded-xl border border-slate-200 shadow-xl">
+              <div className="p-8">
                 <form className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
@@ -350,8 +394,8 @@ export default function Support() {
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </form>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
         </div>
       </section>
