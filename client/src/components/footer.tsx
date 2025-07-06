@@ -1,16 +1,15 @@
-import { Linkedin, Twitter, Github, Mail, Phone } from "lucide-react";
-import logoGif from "../assets/logo.gif";
+import { Linkedin, Twitter, Github, Mail, Phone, Building2 } from "lucide-react";
 
 export default function Footer() {
   const services = [
-    { name: "Cloud Migration", href: "#services" },
-    { name: "DevOps & CI/CD", href: "#services" },
-    { name: "AI/ML Solutions", href: "#services" },
-    { name: "Web & Mobile", href: "#services" }
+    { name: "Cloud Infrastructure", href: "#services" },
+    { name: "DevOps & Automation", href: "#services" },
+    { name: "AI & Analytics", href: "#services" },
+    { name: "Application Development", href: "#services" }
   ];
 
   const companyLinks = [
-    { name: "About Us", href: "#" },
+    { name: "About", href: "#" },
     { name: "Team", href: "#team" },
     { name: "Services", href: "#services" },
     { name: "Contact", href: "#contact" }
@@ -23,30 +22,31 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-gray-900 text-white py-16 border-t border-gray-800">
+    <footer className="bg-slate-900 text-white py-16">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Company Info */}
           <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center mb-6">
-              <img 
-                src={logoGif} 
-                alt="Aptivon Solutions" 
-                className="h-10 w-auto mr-3"
-              />
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                Aptivon Solutions
-              </h3>
+            <div className="flex items-center space-x-3 mb-6">
+              <div className="flex items-center justify-center w-9 h-9 bg-white rounded-lg">
+                <Building2 className="w-5 h-5 text-slate-900" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-white">
+                  Aptivon Solutions
+                </h3>
+                <p className="text-xs text-slate-400 font-medium">Enterprise Technology</p>
+              </div>
             </div>
-            <p className="text-gray-300 mb-6 leading-relaxed max-w-md">
-              Leading IT services and consulting firm empowering enterprises with cutting-edge Cloud, AI/ML, DevOps, and application development solutions.
+            <p className="text-slate-300 mb-6 leading-relaxed max-w-md">
+              Leading enterprise technology solutions provider, specializing in cloud infrastructure, automation, and digital transformation.
             </p>
-            <div className="flex space-x-4">
+            <div className="flex space-x-3">
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
                   href={social.href}
-                  className="w-10 h-10 bg-gray-800 rounded-xl flex items-center justify-center hover:bg-blue-600 transition-all duration-300 hover:-translate-y-1"
+                  className="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center hover:bg-slate-700 transition-colors duration-300"
                   aria-label={social.label}
                 >
                   <social.icon size={20} />

@@ -1,77 +1,83 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Cloud, GitBranch, Brain, Smartphone, Zap } from "lucide-react";
+import { Cloud, Server, Brain, Smartphone, ArrowRight } from "lucide-react";
 
 export default function ServicesSection() {
   const services = [
     {
       icon: Cloud,
-      title: "Cloud Strategy & Migration",
-      description: "Assess, plan, and execute seamless cloud migrations across AWS, Azure, and GCP with cost optimization.",
-      features: ["Multi-region architectures", "Lift-and-shift projects", "Cost optimization strategies"],
-      gradient: "from-primary to-secondary"
+      title: "Cloud Infrastructure",
+      description: "Scalable cloud solutions with enterprise-grade security, multi-region deployment, and cost optimization strategies.",
+      features: ["AWS, Azure, GCP", "Infrastructure as Code", "Disaster Recovery"],
+      metrics: "99.9% Uptime"
     },
     {
-      icon: GitBranch,
-      title: "DevOps & CI/CD",
-      description: "Implement Infrastructure as Code and automated pipelines for efficient build, test, and deployment processes.",
-      features: ["Infrastructure as Code", "Automated pipelines", "Containerization & Kubernetes"],
-      gradient: "from-accent to-success"
+      icon: Server,
+      title: "DevOps & Automation",
+      description: "Streamlined development operations with automated CI/CD pipelines, container orchestration, and monitoring.",
+      features: ["CI/CD Pipelines", "Kubernetes", "Infrastructure Automation"],
+      metrics: "75% Faster Deployments"
     },
     {
       icon: Brain,
-      title: "AI/ML Solutions",
-      description: "Custom AI/ML applications with end-to-end pipelines for data ingestion, training, and monitoring.",
-      features: ["Computer vision & NLP", "Predictive analytics", "MLOps implementations"],
-      gradient: "from-purple-500 to-pink-500"
+      title: "AI & Analytics",
+      description: "Data-driven insights through machine learning, predictive analytics, and intelligent automation solutions.",
+      features: ["Machine Learning", "Data Analytics", "Process Automation"],
+      metrics: "40% Efficiency Gain"
     },
     {
       icon: Smartphone,
-      title: "Web & Mobile Development",
-      description: "Responsive web applications and native mobile apps with modern frameworks and microservices architecture.",
-      features: ["React, Angular, Vue.js", "Native & cross-platform", "API design & microservices"],
-      gradient: "from-green-500 to-blue-500"
+      title: "Application Development",
+      description: "Modern web and mobile applications built with scalable architectures and user-centric design principles.",
+      features: ["Web Applications", "Mobile Apps", "API Development"],
+      metrics: "50% Time-to-Market"
     }
   ];
 
   return (
-    <section id="services" className="py-24 bg-gradient-to-br from-white to-slate-50">
+    <section id="services" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-full mb-6">
-            <Zap className="w-4 h-4 text-blue-600" />
-            <span className="text-blue-600 font-medium text-sm">Our Services</span>
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 rounded-full mb-6">
+            <span className="text-slate-700 font-medium">Enterprise Services</span>
           </div>
-          <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-            Enterprise Solutions
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+            Technology Solutions That Drive Results
           </h2>
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-            Comprehensive technology solutions designed to accelerate your digital transformation 
-            with cutting-edge innovation and proven methodologies.
+          <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+            Comprehensive enterprise technology services designed to accelerate growth and optimize operations.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {services.map((service, index) => (
-            <div key={service.title} className="h-full">
-              <Card className="h-full bg-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 group hover:-translate-y-2">
-                <CardContent className="p-8 relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-50 to-transparent rounded-full -mr-12 -mt-12"></div>
-                  <div className={`w-16 h-16 bg-gradient-to-br ${service.gradient} rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                    <service.icon className="text-white" size={32} />
+            <Card key={service.title} className="bg-white border border-slate-200 hover:border-slate-300 transition-all duration-300 group">
+              <CardContent className="p-8">
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 bg-slate-900 rounded-lg flex items-center justify-center">
+                      <service.icon className="text-white w-6 h-6" />
+                    </div>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">{service.title}</h3>
-                  <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
-                  <ul className="text-sm text-gray-600 space-y-3">
-                    {service.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center">
-                        <div className="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            </div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-3">
+                      <h3 className="text-xl font-bold text-slate-900">{service.title}</h3>
+                      <span className="text-sm font-medium text-slate-600 bg-slate-100 px-3 py-1 rounded-full">
+                        {service.metrics}
+                      </span>
+                    </div>
+                    <p className="text-slate-600 mb-4 leading-relaxed">{service.description}</p>
+                    <ul className="space-y-2">
+                      {service.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-center text-sm text-slate-600">
+                          <ArrowRight className="w-4 h-4 text-slate-400 mr-2 flex-shrink-0" />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </div>

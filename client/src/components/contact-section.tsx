@@ -52,53 +52,53 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-24 bg-gradient-to-br from-gray-900 via-blue-900 to-slate-900">
+    <section id="contact" className="py-24 bg-slate-50">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 mb-6">
-            <Send className="w-4 h-4 text-blue-400" />
-            <span className="text-blue-300 text-sm font-medium">Get In Touch</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-full mb-6">
+            <Send className="w-4 h-4" />
+            <span className="font-medium text-sm">Contact Us</span>
           </div>
-          <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">
-            Ready to Transform Your Business?
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+            Ready to Get Started?
           </h2>
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
-            Let's discuss your project and explore how our enterprise solutions can drive your success.
+          <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+            Connect with our team to discuss your technology requirements and explore how we can help accelerate your business growth.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Information */}
           <div className="space-y-8">
             <div>
-              <h3 className="text-2xl font-bold text-white mb-6">Contact Information</h3>
+              <h3 className="text-2xl font-bold text-slate-900 mb-6">Get in Touch</h3>
               <div className="space-y-6">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-blue-600/20 rounded-xl flex items-center justify-center">
-                    <Mail className="w-6 h-6 text-blue-400" />
+                  <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center">
+                    <Mail className="w-6 h-6 text-slate-700" />
                   </div>
                   <div>
-                    <p className="text-white font-medium">Email</p>
-                    <p className="text-slate-300">info@aptivonsolutions.com</p>
+                    <p className="text-slate-900 font-medium">Email</p>
+                    <p className="text-slate-600">info@aptivonsolutions.com</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-purple-600/20 rounded-xl flex items-center justify-center">
-                    <Phone className="w-6 h-6 text-purple-400" />
+                  <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center">
+                    <Phone className="w-6 h-6 text-slate-700" />
                   </div>
                   <div>
-                    <p className="text-white font-medium">Phone</p>
-                    <p className="text-slate-300">+91 98765 43210</p>
+                    <p className="text-slate-900 font-medium">Phone</p>
+                    <p className="text-slate-600">+91 98765 43210</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-green-600/20 rounded-xl flex items-center justify-center">
-                    <MapPin className="w-6 h-6 text-green-400" />
+                  <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center">
+                    <MapPin className="w-6 h-6 text-slate-700" />
                   </div>
                   <div>
-                    <p className="text-white font-medium">Location</p>
-                    <p className="text-slate-300">India & Global</p>
+                    <p className="text-slate-900 font-medium">Location</p>
+                    <p className="text-slate-600">India & Global Operations</p>
                   </div>
                 </div>
               </div>
@@ -106,18 +106,18 @@ export default function ContactSection() {
 
             {/* Why Choose Us */}
             <div>
-              <h3 className="text-2xl font-bold text-white mb-6">Why Choose Aptivon?</h3>
+              <h3 className="text-2xl font-bold text-slate-900 mb-6">Why Choose Aptivon?</h3>
               <div className="space-y-4">
                 {[
                   "Enterprise-grade solutions",
-                  "24/7 dedicated support",
+                  "24/7 dedicated support", 
                   "Proven track record",
                   "Scalable architecture",
                   "Cost-effective delivery"
                 ].map((item, index) => (
                   <div key={index} className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                    <span className="text-slate-300">{item}</span>
+                    <div className="w-2 h-2 bg-slate-900 rounded-full"></div>
+                    <span className="text-slate-600">{item}</span>
                   </div>
                 ))}
               </div>
@@ -125,94 +125,98 @@ export default function ContactSection() {
           </div>
 
           {/* Contact Form */}
-          <Card className="bg-white/10 backdrop-blur-sm border-white/20">
+          <Card className="bg-white border border-slate-200 shadow-lg">
             <CardContent className="p-8">
+              <h3 className="text-2xl font-bold text-slate-900 mb-6">Send us a Message</h3>
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <Label htmlFor="name" className="text-white mb-2 block">Name *</Label>
+                    <Label htmlFor="firstName" className="text-slate-700 mb-2 block font-medium">First Name *</Label>
                     <Input
-                      id="name"
-                      {...register("name")}
-                      className="bg-white/10 border-white/20 text-white placeholder:text-slate-400"
-                      placeholder="Your full name"
+                      id="firstName"
+                      {...register("firstName")}
+                      className="border-slate-300 focus:border-slate-500 focus:ring-slate-500"
+                      placeholder="Enter your first name"
                     />
-                    {errors.name && (
-                      <p className="text-red-400 text-sm mt-1">{errors.name.message}</p>
+                    {errors.firstName && (
+                      <p className="text-red-500 text-sm mt-1">{errors.firstName.message}</p>
                     )}
                   </div>
                   <div>
-                    <Label htmlFor="email" className="text-white mb-2 block">Email *</Label>
+                    <Label htmlFor="lastName" className="text-slate-700 mb-2 block font-medium">Last Name *</Label>
                     <Input
-                      id="email"
-                      type="email"
-                      {...register("email")}
-                      className="bg-white/10 border-white/20 text-white placeholder:text-slate-400"
-                      placeholder="your@email.com"
+                      id="lastName"
+                      {...register("lastName")}
+                      className="border-slate-300 focus:border-slate-500 focus:ring-slate-500"
+                      placeholder="Enter your last name"
                     />
-                    {errors.email && (
-                      <p className="text-red-400 text-sm mt-1">{errors.email.message}</p>
+                    {errors.lastName && (
+                      <p className="text-red-500 text-sm mt-1">{errors.lastName.message}</p>
                     )}
                   </div>
                 </div>
 
+                <div>
+                  <Label htmlFor="email" className="text-slate-700 mb-2 block font-medium">Email *</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    {...register("email")}
+                    className="border-slate-300 focus:border-slate-500 focus:ring-slate-500"
+                    placeholder="your@company.com"
+                  />
+                  {errors.email && (
+                    <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+                  )}
+                </div>
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <Label htmlFor="company" className="text-white mb-2 block">Company</Label>
+                    <Label htmlFor="company" className="text-slate-700 mb-2 block font-medium">Company</Label>
                     <Input
                       id="company"
                       {...register("company")}
-                      className="bg-white/10 border-white/20 text-white placeholder:text-slate-400"
+                      className="border-slate-300 focus:border-slate-500 focus:ring-slate-500"
                       placeholder="Your company name"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="phone" className="text-white mb-2 block">Phone</Label>
-                    <Input
-                      id="phone"
-                      {...register("phone")}
-                      className="bg-white/10 border-white/20 text-white placeholder:text-slate-400"
-                      placeholder="+91 98765 43210"
-                    />
+                    <Select value={selectedService} onValueChange={setSelectedService}>
+                      <SelectTrigger className="border-slate-300 focus:border-slate-500 focus:ring-slate-500">
+                        <SelectValue placeholder="Select a service" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="cloud">Cloud Infrastructure</SelectItem>
+                        <SelectItem value="devops">DevOps & Automation</SelectItem>
+                        <SelectItem value="ai">AI & Analytics</SelectItem>
+                        <SelectItem value="development">Application Development</SelectItem>
+                        <SelectItem value="consulting">Technology Consulting</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
 
                 <div>
-                  <Label className="text-white mb-2 block">Service Interested In</Label>
-                  <Select value={selectedService} onValueChange={setSelectedService}>
-                    <SelectTrigger className="bg-white/10 border-white/20 text-white">
-                      <SelectValue placeholder="Select a service" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="cloud">Cloud Migration</SelectItem>
-                      <SelectItem value="devops">DevOps & CI/CD</SelectItem>
-                      <SelectItem value="ai">AI/ML Solutions</SelectItem>
-                      <SelectItem value="development">Web & Mobile Development</SelectItem>
-                      <SelectItem value="consulting">Technology Consulting</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <Label htmlFor="message" className="text-white mb-2 block">Message *</Label>
+                  <Label htmlFor="message" className="text-slate-700 mb-2 block font-medium">Message *</Label>
                   <Textarea
                     id="message"
                     {...register("message")}
                     rows={4}
-                    className="bg-white/10 border-white/20 text-white placeholder:text-slate-400"
-                    placeholder="Tell us about your project requirements..."
+                    className="border-slate-300 focus:border-slate-500 focus:ring-slate-500"
+                    placeholder="Tell us about your project requirements and objectives..."
                   />
                   {errors.message && (
-                    <p className="text-red-400 text-sm mt-1">{errors.message.message}</p>
+                    <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>
                   )}
                 </div>
 
                 <Button
                   type="submit"
                   disabled={contactMutation.isPending}
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3 text-lg font-semibold transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
+                  className="w-full bg-slate-900 hover:bg-slate-800 text-white py-4 text-lg font-semibold transition-all duration-300 shadow-lg"
                 >
                   {contactMutation.isPending ? "Sending..." : "Send Message"}
+                  <Send className="ml-2 w-5 h-5" />
                 </Button>
               </form>
             </CardContent>

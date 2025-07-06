@@ -1,4 +1,3 @@
-// Removed framer-motion import
 import { Cpu, Server, Code, Database, Shield, Layers } from "lucide-react";
 
 export default function TechnologySection() {
@@ -6,38 +5,32 @@ export default function TechnologySection() {
     {
       title: "Cloud Infrastructure",
       icon: Server,
-      items: ["AWS / Azure / GCP", "Kubernetes orchestration", "Serverless architectures", "Multi-cloud strategies"],
-      gradient: "from-blue-600 to-indigo-600"
+      items: ["AWS, Azure, GCP", "Kubernetes Orchestration", "Serverless Computing", "Multi-Cloud Strategy"]
     },
     {
-      title: "Modern Frameworks",
+      title: "Development Frameworks",
       icon: Code,
-      items: ["React / Next.js", "Node.js / Python", "TypeScript ecosystem", "Microservices design"],
-      gradient: "from-green-600 to-emerald-600"
+      items: ["React, Next.js", "Node.js, Python", "TypeScript", "Microservices"]
     },
     {
-      title: "Data Solutions",
+      title: "Data & Analytics",
       icon: Database,
-      items: ["PostgreSQL / MongoDB", "Redis caching", "Data lakes & warehouses", "Real-time analytics"],
-      gradient: "from-purple-600 to-violet-600"
+      items: ["PostgreSQL, MongoDB", "Redis Caching", "Data Warehouses", "Real-time Analytics"]
     },
     {
       title: "Security & Compliance",
       icon: Shield,
-      items: ["Zero-trust architecture", "OAuth 2.0 / SAML", "SOC 2 compliance", "End-to-end encryption"],
-      gradient: "from-red-600 to-rose-600"
+      items: ["Zero-Trust Architecture", "OAuth 2.0, SAML", "SOC 2 Compliance", "End-to-End Encryption"]
     },
     {
-      title: "DevOps & Automation",
+      title: "DevOps Automation",
       icon: Layers,
-      items: ["CI/CD pipelines", "Infrastructure as Code", "Monitoring & logging", "Auto-scaling solutions"],
-      gradient: "from-orange-600 to-amber-600"
+      items: ["CI/CD Pipelines", "Infrastructure as Code", "Monitoring & Logging", "Auto-Scaling"]
     },
     {
-      title: "Performance Optimization",
+      title: "Performance",
       icon: Cpu,
-      items: ["Load balancing", "CDN optimization", "Database indexing", "Cache strategies"],
-      gradient: "from-pink-600 to-rose-600"
+      items: ["Load Balancing", "CDN Optimization", "Database Indexing", "Caching Strategies"]
     }
   ];
 

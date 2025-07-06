@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ChevronDown, Sparkles, ArrowRight } from "lucide-react";
+import { ArrowRight, Shield, Zap, Globe } from "lucide-react";
 
 export default function HeroSection() {
   const scrollToSection = (sectionId: string) => {
@@ -10,86 +10,92 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pt-24 md:pt-28">
-      {/* Modern geometric background */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,rgba(59,130,246,0.15),transparent_50%)] bg-[radial-gradient(circle_at_75%_75%,rgba(147,51,234,0.15),transparent_50%)]"></div>
+    <section className="relative min-h-screen flex items-center bg-white pt-24">
+      {/* Clean geometric pattern */}
+      <div className="absolute inset-0 bg-slate-50 opacity-50">
+        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_48%,rgba(148,163,184,0.05)_49%,rgba(148,163,184,0.05)_51%,transparent_52%)] bg-[length:20px_20px]"></div>
+      </div>
       
-      {/* Subtle grid pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
-      
-      {/* Floating elements */}
-      <div className="absolute top-20 left-20 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-20 right-20 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-      
-      <div className="relative max-w-7xl mx-auto px-6 text-center z-10">
-        <div className="max-w-5xl mx-auto">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 mb-8">
-            <Sparkles className="w-4 h-4 text-blue-400" />
-            <span className="text-blue-300 text-sm font-medium tracking-wide">Leading Enterprise IT Solutions</span>
-          </div>
-          
-          {/* Main heading */}
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight">
-            <span className="bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">
+      <div className="relative max-w-7xl mx-auto px-6 z-10">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* Content */}
+          <div className="text-left">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 rounded-full mb-8">
+              <Shield className="w-4 h-4 text-slate-600" />
+              <span className="text-slate-700 text-sm font-medium">Enterprise Technology Solutions</span>
+            </div>
+            
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-slate-900 leading-tight">
               Transform Your
-            </span>
-            <br />
-            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-blue-500 bg-clip-text text-transparent">
-              Digital Future
-            </span>
-          </h1>
-          
-          {/* Subtitle */}
-          <p className="text-xl md:text-2xl text-slate-300 mb-12 max-w-4xl mx-auto leading-relaxed font-light">
-            Enterprise-grade technology solutions that scale with your ambitions. 
-            From cloud infrastructure to AI innovation.
-          </p>
-          
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button
-              onClick={() => scrollToSection("contact")}
-              className="group bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5"
-            >
-              Get Started Today
-              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
-            <Button
-              onClick={() => scrollToSection("services")}
-              variant="outline"
-              className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 hover:border-white/50 px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:-translate-y-0.5"
-            >
-              Explore Services
-            </Button>
+              <span className="block text-slate-800">
+                Business Digital
+              </span>
+              <span className="block text-slate-700">
+                Infrastructure
+              </span>
+            </h1>
+            
+            <p className="text-xl text-slate-600 mb-8 leading-relaxed max-w-lg">
+              Enterprise-grade technology solutions that drive innovation, streamline operations, and accelerate growth for forward-thinking organizations.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 mb-12">
+              <Button
+                onClick={() => scrollToSection("contact")}
+                className="bg-slate-900 hover:bg-slate-800 text-white px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300 shadow-lg"
+              >
+                Get Started
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+              <Button
+                onClick={() => scrollToSection("services")}
+                variant="outline"
+                className="border-slate-300 text-slate-700 hover:bg-slate-50 px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300"
+              >
+                Explore Services
+              </Button>
+            </div>
+            
+            {/* Key Stats */}
+            <div className="grid grid-cols-3 gap-8">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-slate-900 mb-2">500+</div>
+                <div className="text-slate-600 text-sm">Projects Delivered</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-slate-900 mb-2">99.9%</div>
+                <div className="text-slate-600 text-sm">Uptime SLA</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-slate-900 mb-2">24/7</div>
+                <div className="text-slate-600 text-sm">Enterprise Support</div>
+              </div>
+            </div>
           </div>
           
-          {/* Stats */}
-          <div className="grid grid-cols-3 gap-6 md:gap-8 mt-16 max-w-2xl mx-auto">
-            <div className="text-center p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
-              <div className="text-2xl md:text-3xl font-bold text-white mb-2">500+</div>
-              <div className="text-slate-400 text-xs md:text-sm">Projects Delivered</div>
-            </div>
-            <div className="text-center p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
-              <div className="text-2xl md:text-3xl font-bold text-white mb-2">99.9%</div>
-              <div className="text-slate-400 text-xs md:text-sm">Uptime SLA</div>
-            </div>
-            <div className="text-center p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
-              <div className="text-2xl md:text-3xl font-bold text-white mb-2">24/7</div>
-              <div className="text-slate-400 text-xs md:text-sm">Support</div>
+          {/* Visual Content */}
+          <div className="relative lg:block">
+            <div className="bg-slate-100 rounded-2xl p-8 shadow-xl">
+              <div className="grid grid-cols-2 gap-4 mb-6">
+                <div className="bg-white rounded-lg p-4 shadow-md">
+                  <Zap className="w-8 h-8 text-slate-700 mb-3" />
+                  <h3 className="font-semibold text-slate-900 mb-2">Fast Deployment</h3>
+                  <p className="text-slate-600 text-sm">Rapid implementation with minimal downtime</p>
+                </div>
+                <div className="bg-white rounded-lg p-4 shadow-md">
+                  <Shield className="w-8 h-8 text-slate-700 mb-3" />
+                  <h3 className="font-semibold text-slate-900 mb-2">Enterprise Security</h3>
+                  <p className="text-slate-600 text-sm">Bank-grade security and compliance</p>
+                </div>
+              </div>
+              <div className="bg-white rounded-lg p-4 shadow-md">
+                <Globe className="w-8 h-8 text-slate-700 mb-3" />
+                <h3 className="font-semibold text-slate-900 mb-2">Global Scale</h3>
+                <p className="text-slate-600 text-sm">Worldwide infrastructure and support coverage</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-        <button
-          onClick={() => scrollToSection("services")}
-          className="group bg-white/10 backdrop-blur-sm p-3 rounded-full border border-white/20 hover:bg-white/20 transition-all duration-300 animate-bounce"
-        >
-          <ChevronDown className="text-white group-hover:text-blue-300 transition-colors" size={20} />
-        </button>
       </div>
     </section>
   );
