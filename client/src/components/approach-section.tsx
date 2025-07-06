@@ -7,19 +7,19 @@ export default function ApproachSection() {
       number: "1",
       title: "Discovery & Planning",
       description: "Deep dive workshops to understand objectives, existing architecture, and constraints.",
-      color: "bg-primary"
+      color: "bg-blue-500"
     },
     {
       number: "2",
       title: "Agile Execution",
       description: "Break work into prioritized sprints with regular demos and feedback loops.",
-      color: "bg-accent"
+      color: "bg-slate-900"
     },
     {
       number: "3",
       title: "Quality Assurance",
       description: "Automated testing at every layer and continuous code reviews for reliability.",
-      color: "bg-success"
+      color: "bg-green-500"
     },
     {
       number: "4",
