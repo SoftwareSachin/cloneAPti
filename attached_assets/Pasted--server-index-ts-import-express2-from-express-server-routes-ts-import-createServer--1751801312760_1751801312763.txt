@@ -1,0 +1,658 @@
+// server/index.ts
+import express2 from "express";
+
+// server/routes.ts
+import { createServer } from "http";
+
+// server/storage.ts
+var MemStorage = class {
+  contacts;
+  currentId;
+  constructor() {
+    this.contacts = /* @__PURE__ */ new Map();
+    this.currentId = 1;
+  }
+  async createContact(insertContact) {
+    const id = this.currentId++;
+    const contact = {
+      ...insertContact,
+      id,
+      createdAt: /* @__PURE__ */ new Date(),
+      company: insertContact.company || null,
+      service: insertContact.service || null
+    };
+    this.contacts.set(id, contact);
+    return contact;
+  }
+  async getContacts() {
+    return Array.from(this.contacts.values()).sort(
+      (a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()
+    );
+  }
+  async getContact(id) {
+    return this.contacts.get(id);
+  }
+};
+var storage = new MemStorage();
+
+// shared/schema.ts
+import { pgTable, text, serial, timestamp } from "drizzle-orm/pg-core";
+import { createInsertSchema } from "drizzle-zod";
+var contacts = pgTable("contacts", {
+  id: serial("id").primaryKey(),
+  firstName: text("first_name").notNull(),
+  lastName: text("last_name").notNull(),
+  email: text("email").notNull(),
+  company: text("company"),
+  service: text("service"),
+  message: text("message").notNull(),
+  createdAt: timestamp("created_at").defaultNow()
+});
+var insertContactSchema = createInsertSchema(contacts).omit({
+  id: true,
+  createdAt: true
+});
+
+// server/routes.ts
+import { z } from "zod";
+import sgMail from "@sendgrid/mail";
+var supportTicketSchema = z.object({
+  fullName: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
+  subject: z.string().min(5, "Subject must be at least 5 characters"),
+  priority: z.enum(["Low", "Medium", "High", "Critical"]),
+  description: z.string().min(10, "Description must be at least 10 characters"),
+  category: z.string().optional()
+});
+async function registerRoutes(app2) {
+  app2.post("/api/contact", async (req, res) => {
+    try {
+      const contactData = insertContactSchema.parse(req.body);
+      const contact = await storage.createContact(contactData);
+      console.log("New contact submission:", contact);
+      res.status(201).json({
+        message: "Contact form submitted successfully",
+        contact
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        res.status(400).json({
+          message: "Invalid form data",
+          errors: error.errors
+        });
+      } else {
+        console.error("Contact form error:", error);
+        res.status(500).json({
+          message: "Internal server error"
+        });
+      }
+    }
+  });
+  app2.get("/api/contacts", async (req, res) => {
+    try {
+      const contacts2 = await storage.getContacts();
+      res.json(contacts2);
+    } catch (error) {
+      console.error("Error fetching contacts:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+  app2.post("/api/job-application", async (req, res) => {
+    const jobApplicationSchema = z.object({
+      fullName: z.string().min(1, "Full name is required"),
+      email: z.string().email("Valid email is required"),
+      phone: z.string().min(1, "Phone number is required"),
+      experience: z.string().optional(),
+      coverLetter: z.string().min(1, "Cover letter is required"),
+      position: z.string().min(1, "Position is required"),
+      department: z.string().min(1, "Department is required"),
+      location: z.string().min(1, "Location is required")
+    });
+    try {
+      const validationResult = jobApplicationSchema.safeParse(req.body);
+      if (!validationResult.success) {
+        return res.status(400).json({
+          message: "Validation failed",
+          error: validationResult.error.errors,
+          success: false
+        });
+      }
+      const applicationData = validationResult.data;
+      if (process.env.SENDGRID_API_KEY) {
+        try {
+          sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+          const emailSubject = `New Job Application - ${applicationData.position}`;
+          const emailHtml = `
+            <h2>New Job Application Received</h2>
+            
+            <h3>Position Details:</h3>
+            <ul>
+              <li><strong>Position:</strong> ${applicationData.position}</li>
+              <li><strong>Department:</strong> ${applicationData.department}</li>
+              <li><strong>Location:</strong> ${applicationData.location}</li>
+            </ul>
+            
+            <h3>Applicant Details:</h3>
+            <ul>
+              <li><strong>Full Name:</strong> ${applicationData.fullName}</li>
+              <li><strong>Email:</strong> ${applicationData.email}</li>
+              <li><strong>Phone:</strong> ${applicationData.phone}</li>
+              <li><strong>Experience:</strong> ${applicationData.experience || "Fresher/Entry Level"}</li>
+            </ul>
+            
+            <h3>Cover Letter:</h3>
+            <p style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; white-space: pre-wrap;">${applicationData.coverLetter}</p>
+            
+            <hr>
+            <p><em>This application was submitted through the Aptivon Solutions careers page.</em></p>
+          `;
+          const emailText = `
+New Job Application Received
+
+Position: ${applicationData.position}
+Department: ${applicationData.department}
+Location: ${applicationData.location}
+
+Applicant Details:
+- Full Name: ${applicationData.fullName}
+- Email: ${applicationData.email}
+- Phone: ${applicationData.phone}
+- Experience: ${applicationData.experience || "Fresher/Entry Level"}
+
+Cover Letter:
+${applicationData.coverLetter}
+
+This application was submitted through the Aptivon Solutions careers page.
+          `.trim();
+          const msg = {
+            to: "singhal3.sachin7@gmail.com",
+            from: "sachingupta1785209901@gmail.com",
+            // Use the verified sender from SendGrid
+            subject: emailSubject,
+            text: emailText,
+            html: emailHtml
+          };
+          await sgMail.send(msg);
+          console.log("\u2705 Email sent successfully via SendGrid to singhal3.sachin7@gmail.com");
+        } catch (emailError) {
+          console.error("\u274C SendGrid email error:", emailError.message);
+          if (emailError.response && emailError.response.body && emailError.response.body.errors) {
+            console.error("SendGrid error details:", emailError.response.body.errors);
+          }
+        }
+      } else {
+        console.log("\u26A0\uFE0F SendGrid API key not configured - email not sent");
+      }
+      console.log("=== NEW JOB APPLICATION RECEIVED ===");
+      console.log("To: singhal3.sachin7@gmail.com");
+      console.log("Subject: New Job Application -", applicationData.position);
+      console.log("");
+      console.log("Position Details:");
+      console.log("- Position:", applicationData.position);
+      console.log("- Department:", applicationData.department);
+      console.log("- Location:", applicationData.location);
+      console.log("");
+      console.log("Applicant Details:");
+      console.log("- Full Name:", applicationData.fullName);
+      console.log("- Email:", applicationData.email);
+      console.log("- Phone:", applicationData.phone);
+      console.log("- Experience:", applicationData.experience || "Fresher/Entry Level");
+      console.log("");
+      console.log("Cover Letter:");
+      console.log(applicationData.coverLetter);
+      console.log("=====================================");
+      return res.status(200).json({
+        message: "Application submitted successfully! We will review your application and get back to you soon.",
+        success: true
+      });
+    } catch (error) {
+      console.error("Error processing job application:", error);
+      return res.status(500).json({
+        message: "Internal server error. Please try again later.",
+        success: false
+      });
+    }
+  });
+  app2.post("/api/support-ticket", async (req, res) => {
+    try {
+      const supportTicketSchema2 = z.object({
+        fullName: z.string().min(2, "Name must be at least 2 characters"),
+        email: z.string().email("Invalid email address"),
+        subject: z.string().min(5, "Subject must be at least 5 characters"),
+        priority: z.enum(["Low", "Medium", "High", "Critical"]),
+        description: z.string().min(10, "Description must be at least 10 characters")
+      });
+      const validationResult = supportTicketSchema2.safeParse(req.body);
+      if (!validationResult.success) {
+        return res.status(400).json({
+          message: "Invalid form data",
+          errors: validationResult.error.errors,
+          success: false
+        });
+      }
+      const ticketData = validationResult.data;
+      const ticketId = `SUPT-${Date.now()}-${Math.random().toString(36).substr(2, 6).toUpperCase()}`;
+      if (process.env.SENDGRID_API_KEY) {
+        try {
+          sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+          const emailSubject = `Support Ticket [${ticketId}] - ${ticketData.priority} Priority: ${ticketData.subject}`;
+          const emailHtml = `
+            <h2>New Support Ticket Received</h2>
+            
+            <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+              <h3 style="margin-top: 0; color: #495057;">Ticket Information</h3>
+              <ul style="list-style: none; padding: 0;">
+                <li><strong>Ticket ID:</strong> ${ticketId}</li>
+                <li><strong>Priority:</strong> <span style="color: ${ticketData.priority === "Critical" ? "#dc3545" : ticketData.priority === "High" ? "#fd7e14" : ticketData.priority === "Medium" ? "#ffc107" : "#28a745"};">${ticketData.priority}</span></li>
+                <li><strong>Subject:</strong> ${ticketData.subject}</li>
+              </ul>
+            </div>
+            
+            <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+              <h3 style="margin-top: 0; color: #495057;">Customer Information</h3>
+              <ul style="list-style: none; padding: 0;">
+                <li><strong>Name:</strong> ${ticketData.fullName}</li>
+                <li><strong>Email:</strong> ${ticketData.email}</li>
+              </ul>
+            </div>
+            
+            <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+              <h3 style="margin-top: 0; color: #495057;">Issue Description</h3>
+              <p style="white-space: pre-wrap; line-height: 1.6;">${ticketData.description}</p>
+            </div>
+            
+            <hr style="margin: 30px 0;">
+            <p style="color: #6c757d; font-size: 14px;"><em>This support ticket was submitted through the Aptivon Solutions support portal.</em></p>
+          `;
+          const msg = {
+            to: "singhal3.sachin7@gmail.com",
+            from: "sachingupta1785209901@gmail.com",
+            subject: emailSubject,
+            html: emailHtml
+          };
+          await sgMail.send(msg);
+          console.log(`\u2705 Support ticket email sent successfully to singhal3.sachin7@gmail.com - ${ticketId}`);
+        } catch (emailError) {
+          console.error("\u274C SendGrid email error:", emailError.message);
+        }
+      }
+      console.log("=== NEW SUPPORT TICKET RECEIVED ===");
+      console.log(`Ticket ID: ${ticketId}`);
+      console.log(`Priority: ${ticketData.priority}`);
+      console.log(`To: singhal3.sachin7@gmail.com`);
+      console.log(`Subject: ${ticketData.subject}`);
+      console.log("Customer Information:");
+      console.log(`- Name: ${ticketData.fullName}`);
+      console.log(`- Email: ${ticketData.email}`);
+      console.log("Issue Description:");
+      console.log(ticketData.description);
+      console.log("=====================================");
+      return res.status(200).json({
+        message: `Support ticket ${ticketId} submitted successfully! We'll respond according to our SLA for ${ticketData.priority.toLowerCase()} priority issues.`,
+        success: true,
+        ticketId
+      });
+    } catch (error) {
+      console.error("Error processing support ticket:", error);
+      return res.status(500).json({
+        message: "Internal server error. Please try again later.",
+        success: false
+      });
+    }
+  });
+  app2.get("/api/search-support", async (req, res) => {
+    try {
+      const query = req.query.q;
+      if (!query || query.trim().length < 2) {
+        return res.status(400).json({
+          message: "Search query must be at least 2 characters long",
+          success: false
+        });
+      }
+      const KNOWLEDGE_BASE = [
+        {
+          id: 1,
+          title: "How long does a typical implementation take?",
+          content: "Implementation timelines vary based on project complexity and scope. Typical timelines are: Small projects (1-2 weeks), Medium projects (3-6 weeks), Large enterprise projects (8-16 weeks). We provide detailed project timelines during the planning phase.",
+          category: "Technical Implementation",
+          tags: ["implementation", "timeline", "project", "planning"]
+        },
+        {
+          id: 2,
+          title: "What are the system requirements?",
+          content: "Our solutions are cloud-native and platform agnostic. Minimum requirements include: Modern web browser (Chrome, Firefox, Safari, Edge), Stable internet connection (10+ Mbps recommended), Operating System: Windows 10+, macOS 10.14+, or Linux Ubuntu 18.04+.",
+          category: "Technical Implementation",
+          tags: ["requirements", "system", "browser", "operating system"]
+        },
+        {
+          id: 3,
+          title: "How do you handle data migration?",
+          content: "We follow a comprehensive data migration process: Data assessment and mapping, Migration strategy development, Test migrations in staging environment, Validation and integrity checks, Scheduled production migration with minimal downtime, Post-migration verification and optimization.",
+          category: "Technical Implementation",
+          tags: ["data", "migration", "transfer", "process"]
+        },
+        {
+          id: 4,
+          title: "What security measures do you implement?",
+          content: "Security is our top priority. We implement: End-to-end encryption (AES-256), Multi-factor authentication (MFA), Role-based access control (RBAC), Regular security audits and penetration testing, SOC 2 Type II compliance, GDPR and data privacy compliance.",
+          category: "Technical Implementation",
+          tags: ["security", "encryption", "compliance", "authentication"]
+        },
+        {
+          id: 5,
+          title: "How is pricing calculated?",
+          content: "Our pricing is transparent and based on: Project scope and complexity, Required features and integrations, Number of users or transactions, Support level required, Implementation timeline. We provide detailed quotes with no hidden fees.",
+          category: "Billing & Pricing",
+          tags: ["pricing", "cost", "billing", "quote"]
+        },
+        {
+          id: 6,
+          title: "What payment methods do you accept?",
+          content: "We accept multiple payment methods: Bank transfers (ACH/Wire), Credit cards (Visa, MasterCard, Amex), Corporate purchase orders, Annual prepayment (with discount), Milestone-based payments for large projects.",
+          category: "Billing & Pricing",
+          tags: ["payment", "methods", "billing", "credit card"]
+        }
+      ];
+      const searchTerm = query.toLowerCase().trim();
+      const searchResults = KNOWLEDGE_BASE.filter((item) => {
+        const titleMatch = item.title.toLowerCase().includes(searchTerm);
+        const contentMatch = item.content.toLowerCase().includes(searchTerm);
+        const tagMatch = item.tags.some((tag) => tag.toLowerCase().includes(searchTerm));
+        const categoryMatch = item.category.toLowerCase().includes(searchTerm);
+        return titleMatch || contentMatch || tagMatch || categoryMatch;
+      });
+      const sortedResults = searchResults.sort((a, b) => {
+        const aTitle = a.title.toLowerCase().includes(searchTerm);
+        const bTitle = b.title.toLowerCase().includes(searchTerm);
+        if (aTitle && !bTitle) return -1;
+        if (!aTitle && bTitle) return 1;
+        return 0;
+      });
+      return res.status(200).json({
+        success: true,
+        query,
+        results: sortedResults,
+        total: sortedResults.length
+      });
+    } catch (error) {
+      console.error("Error processing search request:", error);
+      return res.status(500).json({
+        message: "Internal server error. Please try again later.",
+        success: false
+      });
+    }
+  });
+  app2.post("/api/newsletter", async (req, res) => {
+    try {
+      const { email } = z.object({
+        email: z.string().email("Invalid email address")
+      }).parse(req.body);
+      console.log(`Newsletter subscription: ${email}`);
+      return res.status(200).json({
+        success: true,
+        message: "Successfully subscribed to newsletter!"
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({
+          success: false,
+          message: error.errors[0].message
+        });
+      }
+      return res.status(500).json({
+        success: false,
+        message: "Failed to subscribe to newsletter"
+      });
+    }
+  });
+  app2.post("/api/resources", async (req, res) => {
+    try {
+      const { resourceId, email, firstName, lastName, company } = z.object({
+        resourceId: z.string(),
+        email: z.string().email("Valid email required for download"),
+        firstName: z.string().min(1, "First name required"),
+        lastName: z.string().min(1, "Last name required"),
+        company: z.string().optional()
+      }).parse(req.body);
+      console.log(`Download request: ${resourceId} by ${firstName} ${lastName} (${email})`);
+      return res.status(200).json({
+        success: true,
+        message: "Download link sent to your email!",
+        downloadUrl: `/downloads/${resourceId}.pdf`
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({
+          success: false,
+          message: error.errors[0].message
+        });
+      }
+      return res.status(500).json({
+        success: false,
+        message: "Failed to process download request"
+      });
+    }
+  });
+  app2.post("/api/webinar-registration", async (req, res) => {
+    try {
+      const { webinarId, firstName, lastName, email, company, jobTitle, phone } = z.object({
+        webinarId: z.string(),
+        firstName: z.string().min(1, "First name required"),
+        lastName: z.string().min(1, "Last name required"),
+        email: z.string().email("Valid email required"),
+        company: z.string().optional(),
+        jobTitle: z.string().optional(),
+        phone: z.string().optional()
+      }).parse(req.body);
+      console.log(`Webinar registration: ${webinarId} by ${firstName} ${lastName} (${email})`);
+      return res.status(200).json({
+        success: true,
+        message: "Successfully registered for webinar! Check your email for the joining link.",
+        webinarId,
+        registrationConfirmation: `WB-${Date.now()}`
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({
+          success: false,
+          message: error.errors[0].message
+        });
+      }
+      return res.status(500).json({
+        success: false,
+        message: "Failed to register for webinar"
+      });
+    }
+  });
+  app2.post("/api/industry-consultation", async (req, res) => {
+    try {
+      const { firstName, lastName, email, company, industry, phone, message } = z.object({
+        firstName: z.string().min(1, "First name required"),
+        lastName: z.string().min(1, "Last name required"),
+        email: z.string().email("Valid email required"),
+        company: z.string().optional(),
+        industry: z.string().optional(),
+        phone: z.string().optional(),
+        message: z.string().min(10, "Message must be at least 10 characters")
+      }).parse(req.body);
+      console.log(`Industry consultation request: ${industry} - ${firstName} ${lastName} (${email})`);
+      return res.status(200).json({
+        success: true,
+        message: "Industry consultation request received! Our experts will contact you within 24 hours.",
+        consultationId: `IC-${Date.now()}`
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({
+          success: false,
+          message: error.errors[0].message
+        });
+      }
+      return res.status(500).json({
+        success: false,
+        message: "Failed to submit consultation request"
+      });
+    }
+  });
+  const httpServer = createServer(app2);
+  return httpServer;
+}
+
+// server/vite.ts
+import express from "express";
+import fs from "fs";
+import path2 from "path";
+import { createServer as createViteServer, createLogger } from "vite";
+
+// vite.config.ts
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import path from "path";
+import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
+var vite_config_default = defineConfig({
+  plugins: [
+    react(),
+    runtimeErrorOverlay(),
+    ...process.env.NODE_ENV !== "production" && process.env.REPL_ID !== void 0 ? [
+      await import("@replit/vite-plugin-cartographer").then(
+        (m) => m.cartographer()
+      )
+    ] : []
+  ],
+  resolve: {
+    alias: {
+      "@": path.resolve(import.meta.dirname, "client", "src"),
+      "@shared": path.resolve(import.meta.dirname, "shared"),
+      "@assets": path.resolve(import.meta.dirname, "attached_assets")
+    }
+  },
+  root: path.resolve(import.meta.dirname, "client"),
+  build: {
+    outDir: path.resolve(import.meta.dirname, "dist/public"),
+    emptyOutDir: true
+  },
+  server: {
+    fs: {
+      strict: true,
+      deny: ["**/.*"]
+    }
+  }
+});
+
+// server/vite.ts
+import { nanoid } from "nanoid";
+var viteLogger = createLogger();
+function log(message, source = "express") {
+  const formattedTime = (/* @__PURE__ */ new Date()).toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true
+  });
+  console.log(`${formattedTime} [${source}] ${message}`);
+}
+async function setupVite(app2, server) {
+  const serverOptions = {
+    middlewareMode: true,
+    hmr: { server },
+    allowedHosts: true
+  };
+  const vite = await createViteServer({
+    ...vite_config_default,
+    configFile: false,
+    customLogger: {
+      ...viteLogger,
+      error: (msg, options) => {
+        viteLogger.error(msg, options);
+        process.exit(1);
+      }
+    },
+    server: serverOptions,
+    appType: "custom"
+  });
+  app2.use(vite.middlewares);
+  app2.use("*", async (req, res, next) => {
+    const url = req.originalUrl;
+    try {
+      const clientTemplate = path2.resolve(
+        import.meta.dirname,
+        "..",
+        "client",
+        "index.html"
+      );
+      let template = await fs.promises.readFile(clientTemplate, "utf-8");
+      template = template.replace(
+        `src="/src/main.tsx"`,
+        `src="/src/main.tsx?v=${nanoid()}"`
+      );
+      const page = await vite.transformIndexHtml(url, template);
+      res.status(200).set({ "Content-Type": "text/html" }).end(page);
+    } catch (e) {
+      vite.ssrFixStacktrace(e);
+      next(e);
+    }
+  });
+}
+function serveStatic(app2) {
+  const distPath = path2.resolve(import.meta.dirname, "public");
+  if (!fs.existsSync(distPath)) {
+    throw new Error(
+      `Could not find the build directory: ${distPath}, make sure to build the client first`
+    );
+  }
+  app2.use(express.static(distPath));
+  app2.use("*", (_req, res) => {
+    res.sendFile(path2.resolve(distPath, "index.html"));
+  });
+}
+
+// server/index.ts
+var app = express2();
+app.use(express2.json());
+app.use(express2.urlencoded({ extended: false }));
+app.use((req, res, next) => {
+  const start = Date.now();
+  const path3 = req.path;
+  let capturedJsonResponse = void 0;
+  const originalResJson = res.json;
+  res.json = function(bodyJson, ...args) {
+    capturedJsonResponse = bodyJson;
+    return originalResJson.apply(res, [bodyJson, ...args]);
+  };
+  res.on("finish", () => {
+    const duration = Date.now() - start;
+    if (path3.startsWith("/api")) {
+      let logLine = `${req.method} ${path3} ${res.statusCode} in ${duration}ms`;
+      if (capturedJsonResponse) {
+        logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
+      }
+      if (logLine.length > 80) {
+        logLine = logLine.slice(0, 79) + "\u2026";
+      }
+      log(logLine);
+    }
+  });
+  next();
+});
+(async () => {
+  const server = await registerRoutes(app);
+  app.use((err, _req, res, _next) => {
+    const status = err.status || err.statusCode || 500;
+    const message = err.message || "Internal Server Error";
+    res.status(status).json({ message });
+    throw err;
+  });
+  if (app.get("env") === "development") {
+    await setupVite(app, server);
+  } else {
+    serveStatic(app);
+  }
+  const port = 5e3;
+  server.listen({
+    port,
+    host: "0.0.0.0",
+    reusePort: true
+  }, () => {
+    log(`serving on port ${port}`);
+  });
+})();
