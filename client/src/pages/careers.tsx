@@ -124,38 +124,6 @@ export default function Careers() {
         "Creative mindset with attention to detail"
       ],
       skills: ["Digital Marketing", "Social Media", "Content Creation", "Analytics", "Lead Generation"]
-    },
-    {
-      title: "Junior Software Developer",
-      department: "Technology",
-      location: "Remote / Hybrid",
-      type: "Full-time",
-      experience: "Freshers Welcome",
-      description: "Start your software development career by working on exciting projects and learning modern web technologies and best practices.",
-      requirements: [
-        "Bachelor's degree in Computer Science, IT, or related field",
-        "Basic knowledge of programming languages (JavaScript, Python, Java, etc.)",
-        "Understanding of web development concepts",
-        "Strong problem-solving skills and logical thinking",
-        "Passion for learning new technologies"
-      ],
-      skills: ["JavaScript", "React", "Node.js", "Database", "Git"]
-    },
-    {
-      title: "QA Testing Associate",
-      department: "Technology",
-      location: "Remote / Hybrid",
-      type: "Full-time",
-      experience: "Freshers Welcome",
-      description: "Begin your career in quality assurance by learning to test software applications and ensure high-quality deliverables.",
-      requirements: [
-        "Bachelor's degree in Computer Science, IT, or related field",
-        "Basic understanding of software testing concepts",
-        "Attention to detail and analytical mindset",
-        "Good communication skills for reporting issues",
-        "Interest in ensuring software quality"
-      ],
-      skills: ["Manual Testing", "Test Cases", "Bug Reporting", "Quality Assurance", "Documentation"]
     }
   ];
 
