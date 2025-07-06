@@ -20,13 +20,17 @@ A modern, responsive website for Aptivon Solutions, a premium IT services and co
    - Vercel will automatically detect the configuration
 
 2. **Environment Variables:**
-   - Set `DATABASE_URL` in Vercel dashboard
+   - Set `DATABASE_URL` in Vercel dashboard (required for API endpoints)
    - Set `NODE_ENV=production`
 
 3. **Build Settings:**
-   - Build Command: `npm run build`
+   - Build Command: `vite build` (configured in vercel.json)
    - Output Directory: `dist`
    - Install Command: `npm install`
+
+4. **Known Issues:**
+   - If you see raw server code on Vercel, redeploy after pushing latest changes
+   - The build may take longer due to Lucide React icons - this is normal
 
 ### Replit Deployment
 
