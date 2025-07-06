@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { TrendingUp } from "lucide-react";
 
@@ -45,12 +44,7 @@ export default function ApproachSection() {
   return (
     <section id="approach" className="py-24 bg-gradient-to-br from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
+        <div className="text-center mb-20">
           <div className="inline-block px-6 py-3 bg-primary/10 rounded-full mb-6">
             <div className="flex items-center">
               <TrendingUp className="w-4 h-4 text-primary mr-2" />
@@ -61,14 +55,9 @@ export default function ApproachSection() {
           <p className="text-xl text-text-gray max-w-4xl mx-auto leading-relaxed">
             A systematic methodology that ensures successful delivery, exceptional quality, and measurable long-term value for your business.
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="relative mb-16"
-        >
+        <div className="relative mb-16">
           <div className="h-96 rounded-2xl overflow-hidden relative">
             <div className="absolute inset-0 bg-gradient-to-r from-primary-dark to-primary opacity-80"></div>
             <div 
@@ -88,29 +77,29 @@ export default function ApproachSection() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {approaches.map((approach, index) => (
-            <motion.div
-              key={approach.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ y: -5 }}
-              className="h-full"
-            >
-              <Card className="h-full hover:shadow-modern-lg transition-all duration-500 border-0 shadow-modern group relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-primary/10 to-transparent rounded-full -mr-12 -mt-12"></div>
-                <CardContent className="p-8 relative z-10">
-                  <div className={`w-16 h-16 ${approach.color} rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                    <span className="text-white font-bold text-xl">{approach.number}</span>
+            <div key={approach.number} className="group">
+              <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white group-hover:scale-105">
+                <CardContent className="p-8">
+                  <div className="flex items-start mb-6">
+                    <div className={`w-12 h-12 ${approach.color} rounded-xl flex items-center justify-center text-white font-bold text-lg mr-4 shadow-lg`}>
+                      {approach.number}
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-primary-dark mb-3 group-hover:text-primary transition-colors">
+                        {approach.title}
+                      </h3>
+                      <p className="text-text-gray leading-relaxed">
+                        {approach.description}
+                      </p>
+                    </div>
                   </div>
-                  <h3 className="text-xl font-bold text-primary-dark mb-4 group-hover:text-primary transition-colors">{approach.title}</h3>
-                  <p className="text-text-gray leading-relaxed">{approach.description}</p>
                 </CardContent>
               </Card>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
