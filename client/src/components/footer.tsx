@@ -46,14 +46,12 @@ export default function Footer() {
             >
               Start Your Project
             </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="border-white text-white hover:bg-white hover:text-slate-900"
+            <button 
+              className="h-11 px-8 rounded-md border-2 border-white text-white bg-transparent hover:bg-white hover:text-slate-900 transition-colors duration-200 font-medium text-sm"
               onClick={() => window.location.href = '/contact'}
             >
               Discuss Your Challenge
-            </Button>
+            </button>
           </div>
         </div>
       </section>
