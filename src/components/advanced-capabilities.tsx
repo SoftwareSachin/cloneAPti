@@ -62,14 +62,14 @@ export default function AdvancedCapabilities() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.01 }}
               className="h-full"
             >
               <Card className={`bg-gradient-to-br ${capability.gradient} p-10 rounded-3xl text-white h-full shadow-premium group overflow-hidden relative hover-lift`}>
                 <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
                 <CardContent className="p-0 relative z-10">
                   <div className="flex items-start mb-8">
-                    <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300 animate-pulse-slow">
+                    <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mr-6 group-hover:scale-105 transition-transform duration-300">
                       <capability.icon className="text-3xl" size={40} />
                     </div>
                     <div className="flex-1">
