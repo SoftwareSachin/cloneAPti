@@ -30,100 +30,132 @@ export default function Careers() {
 
   const openPositions = [
     {
-      title: "Senior Business Development Manager",
+      title: "Business Development Associate",
       department: "Sales",
       location: "Remote / Hybrid",
       type: "Full-time",
-      experience: "5-8 years",
-      description: "Drive new business acquisition by identifying, qualifying, and closing enterprise technology deals across multiple industry verticals.",
+      experience: "Freshers Welcome",
+      description: "Start your career in business development by identifying potential clients and supporting our sales team in closing enterprise technology deals.",
       requirements: [
-        "5+ years experience in B2B technology sales",
-        "Proven track record of exceeding sales quotas ($2M+ annually)",
-        "Experience selling enterprise software and cloud solutions",
-        "Strong understanding of technology ecosystems and digital transformation",
-        "Excellent presentation and negotiation skills"
+        "Bachelor's degree in Business, Marketing, or related field",
+        "Strong communication and interpersonal skills",
+        "Interest in technology and digital transformation",
+        "Eagerness to learn and grow in a sales environment",
+        "Basic understanding of CRM tools preferred"
       ],
-      skills: ["Enterprise Sales", "CRM", "Lead Generation", "Contract Negotiation", "Technology Solutions"]
+      skills: ["Communication", "Lead Generation", "CRM", "Sales Support", "Client Relations"]
     },
     {
       title: "Client Acquisition Specialist",
       department: "Sales",
       location: "Remote / Hybrid",
       type: "Full-time",
-      experience: "3-5 years",
-      description: "Focus on prospecting and acquiring new enterprise clients through strategic outreach and relationship building.",
+      experience: "Freshers Welcome",
+      description: "Learn and grow in client acquisition by prospecting and building relationships with potential enterprise clients through strategic outreach.",
       requirements: [
-        "3+ years experience in client acquisition or business development",
-        "Strong prospecting and lead generation skills",
-        "Experience with CRM systems and sales automation tools",
-        "Excellent communication and relationship-building abilities",
-        "Bachelor's degree in Business, Marketing, or related field"
+        "Bachelor's degree in Business, Marketing, or related field",
+        "Strong communication and interpersonal skills",
+        "Interest in sales and client relationship building",
+        "Willingness to learn CRM systems and sales automation tools",
+        "Positive attitude and eagerness to learn"
       ],
-      skills: ["Prospecting", "Lead Generation", "Salesforce", "Cold Outreach", "Relationship Building"]
+      skills: ["Communication", "Lead Generation", "CRM", "Client Outreach", "Relationship Building"]
     },
     {
-      title: "Enterprise Sales Executive",
+      title: "Junior Sales Executive",
       department: "Sales",
       location: "Remote / Hybrid",
       type: "Full-time",
-      experience: "6-10 years",
-      description: "Lead strategic sales initiatives for large enterprise accounts, managing complex sales cycles and building C-level relationships.",
+      experience: "Freshers Welcome",
+      description: "Begin your sales career by supporting enterprise sales initiatives and learning to manage client relationships and sales processes.",
       requirements: [
-        "6+ years experience in enterprise technology sales",
-        "History of closing deals $500K+ in value",
-        "Strong network of enterprise contacts and decision-makers",
-        "Experience with complex B2B sales cycles (6-18 months)",
-        "Proven ability to build and maintain C-level relationships"
+        "Bachelor's degree in Business, Sales, or related field",
+        "Strong presentation and communication skills",
+        "Interest in technology and enterprise solutions",
+        "Ability to learn and adapt quickly",
+        "Professional demeanor and strong work ethic"
       ],
-      skills: ["Enterprise Sales", "Account Management", "Strategic Planning", "Executive Relationships", "Deal Structuring"]
+      skills: ["Sales Support", "Client Communication", "Presentation Skills", "CRM", "Business Development"]
     },
     {
       title: "Sales Development Representative",
       department: "Sales",
       location: "Remote / Hybrid",
       type: "Full-time",
-      experience: "1-3 years",
-      description: "Generate qualified leads and schedule meetings for senior sales team through targeted outreach and lead qualification.",
+      experience: "Freshers Welcome",
+      description: "Start your sales career by generating qualified leads and learning to schedule meetings for our sales team through targeted outreach.",
       requirements: [
-        "1-3 years experience in sales development or inside sales",
+        "Bachelor's degree in Business, Sales, or related field",
         "Strong communication and interpersonal skills",
-        "Experience with lead generation tools and techniques",
+        "Interest in learning lead generation tools and techniques",
         "Ability to work in a fast-paced, target-driven environment",
-        "Bachelor's degree preferred"
+        "Positive attitude and willingness to learn"
       ],
-      skills: ["Lead Qualification", "Cold Calling", "Email Marketing", "Sales Prospecting", "CRM Management"]
+      skills: ["Communication", "Lead Qualification", "Email Marketing", "Sales Prospecting", "CRM"]
     },
     {
-      title: "Channel Partnership Manager",
+      title: "Partnership Coordinator",
       department: "Sales",
       location: "Remote / Hybrid",
       type: "Full-time",
-      experience: "4-7 years",
-      description: "Develop and manage strategic partnerships with technology vendors and system integrators to drive client acquisition.",
+      experience: "Freshers Welcome",
+      description: "Support the development and management of strategic partnerships with technology vendors and system integrators.",
       requirements: [
-        "4+ years experience in channel sales or partnership management",
-        "Strong network within the technology ecosystem",
-        "Experience developing and executing partner programs",
-        "Excellent relationship management and negotiation skills",
-        "Understanding of channel sales models and structures"
+        "Bachelor's degree in Business, Marketing, or related field",
+        "Strong organizational and communication skills",
+        "Interest in technology and business partnerships",
+        "Ability to build and maintain professional relationships",
+        "Detail-oriented with good project management skills"
       ],
-      skills: ["Partnership Development", "Channel Sales", "Vendor Relations", "Program Management", "Strategic Alliances"]
+      skills: ["Partnership Support", "Communication", "Project Management", "Relationship Building", "Documentation"]
     },
     {
-      title: "Digital Marketing Manager - Lead Generation",
+      title: "Digital Marketing Associate",
       department: "Marketing",
       location: "Remote / Hybrid",
       type: "Full-time",
-      experience: "4-6 years",
-      description: "Drive digital marketing campaigns focused on generating high-quality leads and supporting client acquisition efforts.",
+      experience: "Freshers Welcome",
+      description: "Learn and execute digital marketing campaigns focused on generating high-quality leads and supporting client acquisition efforts.",
       requirements: [
-        "4+ years experience in B2B digital marketing",
-        "Proven track record in lead generation and conversion optimization",
-        "Experience with marketing automation platforms and CRM integration",
-        "Strong analytical skills and data-driven approach",
-        "Experience in technology or enterprise software marketing"
+        "Bachelor's degree in Marketing, Business, or related field",
+        "Basic understanding of digital marketing concepts",
+        "Strong analytical skills and willingness to learn data-driven approaches",
+        "Interest in B2B marketing and technology sector",
+        "Creative mindset with attention to detail"
       ],
-      skills: ["Digital Marketing", "Lead Generation", "Marketing Automation", "Analytics", "Content Strategy"]
+      skills: ["Digital Marketing", "Social Media", "Content Creation", "Analytics", "Lead Generation"]
+    },
+    {
+      title: "Junior Software Developer",
+      department: "Technology",
+      location: "Remote / Hybrid",
+      type: "Full-time",
+      experience: "Freshers Welcome",
+      description: "Start your software development career by working on exciting projects and learning modern web technologies and best practices.",
+      requirements: [
+        "Bachelor's degree in Computer Science, IT, or related field",
+        "Basic knowledge of programming languages (JavaScript, Python, Java, etc.)",
+        "Understanding of web development concepts",
+        "Strong problem-solving skills and logical thinking",
+        "Passion for learning new technologies"
+      ],
+      skills: ["JavaScript", "React", "Node.js", "Database", "Git"]
+    },
+    {
+      title: "QA Testing Associate",
+      department: "Technology",
+      location: "Remote / Hybrid",
+      type: "Full-time",
+      experience: "Freshers Welcome",
+      description: "Begin your career in quality assurance by learning to test software applications and ensure high-quality deliverables.",
+      requirements: [
+        "Bachelor's degree in Computer Science, IT, or related field",
+        "Basic understanding of software testing concepts",
+        "Attention to detail and analytical mindset",
+        "Good communication skills for reporting issues",
+        "Interest in ensuring software quality"
+      ],
+      skills: ["Manual Testing", "Test Cases", "Bug Reporting", "Quality Assurance", "Documentation"]
     }
   ];
 
@@ -149,7 +181,7 @@ export default function Careers() {
   const handleApplicationSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!applicationData.fullName || !applicationData.email || !applicationData.phone) {
+    if (!applicationData.fullName || !applicationData.email || !applicationData.phone || !applicationData.coverLetter) {
       toast({
         title: "Missing Information",
         description: "Please fill in all required fields.",
@@ -158,25 +190,55 @@ export default function Careers() {
       return;
     }
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    toast({
-      title: "Application Submitted!",
-      description: `Thank you for applying to ${selectedJob?.title}. We'll review your application and get back to you soon.`,
-    });
-    
-    // Reset form
-    setApplicationData({
-      fullName: "",
-      email: "",
-      phone: "",
-      experience: "",
-      coverLetter: "",
-      resume: null
-    });
-    setSelectedJob(null);
-    setIsDialogOpen(false);
+    try {
+      // Submit application to API
+      const response = await fetch('/api/job-application', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fullName: applicationData.fullName,
+          email: applicationData.email,
+          phone: applicationData.phone,
+          experience: applicationData.experience || 'Fresher/Entry Level',
+          coverLetter: applicationData.coverLetter,
+          position: selectedJob?.title,
+          department: selectedJob?.department,
+          location: selectedJob?.location,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        toast({
+          title: "Application Submitted!",
+          description: result.message,
+        });
+        
+        // Reset form
+        setApplicationData({
+          fullName: "",
+          email: "",
+          phone: "",
+          experience: "",
+          coverLetter: "",
+          resume: null
+        });
+        setSelectedJob(null);
+        setIsDialogOpen(false);
+      } else {
+        throw new Error(result.message || 'Failed to submit application');
+      }
+    } catch (error) {
+      console.error('Error submitting application:', error);
+      toast({
+        title: "Submission Failed",
+        description: "There was an error submitting your application. Please try again.",
+        variant: "destructive"
+      });
+    }
   };
 
   // Handle file upload
@@ -489,12 +551,12 @@ export default function Careers() {
                                 </div>
                                 
                                 <div className="space-y-2">
-                                  <Label htmlFor="experience">Years of Experience</Label>
+                                  <Label htmlFor="experience">Experience Level (Optional)</Label>
                                   <Input
                                     id="experience"
                                     value={applicationData.experience}
                                     onChange={(e) => setApplicationData(prev => ({ ...prev, experience: e.target.value }))}
-                                    placeholder="e.g., 5 years"
+                                    placeholder="e.g., Fresher, 2 years, etc."
                                   />
                                 </div>
                               </div>
