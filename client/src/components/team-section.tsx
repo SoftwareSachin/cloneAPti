@@ -1,6 +1,22 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Shield, Cpu, Target } from "lucide-react";
+import { 
+  Shield, 
+  Cpu, 
+  Target, 
+  Users,
+  ArrowRight,
+  Award,
+  Briefcase,
+  TrendingUp,
+  Star,
+  CheckCircle,
+  Globe,
+  LinkedIn,
+  Mail,
+  Calendar
+} from "lucide-react";
 
 const teamMembers = [
   {
@@ -14,7 +30,10 @@ const teamMembers = [
     icon: Cpu,
     achievements: ["AWS Solutions Architect Professional", "Former Google Senior Engineer", "Patents in Distributed Systems"],
     background: "Architected cloud infrastructure serving 50M+ users at Google. Led engineering teams building next-generation AI platforms and scalable microservices architectures.",
-    specialization: "Enterprise Cloud Solutions"
+    specialization: "Enterprise Cloud Solutions",
+    gradient: "from-blue-500 to-cyan-600",
+    accentColor: "blue",
+    metrics: { projects: "150+", teams: "20+", systems: "50M+" }
   },
   {
     id: 2,
@@ -27,7 +46,10 @@ const teamMembers = [
     icon: Target,
     achievements: ["Microsoft Distinguished PM", "Harvard MBA", "Product Leader of the Year 2023"],
     background: "Scaled B2B SaaS products from $10M to $100M+ ARR at Microsoft. Expert in enterprise digital transformation and strategic product roadmapping for Fortune 500 companies.",
-    specialization: "Strategic Product Leadership"
+    specialization: "Strategic Product Leadership",
+    gradient: "from-emerald-500 to-teal-600",
+    accentColor: "emerald",
+    metrics: { revenue: "$100M+", products: "25+", clients: "500+" }
   },
   {
     id: 3,
@@ -40,29 +62,50 @@ const teamMembers = [
     icon: Shield,
     achievements: ["Amazon Principal PM", "Stanford MS", "Customer Success Excellence Award"],
     background: "Drove customer-centric product innovations at Amazon, managing P&L for $200M+ product lines. Specialized in leveraging data analytics to optimize user experiences and drive growth.",
-    specialization: "Customer-Centric Innovation"
+    specialization: "Customer-Centric Innovation",
+    gradient: "from-violet-500 to-purple-600",
+    accentColor: "violet",
+    metrics: { satisfaction: "98%", retention: "95%", growth: "300%" }
   }
+];
+
+const leadershipStats = [
+  { icon: Users, value: "50+", label: "Team Members", color: "text-blue-600" },
+  { icon: Award, value: "15+", label: "Industry Awards", color: "text-green-600" },
+  { icon: Globe, value: "25+", label: "Countries Served", color: "text-purple-600" },
+  { icon: TrendingUp, value: "99%", label: "Client Retention", color: "text-orange-600" }
 ];
 
 export default function TeamSection() {
   return (
-    <section id="team" className="py-24 bg-gradient-to-br from-slate-50 to-blue-50">
-      <div className="container mx-auto px-6">
-        {/* Header section */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full mb-6">
-            <div className="w-2 h-2 bg-primary rounded-full"></div>
-            <span className="text-primary font-medium text-sm">Leadership Team</span>
+    <section id="team" className="py-24 bg-slate-50">
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Header */}
+        <div className="text-center mb-20">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-full mb-6">
+            <Users className="w-4 h-4" />
+            <span className="font-medium text-sm">LEADERSHIP TEAM</span>
           </div>
-          
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Meet Our Leadership
+          <h2 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6">
+            Meet Our <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Leadership</span>
           </h2>
-          
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
             Industry veterans with proven track records in delivering exceptional technology solutions 
             for enterprise clients worldwide.
           </p>
+        </div>
+
+        {/* Leadership Stats */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
+          {leadershipStats.map((stat, index) => (
+            <div key={index} className="text-center">
+              <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mx-auto mb-4 group hover:shadow-md transition-shadow">
+                <stat.icon className={`w-8 h-8 ${stat.color}`} />
+              </div>
+              <div className="text-3xl font-bold text-slate-900 mb-2">{stat.value}</div>
+              <div className="text-slate-600 text-sm">{stat.label}</div>
+            </div>
+          ))}
         </div>
 
         {/* Team grid */}

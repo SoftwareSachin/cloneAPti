@@ -1,6 +1,22 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Shield, Cpu, Target } from "lucide-react";
+import { 
+  Shield, 
+  Cpu, 
+  Target, 
+  Users,
+  ArrowRight,
+  Award,
+  Briefcase,
+  TrendingUp,
+  Star,
+  CheckCircle,
+  Globe,
+  LinkedIn,
+  Mail,
+  Calendar
+} from "lucide-react";
 
 const teamMembers = [
   {
@@ -14,7 +30,10 @@ const teamMembers = [
     icon: Cpu,
     achievements: ["AWS Solutions Architect Professional", "Former Google Senior Engineer", "Patents in Distributed Systems"],
     background: "Architected cloud infrastructure serving 50M+ users at Google. Led engineering teams building next-generation AI platforms and scalable microservices architectures.",
-    specialization: "Enterprise Cloud Solutions"
+    specialization: "Enterprise Cloud Solutions",
+    gradient: "from-blue-500 to-cyan-600",
+    accentColor: "blue",
+    metrics: { projects: "150+", teams: "20+", systems: "50M+" }
   },
   {
     id: 2,
@@ -27,7 +46,10 @@ const teamMembers = [
     icon: Target,
     achievements: ["Microsoft Distinguished PM", "Harvard MBA", "Product Leader of the Year 2023"],
     background: "Scaled B2B SaaS products from $10M to $100M+ ARR at Microsoft. Expert in enterprise digital transformation and strategic product roadmapping for Fortune 500 companies.",
-    specialization: "Strategic Product Leadership"
+    specialization: "Strategic Product Leadership",
+    gradient: "from-emerald-500 to-teal-600",
+    accentColor: "emerald",
+    metrics: { revenue: "$100M+", products: "25+", clients: "500+" }
   },
   {
     id: 3,
@@ -40,130 +62,177 @@ const teamMembers = [
     icon: Shield,
     achievements: ["Amazon Principal PM", "Stanford MS", "Customer Success Excellence Award"],
     background: "Drove customer-centric product innovations at Amazon, managing P&L for $200M+ product lines. Specialized in leveraging data analytics to optimize user experiences and drive growth.",
-    specialization: "Customer-Centric Innovation"
+    specialization: "Customer-Centric Innovation",
+    gradient: "from-violet-500 to-purple-600",
+    accentColor: "violet",
+    metrics: { satisfaction: "98%", retention: "95%", growth: "300%" }
   }
+];
+
+const leadershipStats = [
+  { icon: Users, value: "50+", label: "Team Members", color: "text-blue-600" },
+  { icon: Award, value: "15+", label: "Industry Awards", color: "text-green-600" },
+  { icon: Globe, value: "25+", label: "Countries Served", color: "text-purple-600" },
+  { icon: TrendingUp, value: "99%", label: "Client Retention", color: "text-orange-600" }
 ];
 
 export default function TeamSection() {
   return (
-    <section id="team" className="py-24 bg-gradient-to-br from-slate-50 to-blue-50">
-      <div className="container mx-auto px-6">
-        {/* Header section */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full mb-6">
-            <div className="w-2 h-2 bg-primary rounded-full"></div>
-            <span className="text-primary font-medium text-sm">Leadership Team</span>
+    <section id="team" className="py-24 bg-slate-50">
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Header */}
+        <div className="text-center mb-20">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-full mb-6">
+            <Users className="w-4 h-4" />
+            <span className="font-medium text-sm">LEADERSHIP TEAM</span>
           </div>
-          
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Meet Our Leadership
+          <h2 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6">
+            Meet Our <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Leadership</span>
           </h2>
-          
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
             Industry veterans with proven track records in delivering exceptional technology solutions 
             for enterprise clients worldwide.
           </p>
         </div>
 
-        {/* Team grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {teamMembers.map((member) => {
-            const IconComponent = member.icon;
-            return (
-              <Card 
-                key={member.id} 
-                className="group relative overflow-hidden border-0 bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-              >
-                <CardContent className="p-8">
-                  {/* Profile header */}
-                  <div className="text-center mb-6">
-                    <div className="relative mx-auto mb-4">
-                      <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-xl font-bold shadow-lg mx-auto">
-                        {member.avatar}
-                      </div>
-                      <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-white rounded-xl shadow-lg flex items-center justify-center border border-gray-100">
-                        <IconComponent className="w-4 h-4 text-primary" />
-                      </div>
-                    </div>
-                    
-                    <h3 className="text-xl font-bold text-gray-900 mb-1">
-                      {member.name}
-                    </h3>
-                    <p className="text-primary font-semibold mb-2">
-                      {member.role}
-                    </p>
-                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-gray-100 rounded-full">
-                      <span className="text-gray-700 text-sm font-medium">{member.experience}</span>
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="space-y-6">
-                    {/* Specialization */}
-                    <div className="text-center">
-                      <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/5 rounded-lg border border-primary/10">
-                        <span className="text-primary font-medium text-sm">{member.specialization}</span>
-                      </div>
-                    </div>
-                    
-                    {/* Background */}
-                    <div>
-                      <p className="text-gray-600 text-sm leading-relaxed">
-                        {member.background}
-                      </p>
-                    </div>
-                    
-                    {/* Expertise */}
-                    <div>
-                      <h4 className="text-gray-900 font-semibold mb-3 text-sm">Core Expertise</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {member.expertise.map((skill, skillIndex) => (
-                          <Badge 
-                            key={skillIndex} 
-                            variant="outline" 
-                            className="text-xs border-primary/20 text-primary bg-primary/5 hover:bg-primary/10 transition-colors"
-                          >
-                            {skill}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Achievements */}
-                    <div>
-                      <h4 className="text-gray-900 font-semibold mb-3 text-sm">Key Achievements</h4>
-                      <ul className="space-y-2">
-                        {member.achievements.map((achievement, achIndex) => (
-                          <li key={achIndex} className="text-gray-600 text-sm flex items-start gap-2">
-                            <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                            {achievement}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
+        {/* Leadership Stats */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
+          {leadershipStats.map((stat, index) => (
+            <div key={index} className="text-center">
+              <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mx-auto mb-4 group hover:shadow-md transition-shadow">
+                <stat.icon className={`w-8 h-8 ${stat.color}`} />
+              </div>
+              <div className="text-3xl font-bold text-slate-900 mb-2">{stat.value}</div>
+              <div className="text-slate-600 text-sm">{stat.label}</div>
+            </div>
+          ))}
         </div>
 
-        {/* Bottom section */}
-        <div className="text-center mt-16">
-          <div className="inline-flex items-center gap-3 px-6 py-3 bg-white rounded-xl shadow-lg border border-gray-100">
-            <div className="flex -space-x-2">
-              {teamMembers.map((member) => (
-                <div 
-                  key={member.id}
-                  className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-xs font-bold border-2 border-white"
-                >
-                  {member.avatar}
+        {/* Team Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {teamMembers.map((member) => (
+            <Card key={member.id} className="bg-white border-0 shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden group h-full">
+              <CardContent className="p-0">
+                <div className={`h-1 bg-gradient-to-r ${member.gradient}`}></div>
+                <div className="p-8 h-full flex flex-col">
+                  {/* Avatar & Header */}
+                  <div className="text-center mb-6">
+                    <div className="relative mb-4 mx-auto w-20 h-20">
+                      <div className={`w-20 h-20 rounded-2xl bg-gradient-to-r ${member.gradient} flex items-center justify-center text-white text-xl font-bold shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                        {member.avatar}
+                      </div>
+                      <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-white rounded-lg shadow-md flex items-center justify-center">
+                        <member.icon className={`w-4 h-4 text-${member.accentColor}-600`} />
+                      </div>
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-1">{member.name}</h3>
+                    <p className="text-slate-600 font-medium mb-3">{member.role}</p>
+                    <Badge variant="secondary" className={`bg-${member.accentColor}-50 text-${member.accentColor}-700 border-${member.accentColor}-200 text-xs`}>
+                      {member.experience}
+                    </Badge>
+                  </div>
+
+                  {/* Metrics */}
+                  <div className="grid grid-cols-3 gap-3 mb-6">
+                    {Object.entries(member.metrics).map(([key, value], idx) => (
+                      <div key={idx} className="text-center p-2 bg-slate-50 rounded-lg">
+                        <div className={`text-lg font-bold bg-gradient-to-r ${member.gradient} bg-clip-text text-transparent`}>
+                          {value}
+                        </div>
+                        <div className="text-xs text-slate-600 capitalize">{key}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Background */}
+                  <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-grow">
+                    {member.background}
+                  </p>
+
+                  {/* Expertise */}
+                  <div className="space-y-3 mb-6">
+                    <h4 className="text-sm font-semibold text-slate-900">Core Expertise:</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {member.expertise.map((skill, index) => (
+                        <Badge key={index} variant="outline" className="text-xs">
+                          {skill}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Achievements */}
+                  <div className="space-y-3 mb-6">
+                    <h4 className="text-sm font-semibold text-slate-900">Key Achievements:</h4>
+                    <div className="space-y-2">
+                      {member.achievements.slice(0, 2).map((achievement, index) => (
+                        <div key={index} className="flex items-center gap-2">
+                          <CheckCircle className={`w-3 h-3 text-${member.accentColor}-500 flex-shrink-0`} />
+                          <span className="text-xs text-slate-700">{achievement}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Contact Actions */}
+                  <div className="flex gap-2 mt-auto">
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      className="flex-1 justify-center group-hover:bg-slate-50 transition-colors"
+                    >
+                      <LinkedIn className="w-4 h-4 mr-2" />
+                      Connect
+                    </Button>
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      className="flex-1 justify-center group-hover:bg-slate-50 transition-colors"
+                    >
+                      <Mail className="w-4 h-4 mr-2" />
+                      Email
+                    </Button>
+                  </div>
                 </div>
-              ))}
-            </div>
-            <div className="h-4 w-px bg-gray-200"></div>
-            <span className="text-gray-700 font-medium">Driving innovation with proven expertise</span>
-          </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Bottom CTA Section */}
+        <div className="mt-20">
+          <Card className="bg-white border-0 shadow-lg">
+            <CardContent className="p-12 text-center">
+              <div className="max-w-3xl mx-auto">
+                <div className="flex justify-center mb-6">
+                  <div className="flex -space-x-2">
+                    {teamMembers.map((member) => (
+                      <div 
+                        key={member.id}
+                        className={`w-12 h-12 rounded-full bg-gradient-to-r ${member.gradient} flex items-center justify-center text-white text-sm font-bold border-2 border-white shadow-sm`}
+                      >
+                        {member.avatar}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <h3 className="text-3xl font-bold text-slate-900 mb-4">Ready to Work with Our Team?</h3>
+                <p className="text-slate-600 mb-8 text-lg">
+                  Connect with our leadership team to discuss your project requirements and strategic goals.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button size="lg" className="bg-slate-900 hover:bg-slate-800 text-white">
+                    Schedule Leadership Call
+                    <Calendar className="ml-2 w-5 h-5" />
+                  </Button>
+                  <Button size="lg" variant="outline">
+                    View Team Profiles
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </section>
