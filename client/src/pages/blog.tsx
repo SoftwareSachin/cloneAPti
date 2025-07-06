@@ -1,11 +1,53 @@
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
-import { Calendar, User, ArrowRight, Tag } from "lucide-react";
+import { Calendar, User, ArrowRight, Tag, Search, Filter, BookOpen, TrendingUp, Mail, Bell } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useLocation } from "wouter";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Blog() {
+  const [, setLocation] = useLocation();
+  const [selectedCategory, setSelectedCategory] = useState("All Posts");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [email, setEmail] = useState("");
+  const [visiblePosts, setVisiblePosts] = useState(6);
+  const { toast } = useToast();
+
+  const handleReadArticle = (title: string) => {
+    // In a real app, this would route to the individual blog post
+    toast({
+      title: "Article Opening",
+      description: `Opening: ${title}`,
+    });
+  };
+
+  const handleCategoryFilter = (category: string) => {
+    setSelectedCategory(category);
+    setVisiblePosts(6); // Reset visible posts when changing category
+  };
+
+  const handleNewsletterSignup = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email) {
+      toast({
+        title: "Successfully Subscribed!",
+        description: "You'll receive our latest tech insights in your inbox.",
+      });
+      setEmail("");
+    }
+  };
+
+  const handleLoadMore = () => {
+    setVisiblePosts(prev => prev + 6);
+  };
+
+  const handleContactUs = () => {
+    setLocation("/contact");
+  };
   const featuredPost = {
     title: "The Future of Enterprise AI: Transforming Business Operations in 2025",
     excerpt: "Explore how artificial intelligence is revolutionizing enterprise operations, from predictive analytics to automated decision-making, and what leaders need to know to stay competitive.",
@@ -126,10 +168,30 @@ export default function Blog() {
             <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6">
               Technology Insights
             </h1>
-            <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed mb-8">
               Expert perspectives on enterprise technology, digital transformation, and industry trends 
               from our team of technology leaders and practitioners.
             </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
+                <Input
+                  type="text"
+                  placeholder="Search articles..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 pr-4 py-3 border-slate-300 focus:border-slate-900"
+                />
+              </div>
+              <Button 
+                variant="outline"
+                onClick={handleContactUs}
+                className="border-slate-300 text-slate-700 hover:bg-slate-50"
+              >
+                <BookOpen className="h-4 w-4 mr-2" />
+                Request Topic
+              </Button>
+            </div>
           </div>
         </div>
       </section>
@@ -178,7 +240,10 @@ export default function Blog() {
                         </Badge>
                       ))}
                     </div>
-                    <Button className="bg-slate-900 hover:bg-slate-800 text-white">
+                    <Button 
+                      className="bg-slate-900 hover:bg-slate-800 text-white"
+                      onClick={() => handleReadArticle(featuredPost.title)}
+                    >
                       Read Full Article
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
@@ -197,8 +262,9 @@ export default function Blog() {
             {categories.map((category, index) => (
               <Button
                 key={index}
-                variant={index === 0 ? "default" : "outline"}
-                className={index === 0 ? "bg-slate-900 hover:bg-slate-800 text-white" : "border-slate-300 text-slate-700 hover:bg-slate-50"}
+                variant={selectedCategory === category ? "default" : "outline"}
+                className={selectedCategory === category ? "bg-slate-900 hover:bg-slate-800 text-white" : "border-slate-300 text-slate-700 hover:bg-slate-50"}
+                onClick={() => handleCategoryFilter(category)}
               >
                 {category}
               </Button>
@@ -218,8 +284,23 @@ export default function Blog() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {blogPosts.map((post, index) => (
-              <Card key={index} className="bg-white border border-slate-200 hover:shadow-lg transition-shadow duration-300">
+            {blogPosts
+              .filter(post => 
+                selectedCategory === "All Posts" || post.category === selectedCategory
+              )
+              .filter(post => 
+                searchQuery === "" || 
+                post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+              )
+              .slice(0, visiblePosts)
+              .map((post, index) => (
+              <Card 
+                key={index} 
+                className="bg-white border border-slate-200 hover:shadow-lg transition-all duration-300 cursor-pointer hover:scale-105"
+                onClick={() => handleReadArticle(post.title)}
+              >
                 <CardContent className="p-0">
                   <div className="bg-slate-100 h-48 flex items-center justify-center">
                     <div className="text-center">
@@ -256,7 +337,14 @@ export default function Blog() {
                         </Badge>
                       ))}
                     </div>
-                    <Button variant="outline" className="w-full border-slate-300 text-slate-700 hover:bg-slate-50">
+                    <Button 
+                      variant="outline" 
+                      className="w-full border-slate-300 text-slate-700 hover:bg-slate-50"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleReadArticle(post.title);
+                      }}
+                    >
                       Read More
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
@@ -266,11 +354,26 @@ export default function Blog() {
             ))}
           </div>
           
-          <div className="text-center mt-12">
-            <Button className="bg-slate-900 hover:bg-slate-800 text-white px-8 py-3">
-              Load More Articles
-            </Button>
-          </div>
+          {blogPosts
+            .filter(post => 
+              selectedCategory === "All Posts" || post.category === selectedCategory
+            )
+            .filter(post => 
+              searchQuery === "" || 
+              post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+            ).length > visiblePosts && (
+            <div className="text-center mt-12">
+              <Button 
+                className="bg-slate-900 hover:bg-slate-800 text-white px-8 py-3"
+                onClick={handleLoadMore}
+              >
+                <TrendingUp className="h-4 w-4 mr-2" />
+                Load More Articles
+              </Button>
+            </div>
+          )}
         </div>
       </section>
 
@@ -283,16 +386,23 @@ export default function Blog() {
               Subscribe to our newsletter for the latest insights on enterprise technology, 
               industry trends, and best practices delivered to your inbox.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-              <input
+            <form onSubmit={handleNewsletterSignup} className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+              <Input
                 type="email"
                 placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="flex-1 px-4 py-3 rounded-lg text-slate-900 border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-500"
+                required
               />
-              <Button className="bg-white text-slate-900 hover:bg-slate-100 px-6 py-3">
+              <Button 
+                type="submit"
+                className="bg-white text-slate-900 hover:bg-slate-100 px-6 py-3"
+              >
+                <Bell className="h-4 w-4 mr-2" />
                 Subscribe
               </Button>
-            </div>
+            </form>
           </div>
         </div>
       </section>
