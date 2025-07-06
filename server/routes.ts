@@ -72,7 +72,80 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const applicationData = validationResult.data;
 
-      // Log the application details (for now, until email is set up)
+      // Try to send email if credentials are available
+      if (process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) {
+        try {
+          const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+              user: process.env.GMAIL_USER,
+              pass: process.env.GMAIL_APP_PASSWORD
+            }
+          });
+
+          const emailSubject = `New Job Application - ${applicationData.position}`;
+          const emailHtml = `
+            <h2>New Job Application Received</h2>
+            
+            <h3>Position Details:</h3>
+            <ul>
+              <li><strong>Position:</strong> ${applicationData.position}</li>
+              <li><strong>Department:</strong> ${applicationData.department}</li>
+              <li><strong>Location:</strong> ${applicationData.location}</li>
+            </ul>
+            
+            <h3>Applicant Details:</h3>
+            <ul>
+              <li><strong>Full Name:</strong> ${applicationData.fullName}</li>
+              <li><strong>Email:</strong> ${applicationData.email}</li>
+              <li><strong>Phone:</strong> ${applicationData.phone}</li>
+              <li><strong>Experience:</strong> ${applicationData.experience || 'Fresher/Entry Level'}</li>
+            </ul>
+            
+            <h3>Cover Letter:</h3>
+            <p style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; white-space: pre-wrap;">${applicationData.coverLetter}</p>
+            
+            <hr>
+            <p><em>This application was submitted through the Aptivon Solutions careers page.</em></p>
+          `;
+
+          const emailText = `
+New Job Application Received
+
+Position: ${applicationData.position}
+Department: ${applicationData.department}
+Location: ${applicationData.location}
+
+Applicant Details:
+- Full Name: ${applicationData.fullName}
+- Email: ${applicationData.email}
+- Phone: ${applicationData.phone}
+- Experience: ${applicationData.experience || 'Fresher/Entry Level'}
+
+Cover Letter:
+${applicationData.coverLetter}
+
+This application was submitted through the Aptivon Solutions careers page.
+          `.trim();
+
+          const mailOptions = {
+            from: process.env.GMAIL_USER,
+            to: 'singhal3.sachin7@gmail.com',
+            subject: emailSubject,
+            text: emailText,
+            html: emailHtml
+          };
+
+          await transporter.sendMail(mailOptions);
+          console.log('Email sent successfully to singhal3.sachin7@gmail.com');
+        } catch (emailError) {
+          console.error('Email sending error:', emailError);
+        }
+      } else {
+        console.log('Gmail credentials not configured - email not sent');
+      }
+
+      // Always log the application details for backup
       console.log('=== NEW JOB APPLICATION RECEIVED ===');
       console.log('To: singhal3.sachin7@gmail.com');
       console.log('Subject: New Job Application -', applicationData.position);
