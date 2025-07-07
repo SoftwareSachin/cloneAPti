@@ -12,14 +12,23 @@ export default function Contact() {
   
   // Live Chat State
   const [showLiveChat, setShowLiveChat] = useState(false);
-  const [chatMessages, setChatMessages] = useState([
-    { id: 1, sender: 'agent', message: 'Hello! How can I help you today?', timestamp: new Date() },
-    { id: 2, sender: 'system', message: 'You are connected to our support team. Average response time is 2 minutes.', timestamp: new Date() }
-  ]);
+  const [chatMessages, setChatMessages] = useState(() => {
+    const savedMessages = localStorage.getItem('aptivon_chat_messages');
+    return savedMessages ? JSON.parse(savedMessages) : [
+      { id: 1, sender: 'agent', message: 'Hello! How can I help you today?', timestamp: new Date().toISOString(), status: 'delivered' },
+      { id: 2, sender: 'system', message: 'You are connected to our support team. Average response time is 2 minutes.', timestamp: new Date().toISOString(), status: 'delivered' }
+    ];
+  });
   const [chatInput, setChatInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [isOnline, setIsOnline] = useState(true);
   const [unreadCount, setUnreadCount] = useState(0);
+  const [connectionStatus, setConnectionStatus] = useState('connected');
+  const [agentTyping, setAgentTyping] = useState(false);
+  const [chatSession, setChatSession] = useState(() => {
+    return localStorage.getItem('aptivon_chat_session') || `session_${Date.now()}`;
+  });
+  const [messageStatus, setMessageStatus] = useState({});
   const chatMessagesRef = useRef(null);
   
   // Quick Actions State
@@ -105,45 +114,123 @@ export default function Contact() {
   };
 
   // Live Chat Functions
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (!chatInput.trim()) return;
     
+    const messageId = Date.now();
     const newMessage = {
-      id: chatMessages.length + 1,
+      id: messageId,
       sender: 'user',
-      message: chatInput,
-      timestamp: new Date()
+      message: chatInput.trim(),
+      timestamp: new Date().toISOString(),
+      status: 'sending',
+      sessionId: chatSession
     };
     
-    setChatMessages(prev => [...prev, newMessage]);
+    const currentInput = chatInput;
+    setChatMessages(prev => {
+      const updated = [...prev, newMessage];
+      localStorage.setItem('aptivon_chat_messages', JSON.stringify(updated));
+      return updated;
+    });
     setChatInput('');
-    setIsTyping(true);
     
-    // Simulate agent response
+    // Update message status to sent
     setTimeout(() => {
-      setIsTyping(false);
+      setChatMessages(prev => prev.map(msg => 
+        msg.id === messageId ? { ...msg, status: 'sent' } : msg
+      ));
+    }, 500);
+    
+    // Show agent typing indicator
+    setAgentTyping(true);
+    
+    // Simulate realistic response delay
+    const responseDelay = Math.random() * 2000 + 1000;
+    setTimeout(() => {
+      setAgentTyping(false);
       const agentResponse = {
-        id: chatMessages.length + 2,
+        id: Date.now() + 1,
         sender: 'agent',
-        message: getAutoResponse(chatInput),
-        timestamp: new Date()
+        message: getIntelligentResponse(currentInput),
+        timestamp: new Date().toISOString(),
+        status: 'delivered',
+        sessionId: chatSession
       };
-      setChatMessages(prev => [...prev, agentResponse]);
-    }, 1500);
+      
+      setChatMessages(prev => {
+        const updated = [...prev, agentResponse];
+        localStorage.setItem('aptivon_chat_messages', JSON.stringify(updated));
+        return updated;
+      });
+      
+      // Update unread count if chat is closed
+      if (!showLiveChat) {
+        setUnreadCount(prev => prev + 1);
+      }
+    }, responseDelay);
   };
 
-  const getAutoResponse = (userMessage: string) => {
+  const getIntelligentResponse = (userMessage: string) => {
     const message = userMessage.toLowerCase();
-    if (message.includes('pricing') || message.includes('cost')) {
-      return "Our pricing varies based on project scope. I'll connect you with our sales team for a detailed quote. Would you like to schedule a consultation?";
-    } else if (message.includes('timeline') || message.includes('delivery')) {
-      return "Project timelines typically range from 2-6 months depending on complexity. We provide detailed project plans during our initial consultation.";
-    } else if (message.includes('technology') || message.includes('tech')) {
-      return "We work with modern technologies including React, Node.js, Python, AWS, and more. What specific technology are you interested in?";
-    } else if (message.includes('support') || message.includes('help')) {
-      return "We offer 24/7 support with various SLA options. Would you like to know more about our support packages?";
+    const responses = {
+      pricing: [
+        "Our pricing is tailored to each project's unique requirements. We offer competitive rates starting from $5,000 for small projects. Would you like me to connect you with our sales team for a personalized quote?",
+        "Pricing depends on project scope, timeline, and technology requirements. We provide transparent, fixed-price proposals after understanding your needs. Shall I schedule a consultation call?",
+        "We offer flexible pricing models including fixed-price, time & materials, and dedicated team arrangements. What type of project are you considering?"
+      ],
+      timeline: [
+        "Typical project timelines range from 2-6 months. Small applications take 2-3 months, while enterprise solutions require 4-6 months. What's your target launch date?",
+        "Timeline depends on complexity and features. We use agile methodology with 2-week sprints. Would you like to discuss your specific requirements?",
+        "We provide detailed project roadmaps during consultation. Most clients see initial prototypes within 4-6 weeks. When do you need to go live?"
+      ],
+      technology: [
+        "We specialize in React, Node.js, Python, AWS, and modern cloud technologies. We also work with AI/ML, blockchain, and mobile development. What technology interests you?",
+        "Our tech stack includes cutting-edge tools: React/Next.js, Node.js/Python, PostgreSQL/MongoDB, AWS/Azure, Docker, and Kubernetes. What's your current tech environment?",
+        "We stay current with the latest technologies while ensuring stability and scalability. What specific technology challenge are you facing?"
+      ],
+      support: [
+        "We offer comprehensive support packages: Basic (business hours), Premium (24/7), and Enterprise (dedicated support team). All include monitoring, updates, and security patches.",
+        "Our support includes 24/7 monitoring, proactive maintenance, security updates, and performance optimization. We guarantee 99.9% uptime. What level of support do you need?",
+        "Support options range from self-service documentation to dedicated account management. We also provide training for your team. What type of support would be most valuable?"
+      ],
+      team: [
+        "Our team includes senior developers, architects, and project managers with 5-15 years experience. We're based in Jaipur with expertise across multiple industries.",
+        "We have specialists in frontend, backend, DevOps, and AI/ML. All team members are certified professionals. Would you like to know about our expertise in your industry?",
+        "Our experienced team has delivered solutions for healthcare, fintech, e-commerce, and enterprise clients. What's your industry focus?"
+      ],
+      security: [
+        "Security is our top priority. We implement enterprise-grade measures including encryption, access controls, vulnerability testing, and compliance frameworks (SOC 2, HIPAA, GDPR).",
+        "We follow security-first development practices, conduct regular audits, and provide detailed security documentation. What security requirements do you have?",
+        "Our security approach includes secure coding, infrastructure hardening, and continuous monitoring. We're certified in multiple security frameworks."
+      ]
+    };
+
+    // Intelligent keyword matching
+    if (message.includes('pricing') || message.includes('cost') || message.includes('budget') || message.includes('quote')) {
+      return responses.pricing[Math.floor(Math.random() * responses.pricing.length)];
+    } else if (message.includes('timeline') || message.includes('delivery') || message.includes('when') || message.includes('time')) {
+      return responses.timeline[Math.floor(Math.random() * responses.timeline.length)];
+    } else if (message.includes('technology') || message.includes('tech') || message.includes('stack') || message.includes('platform')) {
+      return responses.technology[Math.floor(Math.random() * responses.technology.length)];
+    } else if (message.includes('support') || message.includes('maintenance') || message.includes('help')) {
+      return responses.support[Math.floor(Math.random() * responses.support.length)];
+    } else if (message.includes('team') || message.includes('experience') || message.includes('expertise')) {
+      return responses.team[Math.floor(Math.random() * responses.team.length)];
+    } else if (message.includes('security') || message.includes('compliance') || message.includes('privacy')) {
+      return responses.security[Math.floor(Math.random() * responses.security.length)];
+    } else if (message.includes('hello') || message.includes('hi') || message.includes('hey')) {
+      return "Hello! I'm here to help you with any questions about our services. What would you like to know about our development capabilities?";
+    } else if (message.includes('thank') || message.includes('thanks')) {
+      return "You're very welcome! Is there anything else I can help you with today? I'm here to assist with any questions about our services.";
     } else {
-      return "Thank you for your message! A specialist will review your inquiry and provide a detailed response within 15 minutes. Is there anything specific I can help you with right now?";
+      const genericResponses = [
+        "That's a great question! Let me provide you with detailed information. Our team specializes in custom software development and can help with your specific needs. What aspect would you like to explore further?",
+        "I'd be happy to help you with that! Based on your inquiry, I recommend scheduling a consultation where we can discuss your requirements in detail. Shall I set that up?",
+        "Thank you for reaching out! Your question is important to us. Our specialists can provide comprehensive guidance on this topic. Would you like me to connect you with the right expert?",
+        "Excellent question! We have extensive experience in this area and would love to help. Let me gather some additional context - what's your primary goal with this project?"
+      ];
+      return genericResponses[Math.floor(Math.random() * genericResponses.length)];
     }
   };
 
@@ -187,6 +274,17 @@ export default function Contact() {
     setFeedbackText('');
   };
 
+  // Clear unread count when chat opens
+  const handleOpenChat = () => {
+    setShowLiveChat(true);
+    setUnreadCount(0);
+  };
+
+  // Save chat session
+  useEffect(() => {
+    localStorage.setItem('aptivon_chat_session', chatSession);
+  }, [chatSession]);
+
   // Auto-scroll chat
   useEffect(() => {
     if (chatMessagesRef.current) {
@@ -194,10 +292,56 @@ export default function Contact() {
     }
   }, [chatMessages]);
 
-  // Update view count on mount
+  // Update view count and connection status
   useEffect(() => {
     setViewCount(prev => prev + 1);
+    
+    // Simulate connection status changes
+    const statusInterval = setInterval(() => {
+      setConnectionStatus(prev => {
+        const statuses = ['connected', 'connecting', 'connected'];
+        const currentIndex = statuses.indexOf(prev);
+        return statuses[(currentIndex + 1) % statuses.length];
+      });
+    }, 30000);
+
+    return () => clearInterval(statusInterval);
   }, []);
+
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && showLiveChat) {
+        setShowLiveChat(false);
+      }
+      if (e.ctrlKey && e.key === 'k') {
+        e.preventDefault();
+        handleOpenChat();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [showLiveChat]);
+
+  // Clear chat function
+  const clearChatHistory = () => {
+    const confirmClear = window.confirm('Are you sure you want to clear chat history?');
+    if (confirmClear) {
+      const initialMessages = [
+        { id: 1, sender: 'agent', message: 'Hello! How can I help you today?', timestamp: new Date().toISOString(), status: 'delivered' },
+        { id: 2, sender: 'system', message: 'Chat history has been cleared. You are connected to our support team.', timestamp: new Date().toISOString(), status: 'delivered' }
+      ];
+      setChatMessages(initialMessages);
+      localStorage.setItem('aptivon_chat_messages', JSON.stringify(initialMessages));
+      const newSession = `session_${Date.now()}`;
+      setChatSession(newSession);
+      toast({
+        title: "Chat Cleared",
+        description: "Chat history has been cleared and new session started.",
+      });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -243,11 +387,17 @@ export default function Contact() {
           <div className="flex flex-wrap justify-center gap-4">
             <Button 
               variant="outline" 
-              className="bg-transparent border-white text-white hover:bg-white hover:text-slate-900"
-              onClick={() => setShowLiveChat(true)}
+              className="bg-transparent border-white text-white hover:bg-white hover:text-slate-900 relative"
+              onClick={handleOpenChat}
             >
               <MessageCircle className="h-4 w-4 mr-2" />
-              Live Chat {unreadCount > 0 && <span className="ml-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full">{unreadCount}</span>}
+              Live Chat 
+              {unreadCount > 0 && (
+                <span className="ml-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full animate-pulse">
+                  {unreadCount}
+                </span>
+              )}
+              <span className="ml-2 text-xs opacity-75">(Ctrl+K)</span>
             </Button>
             <Button 
               variant="outline" 
@@ -457,50 +607,88 @@ export default function Contact() {
           <div className="bg-white rounded-t-xl w-full max-w-md h-[600px] flex flex-col">
             <div className="p-4 border-b border-slate-200 flex items-center justify-between bg-slate-900 text-white rounded-t-xl">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                  connectionStatus === 'connected' ? 'bg-green-500' : 'bg-yellow-500'
+                }`}>
                   <MessageCircle className="h-4 w-4" />
                 </div>
                 <div>
                   <h3 className="font-semibold">Live Support</h3>
                   <div className="text-xs text-slate-300 flex items-center gap-1">
-                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                    {isOnline ? 'Online' : 'Offline'} • Response time: {responseTime}
+                    <div className={`w-2 h-2 rounded-full ${
+                      connectionStatus === 'connected' ? 'bg-green-400' : 'bg-yellow-400'
+                    } ${connectionStatus === 'connecting' ? 'animate-pulse' : ''}`}></div>
+                    {connectionStatus === 'connected' ? 'Online' : 'Connecting'} • Response: {responseTime}
                   </div>
                 </div>
               </div>
-              <button
-                onClick={() => setShowLiveChat(false)}
-                className="p-1 hover:bg-white/20 rounded"
-              >
-                <X className="h-4 w-4" />
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={clearChatHistory}
+                  className="p-1 hover:bg-white/20 rounded text-xs"
+                  title="Clear chat history"
+                >
+                  Clear
+                </button>
+                <button
+                  onClick={() => setShowLiveChat(false)}
+                  className="p-1 hover:bg-white/20 rounded"
+                  title="Close chat (Esc)"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
             </div>
             
             <div ref={chatMessagesRef} className="flex-1 p-4 overflow-y-auto space-y-4">
               {chatMessages.map((msg) => (
                 <div key={msg.id} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[80%] p-3 rounded-lg ${
+                  <div className={`max-w-[80%] p-3 rounded-lg relative ${
                     msg.sender === 'user' 
                       ? 'bg-slate-900 text-white' 
                       : msg.sender === 'system'
                       ? 'bg-slate-100 text-slate-600 text-sm italic'
                       : 'bg-slate-100 text-slate-900'
                   }`}>
-                    <p className="text-sm">{msg.message}</p>
-                    <p className="text-xs opacity-70 mt-1">
-                      {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                    </p>
+                    <p className="text-sm whitespace-pre-wrap">{msg.message}</p>
+                    <div className="flex items-center justify-between mt-1">
+                      <p className="text-xs opacity-70">
+                        {typeof msg.timestamp === 'string' 
+                          ? new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                          : msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                        }
+                      </p>
+                      {msg.sender === 'user' && (
+                        <div className="flex items-center gap-1">
+                          {msg.status === 'sending' && (
+                            <div className="w-3 h-3 border border-white/30 border-t-white rounded-full animate-spin"></div>
+                          )}
+                          {msg.status === 'sent' && (
+                            <CheckCircle className="h-3 w-3 text-white/70" />
+                          )}
+                          {msg.status === 'delivered' && (
+                            <div className="flex">
+                              <CheckCircle className="h-3 w-3 text-white/70" />
+                              <CheckCircle className="h-3 w-3 text-white/70 -ml-1" />
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}
               
-              {isTyping && (
+              {agentTyping && (
                 <div className="flex justify-start">
                   <div className="bg-slate-100 text-slate-900 p-3 rounded-lg">
-                    <div className="flex items-center gap-1">
-                      <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                      <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1">
+                        <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></div>
+                        <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                        <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                      </div>
+                      <span className="text-xs text-slate-500">Support agent is typing...</span>
                     </div>
                   </div>
                 </div>
@@ -508,31 +696,66 @@ export default function Contact() {
             </div>
             
             <div className="p-4 border-t border-slate-200">
+              <div className="flex gap-2 mb-2">
+                <div className="flex gap-1">
+                  {['Hi', 'Pricing', 'Timeline', 'Support'].map((quickReply) => (
+                    <button
+                      key={quickReply}
+                      onClick={() => {
+                        setChatInput(quickReply);
+                        setTimeout(() => handleSendMessage(), 100);
+                      }}
+                      className="px-2 py-1 text-xs bg-slate-100 hover:bg-slate-200 rounded border"
+                    >
+                      {quickReply}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              
               <div className="flex gap-2">
                 <Input
                   value={chatInput}
                   onChange={(e) => setChatInput(e.target.value)}
-                  placeholder="Type your message..."
-                  onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                  placeholder="Type your message... (Enter to send)"
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                      handleSendMessage();
+                    }
+                  }}
                   className="flex-1"
+                  maxLength={500}
                 />
                 <Button 
                   onClick={handleSendMessage}
-                  disabled={!chatInput.trim()}
+                  disabled={!chatInput.trim() || agentTyping}
                   className="bg-slate-900 hover:bg-slate-800"
                 >
                   <Send className="h-4 w-4" />
                 </Button>
               </div>
+              
               <div className="flex justify-between items-center mt-2 text-xs text-slate-500">
-                <span>Powered by Aptivon Support</span>
-                <div className="flex gap-2">
-                  <button className="hover:text-slate-700">
-                    <Paperclip className="h-3 w-3" />
-                  </button>
-                  <button className="hover:text-slate-700">
-                    <Mic className="h-3 w-3" />
-                  </button>
+                <span>Session: {chatSession.slice(-6)} • Encrypted</span>
+                <div className="flex items-center gap-3">
+                  <span>{chatInput.length}/500</span>
+                  <div className="flex gap-2">
+                    <button 
+                      className="hover:text-slate-700"
+                      title="Attach file"
+                      onClick={() => toast({ title: "File Upload", description: "File upload feature coming soon!" })}
+                    >
+                      <Paperclip className="h-3 w-3" />
+                    </button>
+                    <button 
+                      className="hover:text-slate-700"
+                      title="Voice message"
+                      onClick={() => toast({ title: "Voice Message", description: "Voice messaging feature coming soon!" })}
+                    >
+                      <Mic className="h-3 w-3" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
