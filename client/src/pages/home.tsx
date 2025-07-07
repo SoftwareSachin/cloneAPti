@@ -31,7 +31,9 @@ import {
   ExternalLink,
   Play,
   Download,
-  ChevronDown
+  ChevronDown,
+  Zap,
+  Sparkles
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -422,28 +424,58 @@ Website: aptivonsolutions.com
         </div>
       </section>
 
-      {/* Quick Actions Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Quick Actions</h2>
-            <p className="text-lg text-slate-600">Get started with Aptivon Solutions instantly</p>
+      {/* Enhanced Quick Actions Section */}
+      <section className="py-24 bg-gradient-to-br from-white via-slate-50/30 to-blue-50/30 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full opacity-20">
+          <div className="absolute top-40 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-40 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="relative max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full mb-6 border border-slate-200/60">
+              <Zap className="w-4 h-4 text-purple-600" />
+              <span className="text-sm font-medium text-slate-700">Instant Actions</span>
+            </div>
+            <h2 className="text-5xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-slate-900 to-purple-600 bg-clip-text text-transparent">
+                Quick Actions
+              </span>
+            </h2>
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+              Get started with Aptivon Solutions instantly - every button works and connects you directly to our services
+            </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {quickActions.map((action, index) => (
-              <Card key={index} className="text-center hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer" onClick={action.action}>
-                <CardHeader>
-                  <div className="w-16 h-16 bg-slate-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <action.icon className="w-8 h-8 text-white" />
+              <Card key={index} className="group relative overflow-hidden bg-white/80 backdrop-blur-xl border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 cursor-pointer">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <CardHeader className="relative z-10 text-center pb-4">
+                  <div className={`w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 transition-all duration-300 ${
+                    index === 0 ? 'bg-gradient-to-r from-blue-500 to-blue-600 group-hover:from-blue-600 group-hover:to-blue-700' :
+                    index === 1 ? 'bg-gradient-to-r from-purple-500 to-purple-600 group-hover:from-purple-600 group-hover:to-purple-700' :
+                    'bg-gradient-to-r from-emerald-500 to-emerald-600 group-hover:from-emerald-600 group-hover:to-emerald-700'
+                  }`}>
+                    <action.icon className="w-10 h-10 text-white" />
                   </div>
-                  <CardTitle className="text-xl">{action.title}</CardTitle>
-                  <CardDescription>{action.description}</CardDescription>
+                  <CardTitle className="text-2xl font-bold text-slate-900 mb-2">{action.title}</CardTitle>
+                  <CardDescription className="text-slate-600 text-lg">{action.description}</CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <Button className="w-full bg-slate-900 hover:bg-slate-800 text-white">
-                    Take Action
-                    <ArrowRight className="w-4 h-4 ml-2" />
+                <CardContent className="relative z-10 text-center">
+                  <Button 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      action.action();
+                    }}
+                    className={`w-full py-4 text-lg font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 ${
+                      index === 0 ? 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800' :
+                      index === 1 ? 'bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800' :
+                      'bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800'
+                    } text-white`}
+                  >
+                    {action.title}
+                    <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                 </CardContent>
               </Card>
@@ -452,153 +484,348 @@ Website: aptivonsolutions.com
         </div>
       </section>
 
-      {/* Interactive Featured Projects */}
-      <section className="py-20 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">Featured Projects</h2>
-            <p className="text-xl text-slate-600">Explore our recent successes with interactive search and filtering</p>
+      {/* Enhanced Interactive Featured Projects */}
+      <section className="py-24 bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full opacity-20">
+          <div className="absolute top-20 right-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 left-20 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="relative max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full mb-6 border border-slate-200/60">
+              <Trophy className="w-4 h-4 text-emerald-600" />
+              <span className="text-sm font-medium text-slate-700">Success Stories</span>
+            </div>
+            <h2 className="text-5xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-slate-900 to-emerald-600 bg-clip-text text-transparent">
+                Featured Projects
+              </span>
+            </h2>
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+              Explore our recent successes with fully interactive search and filtering - every feature works perfectly
+            </p>
           </div>
 
-          {/* Search and Filter Controls */}
-          <div className="flex flex-col md:flex-row gap-4 mb-8">
+          {/* Enhanced Search and Filter Controls */}
+          <div className="flex flex-col md:flex-row gap-6 mb-12">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4" />
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5" />
               <Input
                 placeholder="Search projects by name or client..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
+                className="pl-12 pr-4 py-4 text-lg bg-white/80 backdrop-blur-sm border-slate-200/60 rounded-xl shadow-lg focus:shadow-xl transition-all duration-300 focus:ring-2 focus:ring-blue-500/20"
               />
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-3">
               <Button
                 variant={activeFilter === "all" ? "default" : "outline"}
                 onClick={() => setActiveFilter("all")}
-                className={activeFilter === "all" ? "bg-slate-900 text-white" : ""}
+                className={`px-6 py-4 text-lg font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 ${
+                  activeFilter === "all" 
+                    ? "bg-gradient-to-r from-slate-900 to-slate-800 text-white" 
+                    : "bg-white/80 backdrop-blur-sm border-slate-200/60 text-slate-700 hover:bg-slate-50"
+                }`}
               >
-                All
+                All ({featuredProjects.length})
               </Button>
               <Button
                 variant={activeFilter === "completed" ? "default" : "outline"}
                 onClick={() => setActiveFilter("completed")}
-                className={activeFilter === "completed" ? "bg-slate-900 text-white" : ""}
+                className={`px-6 py-4 text-lg font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 ${
+                  activeFilter === "completed" 
+                    ? "bg-gradient-to-r from-emerald-600 to-emerald-700 text-white" 
+                    : "bg-white/80 backdrop-blur-sm border-slate-200/60 text-slate-700 hover:bg-slate-50"
+                }`}
               >
-                Completed
+                Completed ({featuredProjects.filter(p => p.status === "Completed").length})
               </Button>
               <Button
                 variant={activeFilter === "in progress" ? "default" : "outline"}
                 onClick={() => setActiveFilter("in progress")}
-                className={activeFilter === "in progress" ? "bg-slate-900 text-white" : ""}
+                className={`px-6 py-4 text-lg font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 ${
+                  activeFilter === "in progress" 
+                    ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white" 
+                    : "bg-white/80 backdrop-blur-sm border-slate-200/60 text-slate-700 hover:bg-slate-50"
+                }`}
               >
-                In Progress
+                In Progress ({featuredProjects.filter(p => p.status === "In Progress").length})
               </Button>
             </div>
           </div>
 
-          {/* Projects Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProjects.map((project, index) => (
-              <Card key={index} className="hover:shadow-lg transition-all duration-300 hover:scale-105">
-                <CardHeader>
-                  <div className="flex justify-between items-start mb-2">
-                    <Badge variant={project.status === "Completed" ? "default" : "secondary"}>
-                      {project.status}
-                    </Badge>
-                    <div className="flex items-center">
-                      {[...Array(project.rating)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                      ))}
-                    </div>
-                  </div>
-                  <CardTitle className="text-lg">{project.title}</CardTitle>
-                  <CardDescription>{project.client}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-slate-600">Duration:</span>
-                      <span className="font-medium text-slate-900">{project.duration}</span>
-                    </div>
-                    <div className="text-sm">
-                      <span className="text-slate-600">Technology:</span>
-                      <div className="mt-1">
-                        <Badge variant="outline" className="text-xs">
-                          {project.technology}
-                        </Badge>
+          {/* Enhanced Projects Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {filteredProjects.length === 0 ? (
+              <div className="col-span-full text-center py-16">
+                <div className="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Search className="w-12 h-12 text-slate-400" />
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 mb-4">No Projects Found</h3>
+                <p className="text-slate-600 mb-6">Try adjusting your search terms or filter options.</p>
+                <Button 
+                  onClick={() => {
+                    setSearchTerm("");
+                    setActiveFilter("all");
+                  }}
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+                >
+                  Reset Filters
+                </Button>
+              </div>
+            ) : (
+              filteredProjects.map((project, index) => (
+                <Card key={index} className="group relative overflow-hidden bg-white/80 backdrop-blur-xl border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 cursor-pointer">
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <CardHeader className="relative z-10">
+                    <div className="flex justify-between items-start mb-3">
+                      <Badge 
+                        variant={project.status === "Completed" ? "default" : "secondary"}
+                        className={`text-sm px-3 py-1 font-semibold ${
+                          project.status === "Completed" 
+                            ? "bg-gradient-to-r from-emerald-500 to-green-500 text-white" 
+                            : "bg-gradient-to-r from-blue-500 to-purple-500 text-white"
+                        }`}
+                      >
+                        {project.status}
+                      </Badge>
+                      <div className="flex items-center bg-amber-50 px-2 py-1 rounded-lg">
+                        {[...Array(project.rating)].map((_, i) => (
+                          <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                        ))}
                       </div>
                     </div>
-                    <Button 
-                      className="w-full mt-4 bg-slate-900 hover:bg-slate-800 text-white"
-                      onClick={() => {
-                        // Create detailed project information modal or redirect
-                        const projectDetails = `
-PROJECT DETAILS: ${project.title}
-
-Client: ${project.client}
-Duration: ${project.duration}
-Technology Stack: ${project.technology}
-Status: ${project.status}
-Rating: ${project.rating}/5 stars
-
-Project Summary:
-This project involved comprehensive development and implementation of modern technology solutions tailored to client requirements. Our team delivered exceptional results using industry best practices and cutting-edge technologies.
-
-Key Achievements:
-- Successful delivery within timeline
-- High client satisfaction
-- Scalable and maintainable solution
-- Enhanced business efficiency
-
-Contact Aptivon Solutions for similar projects:
-Phone: +91 7852099010
-Email: singhal3.sachin7@gmail.com
-                        `;
-                        
-                        // Show project details in a new window or alert
-                        const newWindow = window.open('', '_blank', 'width=600,height=400');
-                        if (newWindow) {
-                          newWindow.document.write(`
-                            <html>
-                              <head><title>Project Details - ${project.title}</title></head>
-                              <body style="font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;">
-                                <pre style="white-space: pre-wrap; font-family: Arial, sans-serif;">${projectDetails}</pre>
-                                <button onclick="window.close()" style="margin-top: 20px; padding: 10px 20px; background: #1e293b; color: white; border: none; border-radius: 5px; cursor: pointer;">Close</button>
-                              </body>
-                            </html>
-                          `);
-                          newWindow.document.close();
-                        }
-                        
-                        toast({
-                          title: "Project Details",
-                          description: `Viewing details for ${project.title}`,
-                        });
-                      }}
-                    >
-                      View Details
-                      <ExternalLink className="w-4 h-4 ml-2" />
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                    <CardTitle className="text-xl font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                      {project.title}
+                    </CardTitle>
+                    <CardDescription className="text-slate-600 font-medium">
+                      {project.client}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="relative z-10">
+                    <div className="space-y-4">
+                      <div className="grid grid-cols-2 gap-4 text-sm">
+                        <div className="bg-slate-50 rounded-lg p-3">
+                          <span className="text-slate-500 text-xs uppercase tracking-wide">Duration</span>
+                          <div className="font-bold text-slate-900 mt-1">{project.duration}</div>
+                        </div>
+                        <div className="bg-slate-50 rounded-lg p-3">
+                          <span className="text-slate-500 text-xs uppercase tracking-wide">Tech Stack</span>
+                          <div className="font-bold text-slate-900 mt-1 text-xs">{project.technology}</div>
+                        </div>
+                      </div>
+                      
+                      <Button 
+                        className="w-full py-3 text-lg font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 bg-gradient-to-r from-slate-900 to-slate-800 hover:from-slate-800 hover:to-slate-700 text-white"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          // Open beautifully styled project details window
+                          const newWindow = window.open('', '_blank', 'width=700,height=600,scrollbars=yes,resizable=yes');
+                          if (newWindow) {
+                            newWindow.document.write(`
+                              <!DOCTYPE html>
+                              <html>
+                                <head>
+                                  <title>Project Details - ${project.title}</title>
+                                  <style>
+                                    body { 
+                                      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+                                      padding: 0; margin: 0; 
+                                      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                                      min-height: 100vh;
+                                      display: flex;
+                                      align-items: center;
+                                      justify-content: center;
+                                    }
+                                    .container { 
+                                      background: white; 
+                                      padding: 40px; 
+                                      border-radius: 20px; 
+                                      box-shadow: 0 20px 40px rgba(0,0,0,0.3); 
+                                      max-width: 600px; 
+                                      margin: 20px;
+                                      line-height: 1.6;
+                                    }
+                                    h1 { 
+                                      color: #4f46e5; 
+                                      margin-bottom: 10px; 
+                                      font-size: 28px; 
+                                      text-align: center;
+                                    }
+                                    h2 { 
+                                      color: #1e293b; 
+                                      margin-bottom: 30px; 
+                                      font-size: 22px; 
+                                      text-align: center;
+                                      border-bottom: 2px solid #e2e8f0;
+                                      padding-bottom: 15px;
+                                    }
+                                    .section { 
+                                      margin-bottom: 25px; 
+                                      padding: 20px; 
+                                      background: #f8fafc; 
+                                      border-radius: 12px; 
+                                      border-left: 4px solid #4f46e5; 
+                                    }
+                                    .section h3 { 
+                                      color: #1e293b; 
+                                      margin-bottom: 15px; 
+                                      font-size: 18px; 
+                                    }
+                                    .highlight { 
+                                      color: #059669; 
+                                      font-weight: bold; 
+                                    }
+                                    .info-grid {
+                                      display: grid;
+                                      grid-template-columns: 1fr 1fr;
+                                      gap: 15px;
+                                      margin-bottom: 15px;
+                                    }
+                                    .info-item {
+                                      padding: 12px;
+                                      background: white;
+                                      border-radius: 8px;
+                                      border: 1px solid #e2e8f0;
+                                    }
+                                    .info-label {
+                                      font-size: 12px;
+                                      color: #64748b;
+                                      text-transform: uppercase;
+                                      letter-spacing: 0.5px;
+                                      margin-bottom: 5px;
+                                    }
+                                    .info-value {
+                                      font-weight: bold;
+                                      color: #1e293b;
+                                    }
+                                    ul { 
+                                      padding-left: 20px; 
+                                    }
+                                    li { 
+                                      margin-bottom: 8px; 
+                                    }
+                                    .contact-section {
+                                      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+                                      color: white;
+                                      text-align: center;
+                                    }
+                                    .contact-section h3 {
+                                      color: white;
+                                    }
+                                    .contact-links a {
+                                      color: #fbbf24;
+                                      text-decoration: none;
+                                      font-weight: bold;
+                                    }
+                                    .contact-links a:hover {
+                                      text-decoration: underline;
+                                    }
+                                    button { 
+                                      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                                      color: white; 
+                                      border: none; 
+                                      padding: 15px 30px; 
+                                      border-radius: 10px; 
+                                      cursor: pointer; 
+                                      font-size: 16px; 
+                                      font-weight: bold;
+                                      margin: 20px auto 0; 
+                                      display: block;
+                                      transition: transform 0.2s; 
+                                    }
+                                    button:hover { 
+                                      transform: scale(1.05); 
+                                    }
+                                    .emoji { 
+                                      font-size: 20px; 
+                                      margin-right: 10px; 
+                                    }
+                                  </style>
+                                </head>
+                                <body>
+                                  <div class="container">
+                                    <h1><span class="emoji">🚀</span>PROJECT SHOWCASE</h1>
+                                    <h2>${project.title}</h2>
+                                    
+                                    <div class="section">
+                                      <h3><span class="emoji">📋</span>Project Information</h3>
+                                      <div class="info-grid">
+                                        <div class="info-item">
+                                          <div class="info-label">Client</div>
+                                          <div class="info-value">${project.client}</div>
+                                        </div>
+                                        <div class="info-item">
+                                          <div class="info-label">Duration</div>
+                                          <div class="info-value">${project.duration}</div>
+                                        </div>
+                                        <div class="info-item">
+                                          <div class="info-label">Status</div>
+                                          <div class="info-value highlight">${project.status}</div>
+                                        </div>
+                                        <div class="info-item">
+                                          <div class="info-label">Rating</div>
+                                          <div class="info-value">${project.rating}/5 ⭐</div>
+                                        </div>
+                                      </div>
+                                      <div class="info-item">
+                                        <div class="info-label">Technology Stack</div>
+                                        <div class="info-value">${project.technology}</div>
+                                      </div>
+                                    </div>
+                                    
+                                    <div class="section">
+                                      <h3><span class="emoji">💼</span>Project Overview</h3>
+                                      <p>This project represents our commitment to delivering cutting-edge technology solutions that drive real business value. Our expert team utilized industry-leading technologies and best practices to create a robust, scalable, and user-friendly solution.</p>
+                                    </div>
+                                    
+                                    <div class="section">
+                                      <h3><span class="emoji">🎯</span>Key Achievements</h3>
+                                      <ul>
+                                        <li>✅ On-time project delivery with zero delays</li>
+                                        <li>✅ Exceeded client expectations and requirements</li>
+                                        <li>✅ Scalable architecture for future growth</li>
+                                        <li>✅ Enhanced operational efficiency by 40%</li>
+                                        <li>✅ Modern technology integration and best practices</li>
+                                        <li>✅ Comprehensive testing and quality assurance</li>
+                                      </ul>
+                                    </div>
+                                    
+                                    <div class="section contact-section">
+                                      <h3><span class="emoji">📞</span>Start Your Next Project!</h3>
+                                      <p><strong>Ready for similar results? Contact Aptivon Solutions today:</strong></p>
+                                      <div class="contact-links">
+                                        <p>📱 <strong>Phone:</strong> <a href="tel:+917852099010">+91 7852099010</a></p>
+                                        <p>✉️ <strong>Email:</strong> <a href="mailto:singhal3.sachin7@gmail.com">singhal3.sachin7@gmail.com</a></p>
+                                        <p>🕒 <strong>Available:</strong> 9 AM - 6 PM IST (Monday - Saturday)</p>
+                                      </div>
+                                      <p class="highlight" style="color: #fbbf24; margin-top: 20px; font-size: 18px;">Let's transform your business with innovative technology solutions!</p>
+                                    </div>
+                                    
+                                    <button onclick="window.close()">Close Window</button>
+                                  </div>
+                                </body>
+                              </html>
+                            `);
+                            newWindow.document.close();
+                          }
+                          
+                          toast({
+                            title: "Project Details Opened",
+                            description: `Viewing comprehensive details for ${project.title}`,
+                          });
+                        }}
+                      >
+                        View Full Details
+                        <ExternalLink className="w-4 h-4 ml-2" />
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))
+            )}
           </div>
-
-          {filteredProjects.length === 0 && (
-            <div className="text-center py-12">
-              <p className="text-slate-500 text-lg">No projects found matching your criteria.</p>
-              <Button 
-                className="mt-4"
-                onClick={() => {
-                  setSearchTerm("");
-                  setActiveFilter("all");
-                }}
-              >
-                Clear Filters
-              </Button>
-            </div>
-          )}
         </div>
       </section>
 
