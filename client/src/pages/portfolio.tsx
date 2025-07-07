@@ -575,7 +575,7 @@ export default function Portfolio() {
             <Button 
               size="lg" 
               variant="outline"
-              className="border-slate-300 text-white hover:bg-slate-800"
+              className="border-white/50 text-white hover:bg-white hover:text-slate-900 border-2"
               onClick={() => setLocation("/portfolio-download")}
             >
               <Download className="h-5 w-5 mr-2" />
