@@ -396,7 +396,7 @@ export default function Security() {
                       <span className="text-red-600 font-bold text-sm">1</span>
                     </div>
                     <h4 className="font-semibold text-slate-900">Detection & Alert</h4>
-                    <Badge variant="secondary" className="bg-red-50 text-red-700 border-red-200">< 15 minutes</Badge>
+                    <Badge variant="secondary" className="bg-red-50 text-red-700 border-red-200">&lt; 15 minutes</Badge>
                   </div>
                   <p className="text-slate-600 text-sm ml-11">
                     Automated monitoring systems detect security incidents and immediately alert our security team.
@@ -409,7 +409,7 @@ export default function Security() {
                       <span className="text-orange-600 font-bold text-sm">2</span>
                     </div>
                     <h4 className="font-semibold text-slate-900">Assessment & Containment</h4>
-                    <Badge variant="secondary" className="bg-orange-50 text-orange-700 border-orange-200">< 1 hour</Badge>
+                    <Badge variant="secondary" className="bg-orange-50 text-orange-700 border-orange-200">&lt; 1 hour</Badge>
                   </div>
                   <p className="text-slate-600 text-sm ml-11">
                     Security team assesses the scope of the incident and implements immediate containment measures.
@@ -422,7 +422,7 @@ export default function Security() {
                       <span className="text-blue-600 font-bold text-sm">3</span>
                     </div>
                     <h4 className="font-semibold text-slate-900">Investigation & Eradication</h4>
-                    <Badge variant="secondary" className="bg-blue-50 text-blue-700 border-blue-200">< 4 hours</Badge>
+                    <Badge variant="secondary" className="bg-blue-50 text-blue-700 border-blue-200">&lt; 4 hours</Badge>
                   </div>
                   <p className="text-slate-600 text-sm ml-11">
                     Root cause analysis is performed and the source of the incident is eliminated from the environment.
@@ -435,7 +435,7 @@ export default function Security() {
                       <span className="text-green-600 font-bold text-sm">4</span>
                     </div>
                     <h4 className="font-semibold text-slate-900">Recovery & Communication</h4>
-                    <Badge variant="secondary" className="bg-green-50 text-green-700 border-green-200">< 24 hours</Badge>
+                    <Badge variant="secondary" className="bg-green-50 text-green-700 border-green-200">&lt; 24 hours</Badge>
                   </div>
                   <p className="text-slate-600 text-sm ml-11">
                     Systems are restored to normal operation and affected parties are notified according to legal requirements.
