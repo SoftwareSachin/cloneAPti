@@ -129,8 +129,8 @@ const SERVICES_DATA = [
 ];
 
 const SUCCESS_METRICS = [
-  { metric: "500+", label: "Projects Delivered", icon: Target },
-  { metric: "100+", label: "Enterprise Clients", icon: Users },
+  { metric: "5+", label: "Projects Delivered", icon: Target },
+  { metric: "3+", label: "Enterprise Clients", icon: Users },
   { metric: "99.9%", label: "Client Satisfaction", icon: TrendingUp },
   { metric: "40%", label: "Average Cost Reduction", icon: Database }
 ];

@@ -26,7 +26,7 @@ export default function IndustriesSection() {
       description: "Secure fintech solutions, payment processing, and regulatory compliance systems.",
       features: ["Payment gateways", "Risk management", "Compliance automation"],
       gradient: "from-blue-500 to-cyan-600",
-      metrics: { value: "500+", label: "Transactions/sec" },
+      metrics: { value: "5+", label: "Transactions/sec" },
       accentColor: "blue"
     },
     {

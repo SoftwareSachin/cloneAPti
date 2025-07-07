@@ -96,7 +96,7 @@ const INDUSTRIES_DATA = [
 ];
 
 const STATS_DATA = [
-    { icon: Users, value: "500+", label: "Enterprise Clients" },
+    { icon: Users, value: "5+", label: "Enterprise Clients" },
     { icon: TrendingUp, value: "95%", label: "Project Success Rate" },
     { icon: Shield, value: "100%", label: "Security Compliance" },
     { icon: Building2, value: "15+", label: "Industries Served" }

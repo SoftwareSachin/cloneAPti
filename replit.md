@@ -113,6 +113,8 @@ This is a modern, responsive company website for Aptivon Solutions Pvt. Ltd., an
   * Fixed real-time metrics animations in services and about pages to show 5+ projects instead of 500+
   * Updated data processing metric from 1PB+ to 100 GB in advanced capabilities section
   * Fixed hero section stats: updated 500+ Projects Delivered to 5+ in src/components/hero-section.tsx
+  * Updated all remaining 500+ instances across approach, industries, and services sections to 5+
+  * Fixed 100+ Enterprise Clients to 3+ in services page to match startup metrics
 ```
 Changelog:
 - July 06, 2025. Initial setup

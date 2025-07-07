@@ -84,7 +84,7 @@ export default function ApproachSection() {
     { icon: Target, value: "95%", label: "On-Time Delivery", color: "text-blue-600" },
     { icon: Award, value: "98%", label: "Client Satisfaction", color: "text-green-600" },
     { icon: Clock, value: "30%", label: "Faster to Market", color: "text-purple-600" },
-    { icon: Lightbulb, value: "500+", label: "Projects Delivered", color: "text-orange-600" }
+    { icon: Lightbulb, value: "5+", label: "Projects Delivered", color: "text-orange-600" }
   ];
 
   return (
