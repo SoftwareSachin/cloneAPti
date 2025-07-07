@@ -469,14 +469,10 @@ export default function Portfolio() {
                     <h3 className="text-xl font-bold text-slate-900 mb-3">{project.title}</h3>
                     <p className="text-slate-600 mb-4">{project.description}</p>
                     
-                    <div className="grid grid-cols-2 gap-4 mb-4">
+                    <div className="mb-4">
                       <div className="flex items-center gap-2">
                         <Calendar className="w-4 h-4 text-slate-500" />
                         <span className="text-sm text-slate-600">{project.duration}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Users className="w-4 h-4 text-slate-500" />
-                        <span className="text-sm text-slate-600">{project.teamSize} people</span>
                       </div>
                     </div>
                     
