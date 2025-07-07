@@ -100,41 +100,7 @@ export default function Home() {
       description: "View our complete project portfolio",
       icon: Download,
       action: () => {
-        // Create a downloadable PDF or redirect to portfolio page
-        const portfolioContent = `
-APTIVON SOLUTIONS - PROJECT PORTFOLIO
-
-Recent Projects:
-1. E-commerce Platform Modernization - Rajasthan Retail Chain
-   Technology: React, Node.js, PostgreSQL
-   Duration: 6 months | Status: Completed | Rating: 5/5
-
-2. Healthcare Management System - Jaipur Medical Center  
-   Technology: Angular, .NET, SQL Server
-   Duration: 4 months | Status: In Progress | Rating: 5/5
-
-3. Financial Analytics Dashboard - Investment Firm India
-   Technology: Python, React, MongoDB
-   Duration: 8 months | Status: Completed | Rating: 5/5
-
-Contact: +91 7852099010 | singhal3.sachin7@gmail.com
-Website: aptivonsolutions.com
-        `;
-        
-        const blob = new Blob([portfolioContent], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'Aptivon_Solutions_Portfolio.txt';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        
-        toast({
-          title: "Portfolio Downloaded",
-          description: "Aptivon Solutions portfolio saved to your device",
-        });
+        setLocation("/portfolio-download");
       }
     },
     {
