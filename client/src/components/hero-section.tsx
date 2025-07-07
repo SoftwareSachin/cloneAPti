@@ -1,6 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Zap, Globe, Sparkles, Award, Users, TrendingUp } from "lucide-react";
 import { useState, useEffect } from "react";
+import lightningFastGif from "@assets/fetchpik.com-iconscout-NSEC10nAzj_1751913193156.gif";
+import fortKnoxSecurityGif from "@assets/fetchpik.com-iconscout-83wO1kiIYP_1751913411852.gif";
+import globalReachGif from "@assets/fetchpik.com-iconscout-agj3wec09D_1751913432099.gif";
 
 export default function HeroSection() {
   const [currentStat, setCurrentStat] = useState(0);
@@ -113,23 +116,35 @@ export default function HeroSection() {
               <div className="relative bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20">
                 <div className="grid grid-cols-2 gap-6 mb-6">
                   <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 shadow-lg transform hover:scale-105 transition-all duration-300">
-                    <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center mb-4">
-                      <Zap className="w-6 h-6 text-white" />
+                    <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-4 shadow-md">
+                      <img 
+                        src={lightningFastGif} 
+                        alt="Lightning Fast" 
+                        className="w-10 h-10 object-contain"
+                      />
                     </div>
                     <h3 className="font-bold text-slate-900 mb-2">Lightning Fast</h3>
                     <p className="text-slate-600 text-sm">Deploy in minutes, not months with our automated solutions</p>
                   </div>
                   <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 shadow-lg transform hover:scale-105 transition-all duration-300">
-                    <div className="w-12 h-12 bg-purple-600 rounded-xl flex items-center justify-center mb-4">
-                      <Shield className="w-6 h-6 text-white" />
+                    <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-4 shadow-md">
+                      <img 
+                        src={fortKnoxSecurityGif} 
+                        alt="Fort Knox Security" 
+                        className="w-10 h-10 object-contain"
+                      />
                     </div>
                     <h3 className="font-bold text-slate-900 mb-2">Fort Knox Security</h3>
                     <p className="text-slate-600 text-sm">Enterprise-grade security with zero-trust architecture</p>
                   </div>
                 </div>
                 <div className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-xl p-6 shadow-lg transform hover:scale-105 transition-all duration-300">
-                  <div className="w-12 h-12 bg-emerald-600 rounded-xl flex items-center justify-center mb-4">
-                    <Globe className="w-6 h-6 text-white" />
+                  <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-4 shadow-md">
+                    <img 
+                      src={globalReachGif} 
+                      alt="Global Reach" 
+                      className="w-10 h-10 object-contain"
+                    />
                   </div>
                   <h3 className="font-bold text-slate-900 mb-2">Global Reach</h3>
                   <p className="text-slate-600 text-sm">Scalable infrastructure spanning multiple regions worldwide</p>
