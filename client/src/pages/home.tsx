@@ -414,7 +414,7 @@ Website: aptivonsolutions.com
               </span>
             </h2>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              Explore our recent successes with fully interactive search and filtering - every feature works perfectly
+              Explore our recent successes and innovative solutions across various industries
             </p>
           </div>
 
