@@ -1,13 +1,16 @@
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
-import { Calendar, User, ArrowRight, Tag, Search, Filter, BookOpen, TrendingUp, Mail, Bell } from "lucide-react";
+import { Calendar, User, ArrowRight, Tag, Search, BookOpen, Mail, Heart, MessageCircle, Eye } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useLocation } from "wouter";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
+import type { BlogPost } from "@/../../shared/schema";
 
 export default function Blog() {
   const [, setLocation] = useLocation();
@@ -16,13 +19,43 @@ export default function Blog() {
   const [email, setEmail] = useState("");
   const [visiblePosts, setVisiblePosts] = useState(6);
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
-  const handleReadArticle = (title: string) => {
-    // In a real app, this would route to the individual blog post
-    toast({
-      title: "Article Opening",
-      description: `Opening: ${title}`,
-    });
+  // Fetch blog posts from API
+  const { data: allPosts = [], isLoading } = useQuery<BlogPost[]>({
+    queryKey: ['/api/blog-posts'],
+    queryFn: async () => {
+      const response = await apiRequest('/api/blog-posts');
+      return response.json();
+    }
+  });
+
+  // Newsletter subscription mutation
+  const subscriptionMutation = useMutation({
+    mutationFn: async (email: string) => {
+      return apiRequest('/api/blog-subscribe', {
+        method: 'POST',
+        body: JSON.stringify({ email })
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: "Successfully Subscribed!",
+        description: "You'll receive our latest tech insights in your inbox.",
+      });
+      setEmail("");
+    },
+    onError: () => {
+      toast({
+        title: "Subscription Failed",
+        description: "Please try again later.",
+        variant: "destructive",
+      });
+    }
+  });
+
+  const handleReadArticle = (slug: string) => {
+    setLocation(`/blog/${slug}`);
   };
 
   const handleCategoryFilter = (category: string) => {
@@ -33,11 +66,7 @@ export default function Blog() {
   const handleNewsletterSignup = (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      toast({
-        title: "Successfully Subscribed!",
-        description: "You'll receive our latest tech insights in your inbox.",
-      });
-      setEmail("");
+      subscriptionMutation.mutate(email);
     }
   };
 
@@ -48,114 +77,53 @@ export default function Blog() {
   const handleContactUs = () => {
     setLocation("/contact");
   };
-  const featuredPost = {
-    title: "The Future of Enterprise AI: Transforming Business Operations in 2025",
-    excerpt: "Explore how artificial intelligence is revolutionizing enterprise operations, from predictive analytics to automated decision-making, and what leaders need to know to stay competitive.",
-    author: "Sarah Chen",
-    date: "January 15, 2025",
-    readTime: "8 min read",
-    category: "Artificial Intelligence",
-    image: "/api/placeholder/800/400",
-    tags: ["AI", "Enterprise", "Digital Transformation", "Strategy"]
-  };
 
-  const blogPosts = [
-    {
-      title: "Cloud Migration Best Practices: Lessons from 5+ Enterprise Deployments",
-      excerpt: "Key insights and proven strategies for successful cloud migration, including common pitfalls to avoid and optimization techniques.",
-      author: "Marcus Rodriguez",
-      date: "January 12, 2025",
-      readTime: "6 min read",
-      category: "Cloud Computing",
-      image: "/api/placeholder/400/250",
-      tags: ["Cloud", "Migration", "AWS", "Azure"]
-    },
-    {
-      title: "DevOps Security: Integrating Security into CI/CD Pipelines",
-      excerpt: "How to implement DevSecOps practices that maintain development velocity while ensuring robust security throughout the deployment pipeline.",
-      author: "Alex Kumar",
-      date: "January 10, 2025",
-      readTime: "7 min read",
-      category: "DevOps",
-      image: "/api/placeholder/400/250",
-      tags: ["DevOps", "Security", "CI/CD", "Automation"]
-    },
-    {
-      title: "Data Mesh Architecture: Decentralizing Data at Enterprise Scale",
-      excerpt: "Understanding data mesh principles and how to implement decentralized data architecture for better scalability and governance.",
-      author: "Priya Sharma",
-      date: "January 8, 2025",
-      readTime: "9 min read",
-      category: "Data Engineering",
-      image: "/api/placeholder/400/250",
-      tags: ["Data Architecture", "Microservices", "Governance", "Analytics"]
-    },
-    {
-      title: "Kubernetes Cost Optimization: Reducing Infrastructure Spend by 40%",
-      excerpt: "Practical strategies for optimizing Kubernetes workloads, right-sizing resources, and implementing cost-effective scaling policies.",
-      author: "David Kim",
-      date: "January 5, 2025",
-      readTime: "5 min read",
-      category: "Infrastructure",
-      image: "/api/placeholder/400/250",
-      tags: ["Kubernetes", "Cost Optimization", "Infrastructure", "DevOps"]
-    },
-    {
-      title: "Building Resilient Microservices: Patterns for Enterprise Applications",
-      excerpt: "Design patterns and best practices for creating fault-tolerant microservices that can handle failures gracefully at enterprise scale.",
-      author: "Emily Zhang",
-      date: "January 3, 2025",
-      readTime: "8 min read",
-      category: "Software Architecture",
-      image: "/api/placeholder/400/250",
-      tags: ["Microservices", "Architecture", "Resilience", "Design Patterns"]
-    },
-    {
-      title: "Machine Learning Operations: MLOps Best Practices for Production",
-      excerpt: "Essential MLOps practices for deploying, monitoring, and maintaining machine learning models in production environments.",
-      author: "Robert Chen",
-      date: "December 30, 2024",
-      readTime: "7 min read",
-      category: "Machine Learning",
-      image: "/api/placeholder/400/250",
-      tags: ["MLOps", "Machine Learning", "Production", "Monitoring"]
-    },
-    {
-      title: "API-First Development: Building Scalable Enterprise Integrations",
-      excerpt: "How API-first approach accelerates development, improves system interoperability, and enables better developer experience.",
-      author: "Lisa Wang",
-      date: "December 28, 2024",
-      readTime: "6 min read",
-      category: "API Development",
-      image: "/api/placeholder/400/250",
-      tags: ["API", "Integration", "Development", "Architecture"]
-    },
-    {
-      title: "Zero Trust Security: Implementing Modern Enterprise Security Models",
-      excerpt: "Comprehensive guide to implementing zero trust security architecture, including identity management and network segmentation.",
-      author: "Michael Torres",
-      date: "December 25, 2024",
-      readTime: "10 min read",
-      category: "Cybersecurity",
-      image: "/api/placeholder/400/250",
-      tags: ["Security", "Zero Trust", "Identity", "Network"]
-    },
-    {
-      title: "Real-time Analytics: Building Event-Driven Data Architectures",
-      excerpt: "Designing and implementing real-time analytics systems using event streaming and modern data processing frameworks.",
-      author: "Jennifer Liu",
-      date: "December 22, 2024",
-      readTime: "8 min read",
-      category: "Data Analytics",
-      image: "/api/placeholder/400/250",
-      tags: ["Real-time", "Analytics", "Streaming", "Data Engineering"]
-    }
-  ];
+  // Get featured post
+  const featuredPost = useMemo(() => {
+    return allPosts.find(post => post.featured) || allPosts[0];
+  }, [allPosts]);
 
-  const categories = [
-    "All Posts", "Artificial Intelligence", "Cloud Computing", "DevOps", 
-    "Data Engineering", "Cybersecurity", "Software Architecture", "Machine Learning"
-  ];
+  // Filter and search posts
+  const filteredPosts = useMemo(() => {
+    return allPosts
+      .filter(post => !post.featured) // Exclude featured post from regular list
+      .filter(post => 
+        selectedCategory === "All Posts" || post.category === selectedCategory
+      )
+      .filter(post => 
+        searchQuery === "" || 
+        post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+      );
+  }, [allPosts, selectedCategory, searchQuery]);
+
+  // Get unique categories from posts
+  const categories = useMemo(() => {
+    const uniqueCategories = Array.from(new Set(allPosts.map(post => post.category)));
+    return ["All Posts", ...uniqueCategories];
+  }, [allPosts]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-white">
+        <Navigation />
+        <div className="pt-32 pb-20">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="animate-pulse">
+              <div className="h-12 bg-slate-200 rounded mb-8 w-1/2 mx-auto"></div>
+              <div className="h-64 bg-slate-200 rounded mb-8"></div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <div key={i} className="h-96 bg-slate-200 rounded"></div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -197,63 +165,75 @@ export default function Blog() {
       </section>
 
       {/* Featured Post */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="mb-16">
-            <h2 className="text-3xl font-bold text-slate-900 mb-8">Featured Article</h2>
-            <Card className="overflow-hidden bg-white border border-slate-200">
-              <CardContent className="p-0">
-                <div className="grid grid-cols-1 lg:grid-cols-2">
-                  <div className="bg-slate-100 flex items-center justify-center p-12">
-                    <div className="text-center">
-                      <div className="w-32 h-32 bg-slate-300 rounded-lg flex items-center justify-center mb-4 mx-auto">
-                        <Tag className="w-12 h-12 text-slate-500" />
+      {featuredPost && (
+        <section className="py-20">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="mb-16">
+              <h2 className="text-3xl font-bold text-slate-900 mb-8">Featured Article</h2>
+              <Card className="overflow-hidden bg-white border border-slate-200">
+                <CardContent className="p-0">
+                  <div className="grid grid-cols-1 lg:grid-cols-2">
+                    <div className="bg-slate-100 flex items-center justify-center p-12">
+                      <div className="text-center">
+                        <div className="w-32 h-32 bg-slate-300 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                          <Tag className="w-12 h-12 text-slate-500" />
+                        </div>
+                        <Badge className="bg-slate-900 text-white">{featuredPost.category}</Badge>
                       </div>
-                      <Badge className="bg-slate-900 text-white">{featuredPost.category}</Badge>
+                    </div>
+                    <div className="p-8 lg:p-12">
+                      <Badge variant="secondary" className="bg-slate-100 text-slate-700 mb-4">
+                        Featured
+                      </Badge>
+                      <h3 className="text-2xl lg:text-3xl font-bold text-slate-900 mb-4 leading-tight">
+                        {featuredPost.title}
+                      </h3>
+                      <p className="text-slate-600 mb-6 leading-relaxed">
+                        {featuredPost.excerpt}
+                      </p>
+                      <div className="flex flex-wrap items-center gap-4 text-sm text-slate-500 mb-6">
+                        <div className="flex items-center gap-1">
+                          <User className="w-4 h-4" />
+                          {featuredPost.author}
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Calendar className="w-4 h-4" />
+                          {new Date(featuredPost.createdAt || '').toLocaleDateString()}
+                        </div>
+                        <div>{featuredPost.readTime}</div>
+                        <div className="flex items-center gap-1">
+                          <Eye className="w-4 h-4" />
+                          {featuredPost.views || 0}
+                        </div>
+                      </div>
+                      <div className="flex flex-wrap gap-2 mb-6">
+                        {featuredPost.tags.map((tag, index) => (
+                          <Badge key={index} variant="outline" className="text-xs">
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
+                      <div className="flex items-center gap-4">
+                        <Button 
+                          className="bg-slate-900 hover:bg-slate-800 text-white"
+                          onClick={() => handleReadArticle(featuredPost.slug)}
+                        >
+                          Read Full Article
+                          <ArrowRight className="w-4 h-4 ml-2" />
+                        </Button>
+                        <div className="flex items-center gap-2 text-sm text-slate-500">
+                          <Heart className="w-4 h-4" />
+                          {featuredPost.likes || 0}
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div className="p-8 lg:p-12">
-                    <Badge variant="secondary" className="bg-slate-100 text-slate-700 mb-4">
-                      Featured
-                    </Badge>
-                    <h3 className="text-2xl lg:text-3xl font-bold text-slate-900 mb-4 leading-tight">
-                      {featuredPost.title}
-                    </h3>
-                    <p className="text-slate-600 mb-6 leading-relaxed">
-                      {featuredPost.excerpt}
-                    </p>
-                    <div className="flex flex-wrap items-center gap-4 text-sm text-slate-500 mb-6">
-                      <div className="flex items-center gap-1">
-                        <User className="w-4 h-4" />
-                        {featuredPost.author}
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4" />
-                        {featuredPost.date}
-                      </div>
-                      <div>{featuredPost.readTime}</div>
-                    </div>
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {featuredPost.tags.map((tag, index) => (
-                        <Badge key={index} variant="outline" className="text-xs">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                    <Button 
-                      className="bg-slate-900 hover:bg-slate-800 text-white"
-                      onClick={() => handleReadArticle(featuredPost.title)}
-                    >
-                      Read Full Article
-                      <ArrowRight className="w-4 h-4 ml-2" />
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Categories Filter */}
       <section className="py-8 bg-slate-50">
@@ -284,22 +264,13 @@ export default function Blog() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {blogPosts
-              .filter(post => 
-                selectedCategory === "All Posts" || post.category === selectedCategory
-              )
-              .filter(post => 
-                searchQuery === "" || 
-                post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
-              )
+            {filteredPosts
               .slice(0, visiblePosts)
-              .map((post, index) => (
+              .map((post) => (
               <Card 
-                key={index} 
+                key={post.id} 
                 className="bg-white border border-slate-200 hover:shadow-lg transition-all duration-300 cursor-pointer hover:scale-105"
-                onClick={() => handleReadArticle(post.title)}
+                onClick={() => handleReadArticle(post.slug)}
               >
                 <CardContent className="p-0">
                   <div className="bg-slate-100 h-48 flex items-center justify-center">
@@ -326,9 +297,13 @@ export default function Blog() {
                       </div>
                       <div className="flex items-center gap-1">
                         <Calendar className="w-3 h-3" />
-                        {post.date}
+                        {new Date(post.createdAt || '').toLocaleDateString()}
                       </div>
                       <div>{post.readTime}</div>
+                      <div className="flex items-center gap-1">
+                        <Eye className="w-3 h-3" />
+                        {post.views || 0}
+                      </div>
                     </div>
                     <div className="flex flex-wrap gap-1 mb-4">
                       {post.tags.slice(0, 3).map((tag, idx) => (
@@ -337,73 +312,93 @@ export default function Blog() {
                         </Badge>
                       ))}
                     </div>
-                    <Button 
-                      variant="outline" 
-                      className="w-full border-slate-300 text-slate-700 hover:bg-slate-50"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleReadArticle(post.title);
-                      }}
-                    >
-                      Read More
-                      <ArrowRight className="w-4 h-4 ml-2" />
-                    </Button>
+                    <div className="flex items-center justify-between">
+                      <Button 
+                        variant="outline" 
+                        className="border-slate-300 text-slate-700 hover:bg-slate-50"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleReadArticle(post.slug);
+                        }}
+                      >
+                        Read More
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </Button>
+                      <div className="flex items-center gap-2 text-xs text-slate-500">
+                        <Heart className="w-3 h-3" />
+                        {post.likes || 0}
+                      </div>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
             ))}
           </div>
           
-          {blogPosts
-            .filter(post => 
-              selectedCategory === "All Posts" || post.category === selectedCategory
-            )
-            .filter(post => 
-              searchQuery === "" || 
-              post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-              post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-              post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
-            ).length > visiblePosts && (
+          {filteredPosts.length > visiblePosts && (
             <div className="text-center mt-12">
               <Button 
-                className="bg-slate-900 hover:bg-slate-800 text-white px-8 py-3"
                 onClick={handleLoadMore}
+                variant="outline"
+                className="border-slate-300 text-slate-700 hover:bg-slate-50"
               >
-                <TrendingUp className="h-4 w-4 mr-2" />
                 Load More Articles
               </Button>
+            </div>
+          )}
+
+          {filteredPosts.length === 0 && !isLoading && (
+            <div className="text-center py-12">
+              <BookOpen className="w-16 h-16 text-slate-400 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-slate-900 mb-2">No Articles Found</h3>
+              <p className="text-slate-600">Try adjusting your search or filter criteria.</p>
             </div>
           )}
         </div>
       </section>
 
       {/* Newsletter Signup */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="bg-slate-900 rounded-2xl p-12 text-center text-white">
-            <h2 className="text-4xl font-bold mb-6">Stay Updated</h2>
-            <p className="text-xl text-slate-300 mb-8 max-w-3xl mx-auto">
-              Subscribe to our newsletter for the latest insights on enterprise technology, 
-              industry trends, and best practices delivered to your inbox.
+      <section className="py-20 bg-slate-900">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <div className="mb-8">
+            <Mail className="w-16 h-16 text-white mx-auto mb-4" />
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Stay Updated with Tech Insights
+            </h2>
+            <p className="text-xl text-slate-300 max-w-2xl mx-auto">
+              Get the latest articles, industry trends, and technology insights delivered to your inbox.
             </p>
-            <form onSubmit={handleNewsletterSignup} className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+          </div>
+          
+          <form onSubmit={handleNewsletterSignup} className="max-w-md mx-auto">
+            <div className="flex gap-3">
               <Input
                 type="email"
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 px-4 py-3 rounded-lg text-slate-900 border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-500"
+                className="flex-1 bg-white border-slate-300"
                 required
               />
               <Button 
                 type="submit"
-                className="bg-white text-slate-900 hover:bg-slate-100 px-6 py-3"
+                disabled={subscriptionMutation.isPending}
+                className="bg-white text-slate-900 hover:bg-slate-100"
               >
-                <Bell className="h-4 w-4 mr-2" />
-                Subscribe
+                {subscriptionMutation.isPending ? "Subscribing..." : "Subscribe"}
               </Button>
-            </form>
-          </div>
+            </div>
+          </form>
+          
+          <p className="text-sm text-slate-400 mt-4">
+            No spam, unsubscribe at any time. Read our{" "}
+            <button 
+              onClick={() => setLocation("/privacy-policy")}
+              className="underline hover:text-slate-300"
+            >
+              Privacy Policy
+            </button>
+          </p>
         </div>
       </section>
 
