@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useLocation } from "wouter";
 import { 
   Building, 
   Heart, 
@@ -19,6 +20,16 @@ import {
 } from "lucide-react";
 
 export default function IndustriesSection() {
+  const [, setLocation] = useLocation();
+
+  const handleScheduleIndustryConsultation = () => {
+    setLocation("/contact");
+  };
+
+  const handleViewIndustryCaseStudies = () => {
+    setLocation("/case-studies");
+  };
+
   const industries = [
     {
       title: "Financial Services",
@@ -178,11 +189,19 @@ export default function IndustriesSection() {
                   Discover how our industry-specific solutions can accelerate your business growth and digital transformation.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button size="lg" className="bg-slate-900 hover:bg-slate-800 text-white">
+                  <Button 
+                    size="lg" 
+                    className="bg-slate-900 hover:bg-slate-800 text-white"
+                    onClick={handleScheduleIndustryConsultation}
+                  >
                     Schedule Industry Consultation
                     <Users className="ml-2 w-5 h-5" />
                   </Button>
-                  <Button size="lg" variant="outline">
+                  <Button 
+                    size="lg" 
+                    variant="outline"
+                    onClick={handleViewIndustryCaseStudies}
+                  >
                     View Industry Case Studies
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
