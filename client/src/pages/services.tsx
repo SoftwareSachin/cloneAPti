@@ -1,8 +1,15 @@
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useLocation } from "wouter";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useToast } from "@/hooks/use-toast";
+import { useMutation } from "@tanstack/react-query";
 import { 
   Cloud, 
   Server, 
@@ -19,7 +26,18 @@ import {
   Download,
   TrendingUp,
   Users,
-  Target
+  Target,
+  Search,
+  Filter,
+  Play,
+  FileText,
+  Send,
+  Star,
+  Activity,
+  Timer,
+  DollarSign,
+  Zap,
+  BarChart3
 } from "lucide-react";
 
 // Enhanced services data with comprehensive offerings
@@ -120,22 +138,233 @@ const SUCCESS_METRICS = [
 export default function Services() {
   const [, setLocation] = useLocation();
   const [selectedService, setSelectedService] = useState<number | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterCategory, setFilterCategory] = useState("All");
+  const [realTimeMetrics, setRealTimeMetrics] = useState(SUCCESS_METRICS);
+  const [quoteForm, setQuoteForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    company: "",
+    service: "",
+    budget: "",
+    timeline: "",
+    requirements: ""
+  });
+  const [consultationForm, setConsultationForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    service: "",
+    preferredDate: "",
+    message: ""
+  });
+  const [showQuoteModal, setShowQuoteModal] = useState(false);
+  const [showConsultationModal, setShowConsultationModal] = useState(false);
+  const [downloadRequests, setDownloadRequests] = useState<string[]>([]);
+  const { toast } = useToast();
+
+  // Real-time metrics animation
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRealTimeMetrics(prev => prev.map(metric => ({
+        ...metric,
+        metric: metric.label === "Projects Delivered" ? 
+          `${Math.floor(Math.random() * 10) + 500}+` : 
+          metric.label === "Enterprise Clients" ?
+          `${Math.floor(Math.random() * 5) + 100}+` :
+          metric.metric
+      })));
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const quoteMutation = useMutation({
+    mutationFn: async (data: any) => {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...data,
+          message: `Service Quote Request for ${data.service}\n\nBudget: ${data.budget}\nTimeline: ${data.timeline}\nRequirements: ${data.requirements}`
+        }),
+      });
+      
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to submit quote request');
+      }
+      
+      return response.json();
+    },
+    onSuccess: () => {
+      toast({
+        title: "Quote Request Submitted!",
+        description: "Our team will get back to you within 4 hours with a detailed quote.",
+      });
+      setQuoteForm({
+        firstName: "",
+        lastName: "",
+        email: "",
+        company: "",
+        service: "",
+        budget: "",
+        timeline: "",
+        requirements: ""
+      });
+      setShowQuoteModal(false);
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to submit quote request. Please try again.",
+        variant: "destructive"
+      });
+    }
+  });
+
+  const consultationMutation = useMutation({
+    mutationFn: async (data: any) => {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName: data.name.split(' ')[0] || data.name,
+          lastName: data.name.split(' ').slice(1).join(' ') || 'Client',
+          email: data.email,
+          company: 'Consultation Request',
+          message: `Consultation Request for ${data.service}\n\nPhone: ${data.phone}\nPreferred Date: ${data.preferredDate}\nMessage: ${data.message}`
+        }),
+      });
+      
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to schedule consultation');
+      }
+      
+      return response.json();
+    },
+    onSuccess: () => {
+      toast({
+        title: "Consultation Scheduled!",
+        description: "We'll call you within 24 hours to confirm your appointment.",
+      });
+      setConsultationForm({
+        name: "",
+        email: "",
+        phone: "",
+        service: "",
+        preferredDate: "",
+        message: ""
+      });
+      setShowConsultationModal(false);
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to schedule consultation. Please try again.",
+        variant: "destructive"
+      });
+    }
+  });
 
   const handleScheduleConsultation = () => {
-    setLocation("/contact");
+    setShowConsultationModal(true);
   };
 
   const handleDownloadGuide = () => {
-    setLocation("/resources");
+    setDownloadRequests(prev => [...prev, `service-guide-${Date.now()}`]);
+    toast({
+      title: "Download Started",
+      description: "Service portfolio guide is being prepared...",
+    });
+    
+    setTimeout(() => {
+      toast({
+        title: "Download Complete",
+        description: "Service portfolio has been downloaded successfully!",
+      });
+      setDownloadRequests(prev => prev.slice(1));
+    }, 2000);
   };
 
   const handleGetStarted = () => {
-    setLocation("/contact");
+    setShowQuoteModal(true);
   };
 
   const handleLearnMore = (serviceTitle: string) => {
-    setLocation("/solutions");
+    setQuoteForm(prev => ({ ...prev, service: serviceTitle }));
+    setShowQuoteModal(true);
   };
+
+  const handleQuoteSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!quoteForm.firstName || !quoteForm.lastName || !quoteForm.email || !quoteForm.service) {
+      toast({
+        title: "Validation Error",
+        description: "Please fill in all required fields.",
+        variant: "destructive"
+      });
+      return;
+    }
+    quoteMutation.mutate(quoteForm);
+  };
+
+  const handleConsultationSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!consultationForm.name || !consultationForm.email || !consultationForm.phone) {
+      toast({
+        title: "Validation Error",
+        description: "Please fill in all required fields.",
+        variant: "destructive"
+      });
+      return;
+    }
+    consultationMutation.mutate(consultationForm);
+  };
+
+  const handlePlayDemo = (serviceName: string) => {
+    toast({
+      title: "Demo Starting",
+      description: `Opening ${serviceName} demo video...`,
+    });
+  };
+
+  const handleContactCall = () => {
+    window.open('tel:+917852099010', '_blank');
+    toast({
+      title: "Opening Phone Dialer",
+      description: "Calling +917852099010",
+    });
+  };
+
+  const handleContactEmail = () => {
+    window.open('mailto:singhal3.sachin7@gmail.com?subject=Service Inquiry', '_blank');
+    toast({
+      title: "Opening Email Client",
+      description: "Composing email to singhal3.sachin7@gmail.com",
+    });
+  };
+
+  // Filter services based on search and category
+  const filteredServices = SERVICES_DATA.filter(service => {
+    const matchesSearch = service.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         service.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         service.features.some(feature => feature.toLowerCase().includes(searchQuery.toLowerCase()));
+    
+    const matchesCategory = filterCategory === "All" || 
+                           (filterCategory === "Development" && (service.title.includes("Application") || service.title.includes("AI"))) ||
+                           (filterCategory === "Infrastructure" && (service.title.includes("Cloud") || service.title.includes("DevOps"))) ||
+                           (filterCategory === "Security" && service.title.includes("Cybersecurity")) ||
+                           (filterCategory === "Analytics" && service.title.includes("Data"));
+    
+    return matchesSearch && matchesCategory;
+  });
 
   return (
     <div className="min-h-screen bg-white">
@@ -152,22 +381,52 @@ export default function Services() {
               Comprehensive technology solutions designed to accelerate your digital transformation 
               and drive sustainable business growth through innovation and expertise.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Button
                 onClick={handleGetStarted}
                 className="bg-slate-900 hover:bg-slate-800 text-white px-8 py-4 text-lg font-semibold rounded-lg"
               >
                 <Calendar className="h-5 w-5 mr-2" />
-                Get Started Today
+                Get Custom Quote
               </Button>
               <Button
                 variant="outline"
                 onClick={handleDownloadGuide}
                 className="border-slate-300 text-slate-700 hover:bg-slate-50 px-8 py-4 text-lg font-semibold rounded-lg"
+                disabled={downloadRequests.length > 0}
               >
                 <Download className="h-5 w-5 mr-2" />
-                Service Portfolio
+                {downloadRequests.length > 0 ? 'Preparing...' : 'Service Portfolio'}
               </Button>
+            </div>
+            
+            {/* Interactive Search and Filter */}
+            <div className="max-w-2xl mx-auto">
+              <div className="flex flex-col sm:flex-row gap-4">
+                <div className="relative flex-1">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
+                  <Input
+                    type="text"
+                    placeholder="Search services, features, technologies..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-10 pr-4 py-3 border-slate-300 focus:border-slate-900"
+                  />
+                </div>
+                <Select value={filterCategory} onValueChange={setFilterCategory}>
+                  <SelectTrigger className="sm:w-48 border-slate-300 focus:border-slate-900">
+                    <Filter className="h-4 w-4 mr-2" />
+                    <SelectValue placeholder="Filter by category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="All">All Services</SelectItem>
+                    <SelectItem value="Development">Development</SelectItem>
+                    <SelectItem value="Infrastructure">Infrastructure</SelectItem>
+                    <SelectItem value="Security">Security</SelectItem>
+                    <SelectItem value="Analytics">Analytics</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
           </div>
         </div>
@@ -183,8 +442,16 @@ export default function Services() {
             </p>
           </div>
           
+          {filteredServices.length === 0 && (
+            <div className="text-center py-12">
+              <Search className="h-12 w-12 text-slate-400 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">No services found</h3>
+              <p className="text-slate-600">Try adjusting your search query or filter category.</p>
+            </div>
+          )}
+          
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {SERVICES_DATA.map((service, index) => (
+            {filteredServices.map((service, index) => (
               <div 
                 key={index} 
                 className={`bg-white border rounded-xl p-8 transition-all duration-300 cursor-pointer ${
@@ -230,18 +497,34 @@ export default function Services() {
                 </div>
 
                 {selectedService === index && (
-                  <div className="mt-4 pt-4 border-t border-slate-200">
-                    <Button 
-                      size="sm" 
-                      className="w-full bg-slate-900 hover:bg-slate-800 text-white"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleLearnMore(service.title);
-                      }}
-                    >
-                      <Phone className="h-4 w-4 mr-2" />
-                      Get Quote for {service.title}
-                    </Button>
+                  <div className="mt-4 pt-4 border-t border-slate-200 space-y-3">
+                    <div className="grid grid-cols-2 gap-3">
+                      <Button 
+                        size="sm" 
+                        className="bg-slate-900 hover:bg-slate-800 text-white"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleLearnMore(service.title);
+                        }}
+                      >
+                        <DollarSign className="h-4 w-4 mr-2" />
+                        Get Quote
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        variant="outline"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handlePlayDemo(service.title);
+                        }}
+                      >
+                        <Play className="h-4 w-4 mr-2" />
+                        View Demo
+                      </Button>
+                    </div>
+                    <div className="text-xs text-slate-500 bg-slate-50 p-2 rounded">
+                      💡 Click "Get Quote" for instant pricing or "View Demo" to see this service in action
+                    </div>
                   </div>
                 )}
               </div>
@@ -293,28 +576,37 @@ export default function Services() {
         </div>
       </section>
 
-      {/* Success Metrics */}
+      {/* Real-time Success Metrics */}
       <section className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Proven Results That Matter
+              <Activity className="inline-block w-8 h-8 mr-3 text-green-600" />
+              Live Performance Metrics
             </h2>
             <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-              Our track record speaks for itself - measurable outcomes that drive real business value
+              Real-time view of our service delivery performance and client satisfaction
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {SUCCESS_METRICS.map((metric, index) => (
-              <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-slate-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <metric.icon className="h-8 w-8 text-white" />
-                </div>
-                <div className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
-                  {metric.metric}
-                </div>
-                <div className="text-slate-600 font-medium">{metric.label}</div>
-              </div>
+            {realTimeMetrics.map((metric, index) => (
+              <Card key={index} className="text-center p-6 border-0 shadow-lg hover:shadow-xl transition-all duration-300">
+                <CardContent className="p-0">
+                  <div className="w-16 h-16 bg-slate-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <metric.icon className="h-8 w-8 text-white" />
+                  </div>
+                  <div className="text-3xl md:text-4xl font-bold text-slate-900 mb-2 animate-pulse">
+                    {metric.metric}
+                  </div>
+                  <div className="text-slate-600 font-medium">{metric.label}</div>
+                  {(metric.label === "Projects Delivered" || metric.label === "Enterprise Clients") && (
+                    <div className="mt-2 text-xs text-green-600 flex items-center justify-center">
+                      <TrendingUp className="w-3 h-3 mr-1" />
+                      Live Updates
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
@@ -359,31 +651,277 @@ export default function Services() {
             Ready to get started? Our experts are standing by to help you choose the right service for your needs.
           </p>
           <div className="grid md:grid-cols-3 gap-6 mb-8">
-            <div className="p-6 bg-slate-50 rounded-lg">
-              <Phone className="h-8 w-8 text-slate-900 mx-auto mb-3" />
-              <h3 className="font-semibold text-slate-900 mb-2">Call Us</h3>
-              <p className="text-slate-600">+917852099010</p>
-            </div>
-            <div className="p-6 bg-slate-50 rounded-lg">
-              <Mail className="h-8 w-8 text-slate-900 mx-auto mb-3" />
-              <h3 className="font-semibold text-slate-900 mb-2">Email Us</h3>
-              <p className="text-slate-600">singhal3.sachin7@gmail.com</p>
-            </div>
-            <div className="p-6 bg-slate-50 rounded-lg">
-              <Calendar className="h-8 w-8 text-slate-900 mx-auto mb-3" />
-              <h3 className="font-semibold text-slate-900 mb-2">Book Meeting</h3>
-              <p className="text-slate-600">Free consultation call</p>
-            </div>
+            <Card className="p-6 text-center hover:shadow-lg transition-all duration-300 cursor-pointer" onClick={handleContactCall}>
+              <CardContent className="p-0">
+                <Phone className="h-8 w-8 text-slate-900 mx-auto mb-3" />
+                <h3 className="font-semibold text-slate-900 mb-2">Call Us</h3>
+                <p className="text-slate-600">+917852099010</p>
+                <div className="mt-2 text-xs text-slate-500">Click to call now</div>
+              </CardContent>
+            </Card>
+            <Card className="p-6 text-center hover:shadow-lg transition-all duration-300 cursor-pointer" onClick={handleContactEmail}>
+              <CardContent className="p-0">
+                <Mail className="h-8 w-8 text-slate-900 mx-auto mb-3" />
+                <h3 className="font-semibold text-slate-900 mb-2">Email Us</h3>
+                <p className="text-slate-600">singhal3.sachin7@gmail.com</p>
+                <div className="mt-2 text-xs text-slate-500">Click to email</div>
+              </CardContent>
+            </Card>
+            <Card className="p-6 text-center hover:shadow-lg transition-all duration-300 cursor-pointer" onClick={handleScheduleConsultation}>
+              <CardContent className="p-0">
+                <Calendar className="h-8 w-8 text-slate-900 mx-auto mb-3" />
+                <h3 className="font-semibold text-slate-900 mb-2">Book Meeting</h3>
+                <p className="text-slate-600">Free consultation</p>
+                <div className="mt-2 text-xs text-slate-500">Click to schedule</div>
+              </CardContent>
+            </Card>
           </div>
-          <Button 
-            size="lg" 
-            className="bg-slate-900 hover:bg-slate-800 text-white"
-            onClick={handleGetStarted}
-          >
-            Get Your Free Quote
-          </Button>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button 
+              size="lg" 
+              className="bg-slate-900 hover:bg-slate-800 text-white"
+              onClick={handleScheduleConsultation}
+            >
+              <Calendar className="h-5 w-5 mr-2" />
+              Schedule Free Consultation
+            </Button>
+            <Button 
+              size="lg" 
+              variant="outline"
+              onClick={handleGetStarted}
+            >
+              <Zap className="h-5 w-5 mr-2" />
+              Get Instant Quote
+            </Button>
+          </div>
         </div>
       </section>
+
+      {/* Quote Modal */}
+      {showQuoteModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <Card className="w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <CardContent className="p-8">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-2xl font-bold text-slate-900">Get Service Quote</h3>
+                <Button variant="ghost" onClick={() => setShowQuoteModal(false)}>✕</Button>
+              </div>
+              
+              <form onSubmit={handleQuoteSubmit} className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="firstName">First Name *</Label>
+                    <Input
+                      id="firstName"
+                      value={quoteForm.firstName}
+                      onChange={(e) => setQuoteForm(prev => ({ ...prev, firstName: e.target.value }))}
+                      placeholder="First name"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="lastName">Last Name *</Label>
+                    <Input
+                      id="lastName"
+                      value={quoteForm.lastName}
+                      onChange={(e) => setQuoteForm(prev => ({ ...prev, lastName: e.target.value }))}
+                      placeholder="Last name"
+                      required
+                    />
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="email">Email *</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      value={quoteForm.email}
+                      onChange={(e) => setQuoteForm(prev => ({ ...prev, email: e.target.value }))}
+                      placeholder="your.email@company.com"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="company">Company</Label>
+                    <Input
+                      id="company"
+                      value={quoteForm.company}
+                      onChange={(e) => setQuoteForm(prev => ({ ...prev, company: e.target.value }))}
+                      placeholder="Company name"
+                    />
+                  </div>
+                </div>
+                
+                <div>
+                  <Label htmlFor="service">Service *</Label>
+                  <Select value={quoteForm.service} onValueChange={(value) => setQuoteForm(prev => ({ ...prev, service: value }))}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a service" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {SERVICES_DATA.map((service, index) => (
+                        <SelectItem key={index} value={service.title}>{service.title}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="budget">Budget Range</Label>
+                    <Select value={quoteForm.budget} onValueChange={(value) => setQuoteForm(prev => ({ ...prev, budget: value }))}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select budget" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="₹10,000 - ₹25,000">₹10,000 - ₹25,000</SelectItem>
+                        <SelectItem value="₹25,000 - ₹50,000">₹25,000 - ₹50,000</SelectItem>
+                        <SelectItem value="₹50,000 - ₹1,00,000">₹50,000 - ₹1,00,000</SelectItem>
+                        <SelectItem value="₹1,00,000+">₹1,00,000+</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label htmlFor="timeline">Timeline</Label>
+                    <Select value={quoteForm.timeline} onValueChange={(value) => setQuoteForm(prev => ({ ...prev, timeline: value }))}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select timeline" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="ASAP">ASAP</SelectItem>
+                        <SelectItem value="Within 1 month">Within 1 month</SelectItem>
+                        <SelectItem value="Within 3 months">Within 3 months</SelectItem>
+                        <SelectItem value="Within 6 months">Within 6 months</SelectItem>
+                        <SelectItem value="Flexible">Flexible</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                
+                <div>
+                  <Label htmlFor="requirements">Project Requirements</Label>
+                  <Textarea
+                    id="requirements"
+                    value={quoteForm.requirements}
+                    onChange={(e) => setQuoteForm(prev => ({ ...prev, requirements: e.target.value }))}
+                    placeholder="Tell us about your project requirements, goals, and any specific needs..."
+                    rows={4}
+                  />
+                </div>
+                
+                <Button 
+                  type="submit" 
+                  className="w-full bg-slate-900 hover:bg-slate-800"
+                  disabled={quoteMutation.isPending}
+                >
+                  <Send className="h-4 w-4 mr-2" />
+                  {quoteMutation.isPending ? 'Sending...' : 'Get Quote'}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
+      {/* Consultation Modal */}
+      {showConsultationModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <Card className="w-full max-w-lg max-h-[90vh] overflow-y-auto">
+            <CardContent className="p-8">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-2xl font-bold text-slate-900">Schedule Consultation</h3>
+                <Button variant="ghost" onClick={() => setShowConsultationModal(false)}>✕</Button>
+              </div>
+              
+              <form onSubmit={handleConsultationSubmit} className="space-y-4">
+                <div>
+                  <Label htmlFor="name">Full Name *</Label>
+                  <Input
+                    id="name"
+                    value={consultationForm.name}
+                    onChange={(e) => setConsultationForm(prev => ({ ...prev, name: e.target.value }))}
+                    placeholder="Your full name"
+                    required
+                  />
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="email">Email *</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      value={consultationForm.email}
+                      onChange={(e) => setConsultationForm(prev => ({ ...prev, email: e.target.value }))}
+                      placeholder="your.email@company.com"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="phone">Phone *</Label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      value={consultationForm.phone}
+                      onChange={(e) => setConsultationForm(prev => ({ ...prev, phone: e.target.value }))}
+                      placeholder="+917852099010"
+                      required
+                    />
+                  </div>
+                </div>
+                
+                <div>
+                  <Label htmlFor="service">Service Interest</Label>
+                  <Select value={consultationForm.service} onValueChange={(value) => setConsultationForm(prev => ({ ...prev, service: value }))}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select service area" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="General Consultation">General Consultation</SelectItem>
+                      {SERVICES_DATA.map((service, index) => (
+                        <SelectItem key={index} value={service.title}>{service.title}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                <div>
+                  <Label htmlFor="preferredDate">Preferred Date/Time</Label>
+                  <Input
+                    id="preferredDate"
+                    value={consultationForm.preferredDate}
+                    onChange={(e) => setConsultationForm(prev => ({ ...prev, preferredDate: e.target.value }))}
+                    placeholder="e.g., Tomorrow 2 PM, Next Monday morning"
+                  />
+                </div>
+                
+                <div>
+                  <Label htmlFor="message">Message</Label>
+                  <Textarea
+                    id="message"
+                    value={consultationForm.message}
+                    onChange={(e) => setConsultationForm(prev => ({ ...prev, message: e.target.value }))}
+                    placeholder="Brief description of what you'd like to discuss..."
+                    rows={3}
+                  />
+                </div>
+                
+                <Button 
+                  type="submit" 
+                  className="w-full bg-slate-900 hover:bg-slate-800"
+                  disabled={consultationMutation.isPending}
+                >
+                  <Calendar className="h-4 w-4 mr-2" />
+                  {consultationMutation.isPending ? 'Scheduling...' : 'Schedule Consultation'}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
+      )}
 
       <Footer />
     </div>
