@@ -36,516 +36,473 @@ export default function PortfolioDownload() {
     setIsDownloading(true);
     
     try {
-      // Simulate download process
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Show loading state
+      toast({
+        title: "Generating Portfolio...",
+        description: "Creating your comprehensive portfolio document",
+      });
       
-      // Create a comprehensive HTML portfolio document
-      const portfolioHTML = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aptivon Solutions - Portfolio 2025</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            line-height: 1.6; 
-            color: #1e293b; 
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            min-height: 100vh;
-        }
-        .container { 
-            max-width: 1200px; 
-            margin: 0 auto; 
-            padding: 2rem; 
-            background: white;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-            border-radius: 12px;
-            margin-top: 2rem;
-            margin-bottom: 2rem;
-        }
-        .header { 
-            text-align: center; 
-            margin-bottom: 3rem; 
-            padding: 2rem 0;
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-            color: white;
-            border-radius: 12px;
-            margin: -2rem -2rem 3rem -2rem;
-        }
-        .company-name { 
-            font-size: 3rem; 
-            font-weight: 700; 
-            margin-bottom: 0.5rem;
-            background: linear-gradient(45deg, #60a5fa, #34d399);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .tagline { 
-            font-size: 1.2rem; 
-            opacity: 0.9; 
-            font-weight: 300;
-        }
-        .section { 
-            margin-bottom: 3rem; 
-            padding: 2rem;
-            background: #f8fafc;
-            border-radius: 12px;
-            border-left: 4px solid #3b82f6;
-        }
-        .section-title { 
-            font-size: 2rem; 
-            font-weight: 600; 
-            margin-bottom: 1.5rem; 
-            color: #1e293b;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .section-title::before {
-            content: "▶";
-            color: #3b82f6;
-            font-size: 1.5rem;
-        }
-        .metrics-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-            gap: 1.5rem; 
-            margin: 2rem 0; 
-        }
-        .metric-card { 
-            background: white; 
-            padding: 1.5rem; 
-            border-radius: 8px; 
-            text-align: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e2e8f0;
-        }
-        .metric-value { 
-            font-size: 2.5rem; 
-            font-weight: 700; 
-            color: #3b82f6; 
-            display: block; 
-        }
-        .metric-label { 
-            color: #64748b; 
-            font-size: 0.9rem; 
-            margin-top: 0.5rem;
-        }
-        .project-card { 
-            background: white; 
-            margin: 1.5rem 0; 
-            padding: 2rem; 
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            border-left: 4px solid #10b981;
-        }
-        .project-title { 
-            font-size: 1.5rem; 
-            font-weight: 600; 
-            color: #1e293b; 
-            margin-bottom: 0.5rem;
-        }
-        .project-client { 
-            color: #6366f1; 
-            font-weight: 500; 
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-        .project-meta { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
-            gap: 1rem; 
-            margin: 1rem 0;
-            padding: 1rem;
-            background: #f1f5f9;
-            border-radius: 8px;
-        }
-        .meta-item { 
-            text-align: center; 
-        }
-        .meta-label { 
-            font-size: 0.8rem; 
-            color: #64748b; 
-            text-transform: uppercase; 
-            letter-spacing: 0.5px;
-        }
-        .meta-value { 
-            font-weight: 600; 
-            color: #1e293b; 
-            font-size: 1.1rem;
-        }
-        .results-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-            gap: 1rem; 
-            margin: 1.5rem 0;
-        }
-        .result-item { 
-            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); 
-            padding: 1rem; 
-            border-radius: 8px;
-            text-align: center;
-            border: 1px solid #10b981;
-        }
-        .result-value { 
-            font-size: 1.5rem; 
-            font-weight: 700; 
-            color: #059669; 
-        }
-        .result-label { 
-            color: #065f46; 
-            font-size: 0.9rem; 
-            margin-top: 0.5rem;
-        }
-        .tech-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-            gap: 1.5rem;
-        }
-        .tech-category { 
-            background: white; 
-            padding: 1.5rem; 
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .tech-category h3 { 
-            color: #3b82f6; 
-            margin-bottom: 1rem; 
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-        .tech-list { 
-            list-style: none; 
-            padding: 0;
-        }
-        .tech-list li { 
-            padding: 0.3rem 0; 
-            color: #475569;
-            position: relative;
-            padding-left: 1.5rem;
-        }
-        .tech-list li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #10b981;
-            font-weight: bold;
-        }
-        .testimonial { 
-            background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%); 
-            padding: 2rem; 
-            border-radius: 12px; 
-            margin: 1.5rem 0;
-            border-left: 4px solid #f59e0b;
-            position: relative;
-        }
-        .testimonial::before {
-            content: """;
-            font-size: 4rem;
-            color: #f59e0b;
-            position: absolute;
-            top: -0.5rem;
-            left: 1rem;
-            opacity: 0.3;
-        }
-        .testimonial-text { 
-            font-style: italic; 
-            font-size: 1.1rem; 
-            color: #92400e; 
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 1;
-        }
-        .testimonial-author { 
-            font-weight: 600; 
-            color: #78350f;
-            position: relative;
-            z-index: 1;
-        }
-        .contact-section { 
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%); 
-            color: white; 
-            padding: 2rem; 
-            border-radius: 12px; 
-            text-align: center;
-        }
-        .contact-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-            gap: 1.5rem; 
-            margin-top: 2rem;
-        }
-        .contact-item { 
-            background: rgba(255, 255, 255, 0.1); 
-            padding: 1.5rem; 
-            border-radius: 8px;
-            backdrop-filter: blur(10px);
-        }
-        .contact-label { 
-            font-size: 0.9rem; 
-            opacity: 0.8; 
-            margin-bottom: 0.5rem;
-        }
-        .contact-value { 
-            font-weight: 600; 
-            font-size: 1.1rem;
-        }
-        .cta-button {
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            color: white;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 2rem;
-            transition: transform 0.2s;
-        }
-        .cta-button:hover {
-            transform: translateY(-2px);
-        }
-        @media print {
-            body { background: white; }
-            .container { box-shadow: none; margin: 0; }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1 class="company-name">APTIVON SOLUTIONS</h1>
-            <p class="tagline">Comprehensive Portfolio & Capabilities Overview</p>
-            <p style="margin-top: 1rem; opacity: 0.8;">Transforming Businesses Through Innovation</p>
-        </div>
+      // Simulate download process
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Create HTML content using DOM manipulation to avoid escape issues
+      const createPortfolioHTML = () => {
+        const html = document.createElement('html');
+        html.setAttribute('lang', 'en');
+        
+        // Head section
+        const head = document.createElement('head');
+        head.innerHTML = `
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Aptivon Solutions - Portfolio 2025</title>
+          <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body { 
+              font-family: 'Arial', sans-serif; 
+              line-height: 1.6; 
+              color: #1a1a1a; 
+              background: #f5f5f5;
+            }
+            .container { 
+              max-width: 1000px; 
+              margin: 20px auto; 
+              padding: 40px; 
+              background: white;
+              border-radius: 10px;
+              box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            }
+            .header { 
+              text-align: center; 
+              margin-bottom: 40px; 
+              padding: 30px;
+              background: linear-gradient(135deg, #2c3e50, #3498db);
+              color: white;
+              border-radius: 10px;
+              margin: -40px -40px 40px -40px;
+            }
+            .company-name { 
+              font-size: 2.5em; 
+              font-weight: bold; 
+              margin-bottom: 10px;
+            }
+            .tagline { 
+              font-size: 1.2em; 
+              opacity: 0.9;
+            }
+            .section { 
+              margin-bottom: 40px; 
+              padding: 30px;
+              background: #f8f9fa;
+              border-radius: 10px;
+              border-left: 5px solid #3498db;
+            }
+            .section-title { 
+              font-size: 1.8em; 
+              font-weight: bold; 
+              margin-bottom: 20px; 
+              color: #2c3e50;
+            }
+            .metrics { 
+              display: grid; 
+              grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+              gap: 20px; 
+              margin: 20px 0;
+            }
+            .metric { 
+              background: white; 
+              padding: 20px; 
+              border-radius: 8px; 
+              text-align: center;
+              box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            }
+            .metric-value { 
+              font-size: 2em; 
+              font-weight: bold; 
+              color: #3498db; 
+            }
+            .metric-label { 
+              color: #666; 
+              margin-top: 5px;
+            }
+            .project { 
+              background: white; 
+              margin: 20px 0; 
+              padding: 25px; 
+              border-radius: 10px;
+              box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+              border-left: 5px solid #27ae60;
+            }
+            .project-title { 
+              font-size: 1.4em; 
+              font-weight: bold; 
+              color: #2c3e50; 
+              margin-bottom: 10px;
+            }
+            .project-client { 
+              color: #3498db; 
+              font-weight: bold; 
+              margin-bottom: 15px;
+            }
+            .project-details { 
+              display: grid; 
+              grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+              gap: 15px; 
+              margin: 15px 0;
+              padding: 15px;
+              background: #f8f9fa;
+              border-radius: 8px;
+            }
+            .detail { 
+              text-align: center; 
+            }
+            .detail-label { 
+              font-size: 0.9em; 
+              color: #666; 
+              text-transform: uppercase;
+            }
+            .detail-value { 
+              font-weight: bold; 
+              color: #2c3e50;
+            }
+            .results { 
+              display: grid; 
+              grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+              gap: 15px; 
+              margin: 20px 0;
+            }
+            .result { 
+              background: #e8f5e8; 
+              padding: 15px; 
+              border-radius: 8px;
+              text-align: center;
+            }
+            .result-value { 
+              font-size: 1.3em; 
+              font-weight: bold; 
+              color: #27ae60; 
+            }
+            .result-label { 
+              color: #2c3e50; 
+              font-size: 0.9em;
+            }
+            .tech-grid { 
+              display: grid; 
+              grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+              gap: 20px;
+            }
+            .tech-category { 
+              background: white; 
+              padding: 20px; 
+              border-radius: 8px;
+              box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            }
+            .tech-category h3 { 
+              color: #3498db; 
+              margin-bottom: 15px;
+            }
+            .tech-list { 
+              list-style: none;
+            }
+            .tech-list li { 
+              padding: 5px 0; 
+              color: #555;
+              position: relative;
+              padding-left: 20px;
+            }
+            .tech-list li:before {
+              content: "✓";
+              position: absolute;
+              left: 0;
+              color: #27ae60;
+              font-weight: bold;
+            }
+            .testimonial { 
+              background: #fff3cd; 
+              padding: 25px; 
+              border-radius: 10px; 
+              margin: 20px 0;
+              border-left: 5px solid #ffc107;
+            }
+            .testimonial-text { 
+              font-style: italic; 
+              color: #856404; 
+              margin-bottom: 15px;
+            }
+            .testimonial-author { 
+              font-weight: bold; 
+              color: #856404;
+            }
+            .contact-section { 
+              background: linear-gradient(135deg, #2c3e50, #3498db); 
+              color: white; 
+              padding: 30px; 
+              border-radius: 10px; 
+              text-align: center;
+            }
+            .contact-grid { 
+              display: grid; 
+              grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+              gap: 20px; 
+              margin-top: 20px;
+            }
+            .contact-item { 
+              background: rgba(255, 255, 255, 0.1); 
+              padding: 20px; 
+              border-radius: 8px;
+            }
+            .contact-label { 
+              font-size: 0.9em; 
+              opacity: 0.8; 
+              margin-bottom: 5px;
+            }
+            .contact-value { 
+              font-weight: bold;
+            }
+            @media print {
+              body { background: white; }
+              .container { box-shadow: none; }
+            }
+          </style>
+        `;
+        
+        // Body section
+        const body = document.createElement('body');
+        body.innerHTML = `
+          <div class="container">
+            <div class="header">
+              <h1 class="company-name">APTIVON SOLUTIONS</h1>
+              <p class="tagline">Comprehensive Portfolio & Capabilities Overview</p>
+              <p style="margin-top: 15px; opacity: 0.9;">Transforming Businesses Through Innovation</p>
+            </div>
 
-        <div class="section">
-            <h2 class="section-title">Company Overview</h2>
-            <p style="font-size: 1.1rem; margin-bottom: 2rem;">
+            <div class="section">
+              <h2 class="section-title">Company Overview</h2>
+              <p style="font-size: 1.1em; margin-bottom: 20px;">
                 Founded with a vision to transform businesses through innovative technology solutions, 
                 Aptivon Solutions has emerged as a trusted partner for organizations seeking digital 
                 transformation excellence. Our mission is empowering businesses with cutting-edge 
                 technology solutions that drive growth, efficiency, and competitive advantage.
-            </p>
-            
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <span class="metric-value">3+</span>
-                    <div class="metric-label">Satisfied Clients</div>
+              </p>
+              
+              <div class="metrics">
+                <div class="metric">
+                  <div class="metric-value">3+</div>
+                  <div class="metric-label">Satisfied Clients</div>
                 </div>
-                <div class="metric-card">
-                    <span class="metric-value">2</span>
-                    <div class="metric-label">Expert Team Members</div>
+                <div class="metric">
+                  <div class="metric-value">2</div>
+                  <div class="metric-label">Expert Team Members</div>
                 </div>
-                <div class="metric-card">
-                    <span class="metric-value">5+</span>
-                    <div class="metric-label">Projects Delivered</div>
+                <div class="metric">
+                  <div class="metric-value">5+</div>
+                  <div class="metric-label">Projects Delivered</div>
                 </div>
-                <div class="metric-card">
-                    <span class="metric-value">15+</span>
-                    <div class="metric-label">Technologies Mastered</div>
+                <div class="metric">
+                  <div class="metric-value">15+</div>
+                  <div class="metric-label">Technologies Mastered</div>
                 </div>
+              </div>
             </div>
-        </div>
 
-        <div class="section">
-            <h2 class="section-title">Featured Projects</h2>
-            
-            <div class="project-card">
+            <div class="section">
+              <h2 class="section-title">Featured Projects</h2>
+              
+              <div class="project">
                 <h3 class="project-title">Healthcare Digital Transformation</h3>
                 <p class="project-client">Regional Medical Center</p>
-                <div class="project-meta">
-                    <div class="meta-item">
-                        <div class="meta-label">Duration</div>
-                        <div class="meta-value">8 months</div>
-                    </div>
-                    <div class="meta-item">
-                        <div class="meta-label">Team Size</div>
-                        <div class="meta-value">5 members</div>
-                    </div>
-                    <div class="meta-item">
-                        <div class="meta-label">Technologies</div>
-                        <div class="meta-value">React Native, Node.js</div>
-                    </div>
-                    <div class="meta-item">
-                        <div class="meta-label">Status</div>
-                        <div class="meta-value">Completed</div>
-                    </div>
+                <div class="project-details">
+                  <div class="detail">
+                    <div class="detail-label">Duration</div>
+                    <div class="detail-value">8 months</div>
+                  </div>
+                  <div class="detail">
+                    <div class="detail-label">Team Size</div>
+                    <div class="detail-value">5 members</div>
+                  </div>
+                  <div class="detail">
+                    <div class="detail-label">Technologies</div>
+                    <div class="detail-value">React Native, Node.js</div>
+                  </div>
+                  <div class="detail">
+                    <div class="detail-label">Status</div>
+                    <div class="detail-value">Completed</div>
+                  </div>
                 </div>
                 <p><strong>Challenge:</strong> Outdated patient management systems causing inefficiencies and long wait times.</p>
                 <p><strong>Solution:</strong> Comprehensive EHR system with real-time monitoring and telemedicine capabilities.</p>
-                <div class="results-grid">
-                    <div class="result-item">
-                        <div class="result-value">45%</div>
-                        <div class="result-label">Wait Time Reduction</div>
-                    </div>
-                    <div class="result-item">
-                        <div class="result-value">60%</div>
-                        <div class="result-label">Efficiency Increase</div>
-                    </div>
-                    <div class="result-item">
-                        <div class="result-value">4.8/5</div>
-                        <div class="result-label">Patient Satisfaction</div>
-                    </div>
-                    <div class="result-item">
-                        <div class="result-value">$2.3M</div>
-                        <div class="result-label">Annual Savings</div>
-                    </div>
+                <div class="results">
+                  <div class="result">
+                    <div class="result-value">45%</div>
+                    <div class="result-label">Wait Time Reduction</div>
+                  </div>
+                  <div class="result">
+                    <div class="result-value">60%</div>
+                    <div class="result-label">Efficiency Increase</div>
+                  </div>
+                  <div class="result">
+                    <div class="result-value">4.8/5</div>
+                    <div class="result-label">Patient Satisfaction</div>
+                  </div>
+                  <div class="result">
+                    <div class="result-value">$2.3M</div>
+                    <div class="result-label">Annual Savings</div>
+                  </div>
                 </div>
-            </div>
+              </div>
 
-            <div class="project-card">
+              <div class="project">
                 <h3 class="project-title">E-Commerce Platform Modernization</h3>
                 <p class="project-client">National Retail Chain</p>
-                <div class="project-meta">
-                    <div class="meta-item">
-                        <div class="meta-label">Duration</div>
-                        <div class="meta-value">6 months</div>
-                    </div>
-                    <div class="meta-item">
-                        <div class="meta-label">Team Size</div>
-                        <div class="meta-value">4 members</div>
-                    </div>
-                    <div class="meta-item">
-                        <div class="meta-label">Technologies</div>
-                        <div class="meta-value">React, Python, AWS</div>
-                    </div>
-                    <div class="meta-item">
-                        <div class="meta-label">Status</div>
-                        <div class="meta-value">Completed</div>
-                    </div>
+                <div class="project-details">
+                  <div class="detail">
+                    <div class="detail-label">Duration</div>
+                    <div class="detail-value">6 months</div>
+                  </div>
+                  <div class="detail">
+                    <div class="detail-label">Team Size</div>
+                    <div class="detail-value">4 members</div>
+                  </div>
+                  <div class="detail">
+                    <div class="detail-label">Technologies</div>
+                    <div class="detail-value">React, Python, AWS</div>
+                  </div>
+                  <div class="detail">
+                    <div class="detail-label">Status</div>
+                    <div class="detail-value">Completed</div>
+                  </div>
                 </div>
                 <p><strong>Challenge:</strong> Legacy platform unable to handle peak traffic and lacking personalization.</p>
                 <p><strong>Solution:</strong> AI-powered recommendation engine with scalable cloud architecture.</p>
-                <div class="results-grid">
-                    <div class="result-item">
-                        <div class="result-value">150%</div>
-                        <div class="result-label">Sales Increase</div>
-                    </div>
-                    <div class="result-item">
-                        <div class="result-value">40%</div>
-                        <div class="result-label">Better Engagement</div>
-                    </div>
-                    <div class="result-item">
-                        <div class="result-value">99.9%</div>
-                        <div class="result-label">Uptime Achieved</div>
-                    </div>
-                    <div class="result-item">
-                        <div class="result-value">25%</div>
-                        <div class="result-label">Cost Reduction</div>
-                    </div>
+                <div class="results">
+                  <div class="result">
+                    <div class="result-value">150%</div>
+                    <div class="result-label">Sales Increase</div>
+                  </div>
+                  <div class="result">
+                    <div class="result-value">40%</div>
+                    <div class="result-label">Better Engagement</div>
+                  </div>
+                  <div class="result">
+                    <div class="result-value">99.9%</div>
+                    <div class="result-label">Uptime Achieved</div>
+                  </div>
+                  <div class="result">
+                    <div class="result-value">25%</div>
+                    <div class="result-label">Cost Reduction</div>
+                  </div>
                 </div>
+              </div>
             </div>
-        </div>
 
-        <div class="section">
-            <h2 class="section-title">Technology Stack</h2>
-            <div class="tech-grid">
+            <div class="section">
+              <h2 class="section-title">Technology Stack</h2>
+              <div class="tech-grid">
                 <div class="tech-category">
-                    <h3>Frontend Technologies</h3>
-                    <ul class="tech-list">
-                        <li>React.js & Next.js</li>
-                        <li>TypeScript & JavaScript ES6+</li>
-                        <li>Tailwind CSS & Material-UI</li>
-                        <li>React Native & Flutter</li>
-                    </ul>
+                  <h3>Frontend Technologies</h3>
+                  <ul class="tech-list">
+                    <li>React.js & Next.js</li>
+                    <li>TypeScript & JavaScript ES6+</li>
+                    <li>Tailwind CSS & Material-UI</li>
+                    <li>React Native & Flutter</li>
+                  </ul>
                 </div>
                 <div class="tech-category">
-                    <h3>Backend Technologies</h3>
-                    <ul class="tech-list">
-                        <li>Node.js & Python</li>
-                        <li>Express.js & Django</li>
-                        <li>REST APIs & GraphQL</li>
-                        <li>Microservices Architecture</li>
-                    </ul>
+                  <h3>Backend Technologies</h3>
+                  <ul class="tech-list">
+                    <li>Node.js & Python</li>
+                    <li>Express.js & Django</li>
+                    <li>REST APIs & GraphQL</li>
+                    <li>Microservices Architecture</li>
+                  </ul>
                 </div>
                 <div class="tech-category">
-                    <h3>Databases & Storage</h3>
-                    <ul class="tech-list">
-                        <li>PostgreSQL & MongoDB</li>
-                        <li>Redis & Elasticsearch</li>
-                        <li>AWS S3 & DynamoDB</li>
-                        <li>Data Warehousing Solutions</li>
-                    </ul>
+                  <h3>Databases & Storage</h3>
+                  <ul class="tech-list">
+                    <li>PostgreSQL & MongoDB</li>
+                    <li>Redis & Elasticsearch</li>
+                    <li>AWS S3 & DynamoDB</li>
+                    <li>Data Warehousing Solutions</li>
+                  </ul>
                 </div>
                 <div class="tech-category">
-                    <h3>Cloud & DevOps</h3>
-                    <ul class="tech-list">
-                        <li>AWS, Azure, Google Cloud</li>
-                        <li>Docker & Kubernetes</li>
-                        <li>CI/CD Pipelines</li>
-                        <li>Infrastructure as Code</li>
-                    </ul>
+                  <h3>Cloud & DevOps</h3>
+                  <ul class="tech-list">
+                    <li>AWS, Azure, Google Cloud</li>
+                    <li>Docker & Kubernetes</li>
+                    <li>CI/CD Pipelines</li>
+                    <li>Infrastructure as Code</li>
+                  </ul>
                 </div>
+              </div>
             </div>
-        </div>
 
-        <div class="section">
-            <h2 class="section-title">Client Testimonials</h2>
-            
-            <div class="testimonial">
+            <div class="section">
+              <h2 class="section-title">Client Testimonials</h2>
+              
+              <div class="testimonial">
                 <p class="testimonial-text">
-                    "Aptivon transformed our entire patient care workflow. The new system has 
-                    dramatically improved our efficiency and patient outcomes. Their team's 
-                    expertise in healthcare technology is unmatched."
+                  "Aptivon transformed our entire patient care workflow. The new system has 
+                  dramatically improved our efficiency and patient outcomes. Their team's 
+                  expertise in healthcare technology is unmatched."
                 </p>
                 <p class="testimonial-author">
-                    — Chief Technology Officer, Regional Medical Center
+                  — Chief Technology Officer, Regional Medical Center
                 </p>
-            </div>
+              </div>
 
-            <div class="testimonial">
+              <div class="testimonial">
                 <p class="testimonial-text">
-                    "The e-commerce platform delivered by Aptivon exceeded our expectations. 
-                    The AI-powered features have significantly boosted our sales and customer 
-                    engagement. Outstanding work!"
+                  "The e-commerce platform delivered by Aptivon exceeded our expectations. 
+                  The AI-powered features have significantly boosted our sales and customer 
+                  engagement. Outstanding work!"
                 </p>
                 <p class="testimonial-author">
-                    — Digital Director, National Retail Chain
+                  — Digital Director, National Retail Chain
                 </p>
+              </div>
             </div>
-        </div>
 
-        <div class="contact-section">
-            <h2 style="margin-bottom: 1rem;">Ready to Transform Your Business?</h2>
-            <p style="font-size: 1.1rem; opacity: 0.9;">
+            <div class="contact-section">
+              <h2 style="margin-bottom: 15px;">Ready to Transform Your Business?</h2>
+              <p style="font-size: 1.1em; opacity: 0.9;">
                 Let's discuss how our innovative technology solutions can drive your business growth 
                 and digital transformation journey.
-            </p>
-            
-            <div class="contact-grid">
+              </p>
+              
+              <div class="contact-grid">
                 <div class="contact-item">
-                    <div class="contact-label">Email</div>
-                    <div class="contact-value">contact@aptivon.com</div>
+                  <div class="contact-label">Email</div>
+                  <div class="contact-value">singhal3.sachin7@gmail.com</div>
                 </div>
                 <div class="contact-item">
-                    <div class="contact-label">Phone</div>
-                    <div class="contact-value">+1 (555) 123-4567</div>
+                  <div class="contact-label">Phone</div>
+                  <div class="contact-value">+91 7852099010</div>
                 </div>
                 <div class="contact-item">
-                    <div class="contact-label">Website</div>
-                    <div class="contact-value">www.aptivon.com</div>
+                  <div class="contact-label">Website</div>
+                  <div class="contact-value">aptivonsolutions.com</div>
                 </div>
                 <div class="contact-item">
-                    <div class="contact-label">Location</div>
-                    <div class="contact-value">Global Remote Team</div>
+                  <div class="contact-label">Services</div>
+                  <div class="contact-value">Digital Transformation</div>
                 </div>
-            </div>
-            
-            <button class="cta-button">Schedule Your Consultation Today</button>
-            
-            <p style="margin-top: 2rem; opacity: 0.7; font-size: 0.9rem;">
+              </div>
+              
+              <p style="margin-top: 30px; opacity: 0.8; font-size: 0.9em;">
                 © 2025 Aptivon Solutions Pvt. Ltd. All rights reserved.
-            </p>
-        </div>
-    </div>
-</body>
-</html>`;
+              </p>
+            </div>
+          </div>
+        `;
+        
+        html.appendChild(head);
+        html.appendChild(body);
+        
+        return '<!DOCTYPE html>\n' + html.outerHTML;
+      };
 
+      const portfolioHTML = createPortfolioHTML();
       const blob = new Blob([portfolioHTML], { type: 'text/html' });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -557,13 +514,14 @@ export default function PortfolioDownload() {
       document.body.removeChild(a);
 
       toast({
-        title: "Modern Portfolio Downloaded Successfully",
-        description: "Your comprehensive HTML portfolio document has been downloaded. Open it in any browser to view the beautifully formatted portfolio.",
+        title: "Portfolio Downloaded Successfully!",
+        description: "Open the HTML file in your browser to view the beautifully formatted portfolio.",
       });
     } catch (error) {
+      console.error('Download error:', error);
       toast({
         title: "Download Failed",
-        description: "Please try again later.",
+        description: "Please try again. If the problem persists, contact support.",
         variant: "destructive",
       });
     } finally {
