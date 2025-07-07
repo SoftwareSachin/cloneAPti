@@ -155,7 +155,7 @@ export default function AdvancedCapabilities() {
                   Schedule Consultation
                   <Cloud className="ml-2 w-5 h-5" />
                 </Button>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-slate-900">
+                <Button size="lg" className="bg-slate-800/20 border border-white text-white hover:bg-white hover:text-slate-900 backdrop-blur-sm">
                   View Case Studies
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
