@@ -650,7 +650,7 @@ export default function PortfolioDownload() {
               <Button 
                 variant="outline" 
                 size="lg"
-                className="px-8 py-4 text-lg"
+                className="border-2 border-white text-white bg-transparent hover:bg-white hover:text-slate-900 px-8 py-4 text-lg font-semibold transition-all duration-300"
                 onClick={handleScheduleConsultation}
               >
                 <Calendar className="h-5 w-5 mr-2" />
@@ -769,7 +769,7 @@ export default function PortfolioDownload() {
             <Button 
               variant="outline"
               onClick={handleScheduleConsultation}
-              className="border-white text-white hover:bg-white hover:text-slate-900 px-8 py-4 text-lg font-semibold rounded-lg"
+              className="border-2 border-white text-white bg-transparent hover:bg-white hover:text-slate-900 px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300"
             >
               <Calendar className="h-5 w-5 mr-2" />
               Schedule Consultation
