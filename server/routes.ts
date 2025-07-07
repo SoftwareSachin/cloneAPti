@@ -573,6 +573,97 @@ This application was submitted through the Aptivon Solutions careers page.
     }
   });
 
+  // Blog API routes
+  app.get("/api/blog-posts", async (req, res) => {
+    try {
+      const { category, featured, limit = 10, offset = 0 } = req.query;
+      const posts = await storage.getBlogPosts({
+        category: category as string,
+        featured: featured === 'true',
+        limit: parseInt(limit as string),
+        offset: parseInt(offset as string)
+      });
+      return res.json(posts);
+    } catch (error) {
+      console.error('Error fetching blog posts:', error);
+      return res.status(500).json({ error: 'Failed to fetch blog posts' });
+    }
+  });
+
+  app.get("/api/blog-post/:slug", async (req, res) => {
+    try {
+      const { slug } = req.params;
+      const post = await storage.getBlogPost(slug);
+      if (!post) {
+        return res.status(404).json({ error: 'Blog post not found' });
+      }
+      // Increment view count
+      await storage.incrementBlogViews(post.id);
+      return res.json(post);
+    } catch (error) {
+      console.error('Error fetching blog post:', error);
+      return res.status(500).json({ error: 'Failed to fetch blog post' });
+    }
+  });
+
+  app.post("/api/blog-like", async (req, res) => {
+    try {
+      const { postId } = req.body;
+      if (!postId) {
+        return res.status(400).json({ error: 'Post ID is required' });
+      }
+      await storage.likeBlogPost(postId);
+      return res.json({ success: true });
+    } catch (error) {
+      console.error('Error liking blog post:', error);
+      return res.status(500).json({ error: 'Failed to like blog post' });
+    }
+  });
+
+  app.post("/api/blog-comments", async (req, res) => {
+    try {
+      const { postId, author, email, content } = req.body;
+      if (!postId || !author || !email || !content) {
+        return res.status(400).json({ error: 'All fields are required' });
+      }
+      const comment = await storage.createBlogComment({
+        postId,
+        author,
+        email,
+        content
+      });
+      return res.json(comment);
+    } catch (error) {
+      console.error('Error creating blog comment:', error);
+      return res.status(500).json({ error: 'Failed to create comment' });
+    }
+  });
+
+  app.get("/api/blog-comments/:postId", async (req, res) => {
+    try {
+      const { postId } = req.params;
+      const comments = await storage.getBlogComments(parseInt(postId));
+      return res.json(comments);
+    } catch (error) {
+      console.error('Error fetching blog comments:', error);
+      return res.status(500).json({ error: 'Failed to fetch comments' });
+    }
+  });
+
+  app.post("/api/blog-subscribe", async (req, res) => {
+    try {
+      const { email } = req.body;
+      if (!email) {
+        return res.status(400).json({ error: 'Email is required' });
+      }
+      const subscriber = await storage.createBlogSubscriber({ email });
+      return res.json({ success: true, subscriber });
+    } catch (error) {
+      console.error('Error subscribing to blog:', error);
+      return res.status(500).json({ error: 'Failed to subscribe' });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

@@ -1,6 +1,6 @@
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
-import { Calendar, User, ArrowRight, Tag, Search, BookOpen, Mail, Heart, MessageCircle, Eye } from "lucide-react";
+import { Calendar, User, ArrowRight, Tag, Search, BookOpen, Mail, Heart, MessageCircle, Eye, TrendingUp } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -23,20 +23,13 @@ export default function Blog() {
 
   // Fetch blog posts from API
   const { data: allPosts = [], isLoading } = useQuery<BlogPost[]>({
-    queryKey: ['/api/blog-posts'],
-    queryFn: async () => {
-      const response = await apiRequest('/api/blog-posts');
-      return response.json();
-    }
+    queryKey: ['/api/blog-posts']
   });
 
   // Newsletter subscription mutation
   const subscriptionMutation = useMutation({
     mutationFn: async (email: string) => {
-      return apiRequest('/api/blog-subscribe', {
-        method: 'POST',
-        body: JSON.stringify({ email })
-      });
+      return apiRequest('POST', '/api/blog-subscribe', { email });
     },
     onSuccess: () => {
       toast({
