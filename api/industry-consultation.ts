@@ -7,9 +7,9 @@ const industryConsultationSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string().min(1, "Last name is required"),
   email: z.string().email("Valid email is required"),
-  company: z.string().optional(),
-  industry: z.string().optional(),
-  phone: z.string().optional(),
+  company: z.string().optional().or(z.literal("")),
+  industry: z.string().optional().or(z.literal("")),
+  phone: z.string().optional().or(z.literal("")),
   message: z.string().min(1, "Message is required")
 });
 
@@ -29,12 +29,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     // Validate request body
+    console.log('Received consultation data:', req.body);
     const validationResult = industryConsultationSchema.safeParse(req.body);
     
     if (!validationResult.success) {
+      console.log('Validation errors:', validationResult.error.errors);
       return res.status(400).json({
         error: "Validation failed",
-        details: validationResult.error.errors
+        details: validationResult.error.errors,
+        message: validationResult.error.errors[0]?.message || "Validation failed"
       });
     }
 

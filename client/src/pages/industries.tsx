@@ -307,10 +307,12 @@ export default function Industries() {
       });
       setShowConsultationForm(false);
     },
-    onError: () => {
+    onError: (error: any) => {
+      console.error('Consultation submission error:', error);
+      const errorMessage = error?.response?.data?.message || error?.message || "Failed to send consultation request. Please try again.";
       toast({
         title: "Error",
-        description: "Failed to send consultation request. Please try again.",
+        description: errorMessage,
         variant: "destructive"
       });
     }
@@ -318,10 +320,56 @@ export default function Industries() {
 
   const handleConsultationSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    consultationMutation.mutate({
-      ...consultationForm,
-      industry: selectedIndustry?.title || consultationForm.industry
-    });
+    
+    // Validate required fields before submission
+    if (!consultationForm.firstName.trim()) {
+      toast({
+        title: "Missing Information",
+        description: "First name is required.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    if (!consultationForm.lastName.trim()) {
+      toast({
+        title: "Missing Information", 
+        description: "Last name is required.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    if (!consultationForm.email.trim()) {
+      toast({
+        title: "Missing Information",
+        description: "Email address is required.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    if (!consultationForm.message.trim()) {
+      toast({
+        title: "Missing Information",
+        description: "Message is required.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const submissionData = {
+      firstName: consultationForm.firstName.trim(),
+      lastName: consultationForm.lastName.trim(),
+      email: consultationForm.email.trim(),
+      company: consultationForm.company.trim(),
+      industry: selectedIndustry?.title || consultationForm.industry.trim(),
+      phone: consultationForm.phone.trim(),
+      message: consultationForm.message.trim()
+    };
+
+    console.log('Submitting consultation data:', submissionData);
+    consultationMutation.mutate(submissionData);
   };
 
   const handleLikeIndustry = (industryTitle: string) => {
