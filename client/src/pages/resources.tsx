@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import DownloadModal from "@/components/download-modal";
 import WebinarModal from "@/components/webinar-modal";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useToast } from "@/hooks/use-toast";
 import { 
   FileText, 
   Video, 
@@ -21,7 +22,24 @@ import {
   Database,
   Filter,
   X,
-  ExternalLink
+  ExternalLink,
+  Star,
+  StarOff,
+  Share2,
+  Copy,
+  CheckCircle,
+  SortAsc,
+  SortDesc,
+  Grid3X3,
+  List,
+  Tag,
+  Eye,
+  ThumbsUp,
+  MessageSquare,
+  BookmarkPlus,
+  BookmarkCheck,
+  ChevronUp,
+  ChevronDown
 } from "lucide-react";
 
 const WHITEPAPERS_DATA = [
@@ -330,11 +348,31 @@ export default function Resources() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedType, setSelectedType] = useState("all");
+  const [sortBy, setSortBy] = useState("date-desc");
+  const [viewMode, setViewMode] = useState("grid");
+  const [bookmarkedItems, setBookmarkedItems] = useState<number[]>([]);
   const [downloadModal, setDownloadModal] = useState<{isOpen: boolean; resource: any}>({isOpen: false, resource: null});
   const [webinarModal, setWebinarModal] = useState<{isOpen: boolean; webinar: any}>({isOpen: false, webinar: null});
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterMessage, setNewsletterMessage] = useState("");
   const [isSubscribing, setIsSubscribing] = useState(false);
+  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
+  const [dateFilter, setDateFilter] = useState("all");
+  const [popularityFilter, setPopularityFilter] = useState("all");
+  const { toast } = useToast();
+
+  // Load bookmarks from localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem('aptivon-bookmarked-resources');
+    if (saved) {
+      setBookmarkedItems(JSON.parse(saved));
+    }
+  }, []);
+
+  // Save bookmarks to localStorage
+  useEffect(() => {
+    localStorage.setItem('aptivon-bookmarked-resources', JSON.stringify(bookmarkedItems));
+  }, [bookmarkedItems]);
 
   // Combine all data sources
   const allResources = [...WHITEPAPERS_DATA, ...WEBINARS_DATA, ...CASE_STUDIES_DATA, ...TOOLS_DATA];
@@ -343,32 +381,152 @@ export default function Resources() {
   const categories = ["all", ...new Set(allResources.map(item => item.category))];
   const types = ["all", "whitepaper", "webinar", "case-study", "tool"];
 
-  // Filter resources based on search and filters
-  const filteredResources = useMemo(() => {
-    return allResources.filter(resource => {
+  // Enhanced filtering with advanced options
+  const filteredAndSortedResources = useMemo(() => {
+    let filtered = allResources.filter(resource => {
       const matchesSearch = resource.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            resource.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            resource.category.toLowerCase().includes(searchTerm.toLowerCase());
       
       const matchesCategory = selectedCategory === "all" || resource.category === selectedCategory;
-      const matchesType = selectedType === "all" || resource.type === selectedType;
       
-      return matchesSearch && matchesCategory && matchesType;
+      // Handle bookmarked filter specially
+      const matchesType = selectedType === "all" ? true : 
+                         selectedType === "bookmarked" ? bookmarkedItems.includes(resource.id) :
+                         resource.type === selectedType;
+      
+      // Date filtering
+      const matchesDate = dateFilter === "all" || (() => {
+        const resourceDate = new Date(resource.date || "2024-01-01");
+        const now = new Date();
+        const monthsAgo = new Date();
+        
+        switch(dateFilter) {
+          case "recent": 
+            monthsAgo.setMonth(monthsAgo.getMonth() - 3);
+            return resourceDate >= monthsAgo;
+          case "year":
+            monthsAgo.setFullYear(monthsAgo.getFullYear() - 1);
+            return resourceDate >= monthsAgo;
+          default: return true;
+        }
+      })();
+
+      // Popularity filtering
+      const matchesPopularity = popularityFilter === "all" || (() => {
+        const downloads = parseInt(resource.downloadCount?.replace(/[^\d]/g, '') || '0');
+        const attendees = parseInt(resource.attendees?.replace(/[^\d]/g, '') || '0');
+        const popularity = Math.max(downloads, attendees);
+        
+        switch(popularityFilter) {
+          case "high": return popularity > 1000;
+          case "medium": return popularity > 500 && popularity <= 1000;
+          case "low": return popularity <= 500;
+          default: return true;
+        }
+      })();
+      
+      return matchesSearch && matchesCategory && matchesType && matchesDate && matchesPopularity;
     });
-  }, [searchTerm, selectedCategory, selectedType]);
+
+    // Sorting
+    filtered.sort((a, b) => {
+      switch(sortBy) {
+        case "title-asc": return a.title.localeCompare(b.title);
+        case "title-desc": return b.title.localeCompare(a.title);
+        case "category-asc": return a.category.localeCompare(b.category);
+        case "category-desc": return b.category.localeCompare(a.category);
+        case "popularity-desc": 
+          const aPopularity = Math.max(
+            parseInt(a.downloadCount?.replace(/[^\d]/g, '') || '0'),
+            parseInt(a.attendees?.replace(/[^\d]/g, '') || '0')
+          );
+          const bPopularity = Math.max(
+            parseInt(b.downloadCount?.replace(/[^\d]/g, '') || '0'),
+            parseInt(b.attendees?.replace(/[^\d]/g, '') || '0')
+          );
+          return bPopularity - aPopularity;
+        case "date-desc":
+        default:
+          const aDate = new Date(a.date || "2024-01-01");
+          const bDate = new Date(b.date || "2024-01-01");
+          return bDate.getTime() - aDate.getTime();
+      }
+    });
+
+    return filtered;
+  }, [searchTerm, selectedCategory, selectedType, sortBy, dateFilter, popularityFilter, bookmarkedItems]);
+
+  // Handle bookmark toggle
+  const toggleBookmark = (resourceId: number) => {
+    setBookmarkedItems(prev => 
+      prev.includes(resourceId) 
+        ? prev.filter(id => id !== resourceId)
+        : [...prev, resourceId]
+    );
+    
+    toast({
+      title: bookmarkedItems.includes(resourceId) ? "Bookmark removed" : "Bookmark added",
+      description: "You can find your bookmarks in the filters.",
+    });
+  };
+
+  // Handle share functionality
+  const handleShare = async (resource: any) => {
+    const url = `${window.location.origin}/resources?type=${resource.type}&id=${resource.id}`;
+    
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: resource.title,
+          text: resource.description,
+          url: url
+        });
+      } catch (err) {
+        // Fallback to copy to clipboard
+        copyToClipboard(url);
+      }
+    } else {
+      copyToClipboard(url);
+    }
+  };
+
+  // Copy to clipboard functionality
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text).then(() => {
+      toast({
+        title: "Link copied!",
+        description: "Resource link copied to clipboard.",
+      });
+    });
+  };
 
   // Handle download action
   const handleDownload = (resource: any) => {
     setDownloadModal({isOpen: true, resource});
+    
+    // Track download attempt
+    console.log(`Download attempted: ${resource.title} (ID: ${resource.id})`);
   };
 
   // Handle webinar registration/access
   const handleWebinarAccess = (webinar: any) => {
     setWebinarModal({isOpen: true, webinar});
+    
+    // Track webinar access
+    console.log(`Webinar access: ${webinar.title} (ID: ${webinar.id})`);
   };
 
   // Handle tool access
   const handleToolAccess = (tool: any) => {
+    // Track tool access
+    console.log(`Tool accessed: ${tool.title} (ID: ${tool.id})`);
+    
+    toast({
+      title: "Accessing tool...",
+      description: `Opening ${tool.title} in a new tab.`,
+    });
+    
     // For tools, we can directly navigate or show in new tab
     window.open(tool.accessUrl, '_blank');
   };
@@ -420,7 +578,7 @@ export default function Resources() {
             </p>
             
             {/* Search and Filters */}
-            <div className="max-w-4xl mx-auto space-y-6">
+            <div className="max-w-6xl mx-auto space-y-6">
               {/* Search Bar */}
               <div className="max-w-md mx-auto relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 h-5 w-5" />
@@ -440,8 +598,9 @@ export default function Resources() {
                 )}
               </div>
 
-              {/* Filters */}
-              <div className="flex flex-wrap justify-center gap-4">
+              {/* Enhanced Filters Row */}
+              <div className="flex flex-wrap justify-center gap-3">
+                {/* Type Filter */}
                 <div className="flex items-center gap-2">
                   <Filter className="h-4 w-4 text-slate-600" />
                   <span className="text-sm font-medium text-slate-600">Type:</span>
@@ -458,6 +617,7 @@ export default function Resources() {
                   </select>
                 </div>
 
+                {/* Category Filter */}
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-medium text-slate-600">Category:</span>
                   <select
@@ -473,24 +633,132 @@ export default function Resources() {
                   </select>
                 </div>
 
-                {(selectedType !== "all" || selectedCategory !== "all" || searchTerm) && (
+                {/* Sort By */}
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium text-slate-600">Sort:</span>
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                    className="border border-slate-300 rounded-md px-3 py-1 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-slate-500"
+                  >
+                    <option value="date-desc">Latest First</option>
+                    <option value="title-asc">Title A-Z</option>
+                    <option value="title-desc">Title Z-A</option>
+                    <option value="category-asc">Category A-Z</option>
+                    <option value="popularity-desc">Most Popular</option>
+                  </select>
+                </div>
+
+                {/* Advanced Filters Toggle */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
+                  className="text-slate-600"
+                >
+                  Advanced Filters
+                  {showAdvancedFilters ? <ChevronUp className="ml-2 h-4 w-4" /> : <ChevronDown className="ml-2 h-4 w-4" />}
+                </Button>
+
+                {/* View Mode Toggle */}
+                <div className="flex items-center gap-1 border border-slate-300 rounded-md">
                   <button
+                    onClick={() => setViewMode("grid")}
+                    className={`p-2 rounded-l-md ${viewMode === "grid" ? "bg-slate-900 text-white" : "text-slate-600 hover:bg-slate-100"}`}
+                  >
+                    <Grid3X3 className="h-4 w-4" />
+                  </button>
+                  <button
+                    onClick={() => setViewMode("list")}
+                    className={`p-2 rounded-r-md ${viewMode === "list" ? "bg-slate-900 text-white" : "text-slate-600 hover:bg-slate-100"}`}
+                  >
+                    <List className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Advanced Filters Panel */}
+              {showAdvancedFilters && (
+                <div className="bg-white p-6 rounded-lg border border-slate-200">
+                  <h3 className="text-lg font-semibold text-slate-900 mb-4">Advanced Filters</h3>
+                  <div className="grid md:grid-cols-3 gap-4">
+                    {/* Date Filter */}
+                    <div>
+                      <label className="block text-sm font-medium text-slate-700 mb-2">Date Range:</label>
+                      <select
+                        value={dateFilter}
+                        onChange={(e) => setDateFilter(e.target.value)}
+                        className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-slate-500"
+                      >
+                        <option value="all">All Time</option>
+                        <option value="recent">Last 3 Months</option>
+                        <option value="year">Last Year</option>
+                      </select>
+                    </div>
+
+                    {/* Popularity Filter */}
+                    <div>
+                      <label className="block text-sm font-medium text-slate-700 mb-2">Popularity:</label>
+                      <select
+                        value={popularityFilter}
+                        onChange={(e) => setPopularityFilter(e.target.value)}
+                        className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-slate-500"
+                      >
+                        <option value="all">All Levels</option>
+                        <option value="high">High (1000+ views)</option>
+                        <option value="medium">Medium (500-1000 views)</option>
+                        <option value="low">Low (&lt;500 views)</option>
+                      </select>
+                    </div>
+
+                    {/* Bookmarked Filter */}
+                    <div>
+                      <label className="block text-sm font-medium text-slate-700 mb-2">Show Only:</label>
+                      <Button
+                        variant={bookmarkedItems.length > 0 && selectedType === "bookmarked" ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => setSelectedType(selectedType === "bookmarked" ? "all" : "bookmarked")}
+                        className="w-full"
+                      >
+                        <BookmarkCheck className="mr-2 h-4 w-4" />
+                        Bookmarked Items ({bookmarkedItems.length})
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Clear Filters & Results */}
+              <div className="flex justify-between items-center">
+                <div className="flex items-center gap-4">
+                  <p className="text-sm text-slate-600">
+                    Showing {filteredAndSortedResources.length} of {allResources.length} resources
+                  </p>
+                  {bookmarkedItems.length > 0 && (
+                    <p className="text-sm text-slate-500">
+                      • {bookmarkedItems.length} bookmarked
+                    </p>
+                  )}
+                </div>
+                
+                {(selectedType !== "all" || selectedCategory !== "all" || searchTerm || dateFilter !== "all" || popularityFilter !== "all") && (
+                  <Button
+                    variant="outline"
+                    size="sm"
                     onClick={() => {
                       setSelectedType("all");
                       setSelectedCategory("all");
                       setSearchTerm("");
+                      setDateFilter("all");
+                      setPopularityFilter("all");
                     }}
-                    className="text-sm text-slate-600 hover:text-slate-900 underline"
+                    className="text-slate-600"
                   >
-                    Clear filters
-                  </button>
+                    <X className="mr-2 h-4 w-4" />
+                    Clear all filters
+                  </Button>
                 )}
               </div>
-
-              {/* Results count */}
-              <p className="text-sm text-slate-600">
-                Showing {filteredResources.length} of {allResources.length} resources
-              </p>
             </div>
           </div>
         </div>
@@ -525,7 +793,7 @@ export default function Resources() {
       {/* Filtered Resources Section */}
       <section className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6">
-          {filteredResources.length === 0 ? (
+          {filteredAndSortedResources.length === 0 ? (
             <div className="text-center py-16">
               <h2 className="text-2xl font-bold text-slate-900 mb-4">No resources found</h2>
               <p className="text-slate-600 mb-6">Try adjusting your search terms or filters</p>
@@ -543,7 +811,7 @@ export default function Resources() {
           ) : (
             <div className="space-y-16">
               {/* Whitepapers */}
-              {filteredResources.some(r => r.type === "whitepaper") && (
+              {filteredAndSortedResources.some(r => r.type === "whitepaper") && (
                 <div>
                   <div className="text-center mb-12">
                     <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
@@ -554,9 +822,34 @@ export default function Resources() {
                     </p>
                   </div>
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {filteredResources.filter(r => r.type === "whitepaper").map((paper: any) => (
-                      <div key={paper.id} className="bg-white p-8 rounded-xl border border-slate-200 hover:shadow-lg transition-shadow">
-                        <div className="flex items-center justify-between mb-4">
+                    {filteredAndSortedResources.filter(r => r.type === "whitepaper").map((paper: any) => (
+                      <div key={paper.id} className="bg-white p-8 rounded-xl border border-slate-200 hover:shadow-lg transition-shadow relative">
+                        {/* Bookmark and Share Actions */}
+                        <div className="absolute top-4 right-4 flex gap-2">
+                          <button
+                            onClick={() => toggleBookmark(paper.id)}
+                            className={`p-2 rounded-lg border transition-colors ${
+                              bookmarkedItems.includes(paper.id) 
+                                ? 'bg-slate-900 text-white border-slate-900' 
+                                : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
+                            }`}
+                            title={bookmarkedItems.includes(paper.id) ? "Remove bookmark" : "Add bookmark"}
+                          >
+                            {bookmarkedItems.includes(paper.id) ? 
+                              <BookmarkCheck className="h-4 w-4" /> : 
+                              <BookmarkPlus className="h-4 w-4" />
+                            }
+                          </button>
+                          <button
+                            onClick={() => handleShare(paper)}
+                            className="p-2 rounded-lg border bg-white text-slate-600 border-slate-200 hover:bg-slate-50 transition-colors"
+                            title="Share resource"
+                          >
+                            <Share2 className="h-4 w-4" />
+                          </button>
+                        </div>
+
+                        <div className="flex items-center justify-between mb-4 pr-20">
                           <span className="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded border">{paper.category}</span>
                           <div className="flex items-center text-sm text-slate-500">
                             <Download className="h-4 w-4 mr-1" />
@@ -584,7 +877,7 @@ export default function Resources() {
               )}
 
               {/* Webinars */}
-              {filteredResources.some(r => r.type === "webinar") && (
+              {filteredAndSortedResources.some(r => r.type === "webinar") && (
                 <div>
                   <div className="text-center mb-12">
                     <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
@@ -595,10 +888,35 @@ export default function Resources() {
                     </p>
                   </div>
                   <div className="space-y-6">
-                    {filteredResources.filter(r => r.type === "webinar").map((webinar: any) => (
-                      <div key={webinar.id} className="bg-white rounded-xl border border-slate-200 shadow-lg">
+                    {filteredAndSortedResources.filter(r => r.type === "webinar").map((webinar: any) => (
+                      <div key={webinar.id} className="bg-white rounded-xl border border-slate-200 shadow-lg relative">
+                        {/* Bookmark and Share Actions */}
+                        <div className="absolute top-4 right-4 flex gap-2 z-10">
+                          <button
+                            onClick={() => toggleBookmark(webinar.id)}
+                            className={`p-2 rounded-lg border transition-colors ${
+                              bookmarkedItems.includes(webinar.id) 
+                                ? 'bg-slate-900 text-white border-slate-900' 
+                                : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
+                            }`}
+                            title={bookmarkedItems.includes(webinar.id) ? "Remove bookmark" : "Add bookmark"}
+                          >
+                            {bookmarkedItems.includes(webinar.id) ? 
+                              <BookmarkCheck className="h-4 w-4" /> : 
+                              <BookmarkPlus className="h-4 w-4" />
+                            }
+                          </button>
+                          <button
+                            onClick={() => handleShare(webinar)}
+                            className="p-2 rounded-lg border bg-white text-slate-600 border-slate-200 hover:bg-slate-50 transition-colors"
+                            title="Share resource"
+                          >
+                            <Share2 className="h-4 w-4" />
+                          </button>
+                        </div>
+
                         <div className="grid md:grid-cols-4 gap-0">
-                          <div className="md:col-span-3 p-6">
+                          <div className="md:col-span-3 p-6 pr-20">
                             <div className="flex items-center gap-3 mb-3">
                               <span className={`px-2 py-1 rounded text-sm ${webinar.status === 'upcoming' ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700'}`}>
                                 {webinar.status === 'upcoming' ? 'Upcoming' : 'Recorded'}
@@ -638,7 +956,7 @@ export default function Resources() {
               )}
 
               {/* Case Studies */}
-              {filteredResources.some(r => r.type === "case-study") && (
+              {filteredAndSortedResources.some(r => r.type === "case-study") && (
                 <div>
                   <div className="text-center mb-12">
                     <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
@@ -649,9 +967,34 @@ export default function Resources() {
                     </p>
                   </div>
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {filteredResources.filter(r => r.type === "case-study").map((study: any) => (
-                      <div key={study.id} className="bg-white p-8 rounded-xl border border-slate-200 hover:shadow-lg transition-shadow">
-                        <div className="flex items-center justify-between mb-4">
+                    {filteredAndSortedResources.filter(r => r.type === "case-study").map((study: any) => (
+                      <div key={study.id} className="bg-white p-8 rounded-xl border border-slate-200 hover:shadow-lg transition-shadow relative">
+                        {/* Bookmark and Share Actions */}
+                        <div className="absolute top-4 right-4 flex gap-2">
+                          <button
+                            onClick={() => toggleBookmark(study.id)}
+                            className={`p-2 rounded-lg border transition-colors ${
+                              bookmarkedItems.includes(study.id) 
+                                ? 'bg-slate-900 text-white border-slate-900' 
+                                : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
+                            }`}
+                            title={bookmarkedItems.includes(study.id) ? "Remove bookmark" : "Add bookmark"}
+                          >
+                            {bookmarkedItems.includes(study.id) ? 
+                              <BookmarkCheck className="h-4 w-4" /> : 
+                              <BookmarkPlus className="h-4 w-4" />
+                            }
+                          </button>
+                          <button
+                            onClick={() => handleShare(study)}
+                            className="p-2 rounded-lg border bg-white text-slate-600 border-slate-200 hover:bg-slate-50 transition-colors"
+                            title="Share resource"
+                          >
+                            <Share2 className="h-4 w-4" />
+                          </button>
+                        </div>
+
+                        <div className="flex items-center justify-between mb-4 pr-20">
                           <span className="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded border">{study.industry}</span>
                           <span className="text-sm text-slate-500">{study.readTime}</span>
                         </div>
@@ -680,7 +1023,7 @@ export default function Resources() {
               )}
 
               {/* Tools */}
-              {filteredResources.some(r => r.type === "tool") && (
+              {filteredAndSortedResources.some(r => r.type === "tool") && (
                 <div>
                   <div className="text-center mb-12">
                     <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
@@ -691,8 +1034,39 @@ export default function Resources() {
                     </p>
                   </div>
                   <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {filteredResources.filter(r => r.type === "tool").map((tool: any) => (
-                      <div key={tool.id} className="bg-white p-8 rounded-xl border border-slate-200 hover:shadow-lg transition-shadow cursor-pointer text-center">
+                    {filteredAndSortedResources.filter(r => r.type === "tool").map((tool: any) => (
+                      <div key={tool.id} className="bg-white p-8 rounded-xl border border-slate-200 hover:shadow-lg transition-shadow cursor-pointer text-center relative">
+                        {/* Bookmark and Share Actions */}
+                        <div className="absolute top-4 right-4 flex gap-2">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleBookmark(tool.id);
+                            }}
+                            className={`p-2 rounded-lg border transition-colors ${
+                              bookmarkedItems.includes(tool.id) 
+                                ? 'bg-slate-900 text-white border-slate-900' 
+                                : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
+                            }`}
+                            title={bookmarkedItems.includes(tool.id) ? "Remove bookmark" : "Add bookmark"}
+                          >
+                            {bookmarkedItems.includes(tool.id) ? 
+                              <BookmarkCheck className="h-4 w-4" /> : 
+                              <BookmarkPlus className="h-4 w-4" />
+                            }
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleShare(tool);
+                            }}
+                            className="p-2 rounded-lg border bg-white text-slate-600 border-slate-200 hover:bg-slate-50 transition-colors"
+                            title="Share resource"
+                          >
+                            <Share2 className="h-4 w-4" />
+                          </button>
+                        </div>
+
                         <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center mx-auto mb-3">
                           <tool.icon className="h-6 w-6 text-slate-900" />
                         </div>
