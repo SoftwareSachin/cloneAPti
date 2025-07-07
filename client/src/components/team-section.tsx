@@ -67,78 +67,46 @@ export default function TeamSection() {
             return (
               <Card 
                 key={member.id} 
-                className="group relative overflow-hidden border-0 bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                className="group relative overflow-hidden border-0 bg-white shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 rounded-3xl"
               >
-                <CardContent className="p-8">
+                <CardContent className="p-10">
                   {/* Profile header */}
                   <div className="text-center mb-6">
                     <div className="relative mx-auto mb-4">
-                      <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-xl font-bold shadow-lg mx-auto overflow-hidden">
+                      <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xl font-bold shadow-xl mx-auto overflow-hidden ring-4 ring-white">
                         <img 
-                          src="/sachin-cto.gif" 
+                          src="/sachin-profile.gif" 
                           alt="Sachin - CTO" 
                           className="w-full h-full object-cover"
                         />
                       </div>
-                      <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-white rounded-xl shadow-lg flex items-center justify-center border border-gray-100">
-                        <IconComponent className="w-4 h-4 text-primary" />
+                      <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl shadow-xl flex items-center justify-center border-2 border-white">
+                        <IconComponent className="w-5 h-5 text-white" />
                       </div>
                     </div>
                     
-                    <h3 className="text-xl font-bold text-gray-900 mb-1">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2">
                       {member.name}
                     </h3>
-                    <p className="text-primary font-semibold mb-2">
+                    <p className="text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text font-semibold text-lg mb-6">
                       {member.role}
                     </p>
-                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-gray-100 rounded-full">
-                      <span className="text-gray-700 text-sm font-medium">{member.experience}</span>
-                    </div>
                   </div>
 
                   {/* Content */}
                   <div className="space-y-6">
                     {/* Specialization */}
-                    <div className="text-center">
-                      <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/5 rounded-lg border border-primary/10">
-                        <span className="text-primary font-medium text-sm">{member.specialization}</span>
+                    <div className="text-center mb-6">
+                      <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl border border-blue-100">
+                        <span className="text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text font-semibold">{member.specialization}</span>
                       </div>
                     </div>
                     
                     {/* Background */}
                     <div>
-                      <p className="text-gray-600 text-sm leading-relaxed">
+                      <p className="text-gray-600 leading-relaxed text-center text-base">
                         {member.background}
                       </p>
-                    </div>
-                    
-                    {/* Expertise */}
-                    <div>
-                      <h4 className="text-gray-900 font-semibold mb-3 text-sm">Core Expertise</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {member.expertise.map((skill, skillIndex) => (
-                          <Badge 
-                            key={skillIndex} 
-                            variant="outline" 
-                            className="text-xs border-primary/20 text-primary bg-primary/5 hover:bg-primary/10 transition-colors"
-                          >
-                            {skill}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Achievements */}
-                    <div>
-                      <h4 className="text-gray-900 font-semibold mb-3 text-sm">Key Achievements</h4>
-                      <ul className="space-y-2">
-                        {member.achievements.map((achievement, achIndex) => (
-                          <li key={achIndex} className="text-gray-600 text-sm flex items-start gap-2">
-                            <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                            {achievement}
-                          </li>
-                        ))}
-                      </ul>
                     </div>
                   </div>
                 </CardContent>
