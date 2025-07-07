@@ -73,7 +73,7 @@ const JOURNEY_TIMELINE = [
       "Industry awards for innovation received",
       "Fortune 500 clients acquired"
     ],
-    metrics: { projects: "35+", clients: "7+", team: "5" }
+    metrics: { projects: "5+", clients: "3+", team: "2" }
   },
   {
     year: "2025",
@@ -86,7 +86,7 @@ const JOURNEY_TIMELINE = [
       "Strategic partnerships with major tech vendors",
       "Industry thought leadership established"
     ],
-    metrics: { projects: "5+", clients: "10+", team: "2" }
+    metrics: { projects: "5+", clients: "3+", team: "2" }
   }
 ];
 
