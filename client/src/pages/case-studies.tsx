@@ -2,7 +2,8 @@ import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { useToast } from "@/hooks/use-toast";
 import { 
   TrendingUp, 
   Clock, 
@@ -15,11 +16,35 @@ import {
   ShoppingCart,
   Factory,
   Search,
-  Filter
+  Filter,
+  BookmarkPlus,
+  BookmarkCheck,
+  Share2,
+  Download,
+  ExternalLink,
+  Star,
+  Copy,
+  SortAsc,
+  SortDesc,
+  ChevronDown,
+  ChevronUp,
+  Eye,
+  MessageSquare,
+  FileText,
+  BarChart3,
+  Target,
+  Award,
+  Zap,
+  Calendar,
+  Mail,
+  Phone,
+  Globe,
+  X
 } from "lucide-react";
 
 const CASE_STUDIES_DATA = [
     {
+      id: 1,
       industry: "Healthcare",
       icon: Stethoscope,
       client: "Regional Medical Center",
@@ -35,9 +60,14 @@ const CASE_STUDIES_DATA = [
       technologies: ["React Native", "Node.js", "PostgreSQL", "AWS", "HL7 FHIR"],
       timeline: "8 months",
       testimonial: "Aptivon transformed our entire patient care workflow. The new system has dramatically improved our efficiency and patient outcomes.",
-      clientRole: "Chief Technology Officer"
+      clientRole: "Chief Technology Officer",
+      roi: "280%",
+      projectValue: "$2.3M",
+      complexity: "High",
+      region: "North America"
     },
     {
+      id: 2,
       industry: "E-commerce",
       icon: ShoppingCart,
       client: "National Retail Chain",
@@ -53,9 +83,14 @@ const CASE_STUDIES_DATA = [
       technologies: ["React", "Python", "TensorFlow", "MongoDB", "Kubernetes"],
       timeline: "12 months",
       testimonial: "The new platform exceeded all our expectations. Our customers love the personalized experience, and our sales have skyrocketed.",
-      clientRole: "VP of Digital Commerce"
+      clientRole: "VP of Digital Commerce",
+      roi: "450%",
+      projectValue: "$15M",
+      complexity: "High",
+      region: "Global"
     },
     {
+      id: 3,
       industry: "Manufacturing",
       icon: Factory,
       client: "Automotive Parts Manufacturer",
@@ -71,9 +106,14 @@ const CASE_STUDIES_DATA = [
       technologies: ["Azure IoT", "Power BI", "Python", "Machine Learning", "Edge Computing"],
       timeline: "10 months",
       testimonial: "This IoT solution revolutionized our manufacturing process. We can now predict and prevent issues before they impact production.",
-      clientRole: "Head of Operations"
+      clientRole: "Head of Operations",
+      roi: "280%",
+      projectValue: "$5.2M",
+      complexity: "High",
+      region: "North America"
     },
     {
+      id: 4,
       industry: "Financial Services",
       icon: Building2,
       client: "Community Bank",
@@ -89,7 +129,11 @@ const CASE_STUDIES_DATA = [
       technologies: ["Java Spring", "PostgreSQL", "AWS", "React", "Microservices"],
       timeline: "14 months",
       testimonial: "The new banking system has positioned us for future growth. We can now offer innovative services that compete with larger banks.",
-      clientRole: "Chief Information Officer"
+      clientRole: "Chief Information Officer",
+      roi: "320%",
+      projectValue: "$8.7M",
+      complexity: "Very High",
+      region: "North America"
     }
 ];
 
@@ -103,16 +147,199 @@ const METRICS_DATA = [
 export default function CaseStudies() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedIndustry, setSelectedIndustry] = useState("All");
+  const [sortBy, setSortBy] = useState("timeline-desc");
+  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
+  const [bookmarkedItems, setBookmarkedItems] = useState<number[]>([]);
+  const [roiFilter, setRoiFilter] = useState("all");
+  const [timelineFilter, setTimelineFilter] = useState("all");
+  const [showContactModal, setShowContactModal] = useState(false);
+  const [selectedStudy, setSelectedStudy] = useState<any>(null);
+  const [contactForm, setContactForm] = useState({
+    name: "",
+    email: "",
+    company: "",
+    phone: "",
+    message: "",
+    studyInterest: ""
+  });
+  const [isSubmittingContact, setIsSubmittingContact] = useState(false);
+  const { toast } = useToast();
   
   const industries = ["All", "Healthcare", "E-commerce", "Manufacturing", "Financial Services"];
-  
-  const filteredCaseStudies = CASE_STUDIES_DATA.filter(study => {
-    const matchesSearch = study.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         study.client.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         study.challenge.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesIndustry = selectedIndustry === "All" || study.industry === selectedIndustry;
-    return matchesSearch && matchesIndustry;
-  });
+
+  // Load bookmarks from localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem('aptivon-bookmarked-case-studies');
+    if (saved) {
+      setBookmarkedItems(JSON.parse(saved));
+    }
+  }, []);
+
+  // Save bookmarks to localStorage
+  useEffect(() => {
+    localStorage.setItem('aptivon-bookmarked-case-studies', JSON.stringify(bookmarkedItems));
+  }, [bookmarkedItems]);
+
+  // Enhanced filtering and sorting
+  const filteredAndSortedCaseStudies = useMemo(() => {
+    let filtered = CASE_STUDIES_DATA.filter(study => {
+      const matchesSearch = study.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           study.client.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           study.challenge.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           study.solution.toLowerCase().includes(searchTerm.toLowerCase());
+      
+      const matchesIndustry = selectedIndustry === "All" || study.industry === selectedIndustry;
+      
+      // ROI filtering (including bookmarked filter)
+      const matchesROI = roiFilter === "all" ? true :
+                        roiFilter === "bookmarked" ? bookmarkedItems.includes(study.id) :
+                        (() => {
+                          const roiValue = study.roi || study.results.find(r => 
+                            r.metric.toLowerCase().includes('roi') || 
+                            r.value.includes('$') || 
+                            r.value.includes('%')
+                          )?.value || "0%";
+                          const numericROI = parseInt(roiValue.replace(/[^\d]/g, ''));
+                          
+                          switch(roiFilter) {
+                            case "high": return numericROI > 200;
+                            case "medium": return numericROI >= 100 && numericROI <= 200;
+                            case "low": return numericROI < 100;
+                            default: return true;
+                          }
+                        })();
+
+      // Timeline filtering
+      const matchesTimeline = timelineFilter === "all" || (() => {
+        const months = parseInt(study.timeline.replace(/[^\d]/g, ''));
+        switch(timelineFilter) {
+          case "short": return months <= 6;
+          case "medium": return months > 6 && months <= 12;
+          case "long": return months > 12;
+          default: return true;
+        }
+      })();
+      
+      return matchesSearch && matchesIndustry && matchesROI && matchesTimeline;
+    });
+
+    // Sorting
+    filtered.sort((a, b) => {
+      switch(sortBy) {
+        case "client-asc": return a.client.localeCompare(b.client);
+        case "client-desc": return b.client.localeCompare(a.client);
+        case "industry-asc": return a.industry.localeCompare(b.industry);
+        case "industry-desc": return b.industry.localeCompare(a.industry);
+        case "timeline-asc": 
+          return parseInt(a.timeline.replace(/[^\d]/g, '')) - parseInt(b.timeline.replace(/[^\d]/g, ''));
+        case "timeline-desc":
+        default:
+          return parseInt(b.timeline.replace(/[^\d]/g, '')) - parseInt(a.timeline.replace(/[^\d]/g, ''));
+      }
+    });
+
+    return filtered;
+  }, [searchTerm, selectedIndustry, sortBy, roiFilter, timelineFilter]);
+
+  // Interactive functions
+  const toggleBookmark = (studyId: number) => {
+    setBookmarkedItems(prev => 
+      prev.includes(studyId) 
+        ? prev.filter(id => id !== studyId)
+        : [...prev, studyId]
+    );
+    
+    toast({
+      title: bookmarkedItems.includes(studyId) ? "Bookmark removed" : "Bookmark added",
+      description: "Manage your bookmarks in the advanced filters.",
+    });
+  };
+
+  const handleShare = async (study: any) => {
+    const url = `${window.location.origin}/case-studies?id=${study.id}`;
+    
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: study.title,
+          text: `${study.client}: ${study.title}`,
+          url: url
+        });
+      } catch (err) {
+        copyToClipboard(url, study.title);
+      }
+    } else {
+      copyToClipboard(url, study.title);
+    }
+  };
+
+  const copyToClipboard = (text: string, title: string) => {
+    navigator.clipboard.writeText(text).then(() => {
+      toast({
+        title: "Link copied!",
+        description: `Case study "${title}" link copied to clipboard.`,
+      });
+    });
+  };
+
+  const requestSimilarProject = (study: any) => {
+    setSelectedStudy(study);
+    setContactForm(prev => ({
+      ...prev,
+      studyInterest: `${study.client} - ${study.title}`,
+      message: `I'm interested in a similar project to your ${study.industry} case study with ${study.client}. Please contact me to discuss our requirements.`
+    }));
+    setShowContactModal(true);
+  };
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmittingContact(true);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...contactForm,
+          type: "case-study-inquiry",
+          source: "case-studies-page"
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        toast({
+          title: "Request submitted successfully!",
+          description: "We'll contact you within 24 hours to discuss your project.",
+        });
+        setShowContactModal(false);
+        setContactForm({
+          name: "",
+          email: "",
+          company: "",
+          phone: "",
+          message: "",
+          studyInterest: ""
+        });
+      } else {
+        toast({
+          title: "Error submitting request",
+          description: data.message || "Please try again later.",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error submitting request",
+        description: "Please try again later.",
+      });
+    } finally {
+      setIsSubmittingContact(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -182,8 +409,120 @@ export default function CaseStudies() {
               ))}
             </div>
           </div>
+          
+          {/* Advanced Filters */}
+          <div className="mt-6">
+            <Button
+              variant="outline"
+              onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
+              className="flex items-center gap-2"
+            >
+              <Filter className="h-4 w-4" />
+              Advanced Filters
+              {showAdvancedFilters ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+            </Button>
+            
+            {showAdvancedFilters && (
+              <div className="mt-4 p-6 bg-slate-50 rounded-lg border">
+                <div className="grid md:grid-cols-4 gap-4">
+                  {/* Sort Options */}
+                  <div>
+                    <label className="text-sm font-medium text-slate-900 mb-2 block">Sort By</label>
+                    <select
+                      value={sortBy}
+                      onChange={(e) => setSortBy(e.target.value)}
+                      className="w-full px-3 py-2 border border-slate-200 rounded-md text-sm"
+                    >
+                      <option value="timeline-desc">Timeline (Latest First)</option>
+                      <option value="timeline-asc">Timeline (Oldest First)</option>
+                      <option value="client-asc">Client (A-Z)</option>
+                      <option value="client-desc">Client (Z-A)</option>
+                      <option value="industry-asc">Industry (A-Z)</option>
+                      <option value="industry-desc">Industry (Z-A)</option>
+                    </select>
+                  </div>
+                  
+                  {/* ROI Filter */}
+                  <div>
+                    <label className="text-sm font-medium text-slate-900 mb-2 block">ROI Range</label>
+                    <select
+                      value={roiFilter}
+                      onChange={(e) => setRoiFilter(e.target.value)}
+                      className="w-full px-3 py-2 border border-slate-200 rounded-md text-sm"
+                    >
+                      <option value="all">All ROI</option>
+                      <option value="high">High (200%+)</option>
+                      <option value="medium">Medium (100-200%)</option>
+                      <option value="low">Low (&lt;100%)</option>
+                    </select>
+                  </div>
+                  
+                  {/* Timeline Filter */}
+                  <div>
+                    <label className="text-sm font-medium text-slate-900 mb-2 block">Project Duration</label>
+                    <select
+                      value={timelineFilter}
+                      onChange={(e) => setTimelineFilter(e.target.value)}
+                      className="w-full px-3 py-2 border border-slate-200 rounded-md text-sm"
+                    >
+                      <option value="all">All Durations</option>
+                      <option value="short">Short (≤6 months)</option>
+                      <option value="medium">Medium (6-12 months)</option>
+                      <option value="long">Long (12+ months)</option>
+                    </select>
+                  </div>
+                  
+                  {/* Bookmarks Filter */}
+                  <div>
+                    <label className="text-sm font-medium text-slate-900 mb-2 block">Show</label>
+                    <div className="flex gap-2">
+                      <Button
+                        variant={bookmarkedItems.length > 0 ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => {
+                          // Toggle between showing all and showing only bookmarked
+                          if (roiFilter === "bookmarked") {
+                            setRoiFilter("all");
+                          } else {
+                            setRoiFilter("bookmarked");
+                          }
+                        }}
+                        className="flex items-center gap-1 text-xs"
+                      >
+                        <BookmarkCheck className="h-3 w-3" />
+                        Bookmarked ({bookmarkedItems.length})
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Clear Filters */}
+                <div className="mt-4 pt-4 border-t">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      setSearchTerm("");
+                      setSelectedIndustry("All");
+                      setSortBy("timeline-desc");
+                      setRoiFilter("all");
+                      setTimelineFilter("all");
+                    }}
+                  >
+                    Clear All Filters
+                  </Button>
+                </div>
+              </div>
+            )}
+          </div>
+
           <div className="mt-4 text-sm text-slate-600">
-            Showing {filteredCaseStudies.length} of {CASE_STUDIES_DATA.length} case studies
+            Showing {filteredAndSortedCaseStudies.length} of {CASE_STUDIES_DATA.length} case studies
+            {bookmarkedItems.length > 0 && (
+              <span className="ml-2 text-slate-500">
+                • {bookmarkedItems.length} bookmarked
+              </span>
+            )}
           </div>
         </div>
       </section>
@@ -201,7 +540,7 @@ export default function CaseStudies() {
             </p>
           </div>
 
-          {filteredCaseStudies.length === 0 ? (
+          {filteredAndSortedCaseStudies.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-slate-600 mb-4">No case studies found matching your criteria.</p>
               <Button 
@@ -215,11 +554,36 @@ export default function CaseStudies() {
             </div>
           ) : (
             <div className="space-y-16">
-              {filteredCaseStudies.map((study: any, index: number) => (
-                <div key={index} className="bg-white rounded-xl border border-slate-200 shadow-lg overflow-hidden">
+              {filteredAndSortedCaseStudies.map((study: any, index: number) => (
+                <div key={index} className="bg-white rounded-xl border border-slate-200 shadow-lg overflow-hidden relative">
+                  {/* Bookmark and Share Actions */}
+                  <div className="absolute top-4 right-4 flex gap-2 z-10">
+                    <button
+                      onClick={() => toggleBookmark(study.id)}
+                      className={`p-2 rounded-lg border transition-colors ${
+                        bookmarkedItems.includes(study.id) 
+                          ? 'bg-slate-900 text-white border-slate-900' 
+                          : 'bg-white/90 text-slate-600 border-slate-200 hover:bg-white'
+                      }`}
+                      title={bookmarkedItems.includes(study.id) ? "Remove bookmark" : "Add bookmark"}
+                    >
+                      {bookmarkedItems.includes(study.id) ? 
+                        <BookmarkCheck className="h-4 w-4" /> : 
+                        <BookmarkPlus className="h-4 w-4" />
+                      }
+                    </button>
+                    <button
+                      onClick={() => handleShare(study)}
+                      className="p-2 rounded-lg border bg-white/90 text-slate-600 border-slate-200 hover:bg-white transition-colors"
+                      title="Share case study"
+                    >
+                      <Share2 className="h-4 w-4" />
+                    </button>
+                  </div>
+
                   <div className="grid lg:grid-cols-3 gap-0">
                     {/* Left Column - Overview */}
-                    <div className="lg:col-span-1 bg-slate-900 text-white p-8">
+                    <div className="lg:col-span-1 bg-slate-900 text-white p-8 pr-20">
                       <div className="flex items-center mb-4">
                         <study.icon className="h-8 w-8 mr-3" />
                         <span className="bg-white/20 text-white px-2 py-1 rounded text-sm">
@@ -233,6 +597,16 @@ export default function CaseStudies() {
                         <div>
                           <h5 className="font-semibold mb-2">Timeline</h5>
                           <p className="text-slate-300">{study.timeline}</p>
+                        </div>
+                        
+                        <div>
+                          <h5 className="font-semibold mb-2">Project Value</h5>
+                          <p className="text-slate-300">{study.projectValue}</p>
+                        </div>
+                        
+                        <div>
+                          <h5 className="font-semibold mb-2">ROI Achieved</h5>
+                          <p className="text-green-300 font-bold">{study.roi}</p>
                         </div>
                         
                         <div>
@@ -279,12 +653,23 @@ export default function CaseStudies() {
                         </div>
 
                         <div className="pt-4 border-t">
-                          <Button 
-                            className="w-full"
-                            onClick={() => window.location.href = '/contact'}
-                          >
-                            Request Similar Project
-                          </Button>
+                          <div className="flex gap-2">
+                            <Button 
+                              className="flex-1"
+                              onClick={() => requestSimilarProject(study)}
+                            >
+                              <Mail className="h-4 w-4 mr-2" />
+                              Request Similar Project
+                            </Button>
+                            <Button 
+                              variant="outline"
+                              size="icon"
+                              onClick={() => window.open(`/case-studies/${study.id}`, '_blank')}
+                              title="View full case study"
+                            >
+                              <ExternalLink className="h-4 w-4" />
+                            </Button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -373,6 +758,144 @@ export default function CaseStudies() {
         </div>
       </section>
       
+      {/* Contact Modal */}
+      {showContactModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h3 className="text-2xl font-bold text-slate-900">Request Similar Project</h3>
+                {selectedStudy && (
+                  <p className="text-slate-600 mt-1">
+                    Interested in: {selectedStudy.client} - {selectedStudy.title}
+                  </p>
+                )}
+              </div>
+              <button
+                onClick={() => setShowContactModal(false)}
+                className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
+              >
+                <X className="h-5 w-5 text-slate-500" />
+              </button>
+            </div>
+
+            <form onSubmit={handleContactSubmit} className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    Full Name *
+                  </label>
+                  <Input
+                    type="text"
+                    required
+                    value={contactForm.name}
+                    onChange={(e) => setContactForm(prev => ({ ...prev, name: e.target.value }))}
+                    placeholder="Your full name"
+                    className="w-full"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    Email Address *
+                  </label>
+                  <Input
+                    type="email"
+                    required
+                    value={contactForm.email}
+                    onChange={(e) => setContactForm(prev => ({ ...prev, email: e.target.value }))}
+                    placeholder="your.email@company.com"
+                    className="w-full"
+                  />
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    Company *
+                  </label>
+                  <Input
+                    type="text"
+                    required
+                    value={contactForm.company}
+                    onChange={(e) => setContactForm(prev => ({ ...prev, company: e.target.value }))}
+                    placeholder="Your company name"
+                    className="w-full"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    Phone Number
+                  </label>
+                  <Input
+                    type="tel"
+                    value={contactForm.phone}
+                    onChange={(e) => setContactForm(prev => ({ ...prev, phone: e.target.value }))}
+                    placeholder="+1 (555) 123-4567"
+                    className="w-full"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  Project Requirements *
+                </label>
+                <textarea
+                  required
+                  value={contactForm.message}
+                  onChange={(e) => setContactForm(prev => ({ ...prev, message: e.target.value }))}
+                  rows={4}
+                  className="w-full px-3 py-2 border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent"
+                  placeholder="Tell us about your project requirements, timeline, and how we can help..."
+                />
+              </div>
+
+              {selectedStudy && (
+                <div className="bg-slate-50 p-4 rounded-lg">
+                  <h4 className="font-medium text-slate-900 mb-2">Case Study of Interest:</h4>
+                  <div className="text-sm text-slate-600">
+                    <p><strong>Client:</strong> {selectedStudy.client}</p>
+                    <p><strong>Project:</strong> {selectedStudy.title}</p>
+                    <p><strong>Industry:</strong> {selectedStudy.industry}</p>
+                    <p><strong>Timeline:</strong> {selectedStudy.timeline}</p>
+                    <p><strong>ROI Achieved:</strong> {selectedStudy.roi}</p>
+                  </div>
+                </div>
+              )}
+
+              <div className="flex gap-3 pt-4">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setShowContactModal(false)}
+                  className="flex-1"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  type="submit"
+                  disabled={isSubmittingContact}
+                  className="flex-1 bg-slate-900 hover:bg-slate-800"
+                >
+                  {isSubmittingContact ? (
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      Submitting...
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <Mail className="h-4 w-4" />
+                      Send Request
+                    </div>
+                  )}
+                </Button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
       <Footer />
     </div>
   );
