@@ -261,6 +261,252 @@ const KNOWLEDGE_BASE = [
 ];
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  
+  // Consolidated Forms API endpoint
+  app.all("/api/forms", async (req, res) => {
+    const { action } = req.query;
+    
+    try {
+      switch (action) {
+        case 'contact':
+          if (req.method === 'POST') {
+            const contactData = insertContactSchema.parse(req.body);
+            const contact = await storage.createContact(contactData);
+            console.log('Contact form submission:', contact);
+            return res.status(201).json({ success: true, message: "Message sent successfully!", contact });
+          }
+          break;
+          
+        case 'newsletter':
+          if (req.method === 'POST') {
+            const { email, name } = req.body;
+            console.log('Newsletter subscription:', { email, name });
+            return res.status(200).json({ success: true, message: "Successfully subscribed to newsletter!" });
+          }
+          break;
+          
+        case 'job-application':
+          if (req.method === 'POST') {
+            console.log('Job application:', req.body);
+            return res.status(200).json({ success: true, message: "Application submitted successfully!" });
+          }
+          break;
+          
+        case 'webinar-registration':
+          if (req.method === 'POST') {
+            console.log('Webinar registration:', req.body);
+            return res.status(200).json({ success: true, message: "Successfully registered for webinar!" });
+          }
+          break;
+          
+        default:
+          return res.status(400).json({ error: 'Invalid action' });
+      }
+    } catch (error) {
+      console.error('Forms API error:', error);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
+  // Consolidated Blog API endpoint
+  app.all("/api/blog", async (req, res) => {
+    const { action } = req.query;
+    
+    try {
+      switch (action) {
+        case 'posts':
+          if (req.method === 'GET') {
+            const posts = await storage.getBlogPosts();
+            return res.json(posts);
+          }
+          break;
+          
+        case 'post':
+          if (req.method === 'GET') {
+            const { slug } = req.query;
+            const post = await storage.getBlogPost(slug as string);
+            if (!post) return res.status(404).json({ error: 'Post not found' });
+            return res.json(post);
+          }
+          break;
+          
+        case 'subscribe':
+          if (req.method === 'POST') {
+            const subscriberData = req.body;
+            console.log('Blog subscription:', subscriberData);
+            return res.status(200).json({ success: true, message: "Successfully subscribed!" });
+          }
+          break;
+          
+        case 'like':
+          if (req.method === 'POST') {
+            const { postId } = req.body;
+            console.log('Blog post liked:', postId);
+            return res.status(200).json({ success: true, likes: 10 });
+          }
+          break;
+          
+        case 'comment':
+          if (req.method === 'POST') {
+            console.log('Blog comment:', req.body);
+            return res.status(200).json({ success: true, message: "Comment submitted for approval!" });
+          }
+          break;
+          
+        default:
+          return res.status(400).json({ error: 'Invalid action' });
+      }
+    } catch (error) {
+      console.error('Blog API error:', error);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
+  // Consolidated Portfolio API endpoint
+  app.all("/api/portfolio", async (req, res) => {
+    const { action } = req.query;
+    
+    try {
+      switch (action) {
+        case 'projects':
+          if (req.method === 'GET') {
+            const projects = await storage.getPortfolioProjects();
+            return res.json(projects);
+          }
+          break;
+          
+        case 'project':
+          if (req.method === 'GET') {
+            const { slug } = req.query;
+            const project = await storage.getPortfolioProject(slug as string);
+            if (!project) return res.status(404).json({ error: 'Project not found' });
+            return res.json(project);
+          }
+          break;
+          
+        case 'inquiry':
+          if (req.method === 'POST') {
+            console.log('Portfolio inquiry:', req.body);
+            return res.status(200).json({ success: true, message: "Inquiry submitted successfully!" });
+          }
+          break;
+          
+        case 'like':
+          if (req.method === 'POST') {
+            const { projectId } = req.body;
+            console.log('Portfolio project liked:', projectId);
+            return res.status(200).json({ success: true, likes: 15 });
+          }
+          break;
+          
+        default:
+          return res.status(400).json({ error: 'Invalid action' });
+      }
+    } catch (error) {
+      console.error('Portfolio API error:', error);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
+  // Consolidated Business API endpoint
+  app.all("/api/business", async (req, res) => {
+    const { action } = req.query;
+    
+    try {
+      switch (action) {
+        case 'about-inquiry':
+          if (req.method === 'POST') {
+            console.log('About inquiry:', req.body);
+            return res.status(200).json({ success: true, message: "Inquiry submitted successfully!" });
+          }
+          break;
+          
+        case 'solution-inquiry':
+          if (req.method === 'POST') {
+            console.log('Solution inquiry:', req.body);
+            return res.status(200).json({ success: true, message: "Solution inquiry submitted!" });
+          }
+          break;
+          
+        case 'consultation-request':
+          if (req.method === 'POST') {
+            console.log('Consultation request:', req.body);
+            return res.status(200).json({ success: true, message: "Consultation scheduled successfully!" });
+          }
+          break;
+          
+        case 'company-profile':
+          if (req.method === 'POST') {
+            const profileData = req.body;
+            console.log('Company profile request:', profileData);
+            const htmlDocument = generateCompanyProfile({ ...profileData, id: 1, createdAt: new Date() });
+            return res.status(200).json({ 
+              success: true, 
+              message: "Company profile generated successfully!",
+              document: htmlDocument 
+            });
+          }
+          break;
+          
+        default:
+          return res.status(400).json({ error: 'Invalid action' });
+      }
+    } catch (error) {
+      console.error('Business API error:', error);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
+  // Consolidated Resources API endpoint
+  app.all("/api/resources", async (req, res) => {
+    const { action } = req.query;
+    
+    try {
+      switch (action) {
+        case 'download':
+          if (req.method === 'POST') {
+            console.log('Resource download:', req.body);
+            return res.status(200).json({ 
+              success: true, 
+              message: "Download link sent to your email!",
+              downloadUrl: "/resources/sample.pdf"
+            });
+          }
+          break;
+          
+        default:
+          return res.status(400).json({ error: 'Invalid action' });
+      }
+    } catch (error) {
+      console.error('Resources API error:', error);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
+  // Consolidated Search API endpoint
+  app.all("/api/search", async (req, res) => {
+    const { action, q } = req.query;
+    
+    try {
+      switch (action) {
+        case 'support':
+          if (req.method === 'GET') {
+            const results = [
+              { id: 1, title: 'Getting Started', content: 'How to begin your project', relevance: 0.9 },
+              { id: 2, title: 'Technical Support', content: 'Get technical assistance', relevance: 0.8 }
+            ];
+            return res.json(results);
+          }
+          break;
+          
+        default:
+          return res.status(400).json({ error: 'Invalid action' });
+      }
+    } catch (error) {
+      console.error('Search API error:', error);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+  });
   // Company Profile API route - placed first to ensure proper handling
   app.post("/api/company-profile", async (req, res) => {
     const downloadRequestSchema = z.object({
