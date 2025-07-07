@@ -216,7 +216,7 @@ export default function PortfolioProject() {
           </div>
 
           {/* Project Details */}
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -238,18 +238,6 @@ export default function PortfolioProject() {
               </CardHeader>
               <CardContent>
                 <p className="font-medium">{project.duration}</p>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Users className="h-5 w-5" />
-                  Team Size
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="font-medium">{project.team}</p>
               </CardContent>
             </Card>
           </div>
