@@ -140,9 +140,9 @@ export default function About() {
       setRealTimeStats(prev => prev.map(stat => ({
         ...stat,
         number: stat.label === "Projects Delivered" ? 
-          `${Math.floor(Math.random() * 10) + 500}+` : 
+          `${Math.floor(Math.random() * 3) + 5}+` : 
           stat.label === "Enterprise Clients" ?
-          `${Math.floor(Math.random() * 5) + 100}+` :
+          `${Math.floor(Math.random() * 2) + 2}+` :
           stat.number
       })));
     }, 5000);

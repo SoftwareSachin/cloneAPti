@@ -170,9 +170,9 @@ export default function Services() {
       setRealTimeMetrics(prev => prev.map(metric => ({
         ...metric,
         metric: metric.label === "Projects Delivered" ? 
-          `${Math.floor(Math.random() * 10) + 500}+` : 
+          `${Math.floor(Math.random() * 3) + 5}+` : 
           metric.label === "Enterprise Clients" ?
-          `${Math.floor(Math.random() * 5) + 100}+` :
+          `${Math.floor(Math.random() * 2) + 3}+` :
           metric.metric
       })));
     }, 4000);
