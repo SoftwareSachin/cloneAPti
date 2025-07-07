@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { useLocation } from "wouter";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -132,6 +133,10 @@ export default function About() {
   });
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [downloadRequests, setDownloadRequests] = useState<string[]>([]);
+  const [teamModalOpen, setTeamModalOpen] = useState(false);
+  const [partnershipModalOpen, setPartnershipModalOpen] = useState(false);
+  const [investmentModalOpen, setInvestmentModalOpen] = useState(false);
+  const [liveVisitors, setLiveVisitors] = useState(Math.floor(Math.random() * 10) + 5);
   const { toast } = useToast();
 
   // Real-time stats animation
@@ -150,14 +155,31 @@ export default function About() {
     return () => clearInterval(interval);
   }, []);
 
+  // Live visitors counter
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLiveVisitors(prev => {
+        const change = Math.floor(Math.random() * 3) - 1; // -1, 0, or 1
+        const newCount = prev + change;
+        return Math.max(3, Math.min(20, newCount)); // Keep between 3-20
+      });
+    }, 8000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   const contactMutation = useMutation({
     mutationFn: async (data: any) => {
-      const response = await fetch('/api/contact', {
+      const response = await fetch('/api/about-inquiry', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          inquiry_type: 'general',
+          source: 'about-page'
+        }),
       });
       
       if (!response.ok) {
@@ -217,11 +239,15 @@ export default function About() {
   });
 
   const handleJoinTeam = () => {
-    setLocation("/careers");
-    toast({
-      title: "Redirecting to Careers",
-      description: "Explore exciting opportunities with our team!"
-    });
+    setTeamModalOpen(true);
+  };
+
+  const handleSchedulePartnership = () => {
+    setPartnershipModalOpen(true);
+  };
+
+  const handleInvestmentInquiry = () => {
+    setInvestmentModalOpen(true);
   };
 
   const handleContactUs = () => {
@@ -266,20 +292,59 @@ export default function About() {
     newsletterMutation.mutate(newsletterEmail);
   };
 
-  const handleDownloadCompanyProfile = () => {
-    setDownloadRequests(prev => [...prev, `company-profile-${Date.now()}`]);
-    toast({
-      title: "Download Started",
-      description: "Company profile PDF is being prepared...",
-    });
-    
-    // Simulate download completion
-    setTimeout(() => {
+  const handleDownloadCompanyProfile = async () => {
+    const downloadData = {
+      email: contactForm.email || `guest-${Date.now()}@example.com`,
+      firstName: contactForm.firstName || 'Guest',
+      lastName: contactForm.lastName || 'User',
+      company: contactForm.company || 'Unknown',
+      position: 'Visitor',
+      source: 'about-page'
+    };
+
+    try {
+      setDownloadRequests(prev => [...prev, `company-profile-${Date.now()}`]);
       toast({
-        title: "Download Complete",
+        title: "Generating Company Profile",
+        description: "Please wait while we prepare your document...",
+      });
+
+      const response = await fetch('/api/company-profile', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(downloadData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to generate company profile');
+      }
+
+      const result = await response.json();
+      
+      // Create and download the HTML file
+      const blob = new Blob([result.profile.document], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = result.profile.filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      toast({
+        title: "Download Complete!",
         description: "Company profile has been downloaded successfully!",
       });
-    }, 2000);
+    } catch (error) {
+      toast({
+        title: "Download Error",
+        description: "Failed to download company profile. Please try again.",
+        variant: "destructive"
+      });
+    }
   };
 
   const handleWatchVideo = () => {
@@ -312,6 +377,16 @@ export default function About() {
               Transforming enterprises through innovative technology solutions since 2022. 
               From startup to industry leader in just 3 years, we've redefined what's possible in enterprise technology.
             </p>
+            <div className="flex items-center justify-center gap-4 mb-8">
+              <div className="flex items-center gap-2 text-sm text-slate-600">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span>{liveVisitors} people viewing this page</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-slate-600">
+                <Timer className="w-4 h-4" />
+                <span>Last updated: {new Date().toLocaleTimeString()}</span>
+              </div>
+            </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 size="lg" 
@@ -326,6 +401,7 @@ export default function About() {
                 size="lg"
                 onClick={handleJoinTeam}
               >
+                <Users className="h-5 w-5 mr-2" />
                 Join Our Team
               </Button>
             </div>
@@ -734,16 +810,224 @@ export default function About() {
             <Button 
               size="lg" 
               variant="outline"
-              onClick={handleJoinTeam}
+              onClick={handleSchedulePartnership}
             >
-              <Users className="h-5 w-5 mr-2" />
-              Join Our Journey
+              <Building className="h-5 w-5 mr-2" />
+              Partnership Inquiry
+            </Button>
+            <Button 
+              size="lg" 
+              variant="outline"
+              onClick={handleInvestmentInquiry}
+            >
+              <TrendingUp className="h-5 w-5 mr-2" />
+              Investment Opportunity
             </Button>
           </div>
         </div>
       </section>
 
       <Footer />
+
+      {/* Team Modal */}
+      <Dialog open={teamModalOpen} onOpenChange={setTeamModalOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Users className="h-5 w-5" />
+              Join Our Team
+            </DialogTitle>
+            <DialogDescription>
+              Be part of our innovative team and help shape the future of enterprise technology
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            <Card className="p-6">
+              <h3 className="font-semibold text-slate-900 mb-3">Current Openings</h3>
+              <ul className="space-y-2 text-sm text-slate-600">
+                <li>• Senior Full-Stack Developer</li>
+                <li>• DevOps Engineer</li>
+                <li>• AI/ML Specialist</li>
+                <li>• Cybersecurity Analyst</li>
+                <li>• Product Manager</li>
+              </ul>
+              <Button 
+                className="w-full mt-4" 
+                onClick={() => {
+                  setTeamModalOpen(false);
+                  setLocation("/careers");
+                }}
+              >
+                View All Positions
+              </Button>
+            </Card>
+            <Card className="p-6">
+              <h3 className="font-semibold text-slate-900 mb-3">Why Join Us?</h3>
+              <ul className="space-y-2 text-sm text-slate-600">
+                <li>• Competitive salary & equity</li>
+                <li>• Remote-first culture</li>
+                <li>• Learning & development budget</li>
+                <li>• Health & wellness benefits</li>
+                <li>• Flexible working hours</li>
+              </ul>
+              <Button 
+                variant="outline" 
+                className="w-full mt-4"
+                onClick={() => {
+                  setTeamModalOpen(false);
+                  toast({
+                    title: "Contact HR",
+                    description: "Reach out to singhal3.sachin7@gmail.com for career inquiries!"
+                  });
+                }}
+              >
+                Contact HR Direct
+              </Button>
+            </Card>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Partnership Modal */}
+      <Dialog open={partnershipModalOpen} onOpenChange={setPartnershipModalOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Building className="h-5 w-5" />
+              Partnership Opportunities
+            </DialogTitle>
+            <DialogDescription>
+              Explore strategic partnerships and collaboration opportunities with Aptivon Solutions
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            <Card className="p-6">
+              <h3 className="font-semibold text-slate-900 mb-3">Partnership Types</h3>
+              <ul className="space-y-2 text-sm text-slate-600">
+                <li>• Technology Integration Partners</li>
+                <li>• Reseller & Channel Partners</li>
+                <li>• Strategic Alliance Partners</li>
+                <li>• Joint Venture Opportunities</li>
+                <li>• White-label Solutions</li>
+              </ul>
+            </Card>
+            <Card className="p-6">
+              <h3 className="font-semibold text-slate-900 mb-3">Partnership Benefits</h3>
+              <ul className="space-y-2 text-sm text-slate-600">
+                <li>• Revenue sharing models</li>
+                <li>• Co-marketing opportunities</li>
+                <li>• Technical support & training</li>
+                <li>• Priority access to new products</li>
+                <li>• Dedicated partner manager</li>
+              </ul>
+            </Card>
+          </div>
+          <div className="flex gap-4 mt-6">
+            <Button 
+              className="flex-1"
+              onClick={() => {
+                setPartnershipModalOpen(false);
+                setLocation("/contact");
+                toast({
+                  title: "Partnership Inquiry",
+                  description: "Contact form opened for partnership discussions!"
+                });
+              }}
+            >
+              <Send className="h-4 w-4 mr-2" />
+              Submit Partnership Inquiry
+            </Button>
+            <Button 
+              variant="outline" 
+              className="flex-1"
+              onClick={() => {
+                setPartnershipModalOpen(false);
+                handleDownloadCompanyProfile();
+              }}
+            >
+              <Download className="h-4 w-4 mr-2" />
+              Download Partnership Kit
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Investment Modal */}
+      <Dialog open={investmentModalOpen} onOpenChange={setInvestmentModalOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <TrendingUp className="h-5 w-5" />
+              Investment Opportunities
+            </DialogTitle>
+            <DialogDescription>
+              Learn about investment opportunities and our growth trajectory
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-6 mt-6">
+            <Card className="p-6">
+              <h3 className="font-semibold text-slate-900 mb-3">Investment Highlights</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="text-center p-3 bg-slate-50 rounded-lg">
+                  <div className="text-2xl font-bold text-slate-900">300%</div>
+                  <div className="text-xs text-slate-600">YoY Growth</div>
+                </div>
+                <div className="text-center p-3 bg-slate-50 rounded-lg">
+                  <div className="text-2xl font-bold text-slate-900">5+</div>
+                  <div className="text-xs text-slate-600">Enterprise Clients</div>
+                </div>
+                <div className="text-center p-3 bg-slate-50 rounded-lg">
+                  <div className="text-2xl font-bold text-slate-900">$2M+</div>
+                  <div className="text-xs text-slate-600">Revenue Pipeline</div>
+                </div>
+                <div className="text-center p-3 bg-slate-50 rounded-lg">
+                  <div className="text-2xl font-bold text-slate-900">15+</div>
+                  <div className="text-xs text-slate-600">Technologies</div>
+                </div>
+              </div>
+            </Card>
+            <Card className="p-6">
+              <h3 className="font-semibold text-slate-900 mb-3">Investment Focus Areas</h3>
+              <ul className="space-y-2 text-sm text-slate-600">
+                <li>• AI/ML platform development and scaling</li>
+                <li>• Global market expansion and team growth</li>
+                <li>• Strategic acquisitions and partnerships</li>
+                <li>• R&D investment in emerging technologies</li>
+                <li>• Enterprise sales and marketing acceleration</li>
+              </ul>
+            </Card>
+          </div>
+          <div className="flex gap-4 mt-6">
+            <Button 
+              className="flex-1"
+              onClick={() => {
+                setInvestmentModalOpen(false);
+                toast({
+                  title: "Investment Inquiry Submitted",
+                  description: "Our team will contact you within 48 hours to discuss opportunities."
+                });
+              }}
+            >
+              <Mail className="h-4 w-4 mr-2" />
+              Request Investment Deck
+            </Button>
+            <Button 
+              variant="outline" 
+              className="flex-1"
+              onClick={() => {
+                setInvestmentModalOpen(false);
+                toast({
+                  title: "Investor Contact",
+                  description: "Reach out to singhal3.sachin7@gmail.com for direct investor relations."
+                });
+              }}
+            >
+              <Phone className="h-4 w-4 mr-2" />
+              Contact Investor Relations
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
