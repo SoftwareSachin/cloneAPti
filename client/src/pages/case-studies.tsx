@@ -55,7 +55,7 @@ const CASE_STUDIES_DATA = [
         { metric: "Patient wait time reduction", value: "45%" },
         { metric: "Operational efficiency increase", value: "60%" },
         { metric: "Patient satisfaction score", value: "4.8/5" },
-        { metric: "Cost savings annually", value: "$2.3M" }
+        { metric: "System uptime improvement", value: "99.9%" }
       ],
       technologies: ["React Native", "Node.js", "PostgreSQL", "AWS", "HL7 FHIR"],
       timeline: "8 months",
@@ -78,7 +78,7 @@ const CASE_STUDIES_DATA = [
         { metric: "Online sales increase", value: "150%" },
         { metric: "Site performance improvement", value: "300%" },
         { metric: "Customer engagement boost", value: "85%" },
-        { metric: "Revenue growth", value: "$15M" }
+        { metric: "Conversion rate improvement", value: "75%" }
       ],
       technologies: ["React", "Python", "TensorFlow", "MongoDB", "Kubernetes"],
       timeline: "12 months",
@@ -141,7 +141,7 @@ const METRICS_DATA = [
     { icon: TrendingUp, value: "250%", label: "Average ROI Delivered" },
     { icon: Clock, value: "40%", label: "Time-to-Market Improvement" },
     { icon: Users, value: "98%", label: "Client Satisfaction Rate" },
-    { icon: DollarSign, value: "$50M+", label: "Cost Savings Generated" }
+    { icon: DollarSign, value: "5+", label: "Projects Delivered" }
 ];
 
 export default function CaseStudies() {
