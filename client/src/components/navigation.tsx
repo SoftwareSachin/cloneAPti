@@ -48,27 +48,42 @@ export default function Navigation() {
           </a>
           
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-6">
-            <a href="/about" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium">About</a>
-            <a href="/services" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium">Services</a>
-            <a href="/solutions" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium">Solutions</a>
-            <a href="/industries" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium">Industries</a>
-            <a href="/portfolio" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium">Portfolio</a>
-            <a href="/blog" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium">Blog</a>
-            <a href="/case-studies" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium">Cases</a>
-            <a href="/resources" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium">Resources</a>
-            <a href="/support" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium">Support</a>
-            <a href="/careers" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium">Careers</a>
+          <div className="hidden xl:flex items-center space-x-4">
+            <a href="/about" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium text-sm">About</a>
+            <a href="/services" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium text-sm">Services</a>
+            <a href="/solutions" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium text-sm">Solutions</a>
+            <a href="/industries" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium text-sm">Industries</a>
+            <a href="/portfolio" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium text-sm">Portfolio</a>
+            <a href="/blog" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium text-sm">Blog</a>
+            <a href="/case-studies" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium text-sm">Cases</a>
+            <a href="/resources" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium text-sm">Resources</a>
+            <a href="/support" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium text-sm">Support</a>
+            <a href="/careers" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium text-sm">Careers</a>
             <a
               href="/contact"
-              className="bg-slate-900 hover:bg-slate-800 text-white px-6 py-2.5 rounded-lg font-medium transition-all duration-300 hover:shadow-lg"
+              className="bg-slate-900 hover:bg-slate-800 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:shadow-lg text-sm"
             >
-              Contact Us
+              Contact
+            </a>
+          </div>
+
+          {/* Tablet Navigation - Compact */}
+          <div className="hidden lg:flex xl:hidden items-center space-x-3">
+            <a href="/about" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium text-sm">About</a>
+            <a href="/services" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium text-sm">Services</a>
+            <a href="/portfolio" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium text-sm">Portfolio</a>
+            <a href="/blog" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium text-sm">Blog</a>
+            <a href="/resources" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium text-sm">Resources</a>
+            <a
+              href="/contact"
+              className="bg-slate-900 hover:bg-slate-800 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:shadow-lg text-sm"
+            >
+              Contact
             </a>
           </div>
 
           {/* Mobile menu button */}
-          <div className="lg:hidden">
+          <div className="xl:hidden">
             <Button
               variant="ghost"
               size="icon"
@@ -81,7 +96,7 @@ export default function Navigation() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="lg:hidden bg-white border-t border-slate-200 shadow-lg">
+          <div className="xl:hidden bg-white border-t border-slate-200 shadow-lg">
             <div className="px-6 py-4 space-y-2">
               <a href="/about" className="block py-2 text-slate-700 hover:text-slate-900 font-medium" onClick={() => setIsMenuOpen(false)}>About</a>
               <a href="/services" className="block py-2 text-slate-700 hover:text-slate-900 font-medium" onClick={() => setIsMenuOpen(false)}>Services</a>
