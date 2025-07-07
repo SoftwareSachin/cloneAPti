@@ -242,12 +242,12 @@ export default function Solutions() {
             <div className="p-6 bg-slate-50 rounded-lg">
               <Phone className="h-8 w-8 text-slate-900 mx-auto mb-3" />
               <h3 className="font-semibold text-slate-900 mb-2">Call Us</h3>
-              <p className="text-slate-600">+1 (555) 123-4567</p>
+              <p className="text-slate-600">+917852099010</p>
             </div>
             <div className="p-6 bg-slate-50 rounded-lg">
               <Mail className="h-8 w-8 text-slate-900 mx-auto mb-3" />
               <h3 className="font-semibold text-slate-900 mb-2">Email Us</h3>
-              <p className="text-slate-600">solutions@aptivon.com</p>
+              <p className="text-slate-600">singhal3.sachin7@gmail.com</p>
             </div>
             <div className="p-6 bg-slate-50 rounded-lg">
               <Calendar className="h-8 w-8 text-slate-900 mx-auto mb-3" />
