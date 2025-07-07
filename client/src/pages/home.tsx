@@ -62,9 +62,9 @@ export default function Home() {
   }, []);
 
   const [liveMetrics, setLiveMetrics] = useState({
-    activeProjects: 12,
-    clientsSatisfied: 150,
-    teamMembers: 75,
+    activeProjects: 5,
+    clientsSatisfied: 3,
+    teamMembers: 2,
     completionRate: 98.5
   });
 
@@ -74,8 +74,8 @@ export default function Home() {
       setLiveMetrics(prev => ({
         ...prev,
         // Small random fluctuations to simulate real-time data
-        activeProjects: Math.max(10, prev.activeProjects + Math.floor(Math.random() * 3) - 1),
-        clientsSatisfied: prev.clientsSatisfied + (Math.random() > 0.8 ? 1 : 0)
+        activeProjects: Math.max(3, prev.activeProjects + Math.floor(Math.random() * 3) - 1),
+        clientsSatisfied: prev.clientsSatisfied + (Math.random() > 0.9 ? 1 : 0)
       }));
     }, 30000);
     return () => clearInterval(interval);
