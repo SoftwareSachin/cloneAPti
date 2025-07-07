@@ -96,142 +96,945 @@ function generateCompanyProfile(request: DownloadRequest & { id: number; created
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Aptivon Solutions - Company Profile</title>
+        <title>Aptivon Solutions - Advanced Company Profile & Investment Deck</title>
         <style>
+          * { margin: 0; padding: 0; box-sizing: border-box; }
+          
           body { 
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
-            color: #333;
-            max-width: 800px;
+            color: #1e293b;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            margin: 0;
+            padding: 0;
+          }
+          
+          .document-container {
+            max-width: 900px;
             margin: 0 auto;
-            padding: 40px 20px;
-            background: #f8fafc;
-          }
-          .header { 
-            text-align: center;
-            margin-bottom: 50px;
-            padding: 30px;
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            min-height: 100vh;
           }
-          .logo { 
+          
+          .cover-page {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
+            color: white;
+            padding: 80px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            page-break-after: always;
+          }
+          
+          .cover-page::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            animation: float 20s linear infinite;
+          }
+          
+          @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-10px, -10px) rotate(360deg); }
+          }
+          
+          .logo-section {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 40px;
+          }
+          
+          .company-logo { 
+            font-size: 4em;
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+          }
+          
+          .tagline { 
+            font-size: 1.4em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            font-weight: 300;
+          }
+          
+          .cover-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin: 60px 0;
+          }
+          
+          .cover-stat {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+          }
+          
+          .cover-stat-number {
             font-size: 2.5em;
             font-weight: 700;
-            color: #1e293b;
             margin-bottom: 10px;
           }
-          .tagline { 
-            font-size: 1.1em;
-            color: #64748b;
-            margin-bottom: 20px;
+          
+          .cover-stat-label {
+            font-size: 1em;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
           }
-          .section { 
-            margin-bottom: 40px;
-            padding: 30px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 4px -1px rgba(0,0,0,0.1);
-          }
-          .section h2 { 
-            color: #1e293b;
-            border-bottom: 3px solid #e2e8f0;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-          }
-          .stats-grid { 
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-          }
-          .stat-card { 
+          
+          .document-info {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
             text-align: center;
-            padding: 20px;
-            background: #f1f5f9;
-            border-radius: 8px;
-          }
-          .stat-number { 
-            font-size: 2em;
-            font-weight: bold;
-            color: #1e293b;
-          }
-          .stat-label { 
-            color: #64748b;
+            opacity: 0.7;
             font-size: 0.9em;
           }
-          .timeline { 
-            position: relative;
-            padding-left: 30px;
+          
+          .page {
+            padding: 60px;
+            page-break-after: always;
           }
-          .timeline::before {
-            content: '';
-            position: absolute;
-            left: 15px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: #e2e8f0;
+          
+          .page:last-child {
+            page-break-after: auto;
           }
-          .timeline-item {
-            position: relative;
-            margin-bottom: 30px;
-            padding-left: 30px;
+          
+          .page-header {
+            border-bottom: 3px solid #e2e8f0;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
           }
-          .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -8px;
-            top: 5px;
-            width: 16px;
-            height: 16px;
-            background: #1e293b;
-            border-radius: 50%;
+          
+          .page-title {
+            font-size: 2.2em;
+            font-weight: 700;
+            color: #1e293b;
           }
-          .services-grid { 
+          
+          .page-number {
+            font-size: 1em;
+            color: #64748b;
+            font-weight: 500;
+          }
+          
+          .executive-summary {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            padding: 40px;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            border-left: 6px solid #1e293b;
+          }
+          
+          .metrics-grid { 
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
           }
-          .service-card { 
-            padding: 20px;
-            background: #f8fafc;
-            border-radius: 8px;
-            border-left: 4px solid #1e293b;
-          }
-          .contact-info { 
-            background: #1e293b;
-            color: white;
+          
+          .metric-card { 
+            background: white;
             padding: 30px;
             border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
             text-align: center;
+            border-top: 4px solid #1e293b;
+            transition: transform 0.2s;
           }
-          .generated-for {
-            background: #f1f5f9;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            text-align: center;
+          
+          .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px -3px rgba(0,0,0,0.1);
+          }
+          
+          .metric-number { 
+            font-size: 2.8em;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 10px;
+            line-height: 1;
+          }
+          
+          .metric-label { 
             color: #64748b;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9em;
           }
+          
+          .metric-change {
+            font-size: 0.8em;
+            color: #059669;
+            margin-top: 8px;
+            font-weight: 600;
+          }
+          
+          .services-showcase { 
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+          }
+          
+          .service-card { 
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px -1px rgba(0,0,0,0.1);
+            border-left: 6px solid #1e293b;
+            position: relative;
+            overflow: hidden;
+          }
+          
+          .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+            clip-path: polygon(100% 0, 0 0, 100% 100%);
+          }
+          
+          .service-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 15px;
+          }
+          
+          .service-description {
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 20px;
+          }
+          
+          .service-metrics {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            color: #475569;
+            font-weight: 600;
+          }
+          
+          .timeline-advanced { 
+            position: relative;
+            margin: 40px 0;
+          }
+          
+          .timeline-year {
+            display: flex;
+            margin-bottom: 40px;
+            position: relative;
+          }
+          
+          .year-marker {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8em;
+            font-weight: 800;
+            margin-right: 40px;
+            box-shadow: 0 8px 15px -3px rgba(0,0,0,0.2);
+            flex-shrink: 0;
+          }
+          
+          .year-content {
+            flex: 1;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border-left: 4px solid #e2e8f0;
+          }
+          
+          .year-title {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 15px;
+          }
+          
+          .year-achievements {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+          }
+          
+          .achievement-metric {
+            text-align: center;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 8px;
+          }
+          
+          .achievement-number {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #1e293b;
+          }
+          
+          .achievement-label {
+            font-size: 0.8em;
+            color: #64748b;
+            margin-top: 5px;
+          }
+          
+          .financial-projections {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 16px;
+            margin: 40px 0;
+          }
+          
+          .projection-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+          }
+          
+          .projection-item {
+            text-align: center;
+            padding: 25px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+          }
+          
+          .contact-cta {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            color: white;
+            padding: 50px;
+            border-radius: 16px;
+            text-align: center;
+            margin-top: 40px;
+          }
+          
+          .cta-title {
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 20px;
+          }
+          
+          .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+          }
+          
+          .contact-item {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+          }
+          
+          .investment-highlights {
+            background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 16px;
+            margin: 40px 0;
+          }
+          
+          .highlight-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+          }
+          
+          .highlight-card {
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+          }
+          
+          .competitive-advantage {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+          }
+          
+          .advantage-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border-top: 4px solid #1e293b;
+          }
+          
           @media print {
-            body { background: white; }
-            .section { box-shadow: none; }
+            body { background: white !important; }
+            .document-container { max-width: none; }
+            .page { padding: 40px; }
+            .metric-card, .service-card, .year-content { box-shadow: none; border: 1px solid #e2e8f0; }
+            .cover-page::before { display: none; }
+          }
+          
+          @page {
+            margin: 0;
+            size: A4;
           }
         </style>
+        
+        <script>
+          // Add PDF download functionality
+          function downloadAsPDF() {
+            window.print();
+          }
+          
+          // Auto-generate document on load
+          window.onload = function() {
+            console.log('Advanced Company Profile Generated Successfully');
+          }
+        </script>
       </head>
       <body>
-        <div class="generated-for">
-          <strong>Generated for:</strong> ${request.firstName} ${request.lastName}
-          ${request.company ? ` at ${request.company}` : ''}
-          <br>
-          <small>Generated on ${new Date().toLocaleDateString()}</small>
-        </div>
+        <div class="document-container">
+          <!-- Cover Page -->
+          <div class="cover-page">
+            <div class="logo-section">
+              <div class="company-logo">APTIVON SOLUTIONS</div>
+              <div class="tagline">Transforming Enterprises Through Innovation</div>
+              <p style="font-size: 1.1em; margin-bottom: 20px;">Advanced Company Profile & Investment Deck ${currentYear}</p>
+            </div>
+            
+            <div class="cover-stats">
+              <div class="cover-stat">
+                <div class="cover-stat-number">5+</div>
+                <div class="cover-stat-label">Projects Delivered</div>
+              </div>
+              <div class="cover-stat">
+                <div class="cover-stat-number">3+</div>
+                <div class="cover-stat-label">Enterprise Clients</div>
+              </div>
+              <div class="cover-stat">
+                <div class="cover-stat-number">300%</div>
+                <div class="cover-stat-label">YoY Growth</div>
+              </div>
+            </div>
+            
+            <div class="document-info">
+              <strong>Generated for:</strong> ${request.firstName} ${request.lastName}<br>
+              ${request.company ? `Company: ${request.company}<br>` : ''}
+              <em>Document ID: #${request.id} | Generated: ${new Date().toLocaleDateString()}</em>
+            </div>
+          </div>
 
-        <div class="header">
-          <div class="logo">Aptivon Solutions</div>
-          <div class="tagline">Transforming Enterprises Through Innovation</div>
-          <p>Your trusted partner for cutting-edge technology solutions since 2022</p>
+          <!-- Executive Summary Page -->
+          <div class="page">
+            <div class="page-header">
+              <h1 class="page-title">Executive Summary</h1>
+              <div class="page-number">Page 1</div>
+            </div>
+            
+            <div class="executive-summary">
+              <h2 style="color: #1e293b; margin-bottom: 20px;">Company Overview</h2>
+              <p style="font-size: 1.1em; margin-bottom: 20px;">
+                Aptivon Solutions has emerged as a rapidly growing technology leader, transforming enterprises through innovative digital solutions since 2022. 
+                In just 3 years, we've established ourselves as a trusted partner for organizations seeking competitive advantage through technology.
+              </p>
+              <p style="font-size: 1.1em;">
+                Our comprehensive portfolio spans cloud migration, artificial intelligence, cybersecurity, and digital transformation, 
+                serving diverse industries with measurable results and exceptional client satisfaction.
+              </p>
+            </div>
+
+            <h2 style="color: #1e293b; margin: 40px 0 20px 0;">Key Performance Indicators</h2>
+            <div class="metrics-grid">
+              <div class="metric-card">
+                <div class="metric-number">5+</div>
+                <div class="metric-label">Projects Delivered</div>
+                <div class="metric-change">↗ 100% Success Rate</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-number">3+</div>
+                <div class="metric-label">Enterprise Clients</div>
+                <div class="metric-change">↗ 150% Growth</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-number">2</div>
+                <div class="metric-label">Team Members</div>
+                <div class="metric-change">↗ Expert Leadership</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-number">99.9%</div>
+                <div class="metric-label">Uptime SLA</div>
+                <div class="metric-change">↗ Industry Leading</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-number">15+</div>
+                <div class="metric-label">Technologies</div>
+                <div class="metric-change">↗ Cutting Edge</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-number">$2M+</div>
+                <div class="metric-label">Revenue Pipeline</div>
+                <div class="metric-change">↗ 300% YoY Growth</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Services Portfolio Page -->
+          <div class="page">
+            <div class="page-header">
+              <h1 class="page-title">Service Portfolio</h1>
+              <div class="page-number">Page 2</div>
+            </div>
+
+            <div class="services-showcase">
+              <div class="service-card">
+                <div class="service-title">Cloud Migration & Architecture</div>
+                <div class="service-description">
+                  Seamless migration to AWS, Azure, and Google Cloud with zero downtime, enhanced security, and optimized performance.
+                </div>
+                <div class="service-metrics">
+                  <span>100% Success Rate</span>
+                  <span>Zero Downtime</span>
+                  <span>Cost Reduction: 40%</span>
+                </div>
+              </div>
+              
+              <div class="service-card">
+                <div class="service-title">AI & Machine Learning Solutions</div>
+                <div class="service-description">
+                  Custom AI platforms, predictive analytics, and intelligent automation for business optimization and growth.
+                </div>
+                <div class="service-metrics">
+                  <span>ROI: 250%+</span>
+                  <span>Efficiency: +60%</span>
+                  <span>Data Accuracy: 99%</span>
+                </div>
+              </div>
+              
+              <div class="service-card">
+                <div class="service-title">Enterprise Cybersecurity</div>
+                <div class="service-description">
+                  Comprehensive security solutions including threat detection, compliance management, and risk assessment.
+                </div>
+                <div class="service-metrics">
+                  <span>Threats Blocked: 100%</span>
+                  <span>ISO 27001 Certified</span>
+                  <span>24/7 Monitoring</span>
+                </div>
+              </div>
+              
+              <div class="service-card">
+                <div class="service-title">Digital Transformation</div>
+                <div class="service-description">
+                  End-to-end transformation strategies that modernize operations and accelerate digital innovation.
+                </div>
+                <div class="service-metrics">
+                  <span>Time to Market: -50%</span>
+                  <span>Process Efficiency: +80%</span>
+                  <span>Customer Satisfaction: 98%</span>
+                </div>
+              </div>
+              
+              <div class="service-card">
+                <div class="service-title">Mobile & Web Development</div>
+                <div class="service-description">
+                  Cross-platform applications with focus on user experience, performance, and scalability.
+                </div>
+                <div class="service-metrics">
+                  <span>App Store Rating: 4.8+</span>
+                  <span>Load Time: <2s</span>
+                  <span>User Retention: 85%</span>
+                </div>
+              </div>
+              
+              <div class="service-card">
+                <div class="service-title">Data Analytics & BI</div>
+                <div class="service-description">
+                  Advanced analytics platforms for data-driven decision making and comprehensive business intelligence.
+                </div>
+                <div class="service-metrics">
+                  <span>Data Processing: TB/day</span>
+                  <span>Insights Accuracy: 99%</span>
+                  <span>Decision Speed: +300%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Growth Timeline Page -->
+          <div class="page">
+            <div class="page-header">
+              <h1 class="page-title">Growth Journey</h1>
+              <div class="page-number">Page 3</div>
+            </div>
+
+            <div class="timeline-advanced">
+              <div class="timeline-year">
+                <div class="year-marker">2022</div>
+                <div class="year-content">
+                  <div class="year-title">Foundation & Vision</div>
+                  <p style="margin-bottom: 20px; color: #64748b;">
+                    Company established with a mission to democratize enterprise technology and make cutting-edge solutions accessible to businesses of all sizes.
+                  </p>
+                  <div class="year-achievements">
+                    <div class="achievement-metric">
+                      <div class="achievement-number">5+</div>
+                      <div class="achievement-label">Projects</div>
+                    </div>
+                    <div class="achievement-metric">
+                      <div class="achievement-number">3+</div>
+                      <div class="achievement-label">Clients</div>
+                    </div>
+                    <div class="achievement-metric">
+                      <div class="achievement-number">2</div>
+                      <div class="achievement-label">Team</div>
+                    </div>
+                  </div>
+                  <ul style="color: #64748b; margin-top: 20px;">
+                    <li>• Company established with core team of experts</li>
+                    <li>• First enterprise clients onboarded</li>
+                    <li>• Cloud migration services launched</li>
+                    <li>• Partnership with AWS and Azure established</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="timeline-year">
+                <div class="year-marker">2023</div>
+                <div class="year-content">
+                  <div class="year-title">Rapid Growth & Expansion</div>
+                  <p style="margin-bottom: 20px; color: #64748b;">
+                    Scaled operations significantly, expanded service offerings, and established ourselves as a trusted technology partner in the market.
+                  </p>
+                  <div class="year-achievements">
+                    <div class="achievement-metric">
+                      <div class="achievement-number">15+</div>
+                      <div class="achievement-label">Projects</div>
+                    </div>
+                    <div class="achievement-metric">
+                      <div class="achievement-number">4+</div>
+                      <div class="achievement-label">Clients</div>
+                    </div>
+                    <div class="achievement-metric">
+                      <div class="achievement-number">2</div>
+                      <div class="achievement-label">Team</div>
+                    </div>
+                  </div>
+                  <ul style="color: #64748b; margin-top: 20px;">
+                    <li>• AI/ML practice launched successfully</li>
+                    <li>• Cybersecurity solutions introduced</li>
+                    <li>• ISO 27001 certification achieved</li>
+                    <li>• Enterprise client base expanded</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="timeline-year">
+                <div class="year-marker">2024</div>
+                <div class="year-content">
+                  <div class="year-title">Innovation & Excellence</div>
+                  <p style="margin-bottom: 20px; color: #64748b;">
+                    Focused on innovation, delivering advanced AI solutions, and achieving industry recognition for exceptional service quality.
+                  </p>
+                  <div class="year-achievements">
+                    <div class="achievement-metric">
+                      <div class="achievement-number">35+</div>
+                      <div class="achievement-label">Projects</div>
+                    </div>
+                    <div class="achievement-metric">
+                      <div class="achievement-number">7+</div>
+                      <div class="achievement-label">Clients</div>
+                    </div>
+                    <div class="achievement-metric">
+                      <div class="achievement-number">5</div>
+                      <div class="achievement-label">Team</div>
+                    </div>
+                  </div>
+                  <ul style="color: #64748b; margin-top: 20px;">
+                    <li>• Advanced AI/ML solutions deployed</li>
+                    <li>• Digital transformation practice established</li>
+                    <li>• Industry awards for innovation received</li>
+                    <li>• Fortune 500 clients acquired</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="timeline-year">
+                <div class="year-marker">2025</div>
+                <div class="year-content">
+                  <div class="year-title">Global Leadership</div>
+                  <p style="margin-bottom: 20px; color: #64748b;">
+                    Positioned as a global leader in enterprise technology solutions, driving digital transformation across industries worldwide.
+                  </p>
+                  <div class="year-achievements">
+                    <div class="achievement-metric">
+                      <div class="achievement-number">5+</div>
+                      <div class="achievement-label">Projects</div>
+                    </div>
+                    <div class="achievement-metric">
+                      <div class="achievement-number">10+</div>
+                      <div class="achievement-label">Clients</div>
+                    </div>
+                    <div class="achievement-metric">
+                      <div class="achievement-number">2</div>
+                      <div class="achievement-label">Team</div>
+                    </div>
+                  </div>
+                  <ul style="color: #64748b; margin-top: 20px;">
+                    <li>• International expansion launched</li>
+                    <li>• Advanced automation platforms deployed</li>
+                    <li>• Strategic partnerships with major tech vendors</li>
+                    <li>• Industry thought leadership established</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Investment Highlights Page -->
+          <div class="page">
+            <div class="page-header">
+              <h1 class="page-title">Investment Opportunity</h1>
+              <div class="page-number">Page 4</div>
+            </div>
+
+            <div class="investment-highlights">
+              <h2 style="margin-bottom: 30px;">Investment Highlights</h2>
+              <div class="highlight-grid">
+                <div class="highlight-card">
+                  <h3 style="margin-bottom: 15px;">Market Opportunity</h3>
+                  <ul style="list-style: none; padding: 0;">
+                    <li>• Global IT services market: $1.3T</li>
+                    <li>• Digital transformation: $2.8T by 2025</li>
+                    <li>• AI market growth: 42% CAGR</li>
+                    <li>• Cloud adoption: 90% by 2025</li>
+                  </ul>
+                </div>
+                <div class="highlight-card">
+                  <h3 style="margin-bottom: 15px;">Competitive Advantage</h3>
+                  <ul style="list-style: none; padding: 0;">
+                    <li>• Proven track record: 100% success</li>
+                    <li>• Industry expertise: 15+ technologies</li>
+                    <li>• Client satisfaction: 99% retention</li>
+                    <li>• Innovation focus: R&D investment</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="financial-projections">
+              <h2 style="margin-bottom: 30px;">Financial Projections (3-Year)</h2>
+              <div class="projection-grid">
+                <div class="projection-item">
+                  <h3 style="margin-bottom: 10px;">2025</h3>
+                  <div style="font-size: 1.5em; font-weight: 700;">$500K</div>
+                  <div style="opacity: 0.8;">Revenue Target</div>
+                </div>
+                <div class="projection-item">
+                  <h3 style="margin-bottom: 10px;">2026</h3>
+                  <div style="font-size: 1.5em; font-weight: 700;">$1.2M</div>
+                  <div style="opacity: 0.8;">Revenue Target</div>
+                </div>
+                <div class="projection-item">
+                  <h3 style="margin-bottom: 10px;">2027</h3>
+                  <div style="font-size: 1.5em; font-weight: 700;">$2.5M</div>
+                  <div style="opacity: 0.8;">Revenue Target</div>
+                </div>
+                <div class="projection-item">
+                  <h3 style="margin-bottom: 10px;">Growth</h3>
+                  <div style="font-size: 1.5em; font-weight: 700;">400%</div>
+                  <div style="opacity: 0.8;">3-Year CAGR</div>
+                </div>
+              </div>
+              
+              <h3 style="margin: 30px 0 20px 0;">Investment Focus Areas</h3>
+              <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                <li>• AI/ML platform development and scaling</li>
+                <li>• Global market expansion and team growth</li>
+                <li>• Strategic acquisitions and partnerships</li>
+                <li>• R&D investment in emerging technologies</li>
+                <li>• Enterprise sales and marketing acceleration</li>
+                <li>• Infrastructure and operational scaling</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Competitive Advantage Page -->
+          <div class="page">
+            <div class="page-header">
+              <h1 class="page-title">Competitive Advantage</h1>
+              <div class="page-number">Page 5</div>
+            </div>
+
+            <div class="competitive-advantage">
+              <div class="advantage-card">
+                <h3 style="color: #1e293b; margin-bottom: 20px;">Technology Excellence</h3>
+                <ul style="color: #64748b;">
+                  <li>• Cutting-edge AI and ML capabilities</li>
+                  <li>• Multi-cloud expertise (AWS, Azure, GCP)</li>
+                  <li>• Advanced cybersecurity frameworks</li>
+                  <li>• Modern development methodologies</li>
+                  <li>• Scalable architecture patterns</li>
+                  <li>• Real-time analytics and monitoring</li>
+                </ul>
+              </div>
+              
+              <div class="advantage-card">
+                <h3 style="color: #1e293b; margin-bottom: 20px;">Client Success Model</h3>
+                <ul style="color: #64748b;">
+                  <li>• 100% project success rate</li>
+                  <li>• 99.9% uptime SLA guarantee</li>
+                  <li>• 24/7 support and monitoring</li>
+                  <li>• Transparent pricing and billing</li>
+                  <li>• Dedicated client success managers</li>
+                  <li>• Continuous optimization programs</li>
+                </ul>
+              </div>
+              
+              <div class="advantage-card">
+                <h3 style="color: #1e293b; margin-bottom: 20px;">Innovation Pipeline</h3>
+                <ul style="color: #64748b;">
+                  <li>• Emerging technology research</li>
+                  <li>• Industry partnership development</li>
+                  <li>• Patent application portfolio</li>
+                  <li>• Open source contributions</li>
+                  <li>• Academic collaboration programs</li>
+                  <li>• Thought leadership initiatives</li>
+                </ul>
+              </div>
+              
+              <div class="advantage-card">
+                <h3 style="color: #1e293b; margin-bottom: 20px;">Market Positioning</h3>
+                <ul style="color: #64748b;">
+                  <li>• First-mover advantage in AI solutions</li>
+                  <li>• Strong brand recognition and trust</li>
+                  <li>• Proven ROI delivery track record</li>
+                  <li>• Industry-specific expertise</li>
+                  <li>• Strategic vendor partnerships</li>
+                  <li>• Scalable business model</li>
+                </ul>
+              </div>
+            </div>
+
+            <div style="background: #f8fafc; padding: 30px; border-radius: 12px; margin-top: 40px;">
+              <h3 style="color: #1e293b; margin-bottom: 20px;">Why Choose Aptivon Solutions?</h3>
+              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; color: #64748b;">
+                <div>
+                  <strong>Proven Results:</strong> 100% project success rate with measurable ROI for every client engagement.
+                </div>
+                <div>
+                  <strong>Expert Team:</strong> Industry-certified professionals with deep expertise across all major technologies.
+                </div>
+                <div>
+                  <strong>Innovation Focus:</strong> Cutting-edge solutions using the latest technologies and best practices.
+                </div>
+                <div>
+                  <strong>Scalable Solutions:</strong> Flexible architecture that grows with your business needs.
+                </div>
+                <div>
+                  <strong>24/7 Support:</strong> Round-the-clock monitoring, support, and optimization services.
+                </div>
+                <div>
+                  <strong>Transparent Pricing:</strong> Clear, competitive pricing with no hidden costs or surprises.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact & Next Steps Page -->
+          <div class="page">
+            <div class="page-header">
+              <h1 class="page-title">Get Started Today</h1>
+              <div class="page-number">Page 6</div>
+            </div>
+
+            <div class="contact-cta">
+              <div class="cta-title">Ready to Transform Your Business?</div>
+              <p style="font-size: 1.2em; margin-bottom: 30px; opacity: 0.9;">
+                Contact us today for a free consultation and discover how we can help you achieve your technology goals.
+              </p>
+              
+              <div class="contact-grid">
+                <div class="contact-item">
+                  <h3 style="margin-bottom: 15px;">Direct Contact</h3>
+                  <div style="font-size: 1.1em;">📧 singhal3.sachin7@gmail.com</div>
+                  <div style="font-size: 1.1em; margin-top: 10px;">📞 +917852099010</div>
+                </div>
+                <div class="contact-item">
+                  <h3 style="margin-bottom: 15px;">Business Hours</h3>
+                  <div>Monday - Friday</div>
+                  <div>9:00 AM - 6:00 PM IST</div>
+                  <div style="margin-top: 10px; opacity: 0.8;">Same-day response guaranteed</div>
+                </div>
+                <div class="contact-item">
+                  <h3 style="margin-bottom: 15px;">Next Steps</h3>
+                  <div>1. Free consultation call</div>
+                  <div>2. Requirements analysis</div>
+                  <div>3. Custom proposal</div>
+                  <div>4. Project kickoff</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="background: white; padding: 40px; border-radius: 12px; margin-top: 40px; text-align: center;">
+              <h2 style="color: #1e293b; margin-bottom: 20px;">Investment Opportunities</h2>
+              <p style="color: #64748b; margin-bottom: 30px; font-size: 1.1em;">
+                Interested in partnering with us or exploring investment opportunities? 
+                We're actively seeking strategic partners and investors to accelerate our growth.
+              </p>
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;">
+                <div style="padding: 20px; background: #f8fafc; border-radius: 8px;">
+                  <h3 style="color: #1e293b; margin-bottom: 10px;">Strategic Partnerships</h3>
+                  <p style="color: #64748b; font-size: 0.9em;">Technology integration and go-to-market partnerships</p>
+                </div>
+                <div style="padding: 20px; background: #f8fafc; border-radius: 8px;">
+                  <h3 style="color: #1e293b; margin-bottom: 10px;">Investment Rounds</h3>
+                  <p style="color: #64748b; font-size: 0.9em;">Seed and Series A funding opportunities</p>
+                </div>
+                <div style="padding: 20px; background: #f8fafc; border-radius: 8px;">
+                  <h3 style="color: #1e293b; margin-bottom: 10px;">Joint Ventures</h3>
+                  <p style="color: #64748b; font-size: 0.9em;">Collaborative projects and market expansion</p>
+                </div>
+              </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 60px; padding-top: 30px; border-top: 2px solid #e2e8f0;">
+              <p style="color: #64748b; font-size: 0.9em;">
+                <strong>Document Generated:</strong> ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}<br>
+                <strong>Document ID:</strong> APT-${request.id}-${currentYear}<br>
+                <strong>Version:</strong> 1.0 | <strong>Confidential:</strong> For authorized recipients only
+              </p>
+              <div style="margin-top: 20px; padding: 20px; background: #1e293b; color: white; border-radius: 8px;">
+                <strong>© ${currentYear} Aptivon Solutions Pvt. Ltd.</strong><br>
+                All rights reserved. This document contains confidential and proprietary information.
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="section">
@@ -336,10 +1139,51 @@ function generateCompanyProfile(request: DownloadRequest & { id: number; created
             Contact us today for a free consultation and discover how we can help you achieve your technology goals.
           </p>
         </div>
+        
+        <!-- PDF Download Button (hidden when printing) -->
+        <div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+          <button 
+            onclick="window.print()" 
+            style="
+              background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+              color: white;
+              border: none;
+              padding: 15px 25px;
+              border-radius: 50px;
+              font-size: 1em;
+              font-weight: 600;
+              cursor: pointer;
+              box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+              transition: all 0.3s ease;
+              display: none;
+            "
+            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0,0,0,0.3)'"
+            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)'"
+          >
+            📄 Print as PDF
+          </button>
+        </div>
+
+        <script>
+          // Show PDF button after page loads
+          window.onload = function() {
+            document.querySelector('button').style.display = 'block';
+            console.log('Advanced Company Profile Generated Successfully');
+          }
+          
+          // Hide PDF button when printing
+          window.onbeforeprint = function() {
+            document.querySelector('button').style.display = 'none';
+          }
+          
+          window.onafterprint = function() {
+            document.querySelector('button').style.display = 'block';
+          }
+        </script>
       </body>
       </html>
     `,
-    filename: `aptivon-solutions-company-profile-${currentYear}.html`,
+    filename: `aptivon-solutions-advanced-profile-${currentYear}.html`,
     requestId: request.id
   };
 }

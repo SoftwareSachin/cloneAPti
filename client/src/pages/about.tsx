@@ -47,7 +47,7 @@ const JOURNEY_TIMELINE = [
       "Cloud migration services launched",
       "Partnership with AWS and Azure established"
     ],
-    metrics: { projects: "25+", clients: "10+", team: "5" }
+    metrics: { projects: "5+", clients: "3+", team: "2" }
   },
   {
     year: "2023", 
@@ -594,7 +594,7 @@ export default function About() {
                   disabled={downloadRequests.length > 0}
                 >
                   <Download className="h-4 w-4 mr-2" />
-                  {downloadRequests.length > 0 ? 'Preparing...' : 'Download PDF'}
+                  {downloadRequests.length > 0 ? 'Preparing...' : 'Download Advanced Profile'}
                 </Button>
               </CardContent>
             </Card>
