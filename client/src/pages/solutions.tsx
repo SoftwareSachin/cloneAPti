@@ -309,7 +309,7 @@ export default function Solutions() {
             {/* Stats Row */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
               <div className="text-center">
-                <div className="text-3xl font-bold text-slate-900 mb-2">150+</div>
+                <div className="text-3xl font-bold text-slate-900 mb-2">5+</div>
                 <div className="text-slate-600">Projects Delivered</div>
               </div>
               <div className="text-center">
