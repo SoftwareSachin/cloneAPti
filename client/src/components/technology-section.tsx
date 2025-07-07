@@ -25,7 +25,7 @@ export default function TechnologySection() {
   };
 
   const handleViewArchitectureExamples = () => {
-    setLocation("/case-studies");
+    setLocation("/architecture");
   };
 
   const technologies = [
