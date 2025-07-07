@@ -61,7 +61,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         message: 'Company profile generated successfully',
         downloadUrl: '/company-profile.html',
         profile: companyProfile,
-        requestId: newRequest.id
+        requestId: newRequest.id,
+        success: true
       });
     }
 
@@ -80,8 +81,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   } catch (error: any) {
     console.error('Company profile API error:', error);
     return res.status(500).json({ 
-      message: 'Internal server error',
-      error: error.message 
+      message: 'Internal server error - failed to generate company profile',
+      error: error.message,
+      success: false
     });
   }
 }
@@ -512,9 +514,19 @@ function generateCompanyProfile(request: DownloadRequest & { id: number; created
             window.print();
           }
           
+          // Add download button for PDF conversion
+          function addDownloadButton() {
+            const downloadBtn = document.createElement('button');
+            downloadBtn.innerHTML = '📄 Download as PDF';
+            downloadBtn.style.cssText = 'position:fixed;top:20px;right:20px;z-index:1000;background:#1e293b;color:white;border:none;padding:10px 20px;border-radius:8px;cursor:pointer;font-family:inherit;';
+            downloadBtn.onclick = downloadAsPDF;
+            document.body.appendChild(downloadBtn);
+          }
+          
           // Auto-generate document on load
           window.onload = function() {
             console.log('Advanced Company Profile Generated Successfully');
+            addDownloadButton();
           }
         </script>
       </head>
@@ -763,15 +775,15 @@ function generateCompanyProfile(request: DownloadRequest & { id: number; created
                   </p>
                   <div class="year-achievements">
                     <div class="achievement-metric">
-                      <div class="achievement-number">35+</div>
+                      <div class="achievement-number">5+</div>
                       <div class="achievement-label">Projects</div>
                     </div>
                     <div class="achievement-metric">
-                      <div class="achievement-number">7+</div>
+                      <div class="achievement-number">3+</div>
                       <div class="achievement-label">Clients</div>
                     </div>
                     <div class="achievement-metric">
-                      <div class="achievement-number">5</div>
+                      <div class="achievement-number">2</div>
                       <div class="achievement-label">Team</div>
                     </div>
                   </div>
@@ -797,7 +809,7 @@ function generateCompanyProfile(request: DownloadRequest & { id: number; created
                       <div class="achievement-label">Projects</div>
                     </div>
                     <div class="achievement-metric">
-                      <div class="achievement-number">10+</div>
+                      <div class="achievement-number">3+</div>
                       <div class="achievement-label">Clients</div>
                     </div>
                     <div class="achievement-metric">

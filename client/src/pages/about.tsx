@@ -318,30 +318,45 @@ export default function About() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to generate company profile');
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || `Server error: ${response.status}`);
       }
 
       const result = await response.json();
       
+      if (!result.success) {
+        throw new Error(result.message || 'Server returned unsuccessful response');
+      }
+
+      if (!result.profile || !result.profile.document) {
+        throw new Error('Document generation failed - missing document data');
+      }
+
       // Create and download the HTML file
       const blob = new Blob([result.profile.document], { type: 'text/html' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = result.profile.filename;
+      a.download = result.profile.filename || `aptivon-company-profile-${Date.now()}.html`;
+      a.style.display = 'none';
       document.body.appendChild(a);
       a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+      
+      // Clean up
+      setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 100);
 
       toast({
         title: "Download Complete!",
-        description: "Company profile has been downloaded successfully!",
+        description: "Advanced company profile has been downloaded successfully. The document is ready to print as PDF!",
       });
-    } catch (error) {
+    } catch (error: any) {
+      console.error('Company profile download error:', error);
       toast({
         title: "Download Error",
-        description: "Failed to download company profile. Please try again.",
+        description: error.message || "Failed to download company profile. Please try again.",
         variant: "destructive"
       });
     }
