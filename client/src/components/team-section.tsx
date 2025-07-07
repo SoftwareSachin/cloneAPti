@@ -21,51 +21,19 @@ import {
 const teamMembers = [
   {
     id: 1,
-    name: "Sarah Chen",
+    name: "Sachin",
     role: "Chief Technology Officer",
     title: "Technical Lead",
-    avatar: "SC",
-    expertise: ["Cloud Architecture", "AI/ML Systems", "DevOps Excellence"],
-    experience: "12+ years",
+    avatar: "S",
+    expertise: ["Full-Stack Development", "Cloud Architecture", "System Design"],
+    experience: "8+ years",
     icon: Cpu,
-    achievements: ["AWS Solutions Architect Professional", "Former Google Senior Engineer", "Patents in Distributed Systems"],
-    background: "Architected cloud infrastructure serving 50M+ users at Google. Led engineering teams building next-generation AI platforms and scalable microservices architectures.",
-    specialization: "Enterprise Cloud Solutions",
+    achievements: ["AWS Solutions Architect", "Full-Stack Development Expert", "Enterprise System Architecture"],
+    background: "Experienced technology leader with expertise in building scalable web applications and cloud infrastructure. Specialized in modern web technologies and enterprise solution architecture.",
+    specialization: "Full-Stack & Cloud Solutions",
     gradient: "from-blue-500 to-cyan-600",
     accentColor: "blue",
-    metrics: { projects: "150+", teams: "20+", systems: "50M+" }
-  },
-  {
-    id: 2,
-    name: "Marcus Rodriguez",
-    role: "VP of Product Strategy",
-    title: "Senior Product Manager",
-    avatar: "MR",
-    expertise: ["Enterprise Strategy", "Digital Transformation", "Market Innovation"],
-    experience: "10+ years",
-    icon: Target,
-    achievements: ["Microsoft Distinguished PM", "Harvard MBA", "Product Leader of the Year 2023"],
-    background: "Scaled B2B SaaS products from $10M to $100M+ ARR at Microsoft. Expert in enterprise digital transformation and strategic product roadmapping for Fortune 500 companies.",
-    specialization: "Strategic Product Leadership",
-    gradient: "from-emerald-500 to-teal-600",
-    accentColor: "emerald",
-    metrics: { revenue: "$100M+", products: "25+", clients: "500+" }
-  },
-  {
-    id: 3,
-    name: "Priya Sharma",
-    role: "Head of Customer Success",
-    title: "Product Manager",
-    avatar: "PS",
-    expertise: ["Customer Experience", "Data Analytics", "Growth Strategy"],
-    experience: "9+ years",
-    icon: Shield,
-    achievements: ["Amazon Principal PM", "Stanford MS", "Customer Success Excellence Award"],
-    background: "Drove customer-centric product innovations at Amazon, managing P&L for $200M+ product lines. Specialized in leveraging data analytics to optimize user experiences and drive growth.",
-    specialization: "Customer-Centric Innovation",
-    gradient: "from-violet-500 to-purple-600",
-    accentColor: "violet",
-    metrics: { satisfaction: "98%", retention: "95%", growth: "300%" }
+    metrics: { projects: "100+", teams: "10+", systems: "25+" }
   }
 ];
 
@@ -93,7 +61,7 @@ export default function TeamSection() {
 
 
         {/* Team grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 gap-8 max-w-2xl mx-auto">
           {teamMembers.map((member) => {
             const IconComponent = member.icon;
             return (
@@ -105,8 +73,12 @@ export default function TeamSection() {
                   {/* Profile header */}
                   <div className="text-center mb-6">
                     <div className="relative mx-auto mb-4">
-                      <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-xl font-bold shadow-lg mx-auto">
-                        {member.avatar}
+                      <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-xl font-bold shadow-lg mx-auto overflow-hidden">
+                        <img 
+                          src="/sachin-cto.gif" 
+                          alt="Sachin - CTO" 
+                          className="w-full h-full object-cover"
+                        />
                       </div>
                       <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-white rounded-xl shadow-lg flex items-center justify-center border border-gray-100">
                         <IconComponent className="w-4 h-4 text-primary" />
@@ -189,7 +161,7 @@ export default function TeamSection() {
               ))}
             </div>
             <div className="h-4 w-px bg-gray-200"></div>
-            <span className="text-gray-700 font-medium">Driving innovation with proven expertise</span>
+            <span className="text-gray-700 font-medium">Leading technology innovation</span>
           </div>
         </div>
       </div>
