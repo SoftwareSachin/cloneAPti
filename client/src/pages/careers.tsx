@@ -98,7 +98,7 @@ export default function Careers() {
 
     try {
       // Submit application to API
-      const response = await fetch('/api/job-application', {
+      const response = await fetch('/api/forms?action=job-application', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

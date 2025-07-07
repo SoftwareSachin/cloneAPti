@@ -297,7 +297,7 @@ export default function CaseStudies() {
     setIsSubmittingContact(true);
 
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch("/api/forms?action=contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

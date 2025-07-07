@@ -344,7 +344,7 @@ export default function Services() {
   // Submit service inquiry
   const inquiryMutation = useMutation({
     mutationFn: async (data: ServiceInquiry) => {
-      const response = await fetch('/api/services?type=inquiry', {
+      const response = await fetch('/api/business?action=solution-inquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -383,7 +383,7 @@ export default function Services() {
   // Submit consultation request
   const consultationMutation = useMutation({
     mutationFn: async (data: ConsultationRequest) => {
-      const response = await fetch('/api/services?type=consultation', {
+      const response = await fetch('/api/business?action=consultation-request', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)

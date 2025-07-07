@@ -151,7 +151,7 @@ export default function Solutions() {
 
   // Fetch solutions from API
   const { data: solutionsData, isLoading, error } = useQuery({
-    queryKey: ['/api/solutions', { category: selectedCategory, search: searchTerm }],
+    queryKey: ['/api/business?action=solution-inquiries', { category: selectedCategory, search: searchTerm }],
     queryFn: async () => {
       const params = new URLSearchParams({
         type: 'solutions',
@@ -159,7 +159,7 @@ export default function Solutions() {
         ...(searchTerm && { search: searchTerm })
       });
       
-      const response = await fetch(`/api/solutions?${params}`);
+      const response = await fetch(`/api/business?action=solution-inquiries&${params}`);
       if (!response.ok) throw new Error('Failed to fetch solutions');
       return response.json();
     }
@@ -168,7 +168,7 @@ export default function Solutions() {
   // Submit solution inquiry
   const inquiryMutation = useMutation({
     mutationFn: async (data: SolutionInquiry) => {
-      const response = await fetch('/api/solutions?type=inquiry', {
+      const response = await fetch('/api/business?action=solution-inquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -193,7 +193,7 @@ export default function Solutions() {
         timeline: "",
         currentChallenges: ""
       });
-      queryClient.invalidateQueries({ queryKey: ['/api/solutions'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/business?action=solution-inquiries'] });
     },
     onError: () => {
       toast({
@@ -207,7 +207,7 @@ export default function Solutions() {
   // Submit consultation request
   const consultationMutation = useMutation({
     mutationFn: async (data: ConsultationRequest) => {
-      const response = await fetch('/api/solutions?type=consultation', {
+      const response = await fetch('/api/business?action=consultation-request', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -231,7 +231,7 @@ export default function Solutions() {
         preferredTime: "",
         message: ""
       });
-      queryClient.invalidateQueries({ queryKey: ['/api/solutions'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/business?action=solution-inquiries'] });
     },
     onError: () => {
       toast({

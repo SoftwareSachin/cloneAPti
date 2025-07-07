@@ -92,7 +92,7 @@ export default function Portfolio() {
   const { data: projects = [], isLoading, error } = useQuery({
     queryKey: ['/api/portfolio-projects'],
     queryFn: async () => {
-      const response = await fetch('/api/portfolio-projects');
+      const response = await fetch('/api/portfolio?action=projects');
       if (!response.ok) {
         throw new Error('Failed to fetch projects');
       }
@@ -102,7 +102,7 @@ export default function Portfolio() {
 
   const likeMutation = useMutation({
     mutationFn: async (projectId: number) => {
-      const response = await fetch('/api/portfolio-like', {
+      const response = await fetch('/api/portfolio?action=like', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ projectId }),
@@ -165,7 +165,7 @@ export default function Portfolio() {
 
   const portfolioInquiryMutation = useMutation({
     mutationFn: async (inquiryData: any) => {
-      const response = await fetch('/api/portfolio-inquiry', {
+      const response = await fetch('/api/portfolio?action=inquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(inquiryData),

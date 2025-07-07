@@ -287,7 +287,7 @@ export default function Industries() {
 
   const consultationMutation = useMutation({
     mutationFn: async (data: any) => {
-      const response = await fetch('/api/industry-consultation', {
+      const response = await fetch('/api/business?action=consultation-request', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)

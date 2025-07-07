@@ -23,13 +23,13 @@ export default function Blog() {
 
   // Fetch blog posts from API
   const { data: allPosts = [], isLoading } = useQuery<BlogPost[]>({
-    queryKey: ['/api/blog-posts']
+    queryKey: ['/api/blog?action=posts']
   });
 
   // Newsletter subscription mutation
   const subscriptionMutation = useMutation({
     mutationFn: async (email: string) => {
-      return apiRequest('POST', '/api/blog-subscribe', { email });
+      return apiRequest('POST', '/api/blog?action=subscribe', { email });
     },
     onSuccess: () => {
       toast({

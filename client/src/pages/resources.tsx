@@ -538,7 +538,7 @@ export default function Resources() {
     setNewsletterMessage("");
 
     try {
-      const response = await fetch("/api/newsletter", {
+      const response = await fetch("/api/forms?action=newsletter", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -49,7 +49,7 @@ export default function PortfolioProject() {
 
   // Fetch project details
   const { data: project, isLoading } = useQuery({
-    queryKey: [`/api/portfolio-project/${slug}`],
+    queryKey: [`/api/portfolio?action=project&slug=${slug}`],
     enabled: !!slug
   });
 
@@ -57,7 +57,7 @@ export default function PortfolioProject() {
   const likeMutation = useMutation({
     mutationFn: async () => {
       if (!project) return;
-      return apiRequest('POST', '/api/portfolio-like', {
+      return apiRequest('POST', '/api/portfolio?action=like', {
         projectId: project.id
       });
     },

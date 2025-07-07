@@ -30,12 +30,12 @@ export default function BlogPostPage() {
 
   // Fetch blog post
   const { data: post, isLoading: postLoading } = useQuery<BlogPost>({
-    queryKey: [`/api/blog-post/${slug}`]
+    queryKey: [`/api/blog?action=post&slug=${slug}`]
   });
 
   // Fetch comments
   const { data: comments = [] } = useQuery<BlogComment[]>({
-    queryKey: [`/api/blog-comments/${post?.id}`],
+    queryKey: [`/api/blog?action=comments&postId=${post?.id}`],
     enabled: !!post?.id
   });
 
@@ -43,7 +43,7 @@ export default function BlogPostPage() {
   const likeMutation = useMutation({
     mutationFn: async () => {
       if (!post) return;
-      return apiRequest('POST', '/api/blog-like', { postId: post.id });
+      return apiRequest('POST', '/api/blog?action=like', { postId: post.id });
     },
     onSuccess: () => {
       setLiked(true);
@@ -51,7 +51,7 @@ export default function BlogPostPage() {
         title: "Post Liked!",
         description: "Thank you for your feedback.",
       });
-      queryClient.invalidateQueries({ queryKey: [`/api/blog-post/${slug}`] });
+      queryClient.invalidateQueries({ queryKey: [`/api/blog?action=post&slug=${slug}`] });
     }
   });
 
@@ -59,7 +59,7 @@ export default function BlogPostPage() {
   const commentMutation = useMutation({
     mutationFn: async (commentData: typeof commentForm) => {
       if (!post) return;
-      return apiRequest('POST', '/api/blog-comments', {
+      return apiRequest('POST', '/api/blog?action=comment', {
         ...commentData,
         postId: post.id
       });
@@ -70,7 +70,7 @@ export default function BlogPostPage() {
         description: "Your comment is pending approval.",
       });
       setCommentForm({ author: "", email: "", content: "" });
-      queryClient.invalidateQueries({ queryKey: [`/api/blog-comments/${post?.id}`] });
+      queryClient.invalidateQueries({ queryKey: [`/api/blog?action=comments&postId=${post?.id}`] });
     }
   });
 

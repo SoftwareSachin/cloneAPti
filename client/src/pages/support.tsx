@@ -210,7 +210,7 @@ export default function Support() {
 
     setIsSearching(true);
     try {
-      const response = await fetch(`/api/search-support?q=${encodeURIComponent(query.trim())}`);
+      const response = await fetch(`/api/search?action=support&q=${encodeURIComponent(query.trim())}`);
       const data = await response.json();
       
       if (data.success) {

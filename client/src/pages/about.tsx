@@ -170,7 +170,7 @@ export default function About() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: any) => {
-      const response = await fetch('/api/about-inquiry', {
+      const response = await fetch('/api/business?action=about-inquiry', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -207,7 +207,7 @@ export default function About() {
 
   const newsletterMutation = useMutation({
     mutationFn: async (email: string) => {
-      const response = await fetch('/api/newsletter', {
+      const response = await fetch('/api/forms?action=newsletter', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -309,7 +309,7 @@ export default function About() {
         description: "Please wait while we prepare your document...",
       });
 
-      const response = await fetch('/api/company-profile', {
+      const response = await fetch('/api/business?action=company-profile', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

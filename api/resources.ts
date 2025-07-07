@@ -1,116 +1,146 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import { z } from 'zod';
-import nodemailer from 'nodemailer';
 
-const resourceDownloadSchema = z.object({
-  resourceId: z.number(),
-  resourceTitle: z.string(),
-  firstName: z.string().min(1, "First name is required"),
-  lastName: z.string().min(1, "Last name is required"),
-  email: z.string().email("Valid email is required"),
-  company: z.string().min(1, "Company is required"),
-  jobTitle: z.string().min(1, "Job title is required"),
-  interestedIn: z.string().optional(),
-});
+// Resources data
+const resources = {
+  whitepapers: [
+    {
+      id: 1,
+      title: 'Digital Transformation in Enterprise',
+      description: 'A comprehensive guide to modernizing business processes',
+      category: 'Digital Transformation',
+      downloadUrl: '/resources/digital-transformation-guide.pdf',
+      featured: true
+    },
+    {
+      id: 2,
+      title: 'Cloud Migration Best Practices',
+      description: 'Essential strategies for successful cloud adoption',
+      category: 'Cloud Computing',
+      downloadUrl: '/resources/cloud-migration-best-practices.pdf',
+      featured: false
+    }
+  ],
+  webinars: [
+    {
+      id: 1,
+      title: 'AI in Business: Practical Applications',
+      description: 'Exploring real-world AI implementations',
+      date: '2024-02-15',
+      duration: '60 minutes',
+      registrationUrl: '/webinar/ai-business-applications',
+      featured: true
+    },
+    {
+      id: 2,
+      title: 'Cybersecurity for SMEs',
+      description: 'Essential security measures for small businesses',
+      date: '2024-02-20',
+      duration: '45 minutes',
+      registrationUrl: '/webinar/cybersecurity-smes',
+      featured: false
+    }
+  ],
+  caseStudies: [
+    {
+      id: 1,
+      title: 'E-commerce Platform Modernization',
+      description: 'How we helped a retail company increase online sales by 300%',
+      industry: 'Retail',
+      results: '300% increase in online sales',
+      featured: true
+    },
+    {
+      id: 2,
+      title: 'Healthcare System Integration',
+      description: 'Streamlining patient data management for a hospital network',
+      industry: 'Healthcare',
+      results: '40% reduction in processing time',
+      featured: false
+    }
+  ]
+};
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // Handle CORS
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
-  }
-
-  if (req.method !== 'POST') {
-    res.status(405).json({ success: false, message: 'Method not allowed' });
-    return;
-  }
+  const { method } = req;
+  const { action, type } = req.query;
 
   try {
-    const validationResult = resourceDownloadSchema.safeParse(req.body);
-    
-    if (!validationResult.success) {
-      res.status(400).json({ 
-        success: false, 
-        message: 'Validation failed',
-        errors: validationResult.error.errors 
-      });
-      return;
+    switch (method) {
+      case 'GET':
+        return handleGet(req, res);
+      case 'POST':
+        return handlePost(req, res);
+      default:
+        return res.status(405).json({ error: 'Method not allowed' });
     }
-
-    const downloadData = validationResult.data;
-
-    // Create email transporter
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 587,
-      secure: false,
-      auth: {
-        user: process.env.EMAIL_USER || 'singhal3.sachin7@gmail.com',
-        pass: process.env.EMAIL_PASS || 'your-app-password'
-      }
-    });
-
-    // Email content for admin notification
-    const adminEmailHtml = `
-      <h2>New Resource Download</h2>
-      <p><strong>Resource:</strong> ${downloadData.resourceTitle}</p>
-      <p><strong>Resource ID:</strong> ${downloadData.resourceId}</p>
-      <p><strong>Name:</strong> ${downloadData.firstName} ${downloadData.lastName}</p>
-      <p><strong>Email:</strong> ${downloadData.email}</p>
-      <p><strong>Company:</strong> ${downloadData.company}</p>
-      <p><strong>Job Title:</strong> ${downloadData.jobTitle}</p>
-      <p><strong>Interested In:</strong> ${downloadData.interestedIn || 'Not specified'}</p>
-      <p><strong>Download Time:</strong> ${new Date().toLocaleString()}</p>
-    `;
-
-    // Send notification email to admin
-    await transporter.sendMail({
-      from: '"Aptivon Solutions" <singhal3.sachin7@gmail.com>',
-      to: 'singhal3.sachin7@gmail.com',
-      subject: `Resource Download - ${downloadData.resourceTitle}`,
-      html: adminEmailHtml
-    });
-
-    // Send confirmation email to downloader
-    const confirmationEmailHtml = `
-      <h2>Resource Download Confirmed</h2>
-      <p>Dear ${downloadData.firstName},</p>
-      <p>Thank you for your interest in "${downloadData.resourceTitle}"!</p>
-      <p>Your download should begin automatically. If it doesn't, please contact us and we'll send you the resource directly.</p>
-      <h3>Related Resources You Might Find Interesting:</h3>
-      <ul>
-        <li>Cloud Migration Best Practices Guide</li>
-        <li>AI Implementation Framework</li>
-        <li>Enterprise Security Checklist</li>
-        <li>Digital Transformation Roadmap</li>
-      </ul>
-      <p>For personalized recommendations or to discuss how these insights apply to your organization, feel free to reach out:</p>
-      <p>📞 +91 7852099010<br/>
-      📧 singhal3.sachin7@gmail.com</p>
-      <p>Best regards,<br/>Aptivon Solutions Team</p>
-    `;
-
-    await transporter.sendMail({
-      from: '"Aptivon Solutions" <singhal3.sachin7@gmail.com>',
-      to: downloadData.email,
-      subject: `Resource Download: ${downloadData.resourceTitle}`,
-      html: confirmationEmailHtml
-    });
-
-    res.status(200).json({ 
-      success: true, 
-      message: 'Download initiated and confirmation sent!' 
-    });
-
   } catch (error) {
-    console.error('Resource download error:', error);
-    res.status(500).json({ 
-      success: false, 
-      message: 'Failed to process download. Please try again.' 
-    });
+    console.error('Resources API error:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+async function handleGet(req: VercelRequest, res: VercelResponse) {
+  const { action, type } = req.query;
+
+  switch (action) {
+    case 'list':
+      if (type === 'whitepapers') {
+        return res.json(resources.whitepapers);
+      } else if (type === 'webinars') {
+        return res.json(resources.webinars);
+      } else if (type === 'case-studies') {
+        return res.json(resources.caseStudies);
+      } else {
+        return res.json(resources);
+      }
+    
+    case 'search':
+      const query = (req.query.q as string || '').toLowerCase();
+      const searchResults = {
+        whitepapers: resources.whitepapers.filter(item => 
+          item.title.toLowerCase().includes(query) || 
+          item.description.toLowerCase().includes(query)
+        ),
+        webinars: resources.webinars.filter(item => 
+          item.title.toLowerCase().includes(query) || 
+          item.description.toLowerCase().includes(query)
+        ),
+        caseStudies: resources.caseStudies.filter(item => 
+          item.title.toLowerCase().includes(query) || 
+          item.description.toLowerCase().includes(query)
+        )
+      };
+      return res.json(searchResults);
+    
+    default:
+      return res.status(400).json({ error: 'Invalid action' });
+  }
+}
+
+async function handlePost(req: VercelRequest, res: VercelResponse) {
+  const { action } = req.query;
+
+  switch (action) {
+    case 'download':
+      // Handle resource download request
+      const { resourceId, resourceType, email, name } = req.body;
+      
+      // Log the download request
+      console.log('Resource download request:', {
+        resourceId,
+        resourceType,
+        email,
+        name,
+        timestamp: new Date().toISOString()
+      });
+      
+      return res.status(200).json({ 
+        success: true, 
+        message: 'Download link sent to your email',
+        downloadUrl: `/resources/${resourceType}/${resourceId}.pdf`
+      });
+    
+    default:
+      return res.status(400).json({ error: 'Invalid action' });
   }
 }

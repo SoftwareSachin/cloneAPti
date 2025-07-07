@@ -27,7 +27,7 @@ export default function WebinarModal({ isOpen, onClose, webinar }: WebinarModalP
     setMessage("");
 
     try {
-      const response = await fetch("/api/webinar-registration", {
+      const response = await fetch("/api/forms?action=webinar-registration", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

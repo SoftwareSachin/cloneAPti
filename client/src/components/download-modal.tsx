@@ -25,7 +25,7 @@ export default function DownloadModal({ isOpen, onClose, resource }: DownloadMod
     setMessage("");
 
     try {
-      const response = await fetch("/api/resources", {
+      const response = await fetch("/api/resources?action=download", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
