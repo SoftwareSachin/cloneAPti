@@ -56,7 +56,7 @@ export default function ContactSection() {
     {
       icon: Mail,
       title: "Email",
-      value: "info@aptivonsolutions.com"
+      value: "singhal3.sachin7@gmail.com"
     },
     {
       icon: Phone,

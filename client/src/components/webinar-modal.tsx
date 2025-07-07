@@ -156,7 +156,7 @@ export default function WebinarModal({ isOpen, onClose, webinar }: WebinarModalP
               type="tel"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              placeholder="+1 (555) 123-4567"
+              placeholder="+917852099010"
             />
           </div>
 
