@@ -261,7 +261,7 @@ Website: aptivonsolutions.com
               </span>
             </h2>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              Experience transparency like never before with real-time insights into our ongoing projects and performance metrics
+              Experience transparency like never before with our comprehensive analytics dashboard
             </p>
           </div>
 
@@ -362,7 +362,7 @@ Website: aptivonsolutions.com
               </span>
             </h2>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              Get started with Aptivon Solutions instantly - every button works and connects you directly to our services
+              Get started with Aptivon Solutions instantly with our comprehensive service offerings
             </p>
           </div>
           
