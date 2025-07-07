@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
+import { Link } from "wouter";
 import { 
   Phone, 
   Mail, 
@@ -27,7 +28,34 @@ import {
   ChevronDown,
   ChevronUp,
   ExternalLink,
-  Loader2
+  Loader2,
+  X,
+  Send,
+  Minimize2,
+  Maximize2,
+  Download,
+  Star,
+  Filter,
+  Calendar,
+  MapPin,
+  Globe,
+  Shield,
+  Zap,
+  Headphones,
+  FileCheck,
+  Clock3,
+  MessageSquare,
+  Lightbulb,
+  AlertTriangle,
+  ThumbsUp,
+  Copy,
+  Share2,
+  Bookmark,
+  PriorityIcon,
+  Settings,
+  Database,
+  Code,
+  Gamepad2
 } from "lucide-react";
 
 // Form validation schema
