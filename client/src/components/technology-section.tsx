@@ -22,49 +22,37 @@ export default function TechnologySection() {
       title: "Cloud Infrastructure",
       icon: Server,
       items: ["AWS, Azure, GCP", "Kubernetes Orchestration", "Serverless Computing", "Multi-Cloud Strategy"],
-      gradient: "from-blue-500 to-cyan-600",
-      metrics: { value: "99.9%", label: "Uptime" },
-      accentColor: "blue"
+      metrics: { value: "99.9%", label: "Uptime" }
     },
     {
       title: "Development Frameworks",
       icon: Code,
       items: ["React, Next.js", "Node.js, Python", "TypeScript", "Microservices"],
-      gradient: "from-emerald-500 to-teal-600",
-      metrics: { value: "50%", label: "Faster Dev" },
-      accentColor: "emerald"
+      metrics: { value: "50%", label: "Faster Dev" }
     },
     {
       title: "Data & Analytics",
       icon: Database,
       items: ["PostgreSQL, MongoDB", "Redis Caching", "Data Warehouses", "Real-time Analytics"],
-      gradient: "from-violet-500 to-purple-600",
-      metrics: { value: "10TB+", label: "Data/Day" },
-      accentColor: "violet"
+      metrics: { value: "10TB+", label: "Data/Day" }
     },
     {
       title: "Security & Compliance",
       icon: Shield,
       items: ["Zero-Trust Architecture", "OAuth 2.0, SAML", "SOC 2 Compliance", "End-to-End Encryption"],
-      gradient: "from-red-500 to-pink-600",
-      metrics: { value: "0", label: "Breaches" },
-      accentColor: "red"
+      metrics: { value: "0", label: "Breaches" }
     },
     {
       title: "DevOps Automation",
       icon: Layers,
       items: ["CI/CD Pipelines", "Infrastructure as Code", "Monitoring & Logging", "Auto-Scaling"],
-      gradient: "from-amber-500 to-orange-600",
-      metrics: { value: "85%", label: "Automation" },
-      accentColor: "amber"
+      metrics: { value: "85%", label: "Automation" }
     },
     {
       title: "Performance Optimization",
       icon: Cpu,
       items: ["Load Balancing", "CDN Optimization", "Database Indexing", "Caching Strategies"],
-      gradient: "from-pink-500 to-rose-600",
-      metrics: { value: "3x", label: "Speed Boost" },
-      accentColor: "pink"
+      metrics: { value: "3x", label: "Speed Boost" }
     }
   ];
 
@@ -111,23 +99,23 @@ export default function TechnologySection() {
           {technologies.map((tech, index) => (
             <Card key={tech.title} className="bg-white border-0 shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden group">
               <CardContent className="p-0">
-                <div className={`h-1 bg-gradient-to-r ${tech.gradient}`}></div>
+                <div className="h-1 bg-slate-900"></div>
                 <div className="p-8">
                   {/* Header */}
                   <div className="flex items-start justify-between mb-6">
                     <div className="flex items-center gap-4">
-                      <div className={`w-12 h-12 bg-gradient-to-r ${tech.gradient} rounded-lg flex items-center justify-center`}>
+                      <div className="w-12 h-12 bg-slate-900 rounded-lg flex items-center justify-center">
                         <tech.icon className="w-6 h-6 text-white" />
                       </div>
                       <div>
                         <h3 className="text-lg font-bold text-slate-900 mb-1">{tech.title}</h3>
-                        <Badge variant="secondary" className={`bg-${tech.accentColor}-50 text-${tech.accentColor}-700 border-${tech.accentColor}-200 text-xs`}>
+                        <Badge variant="secondary" className="bg-slate-100 text-slate-700 border-slate-200 text-xs">
                           {tech.metrics.label}
                         </Badge>
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className={`text-xl font-bold bg-gradient-to-r ${tech.gradient} bg-clip-text text-transparent`}>
+                      <div className="text-xl font-bold text-slate-900">
                         {tech.metrics.value}
                       </div>
                     </div>
@@ -137,7 +125,7 @@ export default function TechnologySection() {
                   <div className="space-y-3 mb-6">
                     {tech.items.map((item, idx) => (
                       <div key={idx} className="flex items-center gap-3">
-                        <CheckCircle className={`w-4 h-4 text-${tech.accentColor}-500 flex-shrink-0`} />
+                        <CheckCircle className="w-4 h-4 text-slate-600 flex-shrink-0" />
                         <span className="text-sm text-slate-700 font-medium">{item}</span>
                       </div>
                     ))}

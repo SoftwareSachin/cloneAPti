@@ -23,36 +23,28 @@ export default function AdvancedCapabilities() {
       title: "AI & Machine Learning Excellence",
       description: "Transform your business with intelligent automation, predictive analytics, and cutting-edge AI solutions.",
       features: ["Deep Learning Models", "Natural Language Processing", "Computer Vision", "Predictive Analytics"],
-      metrics: { value: "95%", label: "Accuracy Rate" },
-      color: "from-violet-500 to-purple-600",
-      accentColor: "violet"
+      metrics: { value: "95%", label: "Accuracy Rate" }
     },
     {
       icon: Shield,
       title: "Zero-Trust Security Framework",
       description: "Enterprise-grade security architecture with advanced threat detection and comprehensive compliance.",
       features: ["Zero Trust Architecture", "Advanced Threat Detection", "SOC 2 Compliance", "Penetration Testing"],
-      metrics: { value: "99.9%", label: "Uptime SLA" },
-      color: "from-emerald-500 to-teal-600",
-      accentColor: "emerald"
+      metrics: { value: "99.9%", label: "Uptime SLA" }
     },
     {
       icon: Rocket,
       title: "Cloud-Native Transformation",
       description: "Accelerate your digital journey with modern cloud architectures and DevOps excellence.",
       features: ["Kubernetes Orchestration", "CI/CD Pipelines", "Infrastructure as Code", "Auto-Scaling"],
-      metrics: { value: "10x", label: "Faster Deployment" },
-      color: "from-blue-500 to-cyan-600",
-      accentColor: "blue"
+      metrics: { value: "10x", label: "Faster Deployment" }
     },
     {
       icon: Zap,
       title: "Real-Time Data Intelligence",
       description: "Unlock insights from your data with real-time processing, analytics, and business intelligence.",
       features: ["Real-Time Processing", "Data Warehousing", "Business Intelligence", "ETL Pipelines"],
-      metrics: { value: "< 100ms", label: "Response Time" },
-      color: "from-amber-500 to-orange-600",
-      accentColor: "amber"
+      metrics: { value: "< 100ms", label: "Response Time" }
     }
   ];
 
@@ -99,23 +91,23 @@ export default function AdvancedCapabilities() {
           {capabilities.map((capability, index) => (
             <Card key={capability.title} className="bg-white border-0 shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden group">
               <CardContent className="p-0">
-                <div className={`h-2 bg-gradient-to-r ${capability.color}`}></div>
+                <div className="h-2 bg-slate-900"></div>
                 <div className="p-8">
                   {/* Header */}
                   <div className="flex items-start justify-between mb-6">
                     <div className="flex items-center gap-4">
-                      <div className={`w-14 h-14 bg-gradient-to-r ${capability.color} rounded-xl flex items-center justify-center`}>
+                      <div className="w-14 h-14 bg-slate-900 rounded-xl flex items-center justify-center">
                         <capability.icon className="w-7 h-7 text-white" />
                       </div>
                       <div>
                         <h3 className="text-xl font-bold text-slate-900 mb-1">{capability.title}</h3>
-                        <Badge variant="secondary" className={`bg-${capability.accentColor}-50 text-${capability.accentColor}-700 border-${capability.accentColor}-200`}>
+                        <Badge variant="secondary" className="bg-slate-100 text-slate-700 border-slate-200">
                           {capability.metrics.label}
                         </Badge>
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className={`text-2xl font-bold bg-gradient-to-r ${capability.color} bg-clip-text text-transparent`}>
+                      <div className="text-2xl font-bold text-slate-900">
                         {capability.metrics.value}
                       </div>
                     </div>
@@ -130,7 +122,7 @@ export default function AdvancedCapabilities() {
                   <div className="grid grid-cols-2 gap-3 mb-6">
                     {capability.features.map((feature, idx) => (
                       <div key={idx} className="flex items-center gap-2">
-                        <div className={`w-2 h-2 bg-gradient-to-r ${capability.color} rounded-full`}></div>
+                        <div className="w-2 h-2 bg-slate-600 rounded-full"></div>
                         <span className="text-sm text-slate-700 font-medium">{feature}</span>
                       </div>
                     ))}

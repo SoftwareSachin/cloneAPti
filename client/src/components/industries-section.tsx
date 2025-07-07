@@ -25,54 +25,42 @@ export default function IndustriesSection() {
       icon: Building,
       description: "Secure fintech solutions, payment processing, and regulatory compliance systems.",
       features: ["Payment gateways", "Risk management", "Compliance automation"],
-      gradient: "from-blue-500 to-cyan-600",
-      metrics: { value: "5+", label: "Transactions/sec" },
-      accentColor: "blue"
+      metrics: { value: "5+", label: "Transactions/sec" }
     },
     {
       title: "Healthcare & Life Sciences",
       icon: Heart,
       description: "HIPAA-compliant platforms, telemedicine solutions, and clinical data management.",
       features: ["Patient portals", "EHR integration", "Clinical analytics"],
-      gradient: "from-emerald-500 to-teal-600",
-      metrics: { value: "99.9%", label: "HIPAA Compliance" },
-      accentColor: "emerald"
+      metrics: { value: "99.9%", label: "HIPAA Compliance" }
     },
     {
       title: "E-commerce & Retail",
       icon: ShoppingCart,
       description: "Scalable e-commerce platforms, inventory management, and customer analytics.",
       features: ["Multi-channel sales", "Inventory optimization", "Customer insights"],
-      gradient: "from-violet-500 to-purple-600",
-      metrics: { value: "300%", label: "Sales Increase" },
-      accentColor: "violet"
+      metrics: { value: "300%", label: "Sales Increase" }
     },
     {
       title: "Manufacturing & IoT",
       icon: Factory,
       description: "Smart factory solutions, predictive maintenance, and supply chain optimization.",
       features: ["IoT sensors", "Predictive analytics", "Supply chain tracking"],
-      gradient: "from-orange-500 to-red-600",
-      metrics: { value: "45%", label: "Cost Reduction" },
-      accentColor: "orange"
+      metrics: { value: "45%", label: "Cost Reduction" }
     },
     {
       title: "Media & Entertainment",
       icon: Video,
       description: "Content management systems, streaming platforms, and audience engagement tools.",
       features: ["Content delivery", "User engagement", "Analytics dashboards"],
-      gradient: "from-indigo-500 to-purple-600",
-      metrics: { value: "10M+", label: "Users Served" },
-      accentColor: "indigo"
+      metrics: { value: "10M+", label: "Users Served" }
     },
     {
       title: "Startups & SaaS",
       icon: Rocket,
       description: "MVP development, scalable architectures, and rapid market deployment strategies.",
       features: ["Rapid prototyping", "Scalable infrastructure", "Market validation"],
-      gradient: "from-pink-500 to-rose-600",
-      metrics: { value: "2-8x", label: "Faster Launch" },
-      accentColor: "pink"
+      metrics: { value: "2-8x", label: "Faster Launch" }
     }
   ];
 
@@ -119,23 +107,23 @@ export default function IndustriesSection() {
           {industries.map((industry, index) => (
             <Card key={industry.title} className="bg-white border-0 shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden group h-full">
               <CardContent className="p-0">
-                <div className={`h-1 bg-gradient-to-r ${industry.gradient}`}></div>
+                <div className="h-1 bg-slate-900"></div>
                 <div className="p-8 h-full flex flex-col">
                   {/* Header */}
                   <div className="flex items-start justify-between mb-6">
                     <div className="flex items-center gap-4">
-                      <div className={`w-12 h-12 bg-gradient-to-r ${industry.gradient} rounded-lg flex items-center justify-center`}>
+                      <div className="w-12 h-12 bg-slate-900 rounded-lg flex items-center justify-center">
                         <industry.icon className="w-6 h-6 text-white" />
                       </div>
                       <div>
                         <h3 className="text-lg font-bold text-slate-900 mb-1">{industry.title}</h3>
-                        <Badge variant="secondary" className={`bg-${industry.accentColor}-50 text-${industry.accentColor}-700 border-${industry.accentColor}-200 text-xs`}>
+                        <Badge variant="secondary" className="bg-slate-100 text-slate-700 border-slate-200 text-xs">
                           {industry.metrics.label}
                         </Badge>
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className={`text-lg font-bold bg-gradient-to-r ${industry.gradient} bg-clip-text text-transparent`}>
+                      <div className="text-lg font-bold text-slate-900">
                         {industry.metrics.value}
                       </div>
                     </div>
@@ -150,7 +138,7 @@ export default function IndustriesSection() {
                   <div className="space-y-3 mb-6">
                     {industry.features.map((feature, idx) => (
                       <div key={idx} className="flex items-center gap-3">
-                        <CheckCircle className={`w-4 h-4 text-${industry.accentColor}-500 flex-shrink-0`} />
+                        <CheckCircle className="w-4 h-4 text-slate-600 flex-shrink-0" />
                         <span className="text-sm text-slate-700 font-medium">{feature}</span>
                       </div>
                     ))}

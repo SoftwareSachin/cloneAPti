@@ -425,20 +425,15 @@ Website: aptivonsolutions.com
       </section>
 
       {/* Enhanced Quick Actions Section */}
-      <section className="py-24 bg-gradient-to-br from-white via-slate-50/30 to-blue-50/30 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full opacity-20">
-          <div className="absolute top-40 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-40 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
-        </div>
-        
-        <div className="relative max-w-7xl mx-auto px-6">
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full mb-6 border border-slate-200/60">
-              <Zap className="w-4 h-4 text-purple-600" />
-              <span className="text-sm font-medium text-slate-700">Instant Actions</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-full mb-6">
+              <Zap className="w-4 h-4" />
+              <span className="text-sm font-medium">Instant Actions</span>
             </div>
             <h2 className="text-5xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-slate-900 to-purple-600 bg-clip-text text-transparent">
+              <span className="text-slate-900">
                 Quick Actions
               </span>
             </h2>
@@ -449,14 +444,10 @@ Website: aptivonsolutions.com
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {quickActions.map((action, index) => (
-              <Card key={index} className="group relative overflow-hidden bg-white/80 backdrop-blur-xl border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 cursor-pointer">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <Card key={index} className="group relative overflow-hidden bg-white border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 cursor-pointer">
+                <div className="absolute inset-0 bg-slate-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <CardHeader className="relative z-10 text-center pb-4">
-                  <div className={`w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 transition-all duration-300 ${
-                    index === 0 ? 'bg-gradient-to-r from-blue-500 to-blue-600 group-hover:from-blue-600 group-hover:to-blue-700' :
-                    index === 1 ? 'bg-gradient-to-r from-purple-500 to-purple-600 group-hover:from-purple-600 group-hover:to-purple-700' :
-                    'bg-gradient-to-r from-emerald-500 to-emerald-600 group-hover:from-emerald-600 group-hover:to-emerald-700'
-                  }`}>
+                  <div className="w-20 h-20 bg-slate-900 rounded-2xl flex items-center justify-center mx-auto mb-6 transition-all duration-300 group-hover:bg-slate-800">
                     <action.icon className="w-10 h-10 text-white" />
                   </div>
                   <CardTitle className="text-2xl font-bold text-slate-900 mb-2">{action.title}</CardTitle>
@@ -468,11 +459,7 @@ Website: aptivonsolutions.com
                       e.stopPropagation();
                       action.action();
                     }}
-                    className={`w-full py-4 text-lg font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 ${
-                      index === 0 ? 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800' :
-                      index === 1 ? 'bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800' :
-                      'bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800'
-                    } text-white`}
+                    className="w-full py-4 text-lg font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 bg-slate-900 hover:bg-slate-800 text-white"
                   >
                     {action.title}
                     <ArrowRight className="w-5 h-5 ml-2" />
