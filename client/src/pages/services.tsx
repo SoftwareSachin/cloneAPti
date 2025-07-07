@@ -796,10 +796,11 @@ export default function Services() {
               <Button 
                 variant="outline" 
                 size="lg"
-                className="border-white text-white hover:bg-white hover:text-slate-900"
+                className="border-white text-white hover:bg-white hover:text-slate-900 bg-transparent"
+                style={{ color: 'white', borderColor: 'white' }}
                 onClick={handleDownloadPortfolio}
               >
-                <Download className="h-5 w-5 mr-2" />
+                <Download className="h-5 w-5 mr-2" style={{ color: 'white' }} />
                 Download Service Portfolio
               </Button>
             </div>
