@@ -20,6 +20,12 @@ const Careers = lazy(() => import("@/pages/careers"));
 const Blog = lazy(() => import("@/pages/blog"));
 const Contact = lazy(() => import("@/pages/contact"));
 
+// Legal pages
+const PrivacyPolicy = lazy(() => import("@/pages/privacy-policy"));
+const TermsOfService = lazy(() => import("@/pages/terms-of-service"));
+const CookiePolicy = lazy(() => import("@/pages/cookie-policy"));
+const Security = lazy(() => import("@/pages/security"));
+
 // Loading component
 function Loading() {
   return (
@@ -89,6 +95,26 @@ function Router() {
       <Route path="/contact">
         <Suspense fallback={<Loading />}>
           <Contact />
+        </Suspense>
+      </Route>
+      <Route path="/privacy-policy">
+        <Suspense fallback={<Loading />}>
+          <PrivacyPolicy />
+        </Suspense>
+      </Route>
+      <Route path="/terms-of-service">
+        <Suspense fallback={<Loading />}>
+          <TermsOfService />
+        </Suspense>
+      </Route>
+      <Route path="/cookie-policy">
+        <Suspense fallback={<Loading />}>
+          <CookiePolicy />
+        </Suspense>
+      </Route>
+      <Route path="/security">
+        <Suspense fallback={<Loading />}>
+          <Security />
         </Suspense>
       </Route>
       <Route component={NotFound} />
