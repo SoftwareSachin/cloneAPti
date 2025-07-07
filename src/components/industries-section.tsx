@@ -77,8 +77,8 @@ export default function IndustriesSection() {
   ];
 
   const industryStats = [
-    { icon: Globe, value: "50+", label: "Industries Served", color: "text-blue-600" },
-    { icon: TrendingUp, value: "800+", label: "Projects Delivered", color: "text-green-600" },
+    { icon: Globe, value: "5+", label: "Industries Served", color: "text-blue-600" },
+    { icon: TrendingUp, value: "5+", label: "Projects Delivered", color: "text-green-600" },
     { icon: Award, value: "98%", label: "Client Satisfaction", color: "text-purple-600" },
     { icon: BarChart3, value: "150%", label: "Avg. ROI Increase", color: "text-orange-600" }
   ];

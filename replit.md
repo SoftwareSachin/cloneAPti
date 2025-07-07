@@ -109,6 +109,7 @@ This is a modern, responsive company website for Aptivon Solutions Pvt. Ltd., an
   * Reduced team members in team section from 3 to 2 key members
   * Updated milestone metrics in company history to reflect growth progression
   * Updated live metrics dashboard: 150 clients to 3, 75 team members to 2
+  * Updated industries section: 50+ Industries Served to 5+, 800+ Projects Delivered to 5+
 ```
 Changelog:
 - July 06, 2025. Initial setup
