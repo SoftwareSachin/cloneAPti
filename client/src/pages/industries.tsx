@@ -453,8 +453,7 @@ export default function Industries() {
                         {testimonial.industry}
                       </Badge>
                     </div>
-                    <div className="flex items-center justify-between text-sm text-slate-500">
-                      <span>Value: {testimonial.projectValue}</span>
+                    <div className="flex items-center justify-center text-sm text-slate-500">
                       <span>Timeline: {testimonial.timeline}</span>
                     </div>
                   </div>
@@ -696,19 +695,13 @@ export default function Industries() {
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <Card>
                           <CardContent className="p-4 text-center">
-                            <div className="text-2xl font-bold text-blue-600">{analytics.projects}</div>
-                            <div className="text-sm text-slate-600">Projects Completed</div>
-                          </CardContent>
-                        </Card>
-                        <Card>
-                          <CardContent className="p-4 text-center">
-                            <div className="text-2xl font-bold text-green-600">{analytics.avgROI}</div>
+                            <div className="text-2xl font-bold text-blue-600">{analytics.avgROI}</div>
                             <div className="text-sm text-slate-600">Average ROI</div>
                           </CardContent>
                         </Card>
                         <Card>
                           <CardContent className="p-4 text-center">
-                            <div className="text-2xl font-bold text-yellow-600">
+                            <div className="text-2xl font-bold text-green-600">
                               {analytics.satisfactionScore}/5.0
                             </div>
                             <div className="text-sm text-slate-600">Client Satisfaction</div>
@@ -716,10 +709,16 @@ export default function Industries() {
                         </Card>
                         <Card>
                           <CardContent className="p-4 text-center">
-                            <div className="text-2xl font-bold text-purple-600">
+                            <div className="text-2xl font-bold text-yellow-600">
                               {analytics.compliance.length}
                             </div>
                             <div className="text-sm text-slate-600">Compliance Standards</div>
+                          </CardContent>
+                        </Card>
+                        <Card>
+                          <CardContent className="p-4 text-center">
+                            <div className="text-2xl font-bold text-purple-600">100%</div>
+                            <div className="text-sm text-slate-600">Success Rate</div>
                           </CardContent>
                         </Card>
                       </div>
