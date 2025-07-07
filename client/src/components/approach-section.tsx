@@ -3,11 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { 
   TrendingUp, 
-  Search, 
-  Zap, 
-  Shield, 
-  Users, 
-  Settings,
+  Database, 
+  Code, 
+  Cog, 
+  Rocket, 
+  BarChart,
   ArrowRight,
   CheckCircle,
   Clock,
@@ -20,63 +20,51 @@ export default function ApproachSection() {
   const approaches = [
     {
       number: "1",
-      title: "Discovery & Planning",
-      description: "Deep dive workshops to understand objectives, existing architecture, and constraints.",
-      icon: Search,
-      gradient: "from-blue-500 to-cyan-600",
-      accentColor: "blue",
+      title: "Requirements Analysis",
+      description: "Comprehensive understanding of business objectives, technical constraints, and user needs.",
+      icon: Database,
       duration: "1-2 weeks",
-      deliverables: ["Requirements Analysis", "Technical Architecture", "Project Roadmap"]
+      deliverables: ["Business Requirements", "Technical Specifications", "User Stories"]
     },
     {
       number: "2", 
-      title: "Agile Execution",
-      description: "Break work into prioritized sprints with regular demos and feedback loops.",
-      icon: Zap,
-      gradient: "from-emerald-500 to-teal-600",
-      accentColor: "emerald",
-      duration: "2-8 weeks",
-      deliverables: ["Sprint Demos", "Working Software", "Continuous Integration"]
+      title: "System Architecture",
+      description: "Design scalable, maintainable architecture with modern best practices and patterns.",
+      icon: Code,
+      duration: "2-3 weeks",
+      deliverables: ["Architecture Blueprints", "Technology Stack", "Integration Plan"]
     },
     {
       number: "3",
-      title: "Quality Assurance", 
-      description: "Automated testing at every layer and continuous code reviews for reliability.",
-      icon: CheckCircle,
-      gradient: "from-violet-500 to-purple-600",
-      accentColor: "violet",
-      duration: "Ongoing",
-      deliverables: ["Test Automation", "Code Reviews", "Performance Testing"]
+      title: "Implementation & Development", 
+      description: "Agile development process with continuous integration and iterative delivery.",
+      icon: Cog,
+      duration: "4-12 weeks",
+      deliverables: ["Core Features", "API Development", "User Interface"]
     },
     {
       number: "4",
-      title: "Security by Design",
-      description: "Embed security best practices with DevSecOps and compliance checks.",
-      icon: Shield,
-      gradient: "from-red-500 to-pink-600",
-      accentColor: "red",
-      duration: "Integrated",
-      deliverables: ["Security Audits", "Compliance Reports", "Vulnerability Assessment"]
+      title: "Testing & Optimization",
+      description: "Comprehensive testing strategy ensuring reliability, performance, and security.",
+      icon: Target,
+      duration: "2-3 weeks",
+      deliverables: ["Quality Assurance", "Performance Testing", "Security Audit"]
     },
     {
       number: "5",
-      title: "Knowledge Transfer",
-      description: "Comprehensive documentation and training to empower your team.",
-      icon: Users,
-      gradient: "from-amber-500 to-orange-600",
-      accentColor: "amber",
-      duration: "1 week",
-      deliverables: ["Documentation", "Training Sessions", "Best Practices Guide"]
+      title: "Deployment & Launch",
+      description: "Seamless deployment with monitoring, documentation, and team training.",
+      icon: Rocket,
+      duration: "1-2 weeks",
+      deliverables: ["Production Deployment", "Documentation", "Team Training"]
     },
     {
       number: "6",
-      title: "Continuous Support",
-      description: "Ongoing maintenance and optimization for sustained performance.",
-      icon: Settings,
-      gradient: "from-indigo-500 to-purple-600",
-      accentColor: "indigo",
+      title: "Analytics & Maintenance",
+      description: "Ongoing monitoring, performance optimization, and feature enhancement.",
+      icon: BarChart,
       duration: "Ongoing",
-      deliverables: ["24/7 Monitoring", "Performance Optimization", "Feature Updates"]
+      deliverables: ["Performance Monitoring", "Regular Updates", "Feature Enhancements"]
     }
   ];
 
@@ -123,20 +111,20 @@ export default function ApproachSection() {
           {approaches.map((approach, index) => (
             <Card key={approach.number} className="bg-white border-0 shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden group h-full">
               <CardContent className="p-0">
-                <div className={`h-1 bg-gradient-to-r ${approach.gradient}`}></div>
+                <div className="h-1 bg-slate-900"></div>
                 <div className="p-8 h-full flex flex-col">
                   {/* Header */}
                   <div className="flex items-start justify-between mb-6">
                     <div className="flex items-center gap-4">
-                      <div className={`w-12 h-12 bg-gradient-to-r ${approach.gradient} rounded-lg flex items-center justify-center relative`}>
+                      <div className="w-12 h-12 bg-slate-900 rounded-lg flex items-center justify-center relative">
                         <approach.icon className="w-6 h-6 text-white" />
-                        <div className="absolute -top-2 -right-2 w-6 h-6 bg-slate-900 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                        <div className="absolute -top-2 -right-2 w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
                           {approach.number}
                         </div>
                       </div>
                       <div>
                         <h3 className="text-lg font-bold text-slate-900 mb-1">{approach.title}</h3>
-                        <Badge variant="secondary" className={`bg-${approach.accentColor}-50 text-${approach.accentColor}-700 border-${approach.accentColor}-200 text-xs`}>
+                        <Badge variant="secondary" className="bg-slate-100 text-slate-700 border-slate-200 text-xs">
                           {approach.duration}
                         </Badge>
                       </div>
@@ -153,7 +141,7 @@ export default function ApproachSection() {
                     <h4 className="text-sm font-semibold text-slate-900">Key Deliverables:</h4>
                     {approach.deliverables.map((deliverable, idx) => (
                       <div key={idx} className="flex items-center gap-3">
-                        <CheckCircle className={`w-4 h-4 text-${approach.accentColor}-500 flex-shrink-0`} />
+                        <CheckCircle className="w-4 h-4 text-slate-600 flex-shrink-0" />
                         <span className="text-sm text-slate-700 font-medium">{deliverable}</span>
                       </div>
                     ))}
@@ -181,7 +169,7 @@ export default function ApproachSection() {
               <div className="max-w-3xl mx-auto">
                 <div className="flex justify-center mb-6">
                   <div className="flex -space-x-2">
-                    {[Search, Zap, Shield, Users].map((Icon, index) => (
+                    {[Database, Code, Cog, Rocket].map((Icon, index) => (
                       <div key={index} className="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center border-2 border-white">
                         <Icon className="w-6 h-6 text-slate-700" />
                       </div>

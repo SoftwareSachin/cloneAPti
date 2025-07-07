@@ -3,11 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { 
   TrendingUp, 
-  Search, 
-  Zap, 
-  Shield, 
-  Users, 
-  Settings,
+  Database, 
+  Code, 
+  Cog, 
+  Rocket, 
+  BarChart,
   ArrowRight,
   CheckCircle,
   Clock,
@@ -20,63 +20,51 @@ export default function ApproachSection() {
   const approaches = [
     {
       number: "1",
-      title: "Discovery & Planning",
-      description: "Deep dive workshops to understand objectives, existing architecture, and constraints.",
-      icon: Search,
-      gradient: "from-blue-500 to-cyan-600",
-      accentColor: "blue",
+      title: "Requirements Analysis",
+      description: "Comprehensive understanding of business objectives, technical constraints, and user needs.",
+      icon: Database,
       duration: "1-2 weeks",
-      deliverables: ["Requirements Analysis", "Technical Architecture", "Project Roadmap"]
+      deliverables: ["Business Requirements", "Technical Specifications", "User Stories"]
     },
     {
       number: "2", 
-      title: "Agile Execution",
-      description: "Break work into prioritized sprints with regular demos and feedback loops.",
-      icon: Zap,
-      gradient: "from-emerald-500 to-teal-600",
-      accentColor: "emerald",
-      duration: "2-8 weeks",
-      deliverables: ["Sprint Demos", "Working Software", "Continuous Integration"]
+      title: "System Architecture",
+      description: "Design scalable, maintainable architecture with modern best practices and patterns.",
+      icon: Code,
+      duration: "2-3 weeks",
+      deliverables: ["Architecture Blueprints", "Technology Stack", "Integration Plan"]
     },
     {
       number: "3",
-      title: "Quality Assurance", 
-      description: "Automated testing at every layer and continuous code reviews for reliability.",
-      icon: CheckCircle,
-      gradient: "from-violet-500 to-purple-600",
-      accentColor: "violet",
-      duration: "Ongoing",
-      deliverables: ["Test Automation", "Code Reviews", "Performance Testing"]
+      title: "Implementation & Development", 
+      description: "Agile development process with continuous integration and iterative delivery.",
+      icon: Cog,
+      duration: "4-12 weeks",
+      deliverables: ["Core Features", "API Development", "User Interface"]
     },
     {
       number: "4",
-      title: "Security by Design",
-      description: "Embed security best practices with DevSecOps and compliance checks.",
-      icon: Shield,
-      gradient: "from-red-500 to-pink-600",
-      accentColor: "red",
-      duration: "Integrated",
-      deliverables: ["Security Audits", "Compliance Reports", "Vulnerability Assessment"]
+      title: "Testing & Optimization",
+      description: "Comprehensive testing strategy ensuring reliability, performance, and security.",
+      icon: Target,
+      duration: "2-3 weeks",
+      deliverables: ["Quality Assurance", "Performance Testing", "Security Audit"]
     },
     {
       number: "5",
-      title: "Knowledge Transfer",
-      description: "Comprehensive documentation and training to empower your team.",
-      icon: Users,
-      gradient: "from-amber-500 to-orange-600",
-      accentColor: "amber",
-      duration: "1 week",
-      deliverables: ["Documentation", "Training Sessions", "Best Practices Guide"]
+      title: "Deployment & Launch",
+      description: "Seamless deployment with monitoring, documentation, and team training.",
+      icon: Rocket,
+      duration: "1-2 weeks",
+      deliverables: ["Production Deployment", "Documentation", "Team Training"]
     },
     {
       number: "6",
-      title: "Continuous Support",
-      description: "Ongoing maintenance and optimization for sustained performance.",
-      icon: Settings,
-      gradient: "from-indigo-500 to-purple-600",
-      accentColor: "indigo",
+      title: "Analytics & Maintenance",
+      description: "Ongoing monitoring, performance optimization, and feature enhancement.",
+      icon: BarChart,
       duration: "Ongoing",
-      deliverables: ["24/7 Monitoring", "Performance Optimization", "Feature Updates"]
+      deliverables: ["Performance Monitoring", "Regular Updates", "Feature Enhancements"]
     }
   ];
 
@@ -88,65 +76,123 @@ export default function ApproachSection() {
   ];
 
   return (
-    <section id="approach" className="py-24 bg-gradient-to-br from-gray-50 to-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="approach" className="py-24 bg-white">
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Header */}
         <div className="text-center mb-20">
-          <div className="inline-block px-6 py-3 bg-primary/10 rounded-full mb-6">
-            <div className="flex items-center">
-              <TrendingUp className="w-4 h-4 text-primary mr-2" />
-              <span className="text-primary font-semibold text-sm">OUR METHODOLOGY</span>
-            </div>
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-full mb-6">
+            <TrendingUp className="w-4 h-4" />
+            <span className="font-medium text-sm">OUR METHODOLOGY</span>
           </div>
-          <h2 className="text-5xl font-bold text-primary-dark mb-6 font-display">Proven Approach</h2>
-          <p className="text-xl text-text-gray max-w-4xl mx-auto leading-relaxed">
-            A systematic methodology that ensures successful delivery, exceptional quality, and measurable long-term value for your business.
+          <h2 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6">
+            Proven <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Approach</span>
+          </h2>
+          <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
+            A systematic methodology that ensures successful delivery, exceptional quality, 
+            and measurable long-term value for your business.
           </p>
         </div>
 
-        <div className="relative mb-16">
-          <div className="h-96 rounded-2xl overflow-hidden relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary-dark to-primary opacity-80"></div>
-            <div 
-              className="absolute inset-0"
-              style={{
-                backgroundImage: "url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&h=1080')",
-                backgroundSize: "cover",
-                backgroundPosition: "center"
-              }}
-            />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center text-white">
-                <h3 className="text-3xl font-bold mb-4">Collaborative Excellence</h3>
-                <p className="text-lg max-w-2xl mx-auto">
-                  Our cross-functional teams work seamlessly together to deliver exceptional results.
-                </p>
+        {/* Approach Stats */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
+          {approachStats.map((stat, index) => (
+            <div key={index} className="text-center">
+              <div className="w-16 h-16 bg-slate-50 rounded-2xl shadow-sm flex items-center justify-center mx-auto mb-4 group hover:shadow-md transition-shadow">
+                <stat.icon className={`w-8 h-8 ${stat.color}`} />
               </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {approaches.map((approach, index) => (
-            <div key={approach.number} className="group">
-              <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white group-hover:scale-105">
-                <CardContent className="p-8">
-                  <div className="flex items-start mb-6">
-                    <div className={`w-12 h-12 ${approach.color} rounded-xl flex items-center justify-center text-white font-bold text-lg mr-4 shadow-lg`}>
-                      {approach.number}
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-xl font-bold text-primary-dark mb-3 group-hover:text-primary transition-colors">
-                        {approach.title}
-                      </h3>
-                      <p className="text-text-gray leading-relaxed">
-                        {approach.description}
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              <div className="text-3xl font-bold text-slate-900 mb-2">{stat.value}</div>
+              <div className="text-slate-600 text-sm">{stat.label}</div>
             </div>
           ))}
+        </div>
+
+        {/* Approach Steps */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {approaches.map((approach, index) => (
+            <Card key={approach.number} className="bg-white border-0 shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden group h-full">
+              <CardContent className="p-0">
+                <div className="h-1 bg-slate-900"></div>
+                <div className="p-8 h-full flex flex-col">
+                  {/* Header */}
+                  <div className="flex items-start justify-between mb-6">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-slate-900 rounded-lg flex items-center justify-center relative">
+                        <approach.icon className="w-6 h-6 text-white" />
+                        <div className="absolute -top-2 -right-2 w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                          {approach.number}
+                        </div>
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-slate-900 mb-1">{approach.title}</h3>
+                        <Badge variant="secondary" className="bg-slate-100 text-slate-700 border-slate-200 text-xs">
+                          {approach.duration}
+                        </Badge>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-slate-600 mb-6 leading-relaxed flex-grow">
+                    {approach.description}
+                  </p>
+
+                  {/* Deliverables */}
+                  <div className="space-y-3 mb-6">
+                    <h4 className="text-sm font-semibold text-slate-900">Key Deliverables:</h4>
+                    {approach.deliverables.map((deliverable, idx) => (
+                      <div key={idx} className="flex items-center gap-3">
+                        <CheckCircle className="w-4 h-4 text-slate-600 flex-shrink-0" />
+                        <span className="text-sm text-slate-700 font-medium">{deliverable}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* CTA */}
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    className="w-full justify-between group-hover:bg-slate-50 transition-colors mt-auto"
+                  >
+                    <span>Learn More</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Bottom CTA Section */}
+        <div className="mt-20">
+          <Card className="bg-slate-50 border-0">
+            <CardContent className="p-12 text-center">
+              <div className="max-w-3xl mx-auto">
+                <div className="flex justify-center mb-6">
+                  <div className="flex -space-x-2">
+                    {[Database, Code, Cog, Rocket].map((Icon, index) => (
+                      <div key={index} className="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center border-2 border-white">
+                        <Icon className="w-6 h-6 text-slate-700" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <h3 className="text-3xl font-bold text-slate-900 mb-4">Ready to Start Your Project?</h3>
+                <p className="text-slate-600 mb-8 text-lg">
+                  Let's discuss how our proven methodology can deliver exceptional results for your business.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button size="lg" className="bg-slate-900 hover:bg-slate-800 text-white">
+                    Schedule Discovery Call
+                    <TrendingUp className="ml-2 w-5 h-5" />
+                  </Button>
+                  <Button size="lg" variant="outline">
+                    View Case Studies
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </section>
