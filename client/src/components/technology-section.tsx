@@ -15,8 +15,19 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useLocation } from "wouter";
 
 export default function TechnologySection() {
+  const [, setLocation] = useLocation();
+
+  const handleScheduleTechConsultation = () => {
+    setLocation("/contact");
+  };
+
+  const handleViewArchitectureExamples = () => {
+    setLocation("/case-studies");
+  };
+
   const technologies = [
     {
       title: "Cloud Infrastructure",
@@ -165,11 +176,19 @@ export default function TechnologySection() {
                   Let's discuss how our technology stack can accelerate your digital transformation and deliver exceptional results.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button size="lg" className="bg-slate-900 hover:bg-slate-800 text-white">
+                  <Button 
+                    size="lg" 
+                    className="bg-slate-900 hover:bg-slate-800 text-white"
+                    onClick={handleScheduleTechConsultation}
+                  >
                     Schedule Tech Consultation
                     <Star className="ml-2 w-5 h-5" />
                   </Button>
-                  <Button size="lg" variant="outline">
+                  <Button 
+                    size="lg" 
+                    variant="outline"
+                    onClick={handleViewArchitectureExamples}
+                  >
                     View Architecture Examples
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>

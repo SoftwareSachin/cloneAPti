@@ -108,6 +108,7 @@ This is a modern, responsive company website for Aptivon Solutions Pvt. Ltd., an
   * Fixed "View Case Studies" button visibility with semi-transparent background and proper styling
   * Made "Schedule Consultation" and "View Case Studies" buttons functional in advanced capabilities section
   * Made "Schedule Industry Consultation" and "View Industry Case Studies" buttons functional in industries section
+  * Made "Schedule Tech Consultation" and "View Architecture Examples" buttons functional in technology section
   * All buttons now properly navigate to /contact and /case-studies pages using wouter routing
   * All workflow functionality confirmed working on port 5000
   * Migration completed successfully with robust security practices maintained
