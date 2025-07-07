@@ -57,20 +57,10 @@ export default function Careers() {
         "Ability to work independently and as part of a collaborative team"
       ],
       skills: ["Communication", "Lead Generation", "CRM Management", "Client Outreach", "Relationship Building", "Sales Prospecting", "Market Research", "Data Analysis"],
-      benefits: [
-        "Competitive base salary with uncapped commission structure",
-        "Comprehensive sales training and mentorship program",
-        "Remote work flexibility with occasional travel opportunities",
-        "Career advancement path to Account Executive and Sales Manager roles",
-        "Health, dental, and vision insurance coverage",
-        "Professional development budget for courses and certifications",
-        "Modern laptop and home office setup allowance",
-        "Quarterly team building events and company retreats"
-      ],
       compensation: {
-        base: "₹3,00,000 - ₹4,50,000 annually",
-        commission: "Up to ₹2,00,000 additional in performance bonuses",
-        ote: "₹5,50,000+ total compensation potential"
+        base: "Competitive base salary",
+        commission: "10% commission on each project",
+        bonus: "2% performance bonus on each project"
       }
     }
   ];
@@ -575,40 +565,24 @@ export default function Careers() {
                         </div>
                       </div>
 
-                      {/* Benefits & Compensation Section */}
-                      {position.benefits && (
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                          <div>
-                            <h4 className="font-semibold text-slate-900 mb-3">Benefits & Perks:</h4>
-                            <ul className="space-y-2">
-                              {position.benefits.map((benefit, idx) => (
-                                <li key={idx} className="flex items-start">
-                                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                                  <span className="text-slate-600 text-sm">{benefit}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                          
-                          {position.compensation && (
-                            <div>
-                              <h4 className="font-semibold text-slate-900 mb-3">Compensation:</h4>
-                              <div className="space-y-3">
-                                <div className="bg-slate-50 p-4 rounded-lg">
-                                  <div className="text-sm text-slate-600 mb-1">Base Salary</div>
-                                  <div className="font-semibold text-slate-900">{position.compensation.base}</div>
-                                </div>
-                                <div className="bg-slate-50 p-4 rounded-lg">
-                                  <div className="text-sm text-slate-600 mb-1">Performance Bonus</div>
-                                  <div className="font-semibold text-slate-900">{position.compensation.commission}</div>
-                                </div>
-                                <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                                  <div className="text-sm text-green-600 mb-1">Total Compensation</div>
-                                  <div className="font-bold text-green-700 text-lg">{position.compensation.ote}</div>
-                                </div>
-                              </div>
+                      {/* Compensation Section */}
+                      {position.compensation && (
+                        <div>
+                          <h4 className="font-semibold text-slate-900 mb-3">Compensation Structure:</h4>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div className="bg-slate-50 p-4 rounded-lg">
+                              <div className="text-sm text-slate-600 mb-1">Base Salary</div>
+                              <div className="font-semibold text-slate-900">{position.compensation.base}</div>
                             </div>
-                          )}
+                            <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                              <div className="text-sm text-blue-600 mb-1">Project Commission</div>
+                              <div className="font-semibold text-blue-700">{position.compensation.commission}</div>
+                            </div>
+                            <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                              <div className="text-sm text-green-600 mb-1">Performance Bonus</div>
+                              <div className="font-semibold text-green-700">{position.compensation.bonus}</div>
+                            </div>
+                          </div>
                         </div>
                       )}
                     </div>
