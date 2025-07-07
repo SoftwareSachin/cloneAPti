@@ -26,7 +26,6 @@ export default function HeroSection() {
             </div>
             
             <h1 className="text-5xl md:text-6xl font-bold mb-6 text-slate-900 leading-tight">
-              <span className="block text-blue-600">Aptivon Solutions</span>
               Transform Your
               <span className="block text-slate-800">
                 Business Digital
@@ -37,7 +36,7 @@ export default function HeroSection() {
             </h1>
             
             <p className="text-xl text-slate-600 mb-8 leading-relaxed max-w-lg">
-              <strong>Aptivon Solutions</strong> delivers enterprise-grade technology solutions that drive innovation, streamline operations, and accelerate growth for forward-thinking organizations. India's leading IT consulting firm with 150+ satisfied clients and 98% success rate.
+              Enterprise-grade technology solutions that drive innovation, streamline operations, and accelerate growth for forward-thinking organizations. India's leading IT consulting firm with 2+ satisfied clients and 98% success rate.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
@@ -60,7 +59,7 @@ export default function HeroSection() {
             {/* Key Stats */}
             <div className="grid grid-cols-3 gap-8">
               <div className="text-center">
-                <div className="text-3xl font-bold text-slate-900 mb-2">500+</div>
+                <div className="text-3xl font-bold text-slate-900 mb-2">5+</div>
                 <div className="text-slate-600 text-sm">Projects Delivered</div>
               </div>
               <div className="text-center">

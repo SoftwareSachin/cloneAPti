@@ -57,8 +57,8 @@ export default function AdvancedCapabilities() {
   ];
 
   const stats = [
-    { icon: TrendingUp, value: "500+", label: "Projects Delivered", color: "text-blue-600" },
-    { icon: Globe, value: "50+", label: "Countries Served", color: "text-green-600" },
+    { icon: TrendingUp, value: "5+", label: "Projects Delivered", color: "text-blue-600" },
+    { icon: Globe, value: "5+", label: "Countries Served", color: "text-green-600" },
     { icon: Cpu, value: "99.9%", label: "System Reliability", color: "text-purple-600" },
     { icon: Database, value: "1PB+", label: "Data Processed", color: "text-orange-600" }
   ];

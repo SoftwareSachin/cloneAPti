@@ -61,7 +61,7 @@ export default function Blog() {
 
   const blogPosts = [
     {
-      title: "Cloud Migration Best Practices: Lessons from 500+ Enterprise Deployments",
+      title: "Cloud Migration Best Practices: Lessons from 5+ Enterprise Deployments",
       excerpt: "Key insights and proven strategies for successful cloud migration, including common pitfalls to avoid and optimization techniques.",
       author: "Marcus Rodriguez",
       date: "January 12, 2025",

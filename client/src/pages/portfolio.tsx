@@ -52,13 +52,13 @@ export default function Portfolio() {
       duration: "18 months",
       team: "25 engineers",
       image: "/api/placeholder/600/400",
-      description: "Complete digital transformation of legacy e-commerce infrastructure serving 50M+ customers globally.",
+      description: "Complete digital transformation of legacy e-commerce infrastructure serving 5M+ customers globally.",
       technologies: ["React", "Node.js", "AWS", "Kubernetes", "PostgreSQL", "Redis"],
       results: [
         "300% improvement in page load speed",
         "99.9% uptime achievement",
         "40% reduction in infrastructure costs",
-        "$50M+ annual revenue increase"
+        "$5M+ annual revenue increase"
       ],
       challenges: "Legacy system integration, zero-downtime migration, global scalability",
       solution: "Microservices architecture with progressive migration strategy"
@@ -70,13 +70,13 @@ export default function Portfolio() {
       duration: "12 months",
       team: "18 specialists",
       image: "/api/placeholder/600/400",
-      description: "Machine learning platform for predictive patient care and operational optimization across 200+ facilities.",
+      description: "Machine learning platform for predictive patient care and operational optimization across 20+ facilities.",
       technologies: ["Python", "TensorFlow", "Azure", "Docker", "MongoDB", "React"],
       results: [
         "25% reduction in patient readmission rates",
         "60% faster diagnostic processing",
         "HIPAA compliance achieved",
-        "$30M+ operational savings annually"
+        "$3M+ operational savings annually"
       ],
       challenges: "Data privacy compliance, real-time processing, integration with legacy EMR systems",
       solution: "FHIR-compliant data pipelines with federated learning architecture"
@@ -106,13 +106,13 @@ export default function Portfolio() {
       duration: "15 months",
       team: "22 engineers",
       image: "/api/placeholder/600/400",
-      description: "Industrial IoT platform for predictive maintenance and supply chain optimization across 50+ facilities.",
+      description: "Industrial IoT platform for predictive maintenance and supply chain optimization across 5+ facilities.",
       technologies: ["Node.js", "InfluxDB", "Azure IoT", "Power BI", "React", "Python"],
       results: [
         "35% reduction in equipment downtime",
         "50% improvement in supply chain efficiency",
-        "Real-time monitoring of 10,000+ sensors",
-        "$20M+ cost savings through predictive maintenance"
+        "Real-time monitoring of 1,000+ sensors",
+        "$2M+ cost savings through predictive maintenance"
       ],
       challenges: "Industrial protocol integration, edge computing, real-time analytics at scale",
       solution: "Edge-to-cloud architecture with AI-powered predictive analytics"
@@ -127,10 +127,10 @@ export default function Portfolio() {
       description: "High-performance video streaming platform with global CDN and personalized content delivery.",
       technologies: ["React Native", "Node.js", "AWS CloudFront", "ElasticSearch", "Redis", "FFmpeg"],
       results: [
-        "50M+ concurrent users supported",
+        "5M+ concurrent users supported",
         "99.99% streaming uptime",
         "75% improvement in content discovery",
-        "Global expansion to 40+ countries"
+        "Global expansion to 5+ countries"
       ],
       challenges: "Global content delivery, adaptive bitrate streaming, personalization at scale",
       solution: "Microservices with ML-powered recommendation engine and global CDN"
@@ -206,14 +206,14 @@ export default function Portfolio() {
             <div className="p-6 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
               <div className="text-4xl font-bold text-slate-900 mb-2 flex items-center justify-center">
                 <CheckCircle2 className="h-8 w-8 mr-2 text-green-600" />
-                500+
+                5+
               </div>
               <div className="text-slate-600">Projects Delivered</div>
             </div>
             <div className="p-6 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
               <div className="text-4xl font-bold text-slate-900 mb-2 flex items-center justify-center">
                 <Users className="h-8 w-8 mr-2 text-blue-600" />
-                100+
+                2+
               </div>
               <div className="text-slate-600">Enterprise Clients</div>
             </div>
@@ -227,7 +227,7 @@ export default function Portfolio() {
             <div className="p-6 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
               <div className="text-4xl font-bold text-slate-900 mb-2 flex items-center justify-center">
                 <TrendingUp className="h-8 w-8 mr-2 text-green-600" />
-                ₹50Cr+
+                ₹5Cr+
               </div>
               <div className="text-slate-600">Value Generated</div>
             </div>

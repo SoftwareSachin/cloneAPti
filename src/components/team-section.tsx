@@ -29,11 +29,11 @@ const teamMembers = [
     experience: "12+ years",
     icon: Cpu,
     achievements: ["AWS Solutions Architect Professional", "Former Google Senior Engineer", "Patents in Distributed Systems"],
-    background: "Architected cloud infrastructure serving 50M+ users at Google. Led engineering teams building next-generation AI platforms and scalable microservices architectures.",
+    background: "Architected cloud infrastructure serving 5M+ users at Google. Led engineering teams building next-generation AI platforms and scalable microservices architectures.",
     specialization: "Enterprise Cloud Solutions",
     gradient: "from-blue-500 to-cyan-600",
     accentColor: "blue",
-    metrics: { projects: "150+", teams: "20+", systems: "50M+" }
+    metrics: { projects: "15+", teams: "2+", systems: "5M+" }
   },
   {
     id: 2,
@@ -45,27 +45,11 @@ const teamMembers = [
     experience: "10+ years",
     icon: Target,
     achievements: ["Microsoft Distinguished PM", "Harvard MBA", "Product Leader of the Year 2023"],
-    background: "Scaled B2B SaaS products from $10M to $100M+ ARR at Microsoft. Expert in enterprise digital transformation and strategic product roadmapping for Fortune 500 companies.",
+    background: "Scaled B2B SaaS products from $1M to $10M+ ARR at Microsoft. Expert in enterprise digital transformation and strategic product roadmapping for Fortune 500 companies.",
     specialization: "Strategic Product Leadership",
     gradient: "from-emerald-500 to-teal-600",
     accentColor: "emerald",
-    metrics: { revenue: "$100M+", products: "25+", clients: "500+" }
-  },
-  {
-    id: 3,
-    name: "Priya Sharma",
-    role: "Head of Customer Success",
-    title: "Product Manager",
-    avatar: "PS",
-    expertise: ["Customer Experience", "Data Analytics", "Growth Strategy"],
-    experience: "9+ years",
-    icon: Shield,
-    achievements: ["Amazon Principal PM", "Stanford MS", "Customer Success Excellence Award"],
-    background: "Drove customer-centric product innovations at Amazon, managing P&L for $200M+ product lines. Specialized in leveraging data analytics to optimize user experiences and drive growth.",
-    specialization: "Customer-Centric Innovation",
-    gradient: "from-violet-500 to-purple-600",
-    accentColor: "violet",
-    metrics: { satisfaction: "98%", retention: "95%", growth: "300%" }
+    metrics: { revenue: "$10M+", products: "5+", clients: "50+" }
   }
 ];
 

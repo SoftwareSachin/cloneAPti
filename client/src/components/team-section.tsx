@@ -34,7 +34,7 @@ const teamMembers = [
     specialization: "Full-Stack & Cloud Solutions",
     gradient: "from-blue-500 to-cyan-600",
     accentColor: "blue",
-    metrics: { projects: "100+", teams: "10+", systems: "25+" }
+    metrics: { projects: "5+", teams: "2+", systems: "10+" }
   }
 ];
 

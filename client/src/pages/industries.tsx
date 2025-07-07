@@ -91,7 +91,7 @@ const INDUSTRIES_DATA = [
       description: "Content management and distribution platforms for media and entertainment companies.",
       challenges: ["Content delivery", "Audience engagement", "Rights management", "Monetization"],
       solutions: ["Content Management Systems", "Streaming Platforms", "Analytics Dashboards", "Digital Rights Management"],
-      caseStudy: "Scaled video streaming to 10M+ concurrent users with 99.9% uptime"
+      caseStudy: "Scaled video streaming to 1M+ concurrent users with 99.9% uptime"
     }
 ];
 

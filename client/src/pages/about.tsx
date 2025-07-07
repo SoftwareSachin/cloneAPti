@@ -59,7 +59,7 @@ const JOURNEY_TIMELINE = [
       "Cybersecurity solutions introduced",
       "ISO 27001 certification achieved"
     ],
-    metrics: { projects: "150+", clients: "40+", team: "25" }
+    metrics: { projects: "15+", clients: "4+", team: "2" }
   },
   {
     year: "2024",
@@ -72,7 +72,7 @@ const JOURNEY_TIMELINE = [
       "Industry awards for innovation received",
       "Fortune 500 clients acquired"
     ],
-    metrics: { projects: "350+", clients: "75+", team: "50" }
+    metrics: { projects: "35+", clients: "7+", team: "5" }
   },
   {
     year: "2025",
@@ -85,13 +85,13 @@ const JOURNEY_TIMELINE = [
       "Strategic partnerships with major tech vendors",
       "Industry thought leadership established"
     ],
-    metrics: { projects: "500+", clients: "100+", team: "75" }
+    metrics: { projects: "5+", clients: "10+", team: "2" }
   }
 ];
 
 const COMPANY_STATS = [
-  { number: "500+", label: "Projects Delivered" },
-  { number: "100+", label: "Enterprise Clients" },
+  { number: "5+", label: "Projects Delivered" },
+  { number: "2+", label: "Enterprise Clients" },
   { number: "3+", label: "Years of Excellence" },
   { number: "99.9%", label: "Uptime SLA" }
 ];

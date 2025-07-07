@@ -69,7 +69,7 @@ export default function TechnologySection() {
   ];
 
   const techStats = [
-    { icon: TrendingUp, value: "500+", label: "Technologies Mastered", color: "text-blue-600" },
+    { icon: TrendingUp, value: "15+", label: "Technologies Mastered", color: "text-blue-600" },
     { icon: BarChart3, value: "98%", label: "Performance Increase", color: "text-green-600" },
     { icon: Shield, value: "24/7", label: "Security Monitoring", color: "text-purple-600" },
     { icon: Zap, value: "< 2s", label: "Average Load Time", color: "text-orange-600" }
