@@ -292,10 +292,14 @@ export default function Industries() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
+      
+      const result = await response.json();
+      
       if (!response.ok) {
-        throw new Error('Failed to submit consultation request');
+        throw new Error(result.message || result.error || 'Failed to submit consultation request');
       }
-      return response.json();
+      
+      return result;
     },
     onSuccess: () => {
       toast({
@@ -309,7 +313,7 @@ export default function Industries() {
     },
     onError: (error: any) => {
       console.error('Consultation submission error:', error);
-      const errorMessage = error?.response?.data?.message || error?.message || "Failed to send consultation request. Please try again.";
+      const errorMessage = error?.message || "Failed to send consultation request. Please try again.";
       toast({
         title: "Error",
         description: errorMessage,
