@@ -599,10 +599,7 @@ export default function CaseStudies() {
                           <p className="text-slate-300">{study.timeline}</p>
                         </div>
                         
-                        <div>
-                          <h5 className="font-semibold mb-2">Project Value</h5>
-                          <p className="text-slate-300">{study.projectValue}</p>
-                        </div>
+
                         
                         <div>
                           <h5 className="font-semibold mb-2">ROI Achieved</h5>
@@ -739,19 +736,18 @@ export default function CaseStudies() {
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { name: "Healthcare", projects: "15+ Projects", icon: "🏥" },
-              { name: "Financial Services", projects: "12+ Projects", icon: "🏦" },
-              { name: "E-commerce", projects: "20+ Projects", icon: "🛒" },
-              { name: "Manufacturing", projects: "8+ Projects", icon: "🏭" },
-              { name: "Education", projects: "10+ Projects", icon: "🎓" },
-              { name: "Logistics", projects: "6+ Projects", icon: "🚛" },
-              { name: "Real Estate", projects: "5+ Projects", icon: "🏢" },
-              { name: "Media & Entertainment", projects: "7+ Projects", icon: "🎬" }
+              { name: "Healthcare", icon: "🏥" },
+              { name: "Financial Services", icon: "🏦" },
+              { name: "E-commerce", icon: "🛒" },
+              { name: "Manufacturing", icon: "🏭" },
+              { name: "Education", icon: "🎓" },
+              { name: "Logistics", icon: "🚛" },
+              { name: "Real Estate", icon: "🏢" },
+              { name: "Media & Entertainment", icon: "🎬" }
             ].map((industry, index) => (
               <div key={index} className="text-center p-6 bg-slate-50 rounded-lg border hover:shadow-lg transition-shadow">
                 <div className="text-4xl mb-3">{industry.icon}</div>
-                <h3 className="font-semibold text-slate-900 mb-1">{industry.name}</h3>
-                <p className="text-sm text-slate-600">{industry.projects}</p>
+                <h3 className="font-semibold text-slate-900">{industry.name}</h3>
               </div>
             ))}
           </div>
