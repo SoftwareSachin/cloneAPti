@@ -30,100 +30,48 @@ export default function Careers() {
 
   const openPositions = [
     {
-      title: "Business Development Associate",
-      department: "Sales",
-      location: "Remote / Hybrid",
-      type: "Full-time",
-      experience: "Freshers Welcome",
-      description: "Start your career in business development by identifying potential clients and supporting our sales team in closing enterprise technology deals.",
-      requirements: [
-        "Bachelor's degree in Business, Marketing, or related field",
-        "Strong communication and interpersonal skills",
-        "Interest in technology and digital transformation",
-        "Eagerness to learn and grow in a sales environment",
-        "Basic understanding of CRM tools preferred"
-      ],
-      skills: ["Communication", "Lead Generation", "CRM", "Sales Support", "Client Relations"]
-    },
-    {
       title: "Client Acquisition Specialist",
       department: "Sales",
       location: "Remote / Hybrid",
       type: "Full-time",
       experience: "Freshers Welcome",
-      description: "Learn and grow in client acquisition by prospecting and building relationships with potential enterprise clients through strategic outreach.",
-      requirements: [
-        "Bachelor's degree in Business, Marketing, or related field",
-        "Strong communication and interpersonal skills",
-        "Interest in sales and client relationship building",
-        "Willingness to learn CRM systems and sales automation tools",
-        "Positive attitude and eagerness to learn"
+      description: "Join our growing team as a Client Acquisition Specialist and learn to build relationships with potential enterprise clients. This role offers comprehensive training in sales methodology, CRM systems, and client relationship management. You'll work directly with our leadership team to prospect new business opportunities, conduct initial client meetings, and support the sales process from lead generation to deal closure.",
+      responsibilities: [
+        "Identify and research potential enterprise clients in target industries",
+        "Conduct outbound prospecting through calls, emails, and LinkedIn outreach", 
+        "Schedule and participate in initial client discovery meetings",
+        "Maintain accurate records of all client interactions in CRM system",
+        "Support senior sales team with proposal preparation and client presentations",
+        "Follow up with prospects and nurture long-term relationships",
+        "Attend industry events and networking functions to generate leads",
+        "Collaborate with marketing team on lead generation campaigns"
       ],
-      skills: ["Communication", "Lead Generation", "CRM", "Client Outreach", "Relationship Building"]
-    },
-    {
-      title: "Junior Sales Executive",
-      department: "Sales",
-      location: "Remote / Hybrid",
-      type: "Full-time",
-      experience: "Freshers Welcome",
-      description: "Begin your sales career by supporting enterprise sales initiatives and learning to manage client relationships and sales processes.",
       requirements: [
-        "Bachelor's degree in Business, Sales, or related field",
-        "Strong presentation and communication skills",
-        "Interest in technology and enterprise solutions",
-        "Ability to learn and adapt quickly",
-        "Professional demeanor and strong work ethic"
+        "Bachelor's degree in Business, Marketing, Sales, or related field",
+        "Excellent communication and interpersonal skills",
+        "Strong interest in technology and digital transformation",
+        "Willingness to learn CRM systems (HubSpot, Salesforce) and sales automation tools",
+        "Positive attitude with eagerness to learn and grow in sales career",
+        "Professional phone presence and email communication skills",
+        "Basic understanding of B2B sales processes preferred but not required",
+        "Ability to work independently and as part of a collaborative team"
       ],
-      skills: ["Sales Support", "Client Communication", "Presentation Skills", "CRM", "Business Development"]
-    },
-    {
-      title: "Sales Development Representative",
-      department: "Sales",
-      location: "Remote / Hybrid",
-      type: "Full-time",
-      experience: "Freshers Welcome",
-      description: "Start your sales career by generating qualified leads and learning to schedule meetings for our sales team through targeted outreach.",
-      requirements: [
-        "Bachelor's degree in Business, Sales, or related field",
-        "Strong communication and interpersonal skills",
-        "Interest in learning lead generation tools and techniques",
-        "Ability to work in a fast-paced, target-driven environment",
-        "Positive attitude and willingness to learn"
+      skills: ["Communication", "Lead Generation", "CRM Management", "Client Outreach", "Relationship Building", "Sales Prospecting", "Market Research", "Data Analysis"],
+      benefits: [
+        "Competitive base salary with uncapped commission structure",
+        "Comprehensive sales training and mentorship program",
+        "Remote work flexibility with occasional travel opportunities",
+        "Career advancement path to Account Executive and Sales Manager roles",
+        "Health, dental, and vision insurance coverage",
+        "Professional development budget for courses and certifications",
+        "Modern laptop and home office setup allowance",
+        "Quarterly team building events and company retreats"
       ],
-      skills: ["Communication", "Lead Qualification", "Email Marketing", "Sales Prospecting", "CRM"]
-    },
-    {
-      title: "Partnership Coordinator",
-      department: "Sales",
-      location: "Remote / Hybrid",
-      type: "Full-time",
-      experience: "Freshers Welcome",
-      description: "Support the development and management of strategic partnerships with technology vendors and system integrators.",
-      requirements: [
-        "Bachelor's degree in Business, Marketing, or related field",
-        "Strong organizational and communication skills",
-        "Interest in technology and business partnerships",
-        "Ability to build and maintain professional relationships",
-        "Detail-oriented with good project management skills"
-      ],
-      skills: ["Partnership Support", "Communication", "Project Management", "Relationship Building", "Documentation"]
-    },
-    {
-      title: "Digital Marketing Associate",
-      department: "Marketing",
-      location: "Remote / Hybrid",
-      type: "Full-time",
-      experience: "Freshers Welcome",
-      description: "Learn and execute digital marketing campaigns focused on generating high-quality leads and supporting client acquisition efforts.",
-      requirements: [
-        "Bachelor's degree in Marketing, Business, or related field",
-        "Basic understanding of digital marketing concepts",
-        "Strong analytical skills and willingness to learn data-driven approaches",
-        "Interest in B2B marketing and technology sector",
-        "Creative mindset with attention to detail"
-      ],
-      skills: ["Digital Marketing", "Social Media", "Content Creation", "Analytics", "Lead Generation"]
+      compensation: {
+        base: "₹3,00,000 - ₹4,50,000 annually",
+        commission: "Up to ₹2,00,000 additional in performance bonuses",
+        ote: "₹5,50,000+ total compensation potential"
+      }
     }
   ];
 
@@ -359,9 +307,9 @@ export default function Careers() {
       <section id="open-positions" className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-6">Client Acquisition Opportunities</h2>
+            <h2 className="text-4xl font-bold text-slate-900 mb-6">Join Our Sales Team</h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Be part of our sales and business development team driving growth through strategic client partnerships
+              Launch your sales career with comprehensive training, competitive compensation, and unlimited growth potential
             </p>
           </div>
 
@@ -586,29 +534,83 @@ export default function Careers() {
                     
                     <p className="text-slate-600 mb-6">{position.description}</p>
                     
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                      <div>
-                        <h4 className="font-semibold text-slate-900 mb-3">Requirements:</h4>
-                        <ul className="space-y-2">
-                          {position.requirements.map((req, idx) => (
-                            <li key={idx} className="flex items-start">
-                              <div className="w-1.5 h-1.5 bg-slate-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                              <span className="text-slate-600 text-sm">{req}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      
-                      <div>
-                        <h4 className="font-semibold text-slate-900 mb-3">Key Skills:</h4>
-                        <div className="flex flex-wrap gap-2">
-                          {position.skills.map((skill, idx) => (
-                            <Badge key={idx} variant="secondary" className="bg-slate-100 text-slate-700">
-                              {skill}
-                            </Badge>
-                          ))}
+                    <div className="space-y-8">
+                      {/* Responsibilities Section */}
+                      {position.responsibilities && (
+                        <div>
+                          <h4 className="font-semibold text-slate-900 mb-3">Key Responsibilities:</h4>
+                          <ul className="space-y-2">
+                            {position.responsibilities.map((resp, idx) => (
+                              <li key={idx} className="flex items-start">
+                                <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                <span className="text-slate-600 text-sm">{resp}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div>
+                          <h4 className="font-semibold text-slate-900 mb-3">Requirements:</h4>
+                          <ul className="space-y-2">
+                            {position.requirements.map((req, idx) => (
+                              <li key={idx} className="flex items-start">
+                                <div className="w-1.5 h-1.5 bg-slate-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                <span className="text-slate-600 text-sm">{req}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        
+                        <div>
+                          <h4 className="font-semibold text-slate-900 mb-3">Key Skills:</h4>
+                          <div className="flex flex-wrap gap-2">
+                            {position.skills.map((skill, idx) => (
+                              <Badge key={idx} variant="secondary" className="bg-slate-100 text-slate-700">
+                                {skill}
+                              </Badge>
+                            ))}
+                          </div>
                         </div>
                       </div>
+
+                      {/* Benefits & Compensation Section */}
+                      {position.benefits && (
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                          <div>
+                            <h4 className="font-semibold text-slate-900 mb-3">Benefits & Perks:</h4>
+                            <ul className="space-y-2">
+                              {position.benefits.map((benefit, idx) => (
+                                <li key={idx} className="flex items-start">
+                                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                  <span className="text-slate-600 text-sm">{benefit}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          
+                          {position.compensation && (
+                            <div>
+                              <h4 className="font-semibold text-slate-900 mb-3">Compensation:</h4>
+                              <div className="space-y-3">
+                                <div className="bg-slate-50 p-4 rounded-lg">
+                                  <div className="text-sm text-slate-600 mb-1">Base Salary</div>
+                                  <div className="font-semibold text-slate-900">{position.compensation.base}</div>
+                                </div>
+                                <div className="bg-slate-50 p-4 rounded-lg">
+                                  <div className="text-sm text-slate-600 mb-1">Performance Bonus</div>
+                                  <div className="font-semibold text-slate-900">{position.compensation.commission}</div>
+                                </div>
+                                <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                                  <div className="text-sm text-green-600 mb-1">Total Compensation</div>
+                                  <div className="font-bold text-green-700 text-lg">{position.compensation.ote}</div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </CardContent>
                 </Card>
