@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useLocation } from "wouter";
 import { 
   Brain, 
   Zap, 
@@ -17,6 +18,16 @@ import {
 } from "lucide-react";
 
 export default function AdvancedCapabilities() {
+  const [, setLocation] = useLocation();
+
+  const handleScheduleConsultation = () => {
+    setLocation("/contact");
+  };
+
+  const handleViewCaseStudies = () => {
+    setLocation("/case-studies");
+  };
+
   const capabilities = [
     {
       icon: Brain,
@@ -151,11 +162,19 @@ export default function AdvancedCapabilities() {
                 Let's discuss how our advanced capabilities can accelerate your digital transformation journey.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="bg-white text-slate-900 hover:bg-slate-100">
+                <Button 
+                  size="lg" 
+                  className="bg-white text-slate-900 hover:bg-slate-100"
+                  onClick={handleScheduleConsultation}
+                >
                   Schedule Consultation
                   <Cloud className="ml-2 w-5 h-5" />
                 </Button>
-                <Button size="lg" className="bg-slate-800/20 border border-white text-white hover:bg-white hover:text-slate-900 backdrop-blur-sm">
+                <Button 
+                  size="lg" 
+                  className="bg-slate-800/20 border border-white text-white hover:bg-white hover:text-slate-900 backdrop-blur-sm"
+                  onClick={handleViewCaseStudies}
+                >
                   View Case Studies
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
