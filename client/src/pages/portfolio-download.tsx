@@ -241,25 +241,39 @@ export default function PortfolioDownload() {
             background: linear-gradient(90deg, #3b82f6, #1d4ed8, #7c3aed);
         }
         .project-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 25px;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .project-number {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-right: 20px;
         }
         .project-title {
-            font-size: 1.8rem;
+            font-size: 1.9rem;
             font-weight: 700;
             color: #0f172a;
+            margin: 0;
         }
         .project-status {
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            background: #dcfce7;
-            color: #166534;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            margin-left: 20px;
         }
         .project-meta {
             display: grid;
@@ -334,10 +348,16 @@ export default function PortfolioDownload() {
             border: 1px solid #e2e8f0;
         }
         .challenge-section h4, .solution-section h4, .methodology-section h4 {
-            font-size: 1.2rem;
-            font-weight: 600;
+            font-size: 1.1rem;
+            font-weight: 700;
             color: #0f172a;
             margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         .solution-section ul {
             margin-left: 20px;
@@ -569,8 +589,9 @@ export default function PortfolioDownload() {
             
             <div class="project-card">
                 <div class="project-header">
+                    <div class="project-number">PROJECT 001</div>
                     <div class="project-title">Enterprise E-commerce Platform Modernization</div>
-                    <div class="project-status">Successfully Delivered</div>
+                    <div class="project-status">SUCCESSFULLY DELIVERED</div>
                 </div>
                 <div class="project-meta">
                     <div class="meta-item">
@@ -683,8 +704,9 @@ export default function PortfolioDownload() {
             
             <div class="project-card">
                 <div class="project-header">
+                    <div class="project-number">PROJECT 002</div>
                     <div class="project-title">Advanced Healthcare Management System</div>
-                    <div class="project-status">Successfully Delivered</div>
+                    <div class="project-status">SUCCESSFULLY DELIVERED</div>
                 </div>
                 <div class="project-meta">
                     <div class="meta-item">
@@ -798,8 +820,9 @@ export default function PortfolioDownload() {
             
             <div class="project-card">
                 <div class="project-header">
+                    <div class="project-number">PROJECT 003</div>
                     <div class="project-title">Enterprise Financial Analytics Platform</div>
-                    <div class="project-status">Successfully Delivered</div>
+                    <div class="project-status">SUCCESSFULLY DELIVERED</div>
                 </div>
                 <div class="project-meta">
                     <div class="meta-item">
