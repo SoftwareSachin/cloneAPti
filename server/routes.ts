@@ -270,10 +270,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       switch (action) {
         case 'contact':
           if (req.method === 'POST') {
-            const contactData = insertContactSchema.parse(req.body);
-            const contact = await storage.createContact(contactData);
-            console.log('Contact form submission:', contact);
-            return res.status(201).json({ success: true, message: "Message sent successfully!", contact });
+            try {
+              const contactData = insertContactSchema.parse(req.body);
+              const contact = await storage.createContact(contactData);
+              console.log('Contact form submission:', contact);
+              return res.status(201).json({ success: true, message: "Message sent successfully!", contact });
+            } catch (validationError) {
+              console.error('Contact form validation error:', validationError);
+              return res.status(400).json({ success: false, error: 'Invalid contact data provided' });
+            }
           }
           break;
           
