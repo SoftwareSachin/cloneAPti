@@ -574,11 +574,11 @@ export default function Portfolio() {
             </Button>
             <Button 
               size="lg" 
-              variant="outline"
-              className="border-white/50 text-white hover:bg-white hover:text-slate-900 border-2"
+              className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-slate-900 px-6 py-3 font-medium"
+              style={{ color: 'white', borderColor: 'white' }}
               onClick={() => setLocation("/portfolio-download")}
             >
-              <Download className="h-5 w-5 mr-2" />
+              <Download className="h-5 w-5 mr-2" style={{ color: 'white' }} />
               Download Portfolio
             </Button>
           </div>
