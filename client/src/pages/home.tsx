@@ -213,27 +213,32 @@ Website: aptivonsolutions.com
     <div className="min-h-screen bg-background">
       <Navigation />
       
-      {/* Live Status Bar */}
-      <div className="bg-slate-900 text-white py-2 px-6">
+      {/* Enhanced Live Status Bar */}
+      <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white py-3 px-6 border-b border-slate-700/50">
         <div className="max-w-7xl mx-auto flex justify-between items-center text-sm">
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-8">
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <span>Live Support Available</span>
+              <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse shadow-lg shadow-emerald-400/50"></div>
+              <span className="font-medium">Live Support Available</span>
             </div>
             <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4" />
+              <Clock className="w-4 h-4 text-blue-400" />
               <span>{currentTime.toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' })} IST</span>
+            </div>
+            <div className="hidden md:flex items-center gap-2 text-emerald-400">
+              <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
+              <span className="text-xs">All Systems Operational</span>
             </div>
           </div>
           <div className="flex items-center gap-6">
-            <span>📞 +91 7852099010</span>
+            <div className="flex items-center gap-2">
+              <Phone className="w-4 h-4 text-blue-400" />
+              <span className="font-medium">+91 7852099010</span>
+            </div>
             <Button 
               size="sm" 
-              variant="outline" 
-              className="border-white text-white hover:bg-white hover:text-slate-900"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 shadow-lg transform hover:scale-105 transition-all duration-300"
               onClick={() => {
-                // Try to make actual phone call on mobile, otherwise show contact info
                 if (navigator.userAgent.match(/Android|iPhone|iPad|iPod|BlackBerry|IEMobile/i)) {
                   window.location.href = "tel:+917852099010";
                 } else {
@@ -253,89 +258,162 @@ Website: aptivonsolutions.com
 
       <HeroSection />
 
-      {/* Interactive Dashboard Section */}
-      <section className="py-20 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">Live Project Dashboard</h2>
-            <p className="text-xl text-slate-600">Real-time view of our ongoing work and metrics</p>
+      {/* Enhanced Interactive Dashboard Section */}
+      <section className="py-24 bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 relative overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute top-0 left-0 w-full h-full opacity-30">
+          <div className="absolute top-20 right-20 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 left-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="relative max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full mb-6 border border-slate-200/60">
+              <TrendingUp className="w-4 h-4 text-blue-600" />
+              <span className="text-sm font-medium text-slate-700">Real-Time Analytics</span>
+            </div>
+            <h2 className="text-5xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-slate-900 to-blue-600 bg-clip-text text-transparent">
+                Live Project Dashboard
+              </span>
+            </h2>
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+              Experience transparency like never before with real-time insights into our ongoing projects and performance metrics
+            </p>
           </div>
 
-          {/* Live Metrics Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            <Card className="hover:shadow-lg transition-all duration-300 hover:scale-105">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-slate-600">Active Projects</CardTitle>
+          {/* Enhanced Live Metrics Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            <Card className="group relative overflow-hidden bg-white/80 backdrop-blur-xl border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <CardHeader className="pb-2 relative z-10">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-sm font-medium text-slate-600">Active Projects</CardTitle>
+                  <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <TrendingUp className="w-4 h-4 text-blue-600" />
+                  </div>
+                </div>
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-slate-900 mb-1">{liveMetrics.activeProjects}</div>
-                <div className="flex items-center text-green-600 text-sm">
-                  <TrendingUp className="w-4 h-4 mr-1" />
+              <CardContent className="relative z-10">
+                <div className="text-3xl font-bold text-slate-900 mb-2">{liveMetrics.activeProjects}</div>
+                <div className="flex items-center text-emerald-600 text-sm font-medium">
+                  <div className="w-2 h-2 bg-emerald-400 rounded-full mr-2 animate-pulse"></div>
                   +3 this month
                 </div>
               </CardContent>
             </Card>
             
-            <Card className="hover:shadow-lg transition-all duration-300 hover:scale-105">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-slate-600">Satisfied Clients</CardTitle>
+            <Card className="group relative overflow-hidden bg-white/80 backdrop-blur-xl border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105">
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-600/5 to-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <CardHeader className="pb-2 relative z-10">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-sm font-medium text-slate-600">Satisfied Clients</CardTitle>
+                  <div className="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
+                    <Users className="w-4 h-4 text-emerald-600" />
+                  </div>
+                </div>
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-slate-900 mb-1">{liveMetrics.clientsSatisfied}+</div>
-                <div className="flex items-center text-green-600 text-sm">
-                  <Users className="w-4 h-4 mr-1" />
+              <CardContent className="relative z-10">
+                <div className="text-3xl font-bold text-slate-900 mb-2">{liveMetrics.clientsSatisfied}+</div>
+                <div className="flex items-center text-emerald-600 text-sm font-medium">
+                  <div className="w-2 h-2 bg-emerald-400 rounded-full mr-2 animate-pulse"></div>
                   Growing daily
                 </div>
               </CardContent>
             </Card>
             
-            <Card className="hover:shadow-lg transition-all duration-300 hover:scale-105">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-slate-600">Team Members</CardTitle>
+            <Card className="group relative overflow-hidden bg-white/80 backdrop-blur-xl border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-600/5 to-pink-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <CardHeader className="pb-2 relative z-10">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-sm font-medium text-slate-600">Team Members</CardTitle>
+                  <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                    <Trophy className="w-4 h-4 text-purple-600" />
+                  </div>
+                </div>
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-slate-900 mb-1">{liveMetrics.teamMembers}</div>
-                <div className="flex items-center text-green-600 text-sm">
-                  <Trophy className="w-4 h-4 mr-1" />
+              <CardContent className="relative z-10">
+                <div className="text-3xl font-bold text-slate-900 mb-2">{liveMetrics.teamMembers}</div>
+                <div className="flex items-center text-purple-600 text-sm font-medium">
+                  <div className="w-2 h-2 bg-purple-400 rounded-full mr-2 animate-pulse"></div>
                   Expert professionals
                 </div>
               </CardContent>
             </Card>
             
-            <Card className="hover:shadow-lg transition-all duration-300 hover:scale-105">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-slate-600">Success Rate</CardTitle>
+            <Card className="group relative overflow-hidden bg-white/80 backdrop-blur-xl border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105">
+              <div className="absolute inset-0 bg-gradient-to-br from-amber-600/5 to-orange-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <CardHeader className="pb-2 relative z-10">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-sm font-medium text-slate-600">Success Rate</CardTitle>
+                  <div className="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center">
+                    <Star className="w-4 h-4 text-amber-600" />
+                  </div>
+                </div>
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-slate-900 mb-1">{liveMetrics.completionRate}%</div>
-                <div className="flex items-center text-green-600 text-sm">
-                  <Star className="w-4 h-4 mr-1" />
+              <CardContent className="relative z-10">
+                <div className="text-3xl font-bold text-slate-900 mb-2">{liveMetrics.completionRate}%</div>
+                <div className="flex items-center text-amber-600 text-sm font-medium">
+                  <div className="w-2 h-2 bg-amber-400 rounded-full mr-2 animate-pulse"></div>
                   Industry leading
                 </div>
               </CardContent>
             </Card>
           </div>
 
-          {/* Live Project Progress */}
-          <Card className="mb-12">
-            <CardHeader>
-              <CardTitle>Current Project Progress</CardTitle>
-              <CardDescription>Real-time updates from our active projects</CardDescription>
+          {/* Enhanced Live Project Progress */}
+          <Card className="relative overflow-hidden bg-white/80 backdrop-blur-xl border-0 shadow-2xl">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-blue-500/10 to-transparent rounded-full blur-3xl"></div>
+            <CardHeader className="relative z-10 pb-6">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
+                  <TrendingUp className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <CardTitle className="text-2xl font-bold text-slate-900">Current Project Progress</CardTitle>
+                  <CardDescription className="text-slate-600">Real-time updates from our active projects with live metrics</CardDescription>
+                </div>
+              </div>
             </CardHeader>
-            <CardContent>
-              <div className="space-y-6">
+            <CardContent className="relative z-10">
+              <div className="space-y-8">
                 {projectProgress.map((project, index) => (
-                  <div key={index} className="space-y-2">
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <span className="font-medium text-slate-900">{project.name}</span>
-                        <span className="text-sm text-slate-500 ml-2">for {project.client}</span>
+                  <div key={index} className="group p-6 bg-gradient-to-r from-slate-50/50 to-white/50 rounded-2xl border border-slate-200/60 hover:shadow-lg transition-all duration-300">
+                    <div className="flex justify-between items-center mb-4">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-1">
+                          <span className="font-bold text-slate-900 text-lg">{project.name}</span>
+                          <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                        </div>
+                        <span className="text-slate-600 font-medium">for {project.client}</span>
                       </div>
-                      <Badge variant={project.progress >= 90 ? "default" : "secondary"}>
-                        {project.progress}%
-                      </Badge>
+                      <div className="text-right">
+                        <Badge 
+                          variant={project.progress >= 90 ? "default" : "secondary"}
+                          className={`text-lg px-4 py-2 font-bold ${
+                            project.progress >= 90 
+                              ? 'bg-gradient-to-r from-emerald-500 to-green-500 text-white' 
+                              : 'bg-gradient-to-r from-blue-500 to-purple-500 text-white'
+                          }`}
+                        >
+                          {project.progress}%
+                        </Badge>
+                      </div>
                     </div>
-                    <Progress value={project.progress} className="h-2" />
+                    <div className="relative">
+                      <Progress 
+                        value={project.progress} 
+                        className="h-3 bg-slate-200 rounded-full overflow-hidden"
+                      />
+                      <div className="absolute top-0 left-0 h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full transition-all duration-1000 ease-out shadow-lg"
+                           style={{ width: `${project.progress}%` }}>
+                        <div className="absolute inset-0 bg-white/20 rounded-full animate-pulse"></div>
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center mt-3 text-sm text-slate-500">
+                      <span>Last updated: {new Date(project.lastUpdate).toLocaleTimeString()}</span>
+                      <span className="font-medium">ETA: {project.progress >= 90 ? 'Almost done' : '2-3 weeks'}</span>
+                    </div>
                   </div>
                 ))}
               </div>

@@ -1,7 +1,24 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Shield, Zap, Globe } from "lucide-react";
+import { ArrowRight, Shield, Zap, Globe, Sparkles, Award, Users, TrendingUp } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export default function HeroSection() {
+  const [currentStat, setCurrentStat] = useState(0);
+  
+  const stats = [
+    { icon: Award, value: "5+", label: "Projects Delivered" },
+    { icon: Users, value: "3+", label: "Happy Clients" },
+    { icon: TrendingUp, value: "98%", label: "Success Rate" },
+    { icon: Globe, value: "15+", label: "Technologies" }
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentStat((prev) => (prev + 1) % stats.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -10,88 +27,113 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center bg-white pt-24">
-      {/* Clean geometric pattern */}
-      <div className="absolute inset-0 bg-slate-50 opacity-50">
-        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_48%,rgba(148,163,184,0.05)_49%,rgba(148,163,184,0.05)_51%,transparent_52%)] bg-[length:20px_20px]"></div>
+    <section className="relative min-h-screen flex items-center overflow-hidden pt-24">
+      {/* Modern gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
+        <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/5 via-transparent to-purple-600/5"></div>
+        {/* Animated floating elements */}
+        <div className="absolute top-20 left-10 w-20 h-20 bg-blue-500/10 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute top-40 right-20 w-32 h-32 bg-purple-500/10 rounded-full blur-xl animate-pulse delay-1000"></div>
+        <div className="absolute bottom-40 left-1/4 w-16 h-16 bg-green-500/10 rounded-full blur-xl animate-pulse delay-2000"></div>
       </div>
       
       <div className="relative max-w-7xl mx-auto px-6 z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Content */}
           <div className="text-left">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 rounded-full mb-8">
-              <Shield className="w-4 h-4 text-slate-600" />
-              <span className="text-slate-700 text-sm font-medium">Enterprise Technology Solutions</span>
+            <div className="inline-flex items-center gap-2 px-6 py-3 bg-white/80 backdrop-blur-sm rounded-full mb-8 border border-slate-200/60 shadow-lg">
+              <Sparkles className="w-4 h-4 text-blue-600" />
+              <span className="text-slate-700 text-sm font-medium">Next-Gen Enterprise Solutions</span>
             </div>
             
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-slate-900 leading-tight">
-              Transform Your
-              <span className="block text-slate-800">
-                Business Digital
+            <h1 className="text-6xl md:text-7xl font-bold mb-8 leading-tight">
+              <span className="bg-gradient-to-r from-slate-900 via-blue-800 to-purple-800 bg-clip-text text-transparent">
+                Transform Your
               </span>
-              <span className="block text-slate-700">
-                Infrastructure
+              <span className="block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Digital Future
               </span>
             </h1>
             
-            <p className="text-xl text-slate-600 mb-8 leading-relaxed max-w-lg">
-              Enterprise-grade technology solutions that drive innovation, streamline operations, and accelerate growth for forward-thinking organizations. India's leading IT consulting firm with 2+ satisfied clients and 98% success rate.
+            <p className="text-xl text-slate-600 mb-10 leading-relaxed max-w-lg">
+              Pioneering enterprise technology solutions that revolutionize businesses through cutting-edge cloud infrastructure, AI-driven analytics, and seamless digital transformation.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
               <Button
                 onClick={() => scrollToSection("contact")}
-                className="bg-slate-900 hover:bg-slate-800 text-white px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300 shadow-lg"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-10 py-4 text-lg font-semibold rounded-xl transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
               >
-                Get Started
+                Start Your Journey
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
               <Button
                 onClick={() => scrollToSection("services")}
                 variant="outline"
-                className="border-slate-300 text-slate-700 hover:bg-slate-50 px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300"
+                className="border-2 border-slate-300 text-slate-700 hover:bg-slate-100 hover:border-slate-400 px-10 py-4 text-lg font-semibold rounded-xl transition-all duration-300 backdrop-blur-sm"
               >
                 Explore Services
               </Button>
             </div>
             
-            {/* Key Stats */}
-            <div className="grid grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-slate-900 mb-2">5+</div>
-                <div className="text-slate-600 text-sm">Projects Delivered</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-slate-900 mb-2">99.9%</div>
-                <div className="text-slate-600 text-sm">Uptime SLA</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-slate-900 mb-2">24/7</div>
-                <div className="text-slate-600 text-sm">Enterprise Support</div>
-              </div>
+            {/* Animated Stats */}
+            <div className="grid grid-cols-3 gap-6">
+              {stats.map((stat, index) => {
+                const IconComponent = stat.icon;
+                return (
+                  <div 
+                    key={index}
+                    className={`text-center p-4 rounded-xl transition-all duration-500 ${
+                      currentStat === index 
+                        ? 'bg-white/80 backdrop-blur-sm border border-blue-200/60 shadow-lg transform scale-105' 
+                        : 'bg-white/40 backdrop-blur-sm'
+                    }`}
+                  >
+                    <IconComponent className={`w-6 h-6 mx-auto mb-2 ${
+                      currentStat === index ? 'text-blue-600' : 'text-slate-500'
+                    }`} />
+                    <div className={`text-2xl font-bold mb-1 ${
+                      currentStat === index ? 'text-blue-600' : 'text-slate-900'
+                    }`}>
+                      {stat.value}
+                    </div>
+                    <div className="text-slate-600 text-sm">{stat.label}</div>
+                  </div>
+                );
+              })}
             </div>
           </div>
           
-          {/* Visual Content */}
+          {/* Enhanced Visual Content */}
           <div className="relative lg:block">
-            <div className="bg-slate-100 rounded-2xl p-8 shadow-xl">
-              <div className="grid grid-cols-2 gap-4 mb-6">
-                <div className="bg-white rounded-lg p-4 shadow-md">
-                  <Zap className="w-8 h-8 text-slate-700 mb-3" />
-                  <h3 className="font-semibold text-slate-900 mb-2">Fast Deployment</h3>
-                  <p className="text-slate-600 text-sm">Rapid implementation with minimal downtime</p>
+            <div className="relative">
+              {/* Background glow effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-3xl blur-3xl"></div>
+              
+              <div className="relative bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20">
+                <div className="grid grid-cols-2 gap-6 mb-6">
+                  <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 shadow-lg transform hover:scale-105 transition-all duration-300">
+                    <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center mb-4">
+                      <Zap className="w-6 h-6 text-white" />
+                    </div>
+                    <h3 className="font-bold text-slate-900 mb-2">Lightning Fast</h3>
+                    <p className="text-slate-600 text-sm">Deploy in minutes, not months with our automated solutions</p>
+                  </div>
+                  <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 shadow-lg transform hover:scale-105 transition-all duration-300">
+                    <div className="w-12 h-12 bg-purple-600 rounded-xl flex items-center justify-center mb-4">
+                      <Shield className="w-6 h-6 text-white" />
+                    </div>
+                    <h3 className="font-bold text-slate-900 mb-2">Fort Knox Security</h3>
+                    <p className="text-slate-600 text-sm">Enterprise-grade security with zero-trust architecture</p>
+                  </div>
                 </div>
-                <div className="bg-white rounded-lg p-4 shadow-md">
-                  <Shield className="w-8 h-8 text-slate-700 mb-3" />
-                  <h3 className="font-semibold text-slate-900 mb-2">Enterprise Security</h3>
-                  <p className="text-slate-600 text-sm">Bank-grade security and compliance</p>
+                <div className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-xl p-6 shadow-lg transform hover:scale-105 transition-all duration-300">
+                  <div className="w-12 h-12 bg-emerald-600 rounded-xl flex items-center justify-center mb-4">
+                    <Globe className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="font-bold text-slate-900 mb-2">Global Reach</h3>
+                  <p className="text-slate-600 text-sm">Scalable infrastructure spanning multiple regions worldwide</p>
                 </div>
-              </div>
-              <div className="bg-white rounded-lg p-4 shadow-md">
-                <Globe className="w-8 h-8 text-slate-700 mb-3" />
-                <h3 className="font-semibold text-slate-900 mb-2">Global Scale</h3>
-                <p className="text-slate-600 text-sm">Worldwide infrastructure and support coverage</p>
               </div>
             </div>
           </div>
