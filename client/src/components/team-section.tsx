@@ -17,6 +17,7 @@ import {
   Mail,
   Calendar
 } from "lucide-react";
+import sachinCtoImage from "@/assets/sachin-cto.gif";
 
 const teamMembers = [
   {
@@ -75,7 +76,7 @@ export default function TeamSection() {
                     <div className="relative mx-auto mb-4">
                       <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xl font-bold shadow-xl mx-auto overflow-hidden ring-4 ring-white">
                         <img 
-                          src="/sachin-profile.gif" 
+                          src={sachinCtoImage} 
                           alt="Sachin - CTO" 
                           className="w-full h-full object-cover"
                         />
