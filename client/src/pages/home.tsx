@@ -9,6 +9,7 @@ import TeamSection from "@/components/team-section";
 import ContactSection from "@/components/contact-section";
 import Footer from "@/components/footer";
 import { useState, useEffect } from "react";
+import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -39,6 +40,7 @@ import { useToast } from "@/hooks/use-toast";
 
 export default function Home() {
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   const [currentTime, setCurrentTime] = useState(new Date());
   const [searchTerm, setSearchTerm] = useState("");
   const [activeFilter, setActiveFilter] = useState("all");
