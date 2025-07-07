@@ -799,7 +799,7 @@ export default function Solutions() {
                     <SelectValue placeholder="Select timeline" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Urgent (< 1 month)">Urgent (< 1 month)</SelectItem>
+                    <SelectItem value="Urgent (&lt; 1 month)">Urgent (&lt; 1 month)</SelectItem>
                     <SelectItem value="1-3 months">1-3 months</SelectItem>
                     <SelectItem value="3-6 months">3-6 months</SelectItem>
                     <SelectItem value="6+ months">6+ months</SelectItem>

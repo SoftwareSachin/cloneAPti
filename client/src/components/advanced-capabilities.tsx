@@ -55,7 +55,7 @@ export default function AdvancedCapabilities() {
       title: "Real-Time Data Intelligence",
       description: "Unlock insights from your data with real-time processing, analytics, and business intelligence.",
       features: ["Real-Time Processing", "Data Warehousing", "Business Intelligence", "ETL Pipelines"],
-      metrics: { value: "< 100ms", label: "Response Time" }
+      metrics: { value: "&lt; 100ms", label: "Response Time" }
     }
   ];
 

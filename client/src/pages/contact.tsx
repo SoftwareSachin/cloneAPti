@@ -43,7 +43,7 @@ export default function Contact() {
   
   // Analytics State
   const [viewCount, setViewCount] = useState(0);
-  const [responseTime, setResponseTime] = useState('< 2 min');
+  const [responseTime, setResponseTime] = useState('&lt; 2 min');
   const [satisfactionScore, setSatisfactionScore] = useState(4.9);
 
   const office = {
