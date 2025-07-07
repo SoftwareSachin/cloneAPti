@@ -124,7 +124,8 @@ export default function About() {
   const [selectedYear, setSelectedYear] = useState<string | null>(null);
   const [realTimeStats, setRealTimeStats] = useState(COMPANY_STATS);
   const [contactForm, setContactForm] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     company: "",
     message: ""
@@ -151,17 +152,27 @@ export default function About() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: any) => {
-      return apiRequest('/api/contact', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
-        body: JSON.stringify(data)
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
       });
+      
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to send message');
+      }
+      
+      return response.json();
     },
     onSuccess: () => {
       toast({
         title: "Message Sent Successfully!",
         description: "Our team will get back to you within 24 hours.",
       });
-      setContactForm({ name: "", email: "", company: "", message: "" });
+      setContactForm({ firstName: "", lastName: "", email: "", company: "", message: "" });
     },
     onError: () => {
       toast({
@@ -174,10 +185,20 @@ export default function About() {
 
   const newsletterMutation = useMutation({
     mutationFn: async (email: string) => {
-      return apiRequest('/api/newsletter', {
+      const response = await fetch('/api/newsletter', {
         method: 'POST',
-        body: JSON.stringify({ email, source: 'about-page' })
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, source: 'about-page' }),
       });
+      
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to subscribe');
+      }
+      
+      return response.json();
     },
     onSuccess: () => {
       toast({
@@ -221,7 +242,7 @@ export default function About() {
 
   const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!contactForm.name || !contactForm.email || !contactForm.message) {
+    if (!contactForm.firstName || !contactForm.lastName || !contactForm.email || !contactForm.message) {
       toast({
         title: "Validation Error",
         description: "Please fill in all required fields.",
@@ -555,15 +576,27 @@ export default function About() {
               <CardContent className="p-0">
                 <h3 className="text-xl font-bold text-slate-900 mb-6">Send us a message</h3>
                 <form onSubmit={handleContactSubmit} className="space-y-4">
-                  <div>
-                    <Label htmlFor="name">Full Name *</Label>
-                    <Input
-                      id="name"
-                      value={contactForm.name}
-                      onChange={(e) => setContactForm(prev => ({ ...prev, name: e.target.value }))}
-                      placeholder="Your full name"
-                      required
-                    />
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="firstName">First Name *</Label>
+                      <Input
+                        id="firstName"
+                        value={contactForm.firstName}
+                        onChange={(e) => setContactForm(prev => ({ ...prev, firstName: e.target.value }))}
+                        placeholder="First name"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="lastName">Last Name *</Label>
+                      <Input
+                        id="lastName"
+                        value={contactForm.lastName}
+                        onChange={(e) => setContactForm(prev => ({ ...prev, lastName: e.target.value }))}
+                        placeholder="Last name"
+                        required
+                      />
+                    </div>
                   </div>
                   <div>
                     <Label htmlFor="email">Email Address *</Label>
