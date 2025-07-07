@@ -1,0 +1,9 @@
+# Ads.txt for Aptivon Solutions
+# This file helps prevent ad fraud by identifying authorized sellers
+# Currently no advertising partners - professional IT services only
+
+# Google AdSense (if needed in future)
+# google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+
+# For now, indicating no advertising partnerships
+# Direct professional IT services only

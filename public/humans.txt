@@ -1,0 +1,35 @@
+/* TEAM */
+    CEO & Founder: Sachin Singhal
+    Contact: singhal3.sachin7@gmail.com
+    Location: India
+
+    Technical Lead: Sarah Chen
+    Specialization: Full-Stack Development, Cloud Architecture, DevOps
+    
+    Product Manager: Marcus Rodriguez
+    Specialization: Product Strategy, Market Analysis, Agile
+    
+    UX Strategy Lead: Priya Sharma
+    Specialization: UX Strategy, Data Analytics, Customer Success
+
+/* SITE */
+    Last update: 2025/01/07
+    Language: English
+    Doctype: HTML5
+    IDE: Replit, VS Code
+    Framework: React, TypeScript, Express.js
+    Database: PostgreSQL
+    Cloud: Vercel, Neon Database
+    
+/* COMPANY */
+    Name: Aptivon Solutions Pvt. Ltd.
+    Established: 2020
+    Team Size: 50+ Technology Experts
+    Clients: 150+ Satisfied Enterprise Clients
+    Success Rate: 98%
+    Services: Cloud Migration, AI/ML, DevOps, Custom Development
+    
+    We are India's leading enterprise IT consulting firm
+    specializing in digital transformation and technology solutions.
+    
+    Transform your business with proven technology solutions.
