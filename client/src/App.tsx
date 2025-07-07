@@ -20,6 +20,7 @@ const Careers = lazy(() => import("@/pages/careers"));
 const Blog = lazy(() => import("@/pages/blog"));
 const Contact = lazy(() => import("@/pages/contact"));
 const Architecture = lazy(() => import("@/pages/architecture"));
+const PortfolioDownload = lazy(() => import("@/pages/portfolio-download"));
 
 // Legal pages
 const PrivacyPolicy = lazy(() => import("@/pages/privacy-policy"));
@@ -101,6 +102,11 @@ function Router() {
       <Route path="/architecture">
         <Suspense fallback={<Loading />}>
           <Architecture />
+        </Suspense>
+      </Route>
+      <Route path="/portfolio-download">
+        <Suspense fallback={<Loading />}>
+          <PortfolioDownload />
         </Suspense>
       </Route>
       <Route path="/privacy-policy">

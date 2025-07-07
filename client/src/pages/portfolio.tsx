@@ -175,6 +175,19 @@ export default function Portfolio() {
               Showcasing successful digital transformations and innovative solutions 
               delivered for leading enterprises across multiple industries.
             </p>
+            
+            {/* Download Portfolio Button */}
+            <div className="mb-8">
+              <Button 
+                size="lg"
+                className="bg-slate-900 hover:bg-slate-800 text-white px-8 py-4 text-lg font-semibold"
+                onClick={() => setLocation("/portfolio-download")}
+              >
+                <Download className="h-5 w-5 mr-2" />
+                Download Complete Portfolio
+              </Button>
+            </div>
+            
             <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto">
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
