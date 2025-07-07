@@ -5,6 +5,191 @@ import { insertContactSchema } from "@shared/schema";
 import { z } from "zod";
 import sgMail from '@sendgrid/mail';
 
+type DownloadRequest = {
+  email: string;
+  firstName: string;
+  lastName: string;
+  company?: string;
+  position?: string;
+  source: string;
+};
+
+function generateCompanyProfile(request: DownloadRequest & { id: number; createdAt: Date }) {
+  const currentYear = new Date().getFullYear();
+  
+  const htmlDocument = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aptivon Solutions - Advanced Company Profile</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: #1e293b;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      margin: 0;
+      padding: 20px;
+    }
+    
+    .document-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    
+    .cover-page {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
+      color: white;
+      padding: 80px 60px;
+      text-align: center;
+      position: relative;
+    }
+    
+    .company-logo { 
+      font-size: 3.5em;
+      font-weight: 800;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .page {
+      padding: 50px;
+    }
+    
+    .section {
+      margin-bottom: 40px;
+      padding: 30px;
+      background: #f8fafc;
+      border-radius: 12px;
+      border-left: 4px solid #1e293b;
+    }
+    
+    .metrics-grid { 
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+    
+    .metric-card { 
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      text-align: center;
+      border-top: 4px solid #1e293b;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .metric-number { 
+      font-size: 2.5em;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 10px;
+      line-height: 1;
+    }
+    
+    .metric-label { 
+      color: #64748b;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 0.9em;
+    }
+    
+    .contact-section {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      color: white;
+      padding: 40px;
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="document-container">
+    <div class="cover-page">
+      <div class="company-logo">APTIVON SOLUTIONS</div>
+      <p style="font-size: 1.3em; margin-bottom: 30px;">Transforming Enterprises Through Innovation</p>
+      <p style="font-size: 1.1em; margin-bottom: 20px;">Advanced Company Profile ${currentYear}</p>
+      
+      <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 12px; margin-top: 40px;">
+        <strong>Generated for:</strong> ${request.firstName} ${request.lastName}<br>
+        ${request.company ? `Company: ${request.company}<br>` : ''}
+        <em>Document ID: #${request.id} | Generated: ${new Date().toLocaleDateString()}</em>
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="section">
+        <h2>Company Overview</h2>
+        <p style="font-size: 1.1em; margin-bottom: 20px;">
+          Aptivon Solutions has emerged as a rapidly growing technology leader, transforming enterprises through innovative digital solutions since 2022. 
+          In just 3 years, we've established ourselves as a trusted partner for organizations seeking competitive advantage through technology.
+        </p>
+      </div>
+
+      <h2 style="color: #1e293b; margin: 30px 0 20px 0;">Key Performance Indicators</h2>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-number">5+</div>
+          <div class="metric-label">Projects Delivered</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">3+</div>
+          <div class="metric-label">Enterprise Clients</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">2</div>
+          <div class="metric-label">Team Members</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">99.9%</div>
+          <div class="metric-label">Uptime SLA</div>
+        </div>
+      </div>
+
+      <div class="contact-section">
+        <h2 style="margin-bottom: 20px;">Ready to Transform Your Business?</h2>
+        <p style="font-size: 1.2em; margin-bottom: 30px; opacity: 0.9;">
+          Contact us today for a free consultation and discover how we can help you achieve your technology goals.
+        </p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px; margin-top: 25px;">
+          <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+            <h3 style="margin-bottom: 15px;">Direct Contact</h3>
+            <div style="font-size: 1.1em;">📧 singhal3.sachin7@gmail.com</div>
+            <div style="font-size: 1.1em; margin-top: 10px;">📞 +917852099010</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 40px; padding: 30px; background: #f8fafc; border-radius: 12px;">
+        <p style="color: #64748b; font-size: 0.9em;">
+          <strong>Document Generated:</strong> ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}<br>
+          <strong>© ${currentYear} Aptivon Solutions Pvt. Ltd.</strong> - All rights reserved.
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>`;
+
+  return {
+    document: htmlDocument,
+    filename: `aptivon-solutions-company-profile-${currentYear}.html`,
+    requestId: request.id
+  };
+}
+
 // Support ticket schema
 const supportTicketSchema = z.object({
   fullName: z.string().min(2, "Name must be at least 2 characters"),
@@ -76,6 +261,63 @@ const KNOWLEDGE_BASE = [
 ];
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Company Profile API route - placed first to ensure proper handling
+  app.post("/api/company-profile", async (req, res) => {
+    const downloadRequestSchema = z.object({
+      email: z.string().email('Invalid email address'),
+      firstName: z.string().min(1, 'First name is required'),
+      lastName: z.string().min(1, 'Last name is required'),
+      company: z.string().optional(),
+      position: z.string().optional(),
+      source: z.string().default('about-page')
+    });
+
+    try {
+      const validationResult = downloadRequestSchema.safeParse(req.body);
+      
+      if (!validationResult.success) {
+        return res.status(400).json({
+          message: 'Validation failed',
+          errors: validationResult.error.errors,
+          success: false
+        });
+      }
+
+      const requestData = validationResult.data;
+      const newRequest = {
+        id: Date.now(),
+        ...requestData,
+        createdAt: new Date()
+      };
+
+      console.log('Company profile download request:', {
+        id: newRequest.id,
+        name: `${newRequest.firstName} ${newRequest.lastName}`,
+        email: newRequest.email,
+        company: newRequest.company,
+        timestamp: newRequest.createdAt.toISOString()
+      });
+
+      // Generate comprehensive company profile document
+      const companyProfile = generateCompanyProfile(newRequest);
+
+      return res.status(200).json({
+        message: 'Company profile generated successfully',
+        downloadUrl: '/company-profile.html',
+        profile: companyProfile,
+        requestId: newRequest.id,
+        success: true
+      });
+    } catch (error: any) {
+      console.error('Company profile API error:', error);
+      return res.status(500).json({ 
+        message: 'Internal server error - failed to generate company profile',
+        error: error.message,
+        success: false
+      });
+    }
+  });
+
   // Contact form submission
   app.post("/api/contact", async (req, res) => {
     try {
@@ -1075,6 +1317,8 @@ This application was submitted through the Aptivon Solutions careers page.
       });
     }
   });
+
+
 
   const httpServer = createServer(app);
   return httpServer;
