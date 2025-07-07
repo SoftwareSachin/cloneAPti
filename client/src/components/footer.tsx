@@ -1,17 +1,17 @@
-import { Linkedin, Twitter, Github, Mail, Phone, MapPin, Clock, Award, TrendingUp, ArrowRight, Send, CheckCircle, Star } from "lucide-react";
+import { Linkedin, Twitter, Github, Mail, Phone, MapPin, Clock, Award, TrendingUp, ArrowRight, Send, CheckCircle, Star, Cloud, Settings, Cpu, Smartphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import logoGif from "../assets/logo.gif";
+import logoGif from "../assets/new-logo.gif";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
 
   const services = [
-    { name: "Cloud Infrastructure", href: "/services", icon: "☁️" },
-    { name: "DevOps & Automation", href: "/services", icon: "⚙️" },
-    { name: "AI & Analytics", href: "/services", icon: "🤖" },
-    { name: "Application Development", href: "/services", icon: "📱" }
+    { name: "Cloud Infrastructure", href: "/services", icon: Cloud },
+    { name: "DevOps & Automation", href: "/services", icon: Settings },
+    { name: "AI & Analytics", href: "/services", icon: Cpu },
+    { name: "Application Development", href: "/services", icon: Smartphone }
   ];
 
   const companyLinks = [
@@ -111,7 +111,6 @@ export default function Footer() {
                     alt="Aptivon Solutions" 
                     className="h-12 w-auto rounded-lg shadow-lg"
                   />
-                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-slate-900"></div>
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
@@ -171,18 +170,21 @@ export default function Footer() {
                 Our Services
               </h4>
               <ul className="space-y-4">
-                {services.map((service) => (
-                  <li key={service.name}>
-                    <a
-                      href={service.href}
-                      className="flex items-center gap-3 text-slate-300 hover:text-blue-400 transition-all duration-300 hover:translate-x-2 group"
-                    >
-                      <span className="text-lg">{service.icon}</span>
-                      <span className="group-hover:underline">{service.name}</span>
-                      <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </a>
-                  </li>
-                ))}
+                {services.map((service) => {
+                  const IconComponent = service.icon;
+                  return (
+                    <li key={service.name}>
+                      <a
+                        href={service.href}
+                        className="flex items-center gap-3 text-slate-300 hover:text-blue-400 transition-all duration-300 hover:translate-x-2 group"
+                      >
+                        <IconComponent className="w-5 h-5 text-blue-400" />
+                        <span className="group-hover:underline">{service.name}</span>
+                        <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
 
@@ -258,10 +260,6 @@ export default function Footer() {
                 <a href="#" className="text-slate-400 hover:text-white text-sm transition-colors hover:underline">
                   Security
                 </a>
-                <div className="flex items-center gap-2 text-xs text-green-400">
-                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                  <span>All systems operational</span>
-                </div>
               </div>
             </div>
           </div>
