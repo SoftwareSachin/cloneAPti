@@ -240,6 +240,67 @@ Ready to start your cloud migration journey? Our team has the experience and exp
       };
       this.blogPosts.set(id, blogPost);
     });
+    
+    // Add additional blog posts to ensure we have more content
+    const additionalPosts = [
+      {
+        title: "DevOps Automation: Building Scalable CI/CD Pipelines",
+        slug: "devops-automation-scalable-cicd-pipelines",
+        excerpt: "Learn how to implement robust DevOps practices that accelerate development cycles and improve software quality through automated testing and deployment.",
+        content: `# DevOps Automation: Building Scalable CI/CD Pipelines\n\nModern software development demands speed, quality, and reliability. DevOps automation, particularly through well-designed CI/CD pipelines, provides the foundation for achieving these goals while maintaining high standards of code quality and system stability.\n\n## The Evolution of DevOps\n\nDevOps has transformed from a cultural movement to a set of proven practices and tools that enable organizations to deliver software faster and more reliably. The key to successful DevOps implementation lies in automation—removing manual processes that introduce delays and errors.\n\n## Building Effective CI/CD Pipelines\n\n### Continuous Integration (CI)\n\nEffective CI practices include:\n- Automated code quality checks\n- Comprehensive testing at multiple levels\n- Security vulnerability scanning\n- Performance benchmarking\n\n### Continuous Deployment (CD)\n\nStreamlined deployment processes ensure:\n- Consistent environment configuration\n- Rollback capabilities\n- Blue-green deployment strategies\n- Automated monitoring and alerting\n\n## Best Practices for Success\n\n1. **Infrastructure as Code**: Version control your infrastructure\n2. **Monitoring and Observability**: Implement comprehensive logging\n3. **Security Integration**: Build security into every step\n4. **Team Collaboration**: Foster communication between development and operations\n\n## Conclusion\n\nSuccessful DevOps automation requires thoughtful planning, the right tools, and a commitment to continuous improvement. The investment in building robust CI/CD pipelines pays dividends in reduced deployment time, fewer production issues, and increased team productivity.`,
+        author: "Sarah Chen",
+        category: "DevOps",
+        tags: ["DevOps", "CI/CD", "Automation", "Infrastructure"],
+        readTime: "7 min read",
+        published: true,
+        featured: false,
+        views: 654,
+        likes: 42,
+        createdAt: new Date("2025-01-10"),
+        updatedAt: new Date("2025-01-10")
+      },
+      {
+        title: "Cybersecurity in the Cloud: Essential Protection Strategies",
+        slug: "cybersecurity-cloud-essential-protection-strategies",
+        excerpt: "Comprehensive guide to securing cloud infrastructure, including identity management, network security, and compliance requirements for enterprise environments.",
+        content: `# Cybersecurity in the Cloud: Essential Protection Strategies\n\nAs organizations increasingly migrate to cloud environments, cybersecurity has become more complex and critical than ever. The shared responsibility model of cloud security requires a new approach to protecting digital assets and ensuring compliance with industry regulations.\n\n## Understanding Cloud Security Challenges\n\nCloud environments introduce unique security considerations:\n- Shared responsibility between cloud providers and customers\n- Dynamic and scalable infrastructure\n- Multi-tenant environments\n- Diverse access patterns and devices\n\n## Core Security Pillars\n\n### 1. Identity and Access Management (IAM)\n\n- Multi-factor authentication (MFA)\n- Role-based access control (RBAC)\n- Principle of least privilege\n- Regular access reviews and audits\n\n### 2. Network Security\n\n- Virtual private clouds (VPCs)\n- Network segmentation\n- Firewall rules and security groups\n- Intrusion detection and prevention\n\n### 3. Data Protection\n\n- Encryption at rest and in transit\n- Data classification and labeling\n- Backup and disaster recovery\n- Data loss prevention (DLP)\n\n## Compliance and Governance\n\nMaintaining compliance in cloud environments requires:\n- Understanding regulatory requirements\n- Implementing security frameworks\n- Regular security assessments\n- Documentation and audit trails\n\n## Best Practices for Implementation\n\n1. **Security by Design**: Build security into every layer\n2. **Continuous Monitoring**: Implement real-time threat detection\n3. **Regular Updates**: Keep systems and security tools current\n4. **Team Training**: Ensure security awareness across all teams\n\n## Conclusion\n\nCloud security is an ongoing process that requires vigilance, proper tools, and a comprehensive strategy. By implementing these essential protection strategies, organizations can confidently leverage cloud technologies while maintaining robust security postures.`,
+        author: "Marcus Rodriguez",
+        category: "Cybersecurity",
+        tags: ["Security", "Cloud", "Compliance", "Data Protection"],
+        readTime: "9 min read",
+        published: true,
+        featured: false,
+        views: 987,
+        likes: 78,
+        createdAt: new Date("2025-01-08"),
+        updatedAt: new Date("2025-01-08")
+      },
+      {
+        title: "Modern Web Development: React, TypeScript, and Performance Optimization",
+        slug: "modern-web-development-react-typescript-performance",
+        excerpt: "Explore the latest trends in frontend development, from React hooks and TypeScript best practices to advanced performance optimization techniques.",
+        content: `# Modern Web Development: React, TypeScript, and Performance Optimization\n\nThe frontend development landscape continues to evolve rapidly, with new tools, frameworks, and best practices emerging regularly. This comprehensive guide covers the essential aspects of modern web development, focusing on React, TypeScript, and performance optimization strategies.\n\n## The Modern Development Stack\n\n### React Ecosystem\n\nReact remains the dominant frontend framework, offering:\n- Component-based architecture\n- Virtual DOM for efficient updates\n- Rich ecosystem of libraries and tools\n- Strong community support\n\n### TypeScript Advantages\n\nTypeScript enhances JavaScript development with:\n- Static type checking\n- Enhanced IDE support\n- Better code documentation\n- Reduced runtime errors\n\n## Performance Optimization Strategies\n\n### Code Splitting and Lazy Loading\n\n- Dynamic imports for route-based splitting\n- Component-level code splitting\n- Resource prioritization\n- Progressive loading strategies\n\n### State Management\n\n- Choosing the right state management solution\n- Optimizing re-renders\n- Memoization techniques\n- Context optimization\n\n### Bundle Optimization\n\n- Tree shaking for dead code elimination\n- Module federation for micro-frontends\n- Asset optimization and compression\n- CDN utilization\n\n## Development Best Practices\n\n1. **Component Design**: Create reusable, testable components\n2. **Testing Strategy**: Implement comprehensive testing at all levels\n3. **Performance Monitoring**: Use tools to track real user performance\n4. **Accessibility**: Ensure applications are accessible to all users\n\n## Future Trends\n\nEmerging trends in frontend development:\n- Server-side rendering (SSR) and static generation\n- Edge computing and distributed architectures\n- WebAssembly for performance-critical applications\n- Progressive Web Apps (PWAs) for mobile-first experiences\n\n## Conclusion\n\nModern web development requires a balanced approach that prioritizes both developer experience and user performance. By leveraging React, TypeScript, and proven optimization techniques, developers can build applications that are both maintainable and performant.`,
+        author: "Sarah Chen",
+        category: "Web Development",
+        tags: ["React", "TypeScript", "Performance", "Frontend"],
+        readTime: "8 min read",
+        published: true,
+        featured: false,
+        views: 1156,
+        likes: 94,
+        createdAt: new Date("2025-01-06"),
+        updatedAt: new Date("2025-01-06")
+      }
+    ];
+    
+    additionalPosts.forEach(post => {
+      const id = this.currentBlogId++;
+      const blogPost: BlogPost = {
+        ...post,
+        id,
+      };
+      this.blogPosts.set(id, blogPost);
+    });
   }
 
   async createContact(insertContact: InsertContact): Promise<Contact> {
@@ -293,15 +354,10 @@ Ready to start your cloud migration journey? Our team has the experience and exp
     
     posts.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
     
-    if (params?.offset) {
-      posts = posts.slice(params.offset);
-    }
+    const offset = params?.offset || 0;
+    const limit = params?.limit || posts.length;
     
-    if (params?.limit) {
-      posts = posts.slice(0, params.limit);
-    }
-    
-    return posts;
+    return posts.slice(offset, offset + limit);
   }
 
   async getBlogPost(slug: string): Promise<BlogPost | undefined> {

@@ -79,7 +79,6 @@ export default function Blog() {
   // Filter and search posts
   const filteredPosts = useMemo(() => {
     return allPosts
-      .filter(post => !post.featured) // Exclude featured post from regular list
       .filter(post => 
         selectedCategory === "All Posts" || post.category === selectedCategory
       )
