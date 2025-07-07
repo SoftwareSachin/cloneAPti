@@ -99,6 +99,11 @@ This is a modern, responsive company website for Aptivon Solutions Pvt. Ltd., an
 
 ## Changelog
 
+- July 07, 2025. Removed Current Project Progress section:
+  * Removed "Current Project Progress" section from home page per user request
+  * Cleaned up related state variables and useEffect hooks
+  * Removed unused Progress component import
+  * Streamlined dashboard section for better focus on metrics
 - July 07, 2025. Functional legal pages implementation:
   * Created comprehensive Privacy Policy with data protection details and user rights
   * Implemented Terms of Service with payment terms, liability, and compliance information

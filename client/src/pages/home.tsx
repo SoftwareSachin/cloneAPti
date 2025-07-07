@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Progress } from "@/components/ui/progress";
+
 import { Input } from "@/components/ui/input";
 import { 
   TrendingUp, 
@@ -42,26 +42,7 @@ export default function Home() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [searchTerm, setSearchTerm] = useState("");
   const [activeFilter, setActiveFilter] = useState("all");
-  const [projectProgress, setProjectProgress] = useState([
-    { name: "Cloud Migration", progress: 85, client: "TechCorp India", lastUpdate: Date.now() },
-    { name: "AI Implementation", progress: 70, client: "FinServ Ltd", lastUpdate: Date.now() },
-    { name: "Security Audit", progress: 95, client: "Healthcare Plus", lastUpdate: Date.now() },
-    { name: "Digital Transform", progress: 60, client: "Retail Chain", lastUpdate: Date.now() }
-  ]);
 
-  // Simulate project progress updates every 45 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setProjectProgress(prev => 
-        prev.map(project => ({
-          ...project,
-          progress: Math.min(100, project.progress + (Math.random() > 0.7 ? Math.floor(Math.random() * 3) + 1 : 0)),
-          lastUpdate: Date.now()
-        }))
-      );
-    }, 45000);
-    return () => clearInterval(interval);
-  }, []);
 
   const [liveMetrics, setLiveMetrics] = useState({
     activeProjects: 5,
@@ -363,64 +344,7 @@ Website: aptivonsolutions.com
             </Card>
           </div>
 
-          {/* Enhanced Live Project Progress */}
-          <Card className="relative overflow-hidden bg-white/80 backdrop-blur-xl border-0 shadow-2xl">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-blue-500/10 to-transparent rounded-full blur-3xl"></div>
-            <CardHeader className="relative z-10 pb-6">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
-                  <TrendingUp className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <CardTitle className="text-2xl font-bold text-slate-900">Current Project Progress</CardTitle>
-                  <CardDescription className="text-slate-600">Real-time updates from our active projects with live metrics</CardDescription>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent className="relative z-10">
-              <div className="space-y-8">
-                {projectProgress.map((project, index) => (
-                  <div key={index} className="group p-6 bg-gradient-to-r from-slate-50/50 to-white/50 rounded-2xl border border-slate-200/60 hover:shadow-lg transition-all duration-300">
-                    <div className="flex justify-between items-center mb-4">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-1">
-                          <span className="font-bold text-slate-900 text-lg">{project.name}</span>
-                          <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-                        </div>
-                        <span className="text-slate-600 font-medium">for {project.client}</span>
-                      </div>
-                      <div className="text-right">
-                        <Badge 
-                          variant={project.progress >= 90 ? "default" : "secondary"}
-                          className={`text-lg px-4 py-2 font-bold ${
-                            project.progress >= 90 
-                              ? 'bg-gradient-to-r from-emerald-500 to-green-500 text-white' 
-                              : 'bg-gradient-to-r from-blue-500 to-purple-500 text-white'
-                          }`}
-                        >
-                          {project.progress}%
-                        </Badge>
-                      </div>
-                    </div>
-                    <div className="relative">
-                      <Progress 
-                        value={project.progress} 
-                        className="h-3 bg-slate-200 rounded-full overflow-hidden"
-                      />
-                      <div className="absolute top-0 left-0 h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full transition-all duration-1000 ease-out shadow-lg"
-                           style={{ width: `${project.progress}%` }}>
-                        <div className="absolute inset-0 bg-white/20 rounded-full animate-pulse"></div>
-                      </div>
-                    </div>
-                    <div className="flex justify-between items-center mt-3 text-sm text-slate-500">
-                      <span>Last updated: {new Date(project.lastUpdate).toLocaleTimeString()}</span>
-                      <span className="font-medium">ETA: {project.progress >= 90 ? 'Almost done' : '2-3 weeks'}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+
         </div>
       </section>
 
