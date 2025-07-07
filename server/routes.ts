@@ -664,6 +664,76 @@ This application was submitted through the Aptivon Solutions careers page.
     }
   });
 
+  // Portfolio API routes
+  app.get("/api/portfolio-projects", async (req, res) => {
+    try {
+      const { industry, featured, limit, offset } = req.query;
+      const params = {
+        industry: industry as string,
+        featured: featured === 'true' ? true : featured === 'false' ? false : undefined,
+        limit: limit ? parseInt(limit as string, 10) : undefined,
+        offset: offset ? parseInt(offset as string, 10) : undefined
+      };
+      const projects = await storage.getPortfolioProjects(params);
+      return res.json(projects);
+    } catch (error) {
+      console.error('Error fetching portfolio projects:', error);
+      return res.status(500).json({ error: 'Failed to fetch portfolio projects' });
+    }
+  });
+
+  app.get("/api/portfolio-project/:slug", async (req, res) => {
+    try {
+      const { slug } = req.params;
+      const project = await storage.getPortfolioProject(slug);
+      if (!project) {
+        return res.status(404).json({ error: 'Portfolio project not found' });
+      }
+      // Increment view count
+      await storage.incrementPortfolioViews(project.id);
+      return res.json(project);
+    } catch (error) {
+      console.error('Error fetching portfolio project:', error);
+      return res.status(500).json({ error: 'Failed to fetch portfolio project' });
+    }
+  });
+
+  app.post("/api/portfolio-like", async (req, res) => {
+    try {
+      const { projectId } = req.body;
+      if (!projectId) {
+        return res.status(400).json({ error: 'Project ID is required' });
+      }
+      await storage.likePortfolioProject(projectId);
+      return res.json({ success: true });
+    } catch (error) {
+      console.error('Error liking portfolio project:', error);
+      return res.status(500).json({ error: 'Failed to like portfolio project' });
+    }
+  });
+
+  app.post("/api/portfolio-inquiry", async (req, res) => {
+    try {
+      const { name, email, company, phone, message, inquiryType, projectId } = req.body;
+      if (!name || !email || !message || !inquiryType) {
+        return res.status(400).json({ error: 'Name, email, message, and inquiry type are required' });
+      }
+      const inquiry = await storage.createPortfolioInquiry({
+        name,
+        email,
+        company,
+        phone,
+        message,
+        inquiryType,
+        projectId
+      });
+      return res.json({ success: true, inquiry });
+    } catch (error) {
+      console.error('Error creating portfolio inquiry:', error);
+      return res.status(500).json({ error: 'Failed to create portfolio inquiry' });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

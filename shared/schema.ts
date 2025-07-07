@@ -80,3 +80,56 @@ export const insertBlogSubscriberSchema = createInsertSchema(blogSubscribers).om
 
 export type InsertBlogSubscriber = z.infer<typeof insertBlogSubscriberSchema>;
 export type BlogSubscriber = typeof blogSubscribers.$inferSelect;
+
+// Portfolio Projects table
+export const portfolioProjects = pgTable("portfolio_projects", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  slug: text("slug").notNull().unique(),
+  client: text("client").notNull(),
+  industry: text("industry").notNull(),
+  duration: text("duration").notNull(),
+  team: text("team").notNull(),
+  description: text("description").notNull(),
+  image: text("image"),
+  technologies: text("technologies").array().notNull(),
+  results: text("results").array().notNull(),
+  challenges: text("challenges").notNull(),
+  solution: text("solution").notNull(),
+  featured: boolean("featured").default(false),
+  published: boolean("published").default(true),
+  views: integer("views").default(0),
+  likes: integer("likes").default(0),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const insertPortfolioProjectSchema = createInsertSchema(portfolioProjects).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export type InsertPortfolioProject = z.infer<typeof insertPortfolioProjectSchema>;
+export type PortfolioProject = typeof portfolioProjects.$inferSelect;
+
+// Portfolio Inquiries table
+export const portfolioInquiries = pgTable("portfolio_inquiries", {
+  id: serial("id").primaryKey(),
+  projectId: integer("project_id").references(() => portfolioProjects.id),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  company: text("company"),
+  phone: text("phone"),
+  message: text("message").notNull(),
+  inquiryType: text("inquiry_type").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const insertPortfolioInquirySchema = createInsertSchema(portfolioInquiries).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type InsertPortfolioInquiry = z.infer<typeof insertPortfolioInquirySchema>;
+export type PortfolioInquiry = typeof portfolioInquiries.$inferSelect;

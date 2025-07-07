@@ -1,4 +1,4 @@
-import { contacts, type Contact, type InsertContact, type BlogPost, type InsertBlogPost, type BlogComment, type InsertBlogComment, type BlogSubscriber, type InsertBlogSubscriber } from "@shared/schema";
+import { contacts, type Contact, type InsertContact, type BlogPost, type InsertBlogPost, type BlogComment, type InsertBlogComment, type BlogSubscriber, type InsertBlogSubscriber, type PortfolioProject, type InsertPortfolioProject, type PortfolioInquiry, type InsertPortfolioInquiry } from "@shared/schema";
 
 export interface IStorage {
   createContact(contact: InsertContact): Promise<Contact>;
@@ -22,6 +22,20 @@ export interface IStorage {
   createBlogSubscriber(subscriber: InsertBlogSubscriber): Promise<BlogSubscriber>;
   getBlogSubscribers(): Promise<BlogSubscriber[]>;
   unsubscribeBlogSubscriber(email: string): Promise<void>;
+  
+  // Portfolio Projects
+  createPortfolioProject(project: InsertPortfolioProject): Promise<PortfolioProject>;
+  getPortfolioProjects(params?: { industry?: string; featured?: boolean; limit?: number; offset?: number }): Promise<PortfolioProject[]>;
+  getPortfolioProject(slug: string): Promise<PortfolioProject | undefined>;
+  updatePortfolioProject(id: number, project: Partial<InsertPortfolioProject>): Promise<PortfolioProject | undefined>;
+  incrementPortfolioViews(id: number): Promise<void>;
+  likePortfolioProject(id: number): Promise<void>;
+  
+  // Portfolio Inquiries
+  createPortfolioInquiry(inquiry: InsertPortfolioInquiry): Promise<PortfolioInquiry>;
+  getPortfolioInquiries(): Promise<PortfolioInquiry[]>;
+  getPortfolioInquiry(id: number): Promise<PortfolioInquiry | undefined>;
+  updatePortfolioInquiry(id: number, inquiry: Partial<InsertPortfolioInquiry>): Promise<PortfolioInquiry | undefined>;
 }
 
 export class MemStorage implements IStorage {
@@ -29,21 +43,30 @@ export class MemStorage implements IStorage {
   private blogPosts: Map<number, BlogPost>;
   private blogComments: Map<number, BlogComment>;
   private blogSubscribers: Map<number, BlogSubscriber>;
+  private portfolioProjects: Map<number, PortfolioProject>;
+  private portfolioInquiries: Map<number, PortfolioInquiry>;
   private currentId: number;
   private currentBlogId: number;
   private currentCommentId: number;
   private currentSubscriberId: number;
+  private currentPortfolioId: number;
+  private currentInquiryId: number;
 
   constructor() {
     this.contacts = new Map();
     this.blogPosts = new Map();
     this.blogComments = new Map();
     this.blogSubscribers = new Map();
+    this.portfolioProjects = new Map();
+    this.portfolioInquiries = new Map();
     this.currentId = 1;
     this.currentBlogId = 1;
     this.currentCommentId = 1;
     this.currentSubscriberId = 1;
+    this.currentPortfolioId = 1;
+    this.currentInquiryId = 1;
     this.initializeBlogPosts();
+    this.initializePortfolioProjects();
   }
 
   private initializeBlogPosts() {
@@ -453,6 +476,241 @@ Ready to start your cloud migration journey? Our team has the experience and exp
       subscriber.subscribed = false;
       this.blogSubscribers.set(subscriber.id, subscriber);
     }
+  }
+
+  // Portfolio Project initialization
+  private initializePortfolioProjects() {
+    const projects = [
+      {
+        title: "Global E-commerce Platform Modernization",
+        slug: "global-ecommerce-platform-modernization",
+        client: "Fortune 500 Retail Company",
+        industry: "E-commerce & Retail",
+        duration: "18 months",
+        team: "25 developers",
+        description: "Complete modernization of legacy e-commerce platform handling 2M+ daily transactions with microservices architecture.",
+        image: "/api/placeholder/600/400",
+        technologies: ["React", "Node.js", "PostgreSQL", "Redis", "Docker", "AWS", "Kubernetes"],
+        results: [
+          "60% improvement in page load times",
+          "99.9% uptime achievement",
+          "40% increase in conversion rates",
+          "Supported 300% traffic growth during peak season"
+        ],
+        challenges: "Legacy system migration, zero-downtime deployment, peak traffic handling",
+        solution: "Microservices architecture with event-driven design and comprehensive monitoring",
+        featured: true,
+        published: true,
+        views: 1250,
+        likes: 89
+      },
+      {
+        title: "Healthcare Data Analytics Platform",
+        slug: "healthcare-data-analytics-platform",
+        client: "Leading Healthcare Provider",
+        industry: "Healthcare & Life Sciences",
+        duration: "12 months",
+        team: "18 data engineers",
+        description: "HIPAA-compliant data analytics platform processing 500TB+ healthcare data for predictive analytics and reporting.",
+        image: "/api/placeholder/600/400",
+        technologies: ["Python", "Apache Spark", "MongoDB", "Tableau", "AWS", "TensorFlow"],
+        results: [
+          "75% faster data processing",
+          "HIPAA compliance achieved",
+          "Predictive models with 95% accuracy",
+          "Real-time analytics for 100+ hospitals"
+        ],
+        challenges: "HIPAA compliance, real-time processing, data security, scalability",
+        solution: "Event-driven architecture with comprehensive security and audit frameworks",
+        featured: true,
+        published: true,
+        views: 980,
+        likes: 72
+      },
+      {
+        title: "Financial Risk Management System",
+        slug: "financial-risk-management-system",
+        client: "Global Investment Bank",
+        industry: "Banking & Finance",
+        duration: "24 months",
+        team: "30 engineers",
+        description: "Real-time risk assessment system processing millions of transactions with advanced fraud detection capabilities.",
+        image: "/api/placeholder/600/400",
+        technologies: ["Java", "Apache Kafka", "Elasticsearch", "React", "PostgreSQL", "Machine Learning"],
+        results: [
+          "99.7% fraud detection accuracy",
+          "Sub-millisecond transaction processing",
+          "50% reduction in false positives",
+          "Regulatory compliance achieved"
+        ],
+        challenges: "Real-time processing, regulatory compliance, fraud detection accuracy",
+        solution: "Event-driven architecture with comprehensive security and audit frameworks",
+        featured: false,
+        published: true,
+        views: 756,
+        likes: 54
+      },
+      {
+        title: "Smart Manufacturing IoT Platform",
+        slug: "smart-manufacturing-iot-platform",
+        client: "Global Manufacturing Corporation",
+        industry: "Manufacturing & Industrial",
+        duration: "15 months",
+        team: "22 engineers",
+        description: "Industrial IoT platform for predictive maintenance and supply chain optimization across 5+ facilities.",
+        image: "/api/placeholder/600/400",
+        technologies: ["Node.js", "InfluxDB", "Azure IoT", "Power BI", "React", "Python"],
+        results: [
+          "35% reduction in equipment downtime",
+          "50% improvement in supply chain efficiency",
+          "Real-time monitoring of 1,000+ sensors",
+          "$2M+ cost savings through predictive maintenance"
+        ],
+        challenges: "Industrial protocol integration, edge computing, real-time analytics at scale",
+        solution: "Edge-to-cloud architecture with AI-powered predictive analytics",
+        featured: true,
+        published: true,
+        views: 1150,
+        likes: 91
+      },
+      {
+        title: "Digital Media Streaming Platform",
+        slug: "digital-media-streaming-platform",
+        client: "Entertainment Media Company",
+        industry: "Media & Entertainment",
+        duration: "10 months",
+        team: "20 developers",
+        description: "High-performance video streaming platform with global CDN and personalized content delivery.",
+        image: "/api/placeholder/600/400",
+        technologies: ["React Native", "Node.js", "AWS CloudFront", "ElasticSearch", "Redis", "FFmpeg"],
+        results: [
+          "5M+ concurrent users supported",
+          "99.99% streaming uptime",
+          "75% improvement in content discovery",
+          "Global expansion to 5+ countries"
+        ],
+        challenges: "Global content delivery, adaptive bitrate streaming, personalization at scale",
+        solution: "Microservices with ML-powered recommendation engine and global CDN",
+        featured: false,
+        published: true,
+        views: 890,
+        likes: 63
+      }
+    ];
+
+    projects.forEach(project => {
+      const portfolioProject: PortfolioProject = {
+        ...project,
+        id: this.currentPortfolioId++,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      };
+      this.portfolioProjects.set(portfolioProject.id, portfolioProject);
+    });
+  }
+
+  // Portfolio Project Methods
+  async createPortfolioProject(insertProject: InsertPortfolioProject): Promise<PortfolioProject> {
+    const id = this.currentPortfolioId++;
+    const project: PortfolioProject = {
+      ...insertProject,
+      id,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    };
+    this.portfolioProjects.set(id, project);
+    return project;
+  }
+
+  async getPortfolioProjects(params?: { industry?: string; featured?: boolean; limit?: number; offset?: number }): Promise<PortfolioProject[]> {
+    let projects = Array.from(this.portfolioProjects.values())
+      .filter(project => project.published);
+
+    if (params?.industry && params.industry !== "All") {
+      projects = projects.filter(project => project.industry === params.industry);
+    }
+
+    if (params?.featured !== undefined) {
+      projects = projects.filter(project => project.featured === params.featured);
+    }
+
+    projects = projects.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+
+    if (params?.offset) {
+      projects = projects.slice(params.offset);
+    }
+
+    if (params?.limit) {
+      projects = projects.slice(0, params.limit);
+    }
+
+    return projects;
+  }
+
+  async getPortfolioProject(slug: string): Promise<PortfolioProject | undefined> {
+    return Array.from(this.portfolioProjects.values())
+      .find(project => project.slug === slug && project.published);
+  }
+
+  async updatePortfolioProject(id: number, updates: Partial<InsertPortfolioProject>): Promise<PortfolioProject | undefined> {
+    const project = this.portfolioProjects.get(id);
+    if (project) {
+      const updatedProject = { ...project, ...updates, updatedAt: new Date() };
+      this.portfolioProjects.set(id, updatedProject);
+      return updatedProject;
+    }
+    return undefined;
+  }
+
+  async incrementPortfolioViews(id: number): Promise<void> {
+    const project = this.portfolioProjects.get(id);
+    if (project) {
+      project.views = (project.views || 0) + 1;
+      this.portfolioProjects.set(id, project);
+    }
+  }
+
+  async likePortfolioProject(id: number): Promise<void> {
+    const project = this.portfolioProjects.get(id);
+    if (project) {
+      project.likes = (project.likes || 0) + 1;
+      this.portfolioProjects.set(id, project);
+    }
+  }
+
+  // Portfolio Inquiry Methods
+  async createPortfolioInquiry(insertInquiry: InsertPortfolioInquiry): Promise<PortfolioInquiry> {
+    const id = this.currentInquiryId++;
+    const inquiry: PortfolioInquiry = {
+      ...insertInquiry,
+      id,
+      createdAt: new Date()
+    };
+    this.portfolioInquiries.set(id, inquiry);
+    return inquiry;
+  }
+
+  async getPortfolioInquiries(): Promise<PortfolioInquiry[]> {
+    return Array.from(this.portfolioInquiries.values())
+      .sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+  }
+
+  async getPortfolioInquiry(id: number): Promise<PortfolioInquiry | undefined> {
+    return this.portfolioInquiries.get(id);
+  }
+
+  async updatePortfolioInquiry(id: number, updates: Partial<InsertPortfolioInquiry>): Promise<PortfolioInquiry | undefined> {
+    const inquiry = this.portfolioInquiries.get(id);
+    if (!inquiry) return undefined;
+    
+    const updatedInquiry = {
+      ...inquiry,
+      ...updates,
+      updatedAt: new Date()
+    };
+    
+    this.portfolioInquiries.set(id, updatedInquiry);
+    return updatedInquiry;
   }
 }
 

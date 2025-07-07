@@ -1,32 +1,159 @@
-import Navigation from "@/components/navigation";
-import Footer from "@/components/footer";
-import { ExternalLink, Calendar, Users, TrendingUp, Search, Filter, Eye, Download, Share2, Phone, Mail, ArrowRight, CheckCircle2, Star } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useLocation } from "wouter";
-import { useState } from "react";
-import { useToast } from "@/hooks/use-toast";
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'wouter';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { useToast } from '@/hooks/use-toast';
+import {
+  Search,
+  Eye,
+  Heart,
+  Share2,
+  Download,
+  Phone,
+  Filter,
+  Calendar,
+  Users,
+  CheckCircle2,
+  Star,
+  TrendingUp,
+  ExternalLink,
+  MapPin,
+  Target,
+  Briefcase,
+  Clock,
+  Award,
+  Zap,
+  ArrowRight,
+  Globe,
+  Building,
+  Cpu,
+  Code,
+  Layers,
+  ShoppingCart,
+  DollarSign,
+  BarChart3,
+  Shield,
+  Smartphone,
+  Database,
+  Cloud,
+  MessageSquare,
+  Mail,
+  Facebook,
+  Twitter,
+  Linkedin,
+  Instagram,
+  Youtube,
+  Github,
+  X,
+  Plus,
+  Minus,
+  ChevronLeft,
+  ChevronRight,
+  LoaderIcon,
+  Loader2
+} from 'lucide-react';
+
+interface PortfolioProject {
+  id: number;
+  title: string;
+  description: string;
+  client: string;
+  industry: string;
+  duration: string;
+  budget: string;
+  teamSize: number;
+  technologies: string[];
+  features: string[];
+  outcomes: string[];
+  slug: string;
+  imageUrl: string;
+  featured: boolean;
+  status: string;
+  startDate: string;
+  endDate: string;
+  likes: number;
+  views: number;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export default function Portfolio() {
   const [, setLocation] = useLocation();
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedIndustry, setSelectedIndustry] = useState("All");
-  const [selectedProject, setSelectedProject] = useState<number | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedIndustry, setSelectedIndustry] = useState('All');
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
-  const handleViewProject = (projectTitle: string) => {
-    toast({
-      title: "Project Details",
-      description: `Viewing detailed case study: ${projectTitle}`,
-    });
+  const { data: projects = [], isLoading, error } = useQuery({
+    queryKey: ['/api/portfolio-projects'],
+    queryFn: async () => {
+      const response = await fetch('/api/portfolio-projects');
+      if (!response.ok) {
+        throw new Error('Failed to fetch projects');
+      }
+      return response.json();
+    },
+  });
+
+  const likeMutation = useMutation({
+    mutationFn: async (projectId: number) => {
+      const response = await fetch('/api/portfolio-like', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ projectId }),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to like project');
+      }
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/portfolio-projects'] });
+      toast({
+        title: "Success!",
+        description: "Thanks for liking this project!",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to like project. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const industries = ["All", "E-commerce & Retail", "Healthcare & Life Sciences", "Banking & Finance", "Manufacturing & Industrial", "Media & Entertainment"];
+
+  const filteredProjects = projects.filter((project: PortfolioProject) => {
+    const matchesSearch = searchQuery === "" || 
+      project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      project.client.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      project.technologies.some(tech => tech.toLowerCase().includes(searchQuery.toLowerCase()));
+
+    const matchesIndustry = selectedIndustry === "All" || project.industry === selectedIndustry;
+
+    return matchesSearch && matchesIndustry;
+  });
+
+  const handleViewProject = (slug: string) => {
+    setLocation(`/portfolio-project/${slug}`);
   };
 
-  const handleDownloadCaseStudy = (projectTitle: string) => {
+  const handleLikeProject = (projectId: number) => {
+    likeMutation.mutate(projectId);
+  };
+
+  const handleShareProject = (title: string, slug: string) => {
+    const url = `${window.location.origin}/portfolio-project/${slug}`;
+    navigator.clipboard.writeText(url);
     toast({
-      title: "Download Started",
-      description: `Downloading case study for: ${projectTitle}`,
+      title: "Link copied!",
+      description: `Portfolio project "${title}" link copied to clipboard.`,
     });
   };
 
@@ -34,145 +161,35 @@ export default function Portfolio() {
     setLocation("/contact");
   };
 
-  const handleShareProject = (projectTitle: string) => {
-    toast({
-      title: "Link Copied",
-      description: `Share link copied for: ${projectTitle}`,
-    });
-  };
-
   const handleIndustryFilter = (industry: string) => {
     setSelectedIndustry(industry);
   };
-  const projects = [
-    {
-      title: "Global E-commerce Platform Modernization",
-      client: "Fortune 500 Retail Company",
-      industry: "Retail & E-commerce",
-      duration: "18 months",
-      team: "25 engineers",
-      image: "/api/placeholder/600/400",
-      description: "Complete digital transformation of legacy e-commerce infrastructure serving 5M+ customers globally.",
-      technologies: ["React", "Node.js", "AWS", "Kubernetes", "PostgreSQL", "Redis"],
-      results: [
-        "300% improvement in page load speed",
-        "99.9% uptime achievement",
-        "40% reduction in infrastructure costs",
-        "$5M+ annual revenue increase"
-      ],
-      challenges: "Legacy system integration, zero-downtime migration, global scalability",
-      solution: "Microservices architecture with progressive migration strategy"
-    },
-    {
-      title: "AI-Powered Healthcare Analytics Platform",
-      client: "Leading Healthcare Provider Network",
-      industry: "Healthcare & Life Sciences",
-      duration: "12 months",
-      team: "18 specialists",
-      image: "/api/placeholder/600/400",
-      description: "Machine learning platform for predictive patient care and operational optimization across 20+ facilities.",
-      technologies: ["Python", "TensorFlow", "Azure", "Docker", "MongoDB", "React"],
-      results: [
-        "25% reduction in patient readmission rates",
-        "60% faster diagnostic processing",
-        "HIPAA compliance achieved",
-        "$3M+ operational savings annually"
-      ],
-      challenges: "Data privacy compliance, real-time processing, integration with legacy EMR systems",
-      solution: "FHIR-compliant data pipelines with federated learning architecture"
-    },
-    {
-      title: "Cloud-Native Banking Infrastructure",
-      client: "Regional Financial Institution",
-      industry: "Financial Services",
-      duration: "24 months",
-      team: "30 engineers",
-      image: "/api/placeholder/600/400",
-      description: "Complete core banking system modernization with cloud-native architecture and real-time processing.",
-      technologies: ["Java", "Spring Boot", "AWS", "Apache Kafka", "PostgreSQL", "Angular"],
-      results: [
-        "10x improvement in transaction processing speed",
-        "SOC 2 Type II compliance",
-        "Zero security incidents",
-        "95% customer satisfaction improvement"
-      ],
-      challenges: "Regulatory compliance, real-time transaction processing, legacy system migration",
-      solution: "Event-driven architecture with comprehensive security and audit frameworks"
-    },
-    {
-      title: "Smart Manufacturing IoT Platform",
-      client: "Global Manufacturing Corporation",
-      industry: "Manufacturing & Industrial",
-      duration: "15 months",
-      team: "22 engineers",
-      image: "/api/placeholder/600/400",
-      description: "Industrial IoT platform for predictive maintenance and supply chain optimization across 5+ facilities.",
-      technologies: ["Node.js", "InfluxDB", "Azure IoT", "Power BI", "React", "Python"],
-      results: [
-        "35% reduction in equipment downtime",
-        "50% improvement in supply chain efficiency",
-        "Real-time monitoring of 1,000+ sensors",
-        "$2M+ cost savings through predictive maintenance"
-      ],
-      challenges: "Industrial protocol integration, edge computing, real-time analytics at scale",
-      solution: "Edge-to-cloud architecture with AI-powered predictive analytics"
-    },
-    {
-      title: "Digital Media Streaming Platform",
-      client: "Entertainment Media Company",
-      industry: "Media & Entertainment",
-      duration: "10 months",
-      team: "20 developers",
-      image: "/api/placeholder/600/400",
-      description: "High-performance video streaming platform with global CDN and personalized content delivery.",
-      technologies: ["React Native", "Node.js", "AWS CloudFront", "ElasticSearch", "Redis", "FFmpeg"],
-      results: [
-        "5M+ concurrent users supported",
-        "99.99% streaming uptime",
-        "75% improvement in content discovery",
-        "Global expansion to 5+ countries"
-      ],
-      challenges: "Global content delivery, adaptive bitrate streaming, personalization at scale",
-      solution: "Microservices with ML-powered recommendation engine and global CDN"
-    },
-    {
-      title: "Enterprise Data Lake & Analytics",
-      client: "Multinational Insurance Company",
-      industry: "Insurance & Financial",
-      duration: "20 months",
-      team: "26 data engineers",
-      image: "/api/placeholder/600/400",
-      description: "Enterprise-scale data lake with advanced analytics for risk assessment and fraud detection.",
-      technologies: ["Apache Spark", "AWS S3", "Databricks", "Tableau", "Python", "Scala"],
-      results: [
-        "Petabyte-scale data processing capability",
-        "90% improvement in fraud detection accuracy",
-        "Real-time risk assessment implementation",
-        "70% reduction in claims processing time"
-      ],
-      challenges: "Data governance, regulatory compliance, real-time processing at scale",
-      solution: "Lambda architecture with automated data quality and lineage tracking"
-    }
-  ];
 
-  const industries = [
-    "Financial Services", "Healthcare", "Retail & E-commerce", "Manufacturing", 
-    "Media & Entertainment", "Insurance", "Technology", "Government"
-  ];
+  if (error) {
+    return (
+      <div className="min-h-screen bg-slate-50 py-20">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <h1 className="text-3xl font-bold text-red-600 mb-4">Error Loading Portfolio</h1>
+          <p className="text-slate-600 mb-6">We're having trouble loading our portfolio projects. Please try refreshing the page.</p>
+          <Button onClick={() => window.location.reload()} className="bg-slate-900 hover:bg-slate-800">
+            Refresh Page
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-white">
-      <Navigation />
-      
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-white">
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center">
-            <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6">
+      <section className="py-20 bg-gradient-to-r from-slate-900 to-slate-800">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <div className="mb-12">
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
               Our Portfolio
             </h1>
-            <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed mb-8">
-              Showcasing successful digital transformations and innovative solutions 
+            <p className="text-xl text-slate-300 max-w-3xl mx-auto mb-8">
+              Explore our comprehensive portfolio showcasing successful projects 
               delivered for leading enterprises across multiple industries.
             </p>
             
@@ -252,7 +269,7 @@ export default function Portfolio() {
       <section className="py-8 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-wrap gap-3 justify-center">
-            {["All", ...industries].map((industry, index) => (
+            {industries.map((industry, index) => (
               <Button
                 key={index}
                 variant={selectedIndustry === industry ? "default" : "outline"}
@@ -277,142 +294,106 @@ export default function Portfolio() {
             </p>
           </div>
           
-          <div className="space-y-16">
-            {projects
-              .filter(project => 
-                selectedIndustry === "All" || project.industry === selectedIndustry
-              )
-              .filter(project => 
-                searchQuery === "" || 
-                project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                project.technologies.some(tech => tech.toLowerCase().includes(searchQuery.toLowerCase()))
-              )
-              .map((project, index) => (
-              <Card 
-                key={index} 
-                className={`overflow-hidden bg-white border transition-all duration-300 cursor-pointer ${
-                  selectedProject === index 
-                    ? 'border-slate-900 shadow-xl scale-105' 
-                    : 'border-slate-200 hover:shadow-lg hover:border-slate-300'
-                }`}
-                onClick={() => setSelectedProject(selectedProject === index ? null : index)}
-              >
-                <CardContent className="p-0">
-                  <div className="grid grid-cols-1 lg:grid-cols-2">
-                    <div className="p-8">
-                      <div className="flex items-center gap-2 mb-4">
-                        <Badge variant="secondary" className="bg-slate-100 text-slate-700">
-                          {project.industry}
-                        </Badge>
-                        <Badge variant="outline" className="text-xs text-green-700 border-green-300">
-                          Completed
-                        </Badge>
-                      </div>
-                      
-                      <h3 className="text-2xl font-bold text-slate-900 mb-3">{project.title}</h3>
-                      <p className="text-slate-600 mb-6">{project.description}</p>
-                      
-                      <div className="grid grid-cols-2 gap-4 mb-6">
-                        <div className="flex items-center gap-2">
-                          <Calendar className="w-4 h-4 text-slate-500" />
-                          <span className="text-sm text-slate-600">{project.duration}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Users className="w-4 h-4 text-slate-500" />
-                          <span className="text-sm text-slate-600">{project.team}</span>
-                        </div>
-                      </div>
-                      
-                      <div className="mb-6">
-                        <h4 className="font-semibold text-slate-900 mb-3">Technologies Used:</h4>
-                        <div className="flex flex-wrap gap-2">
-                          {project.technologies.map((tech, idx) => (
-                            <Badge key={idx} variant="outline" className="text-xs">
-                              {tech}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                      
-                      <div className="mb-6">
-                        <h4 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
-                          <TrendingUp className="w-4 h-4" />
-                          Key Results:
-                        </h4>
-                        <ul className="space-y-2">
-                          {project.results.map((result, idx) => (
-                            <li key={idx} className="flex items-start">
-                              <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
-                              <span className="text-slate-600 text-sm">{result}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      
-                      {selectedProject === index && (
-                        <div className="border-t border-slate-200 pt-6 mb-6">
-                          <div className="mb-4">
-                            <h5 className="font-medium text-slate-900 mb-2">Challenge:</h5>
-                            <p className="text-sm text-slate-600">{project.challenges}</p>
-                          </div>
-                          <div className="mb-6">
-                            <h5 className="font-medium text-slate-900 mb-2">Solution:</h5>
-                            <p className="text-sm text-slate-600">{project.solution}</p>
-                          </div>
-                          <div className="flex flex-wrap gap-3">
-                            <Button 
-                              size="sm" 
-                              className="bg-slate-900 hover:bg-slate-800 text-white"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleViewProject(project.title);
-                              }}
-                            >
-                              <Eye className="h-4 w-4 mr-2" />
-                              View Details
-                            </Button>
-                            <Button 
-                              size="sm" 
-                              variant="outline"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleDownloadCaseStudy(project.title);
-                              }}
-                            >
-                              <Download className="h-4 w-4 mr-2" />
-                              Download
-                            </Button>
-                            <Button 
-                              size="sm" 
-                              variant="outline"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleShareProject(project.title);
-                              }}
-                            >
-                              <Share2 className="h-4 w-4 mr-2" />
-                              Share
-                            </Button>
-                          </div>
-                        </div>
-                      )}
+          {isLoading ? (
+            <div className="grid md:grid-cols-2 gap-8">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="animate-pulse">
+                  <div className="h-48 bg-slate-200 rounded-lg mb-4"></div>
+                  <div className="h-4 bg-slate-200 rounded mb-2"></div>
+                  <div className="h-4 bg-slate-200 rounded mb-2"></div>
+                  <div className="h-4 bg-slate-200 rounded w-2/3"></div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 gap-8">
+              {filteredProjects.map((project: PortfolioProject) => (
+                <Card 
+                  key={project.id} 
+                  className="overflow-hidden bg-white border border-slate-200 hover:shadow-lg hover:border-slate-300 transition-all duration-300 cursor-pointer"
+                  onClick={() => handleViewProject(project.slug)}
+                >
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <Badge variant="secondary" className="bg-slate-100 text-slate-700">
+                        {project.industry}
+                      </Badge>
+                      <Badge variant="outline" className="text-xs text-green-700 border-green-300">
+                        {project.status}
+                      </Badge>
                     </div>
                     
-                    <div className="bg-slate-100 flex items-center justify-center p-8">
-                      <div className="text-center">
-                        <div className="w-32 h-32 bg-slate-300 rounded-lg flex items-center justify-center mb-4 mx-auto">
-                          <ExternalLink className="w-12 h-12 text-slate-500" />
-                        </div>
-                        <p className="text-slate-600 text-sm font-medium">{project.client}</p>
-                        <p className="text-slate-500 text-xs mt-1">Confidential Client</p>
+                    <h3 className="text-xl font-bold text-slate-900 mb-3">{project.title}</h3>
+                    <p className="text-slate-600 mb-4">{project.description}</p>
+                    
+                    <div className="grid grid-cols-2 gap-4 mb-4">
+                      <div className="flex items-center gap-2">
+                        <Calendar className="w-4 h-4 text-slate-500" />
+                        <span className="text-sm text-slate-600">{project.duration}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Users className="w-4 h-4 text-slate-500" />
+                        <span className="text-sm text-slate-600">{project.teamSize} people</span>
                       </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                    
+                    <div className="mb-4">
+                      <h4 className="font-semibold text-slate-900 mb-2">Technologies:</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {project.technologies.slice(0, 3).map((tech, idx) => (
+                          <Badge key={idx} variant="outline" className="text-xs">
+                            {tech}
+                          </Badge>
+                        ))}
+                        {project.technologies.length > 3 && (
+                          <Badge variant="outline" className="text-xs">
+                            +{project.technologies.length - 3} more
+                          </Badge>
+                        )}
+                      </div>
+                    </div>
+                    
+                    <div className="flex justify-between items-center">
+                      <div className="flex gap-2">
+                        <Button 
+                          size="sm" 
+                          className="bg-slate-900 hover:bg-slate-800 text-white"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleViewProject(project.slug);
+                          }}
+                        >
+                          <Eye className="h-4 w-4 mr-1" />
+                          View
+                        </Button>
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleLikeProject(project.id);
+                          }}
+                        >
+                          <Heart className="h-4 w-4 mr-1" />
+                          {project.likes}
+                        </Button>
+                      </div>
+                      <Button 
+                        size="sm" 
+                        variant="outline"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleShareProject(project.title, project.slug);
+                        }}
+                      >
+                        <Share2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -423,54 +404,29 @@ export default function Portfolio() {
             Ready to Start Your Next Project?
           </h2>
           <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
-            Let's discuss how we can help you achieve similar results for your business transformation.
+            Let's discuss how we can help bring your vision to life with our proven expertise.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
-              onClick={handleContactForProject}
-              className="bg-white text-slate-900 hover:bg-slate-100 px-8 py-4 text-lg font-semibold rounded-lg"
+              size="lg" 
+              className="bg-white text-slate-900 hover:bg-slate-100"
+              onClick={() => setLocation("/contact")}
             >
               <Phone className="h-5 w-5 mr-2" />
-              Schedule Consultation
+              Start a Project
             </Button>
             <Button 
+              size="lg" 
               variant="outline"
-              onClick={() => setLocation("/case-studies")}
-              className="border-2 border-white bg-transparent text-white hover:bg-white hover:text-slate-900 transition-all duration-300 px-8 py-4 text-lg font-semibold rounded-lg"
+              className="border-slate-300 text-white hover:bg-slate-800"
+              onClick={() => setLocation("/portfolio-download")}
             >
-              <ArrowRight className="h-5 w-5 mr-2" />
-              View Case Studies
+              <Download className="h-5 w-5 mr-2" />
+              Download Portfolio
             </Button>
           </div>
         </div>
       </section>
-
-      {/* Industries Served */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-6">Industries We Serve</h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Delivering specialized solutions across diverse sectors with deep industry expertise
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {industries.map((industry, index) => (
-              <div 
-                key={index} 
-                className="bg-slate-50 p-6 rounded-lg text-center hover:bg-slate-100 transition-all duration-300 cursor-pointer hover:scale-105"
-                onClick={() => handleIndustryFilter(industry)}
-              >
-                <div className="font-medium text-slate-900">{industry}</div>
-                <div className="text-xs text-slate-500 mt-1">Click to filter</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <Footer />
     </div>
   );
 }
