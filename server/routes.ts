@@ -961,6 +961,121 @@ This application was submitted through the Aptivon Solutions careers page.
     }
   });
 
+  // Services API routes
+  app.post("/api/services", async (req, res) => {
+    try {
+      const { type } = req.query;
+
+      if (type === 'inquiry') {
+        const serviceInquirySchema = z.object({
+          name: z.string().min(2, "Name must be at least 2 characters"),
+          email: z.string().email("Invalid email address"),
+          company: z.string().min(2, "Company name is required"),
+          phone: z.string().optional(),
+          serviceType: z.string().min(1, "Please select a service type"),
+          projectDescription: z.string().min(10, "Please provide more details about your project"),
+          budget: z.string().optional(),
+          timeline: z.string().optional(),
+          urgency: z.enum(['Low', 'Medium', 'High', 'Critical']),
+          currentChallenges: z.string().optional()
+        });
+
+        const validationResult = serviceInquirySchema.safeParse(req.body);
+        
+        if (!validationResult.success) {
+          return res.status(400).json({
+            success: false,
+            message: "Invalid data provided",
+            errors: validationResult.error.flatten().fieldErrors
+          });
+        }
+
+        const inquiryData = validationResult.data;
+
+        // Log the service inquiry
+        console.log('=== NEW SERVICE INQUIRY RECEIVED ===');
+        console.log('To: singhal3.sachin7@gmail.com');
+        console.log('Type: Service Inquiry');
+        console.log('Service Type:', inquiryData.serviceType);
+        console.log('Customer Information:');
+        console.log('- Name:', inquiryData.name);
+        console.log('- Email:', inquiryData.email);
+        console.log('- Company:', inquiryData.company);
+        console.log('- Phone:', inquiryData.phone || 'Not provided');
+        console.log('Project Details:');
+        console.log('- Budget:', inquiryData.budget || 'Not specified');
+        console.log('- Timeline:', inquiryData.timeline || 'Not specified');
+        console.log('- Urgency:', inquiryData.urgency);
+        console.log('- Description:', inquiryData.projectDescription);
+        console.log('- Current Challenges:', inquiryData.currentChallenges || 'None specified');
+        console.log('=====================================');
+
+        return res.status(201).json({
+          success: true,
+          message: "Service inquiry submitted successfully! Our team will contact you within 24 hours with a detailed proposal."
+        });
+      }
+
+      if (type === 'consultation') {
+        const consultationRequestSchema = z.object({
+          name: z.string().min(2, "Name must be at least 2 characters"),
+          email: z.string().email("Invalid email address"),
+          company: z.string().min(2, "Company name is required"),
+          phone: z.string().optional(),
+          serviceType: z.string().min(1, "Please select a service type"),
+          preferredDate: z.string().optional(),
+          preferredTime: z.string().optional(),
+          message: z.string().optional()
+        });
+
+        const validationResult = consultationRequestSchema.safeParse(req.body);
+        
+        if (!validationResult.success) {
+          return res.status(400).json({
+            success: false,
+            message: "Invalid data provided",
+            errors: validationResult.error.flatten().fieldErrors
+          });
+        }
+
+        const consultationData = validationResult.data;
+
+        // Log the consultation request
+        console.log('=== NEW SERVICE CONSULTATION REQUEST RECEIVED ===');
+        console.log('To: singhal3.sachin7@gmail.com');
+        console.log('Type: Consultation Request');
+        console.log('Service Type:', consultationData.serviceType);
+        console.log('Customer Information:');
+        console.log('- Name:', consultationData.name);
+        console.log('- Email:', consultationData.email);
+        console.log('- Company:', consultationData.company);
+        console.log('- Phone:', consultationData.phone || 'Not provided');
+        console.log('Consultation Details:');
+        console.log('- Preferred Date:', consultationData.preferredDate || 'Flexible');
+        console.log('- Preferred Time:', consultationData.preferredTime || 'Flexible');
+        console.log('- Message:', consultationData.message || 'No additional message');
+        console.log('=====================================');
+
+        return res.status(201).json({
+          success: true,
+          message: "Consultation scheduled successfully! We'll send you a calendar invite shortly."
+        });
+      }
+
+      return res.status(400).json({
+        success: false,
+        message: "Invalid request type"
+      });
+
+    } catch (error) {
+      console.error('Error processing services request:', error);
+      return res.status(500).json({
+        success: false,
+        message: "Internal server error"
+      });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

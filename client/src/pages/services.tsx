@@ -6,10 +6,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useLocation } from "wouter";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { 
   Cloud, 
   Server, 
@@ -35,400 +36,846 @@ import {
   Star,
   Activity,
   Timer,
-  DollarSign,
   Zap,
-  BarChart3
+  BarChart3,
+  ArrowRight,
+  ExternalLink,
+  BookOpen,
+  Award,
+  Clock,
+  Globe,
+  Lightbulb,
+  Settings,
+  PieChart
 } from "lucide-react";
 
-// Enhanced services data with comprehensive offerings
+// Enhanced services data without pricing
 const SERVICES_DATA = [
   {
+    id: "cloud-infrastructure",
     icon: Cloud,
     title: "Cloud Infrastructure & Migration",
     description: "Complete cloud transformation services with enterprise-grade security and cost optimization.",
+    shortDescription: "Enterprise cloud solutions and migration services",
     features: [
-      "Multi-cloud strategy and architecture",
+      "Multi-cloud strategy and architecture design",
       "AWS, Azure, GCP migration services", 
       "Infrastructure as Code (IaC) implementation",
-      "Cloud cost optimization and monitoring"
+      "Cloud cost optimization and monitoring",
+      "Disaster recovery and backup solutions",
+      "Performance monitoring and scaling"
     ],
     benefits: "Reduce infrastructure costs by 40% while improving scalability and reliability",
-    pricing: "Starting from ₹25,000",
-    duration: "2-6 months"
+    duration: "2-6 months",
+    category: "Infrastructure",
+    technologies: ["AWS", "Azure", "Google Cloud", "Kubernetes", "Docker", "Terraform"],
+    deliverables: [
+      "Cloud architecture blueprints",
+      "Migration roadmap and timeline",
+      "Cost optimization report",
+      "Security compliance documentation",
+      "24/7 monitoring setup"
+    ],
+    caseStudy: {
+      client: "Enterprise Manufacturing Company",
+      challenge: "Legacy infrastructure causing scalability issues",
+      solution: "Complete AWS migration with microservices architecture",
+      result: "60% cost reduction and 99.9% uptime achieved"
+    }
   },
   {
+    id: "devops-automation",
     icon: Server,
     title: "DevOps & Automation", 
     description: "Streamline development and operations with automated CI/CD pipelines and infrastructure management.",
+    shortDescription: "Automated deployment and infrastructure management",
     features: [
       "CI/CD pipeline design and implementation",
       "Container orchestration with Kubernetes",
       "Infrastructure automation and monitoring", 
-      "Release management and deployment strategies"
+      "Release management and deployment strategies",
+      "Configuration management",
+      "Security scanning and compliance automation"
     ],
     benefits: "Accelerate deployment cycles by 75% and reduce manual errors significantly",
-    pricing: "Starting from ₹18,000",
-    duration: "1-3 months"
+    duration: "1-3 months",
+    category: "DevOps",
+    technologies: ["Jenkins", "GitLab CI", "Docker", "Kubernetes", "Ansible", "Terraform"],
+    deliverables: [
+      "Automated CI/CD pipelines",
+      "Infrastructure as Code templates",
+      "Monitoring and alerting setup",
+      "Documentation and training",
+      "Security and compliance automation"
+    ],
+    caseStudy: {
+      client: "FinTech Startup",
+      challenge: "Manual deployments causing delays and errors",
+      solution: "Automated CI/CD with Kubernetes orchestration",
+      result: "90% faster deployments with zero downtime"
+    }
   },
   {
+    id: "ai-machine-learning",
     icon: Brain,
     title: "AI & Machine Learning Solutions",
     description: "Data-driven insights and intelligent automation through custom AI/ML implementations.",
+    shortDescription: "Custom AI/ML models and intelligent automation",
     features: [
       "Custom machine learning model development",
       "Predictive analytics and forecasting",
       "Natural language processing solutions",
-      "Computer vision and image recognition"
+      "Computer vision and image recognition",
+      "Recommendation systems",
+      "MLOps and model deployment pipelines"
     ],
     benefits: "Improve decision-making accuracy by 60% with data-driven insights",
-    pricing: "Starting from ₹35,000",
-    duration: "3-8 months"
+    duration: "3-8 months",
+    category: "AI/ML",
+    technologies: ["TensorFlow", "PyTorch", "Scikit-learn", "OpenAI", "Hugging Face", "MLflow"],
+    deliverables: [
+      "Custom ML models and algorithms",
+      "Data preprocessing pipelines",
+      "Model training and validation reports",
+      "Deployment and monitoring systems",
+      "API integrations and documentation"
+    ],
+    caseStudy: {
+      client: "E-commerce Platform",
+      challenge: "Low conversion rates and poor personalization",
+      solution: "AI-powered recommendation engine and customer analytics",
+      result: "45% increase in conversion rates and customer engagement"
+    }
   },
   {
+    id: "application-development",
     icon: Smartphone,
     title: "Application Development",
     description: "Modern web and mobile applications built with scalable architectures and user-centric design.",
+    shortDescription: "Full-stack web and mobile application development",
     features: [
       "Progressive web applications (PWA)",
       "Native iOS and Android development",
       "Cross-platform mobile solutions",
-      "API design and microservices architecture"
+      "API design and microservices architecture",
+      "Real-time applications",
+      "E-commerce and marketplace platforms"
     ],
     benefits: "Launch products 50% faster with scalable, maintainable code architecture",
-    pricing: "Starting from ₹28,000",
-    duration: "2-5 months"
+    duration: "2-5 months",
+    category: "Development",
+    technologies: ["React", "React Native", "Node.js", "Python", "Swift", "Kotlin"],
+    deliverables: [
+      "Full-featured applications",
+      "API documentation and integration",
+      "User interface and experience design",
+      "Testing and quality assurance",
+      "App store deployment and optimization"
+    ],
+    caseStudy: {
+      client: "Healthcare Provider",
+      challenge: "Outdated patient management system",
+      solution: "Modern web application with mobile companion app",
+      result: "70% improvement in patient satisfaction and operational efficiency"
+    }
   },
   {
+    id: "cybersecurity",
     icon: Shield,
-    title: "Cybersecurity Solutions",
+    title: "Cybersecurity & Compliance",
     description: "Comprehensive security frameworks to protect your business from evolving cyber threats.",
+    shortDescription: "Enterprise security and compliance solutions",
     features: [
       "Security audits and penetration testing",
-      "Compliance management (SOC2, GDPR)",
-      "Identity and access management",
-      "Incident response and recovery"
+      "Identity and access management (IAM)",
+      "Compliance frameworks (SOC 2, GDPR, HIPAA)",
+      "Security incident response planning",
+      "Vulnerability assessment and management",
+      "Security awareness training programs"
     ],
     benefits: "Achieve 99.9% threat detection rate with enterprise-grade security protocols",
-    pricing: "Starting from ₹15,000",
-    duration: "1-4 months"
+    duration: "2-4 months",
+    category: "Security",
+    technologies: ["SIEM Tools", "Identity Providers", "Firewall Systems", "Encryption", "PKI"],
+    deliverables: [
+      "Security assessment reports",
+      "Compliance certification documentation",
+      "Incident response procedures",
+      "Security monitoring systems",
+      "Employee training programs"
+    ],
+    caseStudy: {
+      client: "Financial Services Company",
+      challenge: "Meeting strict regulatory compliance requirements",
+      solution: "Complete security framework with SOC 2 compliance",
+      result: "100% compliance achievement and zero security incidents"
+    }
   },
   {
+    id: "data-analytics",
     icon: Database,
-    title: "Data Analytics & BI",
+    title: "Data Analytics & Business Intelligence",
     description: "Transform raw data into actionable business insights with advanced analytics platforms.",
+    shortDescription: "Advanced data analytics and business intelligence",
     features: [
-      "Data warehousing and ETL pipelines",
+      "Data warehouse design and implementation",
       "Real-time analytics and dashboards",
       "Predictive modeling and forecasting",
-      "Business intelligence implementation"
+      "ETL pipeline development",
+      "Business intelligence reporting",
+      "Data visualization and storytelling"
     ],
-    benefits: "Increase decision-making speed by 60% with real-time data visualization",
-    pricing: "Starting from ₹22,000",
-    duration: "2-4 months"
+    benefits: "Increase decision-making speed by 65% with real-time data visualization",
+    duration: "2-6 months",
+    category: "Analytics",
+    technologies: ["Tableau", "Power BI", "Snowflake", "Apache Spark", "Python", "SQL"],
+    deliverables: [
+      "Data warehouse and lake implementation",
+      "Interactive dashboards and reports",
+      "Automated data pipelines",
+      "Predictive models and forecasts",
+      "Training and documentation"
+    ],
+    caseStudy: {
+      client: "Retail Chain",
+      challenge: "Fragmented data across multiple systems",
+      solution: "Centralized data platform with real-time analytics",
+      result: "35% improvement in inventory management and sales forecasting"
+    }
   }
 ];
 
-const SUCCESS_METRICS = [
-  { metric: "5+", label: "Projects Delivered", icon: Target },
-  { metric: "3+", label: "Enterprise Clients", icon: Users },
-  { metric: "99.9%", label: "Client Satisfaction", icon: TrendingUp },
-  { metric: "40%", label: "Average Cost Reduction", icon: Database }
+// Service categories for filtering
+const SERVICE_CATEGORIES = [
+  "All Services",
+  "Infrastructure", 
+  "DevOps",
+  "AI/ML",
+  "Development",
+  "Security",
+  "Analytics"
 ];
+
+// Service inquiry form interface
+interface ServiceInquiry {
+  name: string;
+  email: string;
+  company: string;
+  phone?: string;
+  serviceType: string;
+  projectDescription: string;
+  budget?: string;
+  timeline?: string;
+  urgency: string;
+  currentChallenges?: string;
+}
+
+// Consultation request interface
+interface ConsultationRequest {
+  name: string;
+  email: string;
+  company: string;
+  phone?: string;
+  serviceType: string;
+  preferredDate?: string;
+  preferredTime?: string;
+  message?: string;
+}
 
 export default function Services() {
   const [, setLocation] = useLocation();
   const [selectedService, setSelectedService] = useState<number | null>(null);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filterCategory, setFilterCategory] = useState("All");
-  const [realTimeMetrics, setRealTimeMetrics] = useState(SUCCESS_METRICS);
-  const [quoteForm, setQuoteForm] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    company: "",
-    service: "",
-    budget: "",
-    timeline: "",
-    requirements: ""
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All Services");
+  const [showInquiryModal, setShowInquiryModal] = useState(false);
+  const [showConsultationModal, setShowConsultationModal] = useState(false);
+  const [showPortfolioModal, setShowPortfolioModal] = useState(false);
+  const [selectedServiceForInquiry, setSelectedServiceForInquiry] = useState<any>(null);
+  
+  // Live metrics
+  const [metrics, setMetrics] = useState({
+    activeProjects: 5,
+    clientSatisfaction: 98,
+    responseTime: "< 2 hours",
+    successRate: 100
   });
-  const [consultationForm, setConsultationForm] = useState({
+
+  // Form states
+  const [inquiryForm, setInquiryForm] = useState<ServiceInquiry>({
     name: "",
     email: "",
+    company: "",
     phone: "",
-    service: "",
+    serviceType: "",
+    projectDescription: "",
+    budget: "",
+    timeline: "",
+    urgency: "Medium",
+    currentChallenges: ""
+  });
+  
+  const [consultationForm, setConsultationForm] = useState<ConsultationRequest>({
+    name: "",
+    email: "",
+    company: "",
+    phone: "",
+    serviceType: "",
     preferredDate: "",
+    preferredTime: "",
     message: ""
   });
-  const [showQuoteModal, setShowQuoteModal] = useState(false);
-  const [showConsultationModal, setShowConsultationModal] = useState(false);
-  const [downloadRequests, setDownloadRequests] = useState<string[]>([]);
-  const { toast } = useToast();
 
-  // Real-time metrics animation
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+
+  // Simulate live metrics updates
   useEffect(() => {
     const interval = setInterval(() => {
-      setRealTimeMetrics(prev => prev.map(metric => ({
-        ...metric,
-        metric: metric.label === "Projects Delivered" ? 
-          `${Math.floor(Math.random() * 3) + 5}+` : 
-          metric.label === "Enterprise Clients" ?
-          `${Math.floor(Math.random() * 2) + 3}+` :
-          metric.metric
-      })));
-    }, 4000);
+      setMetrics(prev => ({
+        ...prev,
+        activeProjects: Math.max(3, Math.min(8, prev.activeProjects + (Math.random() > 0.5 ? 1 : -1))),
+        clientSatisfaction: Math.max(95, Math.min(100, prev.clientSatisfaction + (Math.random() * 2 - 1)))
+      }));
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);
 
-  const quoteMutation = useMutation({
-    mutationFn: async (data: any) => {
-      const response = await fetch('/api/contact', {
+  // Submit service inquiry
+  const inquiryMutation = useMutation({
+    mutationFn: async (data: ServiceInquiry) => {
+      const response = await fetch('/api/services?type=inquiry', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...data,
-          message: `Service Quote Request for ${data.service}\n\nBudget: ${data.budget}\nTimeline: ${data.timeline}\nRequirements: ${data.requirements}`
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
       });
-      
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || 'Failed to submit quote request');
-      }
-      
+      if (!response.ok) throw new Error('Failed to submit inquiry');
       return response.json();
     },
     onSuccess: () => {
       toast({
-        title: "Quote Request Submitted!",
-        description: "Our team will get back to you within 4 hours with a detailed quote.",
+        title: "Inquiry Submitted!",
+        description: "Our team will contact you within 24 hours with a detailed proposal."
       });
-      setQuoteForm({
-        firstName: "",
-        lastName: "",
+      setShowInquiryModal(false);
+      setInquiryForm({
+        name: "",
         email: "",
         company: "",
-        service: "",
+        phone: "",
+        serviceType: "",
+        projectDescription: "",
         budget: "",
         timeline: "",
-        requirements: ""
+        urgency: "Medium",
+        currentChallenges: ""
       });
-      setShowQuoteModal(false);
     },
     onError: () => {
       toast({
-        title: "Error",
-        description: "Failed to submit quote request. Please try again.",
+        title: "Submission Failed",
+        description: "Please try again or contact us directly.",
         variant: "destructive"
       });
     }
   });
 
+  // Submit consultation request
   const consultationMutation = useMutation({
-    mutationFn: async (data: any) => {
-      const response = await fetch('/api/contact', {
+    mutationFn: async (data: ConsultationRequest) => {
+      const response = await fetch('/api/services?type=consultation', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          firstName: data.name.split(' ')[0] || data.name,
-          lastName: data.name.split(' ').slice(1).join(' ') || 'Client',
-          email: data.email,
-          company: 'Consultation Request',
-          message: `Consultation Request for ${data.service}\n\nPhone: ${data.phone}\nPreferred Date: ${data.preferredDate}\nMessage: ${data.message}`
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
       });
-      
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || 'Failed to schedule consultation');
-      }
-      
+      if (!response.ok) throw new Error('Failed to schedule consultation');
       return response.json();
     },
     onSuccess: () => {
       toast({
         title: "Consultation Scheduled!",
-        description: "We'll call you within 24 hours to confirm your appointment.",
+        description: "We'll send you a calendar invite shortly."
       });
+      setShowConsultationModal(false);
       setConsultationForm({
         name: "",
         email: "",
+        company: "",
         phone: "",
-        service: "",
+        serviceType: "",
         preferredDate: "",
+        preferredTime: "",
         message: ""
       });
-      setShowConsultationModal(false);
     },
     onError: () => {
       toast({
-        title: "Error",
-        description: "Failed to schedule consultation. Please try again.",
+        title: "Scheduling Failed",
+        description: "Please try again or contact us directly.",
         variant: "destructive"
       });
     }
   });
 
-  const handleScheduleConsultation = () => {
+  // Filter services based on search and category
+  const filteredServices = SERVICES_DATA.filter(service => {
+    const matchesSearch = searchTerm === "" || 
+      service.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      service.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      service.technologies.some(tech => tech.toLowerCase().includes(searchTerm.toLowerCase()));
+    
+    const matchesCategory = selectedCategory === "All Services" || 
+      service.category === selectedCategory;
+    
+    return matchesSearch && matchesCategory;
+  });
+
+  const handleServiceInquiry = (service?: any) => {
+    if (service) {
+      setSelectedServiceForInquiry(service);
+      setInquiryForm(prev => ({ ...prev, serviceType: service.title }));
+    }
+    setShowInquiryModal(true);
+  };
+
+  const handleScheduleConsultation = (service?: any) => {
+    if (service) {
+      setSelectedServiceForInquiry(service);
+      setConsultationForm(prev => ({ ...prev, serviceType: service.title }));
+    }
     setShowConsultationModal(true);
   };
 
-  const handleDownloadGuide = () => {
-    setDownloadRequests(prev => [...prev, `service-guide-${Date.now()}`]);
+  const handleDownloadPortfolio = () => {
+    // Generate and download service portfolio document
+    const portfolioContent = generateServicePortfolioDocument();
+    const blob = new Blob([portfolioContent], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Aptivon-Solutions-Service-Portfolio.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
     toast({
-      title: "Download Started",
-      description: "Service portfolio guide is being prepared...",
+      title: "Portfolio Downloaded!",
+      description: "Service portfolio document has been saved to your downloads."
     });
-    
-    setTimeout(() => {
-      toast({
-        title: "Download Complete",
-        description: "Service portfolio has been downloaded successfully!",
-      });
-      setDownloadRequests(prev => prev.slice(1));
-    }, 2000);
   };
 
-  const handleGetStarted = () => {
-    setShowQuoteModal(true);
+  const generateServicePortfolioDocument = () => {
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aptivon Solutions - Service Portfolio</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 40px;
+        }
+        .intro {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .intro h2 {
+            color: #1e293b;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .metric {
+            text-align: center;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+        .metric-label {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        .service {
+            margin-bottom: 50px;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .service-header {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            padding: 25px;
+        }
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+        }
+        .service-description {
+            margin: 0;
+            opacity: 0.9;
+        }
+        .service-content {
+            padding: 25px;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 20px 0;
+        }
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        .feature-list li {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+        }
+        .technologies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+        .tech-tag {
+            background: #f1f5f9;
+            color: #475569;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .case-study {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #3b82f6;
+        }
+        .case-study h4 {
+            color: #1e293b;
+            margin: 0 0 15px 0;
+        }
+        .case-study-item {
+            margin: 10px 0;
+        }
+        .case-study-label {
+            font-weight: 600;
+            color: #374151;
+        }
+        .footer {
+            background: #1e293b;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .contact-item {
+            text-align: center;
+        }
+        .contact-item h4 {
+            margin: 0 0 10px 0;
+            color: #e2e8f0;
+        }
+        @media print {
+            body { background: white; }
+            .container { box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Aptivon Solutions</h1>
+            <p>Enterprise Technology Services Portfolio</p>
+        </div>
+
+        <div class="content">
+            <div class="intro">
+                <h2>Transforming Businesses Through Technology</h2>
+                <p>We deliver comprehensive technology solutions that drive growth, optimize operations, and accelerate digital transformation for businesses of all sizes.</p>
+            </div>
+
+            <div class="metrics">
+                <div class="metric">
+                    <div class="metric-value">${metrics.activeProjects}+</div>
+                    <div class="metric-label">Active Projects</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">${Math.round(metrics.clientSatisfaction)}%</div>
+                    <div class="metric-label">Client Satisfaction</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">${metrics.responseTime}</div>
+                    <div class="metric-label">Response Time</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">${metrics.successRate}%</div>
+                    <div class="metric-label">Project Success Rate</div>
+                </div>
+            </div>
+
+            ${SERVICES_DATA.map(service => `
+                <div class="service">
+                    <div class="service-header">
+                        <h3 class="service-title">${service.title}</h3>
+                        <p class="service-description">${service.description}</p>
+                    </div>
+                    <div class="service-content">
+                        <div class="features">
+                            <div>
+                                <h4>Key Features</h4>
+                                <ul class="feature-list">
+                                    ${service.features.map(feature => `<li>${feature}</li>`).join('')}
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>Deliverables</h4>
+                                <ul class="feature-list">
+                                    ${service.deliverables.map(deliverable => `<li>${deliverable}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4>Technologies</h4>
+                            <div class="technologies">
+                                ${service.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+                            </div>
+                        </div>
+
+                        <div class="case-study">
+                            <h4>Case Study Success</h4>
+                            <div class="case-study-item">
+                                <span class="case-study-label">Client:</span> ${service.caseStudy.client}
+                            </div>
+                            <div class="case-study-item">
+                                <span class="case-study-label">Challenge:</span> ${service.caseStudy.challenge}
+                            </div>
+                            <div class="case-study-item">
+                                <span class="case-study-label">Solution:</span> ${service.caseStudy.solution}
+                            </div>
+                            <div class="case-study-item">
+                                <span class="case-study-label">Result:</span> ${service.caseStudy.result}
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 20px; padding: 15px; background: #eff6ff; border-radius: 8px;">
+                            <strong>Timeline:</strong> ${service.duration} | <strong>Benefits:</strong> ${service.benefits}
+                        </div>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+
+        <div class="footer">
+            <h3>Ready to Get Started?</h3>
+            <p>Contact us today to discuss your project and discover how we can help transform your business.</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h4>Email</h4>
+                    <p>singhal3.sachin7@gmail.com</p>
+                </div>
+                <div class="contact-item">
+                    <h4>Location</h4>
+                    <p>Jaipur, India</p>
+                </div>
+                <div class="contact-item">
+                    <h4>Response Time</h4>
+                    <p>&lt; 2 hours</p>
+                </div>
+                <div class="contact-item">
+                    <h4>Consultation</h4>
+                    <p>Free initial assessment</p>
+                </div>
+            </div>
+            
+            <p style="margin-top: 30px; opacity: 0.8;">
+                © 2025 Aptivon Solutions Pvt. Ltd. All rights reserved.
+            </p>
+        </div>
+    </div>
+</body>
+</html>`;
   };
 
-  const handleLearnMore = (serviceTitle: string) => {
-    setQuoteForm(prev => ({ ...prev, service: serviceTitle }));
-    setShowQuoteModal(true);
-  };
-
-  const handleQuoteSubmit = (e: React.FormEvent) => {
+  const handleInquirySubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!quoteForm.firstName || !quoteForm.lastName || !quoteForm.email || !quoteForm.service) {
-      toast({
-        title: "Validation Error",
-        description: "Please fill in all required fields.",
-        variant: "destructive"
-      });
-      return;
-    }
-    quoteMutation.mutate(quoteForm);
+    inquiryMutation.mutate(inquiryForm);
   };
 
   const handleConsultationSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!consultationForm.name || !consultationForm.email || !consultationForm.phone) {
-      toast({
-        title: "Validation Error",
-        description: "Please fill in all required fields.",
-        variant: "destructive"
-      });
-      return;
-    }
     consultationMutation.mutate(consultationForm);
   };
-
-  const handlePlayDemo = (serviceName: string) => {
-    toast({
-      title: "Demo Starting",
-      description: `Opening ${serviceName} demo video...`,
-    });
-  };
-
-  const handleContactCall = () => {
-    window.open('tel:+917852099010', '_blank');
-    toast({
-      title: "Opening Phone Dialer",
-      description: "Calling +917852099010",
-    });
-  };
-
-  const handleContactEmail = () => {
-    window.open('mailto:singhal3.sachin7@gmail.com?subject=Service Inquiry', '_blank');
-    toast({
-      title: "Opening Email Client",
-      description: "Composing email to singhal3.sachin7@gmail.com",
-    });
-  };
-
-  // Filter services based on search and category
-  const filteredServices = SERVICES_DATA.filter(service => {
-    const matchesSearch = service.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         service.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         service.features.some(feature => feature.toLowerCase().includes(searchQuery.toLowerCase()));
-    
-    const matchesCategory = filterCategory === "All" || 
-                           (filterCategory === "Development" && (service.title.includes("Application") || service.title.includes("AI"))) ||
-                           (filterCategory === "Infrastructure" && (service.title.includes("Cloud") || service.title.includes("DevOps"))) ||
-                           (filterCategory === "Security" && service.title.includes("Cybersecurity")) ||
-                           (filterCategory === "Analytics" && service.title.includes("Data"));
-    
-    return matchesSearch && matchesCategory;
-  });
 
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
       
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-slate-50">
+      <section className="pt-32 pb-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center">
-            <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6">
+          <div className="text-center text-white">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">
               Enterprise Technology Services
             </h1>
-            <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed mb-8">
-              Comprehensive technology solutions designed to accelerate your digital transformation 
-              and drive sustainable business growth through innovation and expertise.
+            <p className="text-xl opacity-90 max-w-4xl mx-auto leading-relaxed mb-8">
+              Comprehensive technology solutions that transform your business operations, 
+              accelerate growth, and deliver measurable results across all industries.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <Button
-                onClick={handleGetStarted}
-                className="bg-slate-900 hover:bg-slate-800 text-white px-8 py-4 text-lg font-semibold rounded-lg"
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+              <Button 
+                size="lg" 
+                className="bg-white text-slate-900 hover:bg-slate-100"
+                onClick={() => handleScheduleConsultation()}
               >
                 <Calendar className="h-5 w-5 mr-2" />
-                Get Custom Quote
+                Schedule Free Consultation
               </Button>
-              <Button
-                variant="outline"
-                onClick={handleDownloadGuide}
-                className="border-slate-300 text-slate-700 hover:bg-slate-50 px-8 py-4 text-lg font-semibold rounded-lg"
-                disabled={downloadRequests.length > 0}
+              <Button 
+                variant="outline" 
+                size="lg"
+                className="border-white text-white hover:bg-white hover:text-slate-900"
+                onClick={handleDownloadPortfolio}
               >
                 <Download className="h-5 w-5 mr-2" />
-                {downloadRequests.length > 0 ? 'Preparing...' : 'Service Portfolio'}
+                Download Service Portfolio
               </Button>
             </div>
-            
-            {/* Interactive Search and Filter */}
-            <div className="max-w-2xl mx-auto">
-              <div className="flex flex-col sm:flex-row gap-4">
-                <div className="relative flex-1">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
-                  <Input
-                    type="text"
-                    placeholder="Search services, features, technologies..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 pr-4 py-3 border-slate-300 focus:border-slate-900"
-                  />
-                </div>
-                <Select value={filterCategory} onValueChange={setFilterCategory}>
-                  <SelectTrigger className="sm:w-48 border-slate-300 focus:border-slate-900">
-                    <Filter className="h-4 w-4 mr-2" />
-                    <SelectValue placeholder="Filter by category" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="All">All Services</SelectItem>
-                    <SelectItem value="Development">Development</SelectItem>
-                    <SelectItem value="Infrastructure">Infrastructure</SelectItem>
-                    <SelectItem value="Security">Security</SelectItem>
-                    <SelectItem value="Analytics">Analytics</SelectItem>
-                  </SelectContent>
-                </Select>
+
+            {/* Live Metrics */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+              <div className="text-center">
+                <div className="text-3xl font-bold mb-2">{metrics.activeProjects}+</div>
+                <div className="opacity-80">Active Projects</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold mb-2">{Math.round(metrics.clientSatisfaction)}%</div>
+                <div className="opacity-80">Client Satisfaction</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold mb-2">{metrics.responseTime}</div>
+                <div className="opacity-80">Response Time</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold mb-2">{metrics.successRate}%</div>
+                <div className="opacity-80">Success Rate</div>
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Search and Filter Section */}
+      <section className="py-12 bg-white border-b">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+            <div className="flex-1 max-w-md">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 h-4 w-4" />
+                <Input
+                  placeholder="Search services, technologies, or features..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <Filter className="h-4 w-4 text-slate-600" />
+                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                  <SelectTrigger className="w-40">
+                    <SelectValue placeholder="All Services" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {SERVICE_CATEGORIES.map((category) => (
+                      <SelectItem key={category} value={category}>
+                        {category}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <Button 
+                variant="outline" 
+                onClick={() => handleServiceInquiry()}
+                className="flex items-center gap-2"
+              >
+                <Target className="h-4 w-4" />
+                Custom Quote
+              </Button>
+            </div>
+          </div>
+          
+          {filteredServices.length > 0 && (
+            <div className="mt-4 text-sm text-slate-600">
+              Found {filteredServices.length} service{filteredServices.length !== 1 ? 's' : ''} 
+              {selectedCategory !== 'All Services' && ` in ${selectedCategory}`}
+              {searchTerm && ` matching "${searchTerm}"`}
+            </div>
+          )}
         </div>
       </section>
 
@@ -436,492 +883,473 @@ export default function Services() {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-6">Our Service Portfolio</h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              End-to-end technology services that cover every aspect of your digital infrastructure
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Comprehensive Service Portfolio
+            </h2>
+            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
+              End-to-end technology services designed to meet the unique challenges 
+              of modern businesses across all industries.
             </p>
           </div>
-          
-          {filteredServices.length === 0 && (
+
+          {filteredServices.length === 0 ? (
             <div className="text-center py-12">
               <Search className="h-12 w-12 text-slate-400 mx-auto mb-4" />
               <h3 className="text-lg font-semibold text-slate-900 mb-2">No services found</h3>
               <p className="text-slate-600">Try adjusting your search query or filter category.</p>
             </div>
+          ) : (
+            <div className="grid md:grid-cols-2 gap-8">
+              {filteredServices.map((service, index) => {
+                const IconComponent = service.icon;
+                const isSelected = selectedService === index;
+                return (
+                  <Card 
+                    key={service.id} 
+                    className={`cursor-pointer transition-all duration-300 hover:shadow-xl group ${
+                      isSelected 
+                        ? 'border-slate-900 shadow-xl scale-105' 
+                        : 'border-slate-200 hover:border-slate-300'
+                    }`}
+                    onClick={() => setSelectedService(isSelected ? null : index)}
+                  >
+                    <CardContent className="p-8">
+                      <div className="flex items-start space-x-4">
+                        <div className="flex-shrink-0">
+                          <div className="w-12 h-12 bg-slate-900 rounded-lg flex items-center justify-center group-hover:bg-slate-800 transition-colors">
+                            <IconComponent className="text-white w-6 h-6" />
+                          </div>
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between mb-3">
+                            <h3 className="text-xl font-bold text-slate-900">{service.title}</h3>
+                            <span className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded">
+                              {service.duration}
+                            </span>
+                          </div>
+                          <p className="text-slate-600 mb-4 leading-relaxed">{service.description}</p>
+                          
+                          {/* Features Preview */}
+                          <div className="mb-4">
+                            <h4 className="text-sm font-semibold text-slate-900 mb-2">Key Features:</h4>
+                            <ul className="space-y-1">
+                              {service.features.slice(0, 3).map((feature, idx) => (
+                                <li key={idx} className="flex items-center text-sm text-slate-600">
+                                  <CheckCircle className="w-3 h-3 text-green-500 mr-2 flex-shrink-0" />
+                                  {feature}
+                                </li>
+                              ))}
+                              {service.features.length > 3 && (
+                                <li className="text-sm text-slate-500">
+                                  +{service.features.length - 3} more features
+                                </li>
+                              )}
+                            </ul>
+                          </div>
+
+                          {/* Technologies */}
+                          <div className="mb-6">
+                            <h4 className="text-sm font-semibold text-slate-900 mb-2">Technologies:</h4>
+                            <div className="flex flex-wrap gap-1">
+                              {service.technologies.slice(0, 4).map((tech, idx) => (
+                                <span key={idx} className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded">
+                                  {tech}
+                                </span>
+                              ))}
+                              {service.technologies.length > 4 && (
+                                <span className="text-xs text-slate-500">
+                                  +{service.technologies.length - 4} more
+                                </span>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Expanded Content */}
+                          {isSelected && (
+                            <div className="border-t pt-6 mt-6 space-y-6">
+                              {/* All Features */}
+                              <div>
+                                <h4 className="text-sm font-semibold text-slate-900 mb-3">Complete Feature Set:</h4>
+                                <div className="grid md:grid-cols-2 gap-2">
+                                  {service.features.map((feature, idx) => (
+                                    <div key={idx} className="flex items-center text-sm text-slate-600">
+                                      <CheckCircle className="w-3 h-3 text-green-500 mr-2 flex-shrink-0" />
+                                      {feature}
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {/* Deliverables */}
+                              <div>
+                                <h4 className="text-sm font-semibold text-slate-900 mb-3">Project Deliverables:</h4>
+                                <div className="grid md:grid-cols-2 gap-2">
+                                  {service.deliverables.map((deliverable, idx) => (
+                                    <div key={idx} className="flex items-center text-sm text-slate-600">
+                                      <FileText className="w-3 h-3 text-blue-500 mr-2 flex-shrink-0" />
+                                      {deliverable}
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {/* Case Study */}
+                              <div className="bg-slate-50 rounded-lg p-4">
+                                <h4 className="text-sm font-semibold text-slate-900 mb-3">Success Story:</h4>
+                                <div className="space-y-2 text-sm">
+                                  <div><span className="font-medium">Client:</span> {service.caseStudy.client}</div>
+                                  <div><span className="font-medium">Challenge:</span> {service.caseStudy.challenge}</div>
+                                  <div><span className="font-medium">Solution:</span> {service.caseStudy.solution}</div>
+                                  <div className="text-green-700"><span className="font-medium">Result:</span> {service.caseStudy.result}</div>
+                                </div>
+                              </div>
+
+                              {/* Benefits */}
+                              <div className="bg-blue-50 rounded-lg p-4">
+                                <h4 className="text-sm font-semibold text-slate-900 mb-2">Expected Benefits:</h4>
+                                <p className="text-sm text-slate-700">{service.benefits}</p>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Action Buttons */}
+                          <div className="flex gap-3 mt-6">
+                            <Button 
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleServiceInquiry(service);
+                              }}
+                              className="flex-1 bg-slate-900 hover:bg-slate-800 text-white"
+                              size="sm"
+                            >
+                              <Send className="h-4 w-4 mr-2" />
+                              Get Quote
+                            </Button>
+                            <Button 
+                              variant="outline"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleScheduleConsultation(service);
+                              }}
+                              size="sm"
+                            >
+                              <Calendar className="h-4 w-4 mr-2" />
+                              Consult
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
           )}
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {filteredServices.map((service, index) => (
-              <div 
-                key={index} 
-                className={`bg-white border rounded-xl p-8 transition-all duration-300 cursor-pointer ${
-                  selectedService === index 
-                    ? 'border-slate-900 shadow-xl scale-105' 
-                    : 'border-slate-200 hover:shadow-lg hover:border-slate-300'
-                }`}
-                onClick={() => setSelectedService(selectedService === index ? null : index)}
-              >
-                <div className="flex items-start space-x-4 mb-6">
-                  <div className="w-12 h-12 bg-slate-900 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <service.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-bold text-slate-900 mb-2">{service.title}</h3>
-                    <p className="text-slate-600 mb-4">{service.description}</p>
-                    <div className="flex gap-4 text-sm">
-                      <span className="bg-slate-100 px-3 py-1 rounded-full text-slate-700 font-medium">
-                        {service.pricing}
-                      </span>
-                      <span className="bg-slate-100 px-3 py-1 rounded-full text-slate-700 font-medium">
-                        {service.duration}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="mb-6">
-                  <h4 className="font-semibold text-slate-900 mb-3">Key Features:</h4>
-                  <ul className="space-y-2">
-                    {service.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start">
-                        <CheckCircle className="h-4 w-4 text-slate-900 mr-2 flex-shrink-0 mt-0.5" />
-                        <span className="text-slate-600 text-sm">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                
-                <div className="bg-slate-50 p-4 rounded-lg mb-4">
-                  <div className="text-sm font-medium text-slate-700 mb-1">Business Impact:</div>
-                  <div className="text-sm text-slate-600">{service.benefits}</div>
-                </div>
-
-                {selectedService === index && (
-                  <div className="mt-4 pt-4 border-t border-slate-200 space-y-3">
-                    <div className="grid grid-cols-2 gap-3">
-                      <Button 
-                        size="sm" 
-                        className="bg-slate-900 hover:bg-slate-800 text-white"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleLearnMore(service.title);
-                        }}
-                      >
-                        <DollarSign className="h-4 w-4 mr-2" />
-                        Get Quote
-                      </Button>
-                      <Button 
-                        size="sm" 
-                        variant="outline"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handlePlayDemo(service.title);
-                        }}
-                      >
-                        <Play className="h-4 w-4 mr-2" />
-                        View Demo
-                      </Button>
-                    </div>
-                    <div className="text-xs text-slate-500 bg-slate-50 p-2 rounded">
-                      💡 Click "Get Quote" for instant pricing or "View Demo" to see this service in action
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
-      {/* Process Section */}
+      {/* Call to Action */}
       <section className="py-20 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-6">Our Delivery Process</h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              A proven methodology that ensures successful project delivery and measurable results
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-slate-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white font-bold text-xl">1</span>
-              </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-2">Discovery & Assessment</h3>
-              <p className="text-slate-600 text-sm">Comprehensive analysis of current state and requirements</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-slate-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white font-bold text-xl">2</span>
-              </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-2">Strategy & Planning</h3>
-              <p className="text-slate-600 text-sm">Detailed roadmap with milestones and success metrics</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-slate-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white font-bold text-xl">3</span>
-              </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-2">Implementation</h3>
-              <p className="text-slate-600 text-sm">Agile development with continuous feedback and iteration</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-slate-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white font-bold text-xl">4</span>
-              </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-2">Support & Optimization</h3>
-              <p className="text-slate-600 text-sm">Ongoing monitoring and continuous improvement</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Real-time Success Metrics */}
-      <section className="py-20 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              <Activity className="inline-block w-8 h-8 mr-3 text-green-600" />
-              Live Performance Metrics
-            </h2>
-            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-              Real-time view of our service delivery performance and client satisfaction
-            </p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {realTimeMetrics.map((metric, index) => (
-              <Card key={index} className="text-center p-6 border-0 shadow-lg hover:shadow-xl transition-all duration-300">
-                <CardContent className="p-0">
-                  <div className="w-16 h-16 bg-slate-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <metric.icon className="h-8 w-8 text-white" />
-                  </div>
-                  <div className="text-3xl md:text-4xl font-bold text-slate-900 mb-2 animate-pulse">
-                    {metric.metric}
-                  </div>
-                  <div className="text-slate-600 font-medium">{metric.label}</div>
-                  {(metric.label === "Projects Delivered" || metric.label === "Enterprise Clients") && (
-                    <div className="mt-2 text-xs text-green-600 flex items-center justify-center">
-                      <TrendingUp className="w-3 h-3 mr-1" />
-                      Live Updates
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-slate-900">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Ready to Transform Your Business?
-          </h2>
-          <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
-            Let's discuss how our services can help you achieve your technology goals and drive business growth.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              onClick={handleScheduleConsultation}
-              className="bg-white text-slate-900 hover:bg-slate-100 px-8 py-4 text-lg font-semibold rounded-lg"
-            >
-              <Calendar className="h-5 w-5 mr-2" />
-              Schedule Consultation
-            </Button>
-            <Button 
-              variant="outline"
-              onClick={handleDownloadGuide}
-              className="border-2 border-white bg-transparent text-white hover:bg-white hover:text-slate-900 transition-all duration-300 px-8 py-4 text-lg font-semibold rounded-lg"
-            >
-              <Download className="h-5 w-5 mr-2" />
-              Download Service Guide
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Quick Contact Section */}
-      <section className="py-20">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-            Start Your Project Today
+            Ready to Transform Your Business?
           </h2>
-          <p className="text-lg text-slate-600 mb-8">
-            Ready to get started? Our experts are standing by to help you choose the right service for your needs.
+          <p className="text-xl text-slate-600 mb-8">
+            Get a free consultation and discover how our services can accelerate your growth.
           </p>
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
-            <Card className="p-6 text-center hover:shadow-lg transition-all duration-300 cursor-pointer" onClick={handleContactCall}>
-              <CardContent className="p-0">
-                <Phone className="h-8 w-8 text-slate-900 mx-auto mb-3" />
-                <h3 className="font-semibold text-slate-900 mb-2">Call Us</h3>
-                <p className="text-slate-600">+917852099010</p>
-                <div className="mt-2 text-xs text-slate-500">Click to call now</div>
-              </CardContent>
-            </Card>
-            <Card className="p-6 text-center hover:shadow-lg transition-all duration-300 cursor-pointer" onClick={handleContactEmail}>
-              <CardContent className="p-0">
-                <Mail className="h-8 w-8 text-slate-900 mx-auto mb-3" />
-                <h3 className="font-semibold text-slate-900 mb-2">Email Us</h3>
-                <p className="text-slate-600">singhal3.sachin7@gmail.com</p>
-                <div className="mt-2 text-xs text-slate-500">Click to email</div>
-              </CardContent>
-            </Card>
-            <Card className="p-6 text-center hover:shadow-lg transition-all duration-300 cursor-pointer" onClick={handleScheduleConsultation}>
-              <CardContent className="p-0">
-                <Calendar className="h-8 w-8 text-slate-900 mx-auto mb-3" />
-                <h3 className="font-semibold text-slate-900 mb-2">Book Meeting</h3>
-                <p className="text-slate-600">Free consultation</p>
-                <div className="mt-2 text-xs text-slate-500">Click to schedule</div>
-              </CardContent>
-            </Card>
-          </div>
-          
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               size="lg" 
               className="bg-slate-900 hover:bg-slate-800 text-white"
-              onClick={handleScheduleConsultation}
+              onClick={() => handleScheduleConsultation()}
             >
               <Calendar className="h-5 w-5 mr-2" />
               Schedule Free Consultation
             </Button>
             <Button 
-              size="lg" 
-              variant="outline"
-              onClick={handleGetStarted}
+              variant="outline" 
+              size="lg"
+              onClick={handleDownloadPortfolio}
             >
-              <Zap className="h-5 w-5 mr-2" />
-              Get Instant Quote
+              <Download className="h-5 w-5 mr-2" />
+              Download Complete Portfolio
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Quote Modal */}
-      {showQuoteModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <Card className="w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-            <CardContent className="p-8">
-              <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold text-slate-900">Get Service Quote</h3>
-                <Button variant="ghost" onClick={() => setShowQuoteModal(false)}>✕</Button>
+      {/* Service Inquiry Modal */}
+      <Dialog open={showInquiryModal} onOpenChange={setShowInquiryModal}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Request Service Quote</DialogTitle>
+            <DialogDescription>
+              Tell us about your project and we'll provide a detailed proposal with timeline and recommendations.
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleInquirySubmit} className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="name">Full Name *</Label>
+                <Input
+                  id="name"
+                  value={inquiryForm.name}
+                  onChange={(e) => setInquiryForm(prev => ({ ...prev, name: e.target.value }))}
+                  required
+                />
               </div>
-              
-              <form onSubmit={handleQuoteSubmit} className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="firstName">First Name *</Label>
-                    <Input
-                      id="firstName"
-                      value={quoteForm.firstName}
-                      onChange={(e) => setQuoteForm(prev => ({ ...prev, firstName: e.target.value }))}
-                      placeholder="First name"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="lastName">Last Name *</Label>
-                    <Input
-                      id="lastName"
-                      value={quoteForm.lastName}
-                      onChange={(e) => setQuoteForm(prev => ({ ...prev, lastName: e.target.value }))}
-                      placeholder="Last name"
-                      required
-                    />
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="email">Email *</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      value={quoteForm.email}
-                      onChange={(e) => setQuoteForm(prev => ({ ...prev, email: e.target.value }))}
-                      placeholder="your.email@company.com"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="company">Company</Label>
-                    <Input
-                      id="company"
-                      value={quoteForm.company}
-                      onChange={(e) => setQuoteForm(prev => ({ ...prev, company: e.target.value }))}
-                      placeholder="Company name"
-                    />
-                  </div>
-                </div>
-                
-                <div>
-                  <Label htmlFor="service">Service *</Label>
-                  <Select value={quoteForm.service} onValueChange={(value) => setQuoteForm(prev => ({ ...prev, service: value }))}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a service" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {SERVICES_DATA.map((service, index) => (
-                        <SelectItem key={index} value={service.title}>{service.title}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="budget">Budget Range</Label>
-                    <Select value={quoteForm.budget} onValueChange={(value) => setQuoteForm(prev => ({ ...prev, budget: value }))}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select budget" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="₹10,000 - ₹25,000">₹10,000 - ₹25,000</SelectItem>
-                        <SelectItem value="₹25,000 - ₹50,000">₹25,000 - ₹50,000</SelectItem>
-                        <SelectItem value="₹50,000 - ₹1,00,000">₹50,000 - ₹1,00,000</SelectItem>
-                        <SelectItem value="₹1,00,000+">₹1,00,000+</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div>
-                    <Label htmlFor="timeline">Timeline</Label>
-                    <Select value={quoteForm.timeline} onValueChange={(value) => setQuoteForm(prev => ({ ...prev, timeline: value }))}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select timeline" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="ASAP">ASAP</SelectItem>
-                        <SelectItem value="Within 1 month">Within 1 month</SelectItem>
-                        <SelectItem value="Within 3 months">Within 3 months</SelectItem>
-                        <SelectItem value="Within 6 months">Within 6 months</SelectItem>
-                        <SelectItem value="Flexible">Flexible</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-                
-                <div>
-                  <Label htmlFor="requirements">Project Requirements</Label>
-                  <Textarea
-                    id="requirements"
-                    value={quoteForm.requirements}
-                    onChange={(e) => setQuoteForm(prev => ({ ...prev, requirements: e.target.value }))}
-                    placeholder="Tell us about your project requirements, goals, and any specific needs..."
-                    rows={4}
-                  />
-                </div>
-                
-                <Button 
-                  type="submit" 
-                  className="w-full bg-slate-900 hover:bg-slate-800"
-                  disabled={quoteMutation.isPending}
-                >
-                  <Send className="h-4 w-4 mr-2" />
-                  {quoteMutation.isPending ? 'Sending...' : 'Get Quote'}
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
-        </div>
-      )}
+              <div>
+                <Label htmlFor="email">Email Address *</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={inquiryForm.email}
+                  onChange={(e) => setInquiryForm(prev => ({ ...prev, email: e.target.value }))}
+                  required
+                />
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="company">Company Name *</Label>
+                <Input
+                  id="company"
+                  value={inquiryForm.company}
+                  onChange={(e) => setInquiryForm(prev => ({ ...prev, company: e.target.value }))}
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="phone">Phone Number</Label>
+                <Input
+                  id="phone"
+                  value={inquiryForm.phone}
+                  onChange={(e) => setInquiryForm(prev => ({ ...prev, phone: e.target.value }))}
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="serviceType">Service of Interest *</Label>
+              <Select value={inquiryForm.serviceType} onValueChange={(value) => setInquiryForm(prev => ({ ...prev, serviceType: value }))}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a service" />
+                </SelectTrigger>
+                <SelectContent>
+                  {SERVICES_DATA.map((service) => (
+                    <SelectItem key={service.id} value={service.title}>
+                      {service.title}
+                    </SelectItem>
+                  ))}
+                  <SelectItem value="Multiple Services">Multiple Services</SelectItem>
+                  <SelectItem value="Custom Solution">Custom Solution</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div>
+              <Label htmlFor="projectDescription">Project Description *</Label>
+              <Textarea
+                id="projectDescription"
+                value={inquiryForm.projectDescription}
+                onChange={(e) => setInquiryForm(prev => ({ ...prev, projectDescription: e.target.value }))}
+                rows={4}
+                placeholder="Describe your project requirements, goals, and current challenges..."
+                required
+              />
+            </div>
+
+            <div className="grid grid-cols-3 gap-4">
+              <div>
+                <Label htmlFor="budget">Budget Range</Label>
+                <Select value={inquiryForm.budget} onValueChange={(value) => setInquiryForm(prev => ({ ...prev, budget: value }))}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select budget" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Under ₹50,000">Under ₹50,000</SelectItem>
+                    <SelectItem value="₹50,000 - ₹1,00,000">₹50,000 - ₹1,00,000</SelectItem>
+                    <SelectItem value="₹1,00,000 - ₹5,00,000">₹1,00,000 - ₹5,00,000</SelectItem>
+                    <SelectItem value="₹5,00,000 - ₹10,00,000">₹5,00,000 - ₹10,00,000</SelectItem>
+                    <SelectItem value="Above ₹10,00,000">Above ₹10,00,000</SelectItem>
+                    <SelectItem value="To be discussed">To be discussed</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label htmlFor="timeline">Project Timeline</Label>
+                <Select value={inquiryForm.timeline} onValueChange={(value) => setInquiryForm(prev => ({ ...prev, timeline: value }))}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select timeline" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Urgent (&lt; 1 month)">Urgent (&lt; 1 month)</SelectItem>
+                    <SelectItem value="1-3 months">1-3 months</SelectItem>
+                    <SelectItem value="3-6 months">3-6 months</SelectItem>
+                    <SelectItem value="6+ months">6+ months</SelectItem>
+                    <SelectItem value="Flexible">Flexible</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label htmlFor="urgency">Priority Level *</Label>
+                <Select value={inquiryForm.urgency} onValueChange={(value) => setInquiryForm(prev => ({ ...prev, urgency: value }))}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select priority" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Low">Low</SelectItem>
+                    <SelectItem value="Medium">Medium</SelectItem>
+                    <SelectItem value="High">High</SelectItem>
+                    <SelectItem value="Critical">Critical</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="currentChallenges">Current Challenges</Label>
+              <Textarea
+                id="currentChallenges"
+                value={inquiryForm.currentChallenges}
+                onChange={(e) => setInquiryForm(prev => ({ ...prev, currentChallenges: e.target.value }))}
+                rows={3}
+                placeholder="What specific challenges are you facing that this project would solve?"
+              />
+            </div>
+
+            <div className="flex gap-3 pt-4">
+              <Button type="submit" disabled={inquiryMutation.isPending} className="flex-1">
+                {inquiryMutation.isPending ? 'Submitting...' : 'Submit Inquiry'}
+              </Button>
+              <Button type="button" variant="outline" onClick={() => setShowInquiryModal(false)}>
+                Cancel
+              </Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
 
       {/* Consultation Modal */}
-      {showConsultationModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <Card className="w-full max-w-lg max-h-[90vh] overflow-y-auto">
-            <CardContent className="p-8">
-              <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold text-slate-900">Schedule Consultation</h3>
-                <Button variant="ghost" onClick={() => setShowConsultationModal(false)}>✕</Button>
+      <Dialog open={showConsultationModal} onOpenChange={setShowConsultationModal}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Schedule Free Consultation</DialogTitle>
+            <DialogDescription>
+              Book a free 30-minute consultation to discuss your project requirements and get expert recommendations.
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleConsultationSubmit} className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="consultName">Full Name *</Label>
+                <Input
+                  id="consultName"
+                  value={consultationForm.name}
+                  onChange={(e) => setConsultationForm(prev => ({ ...prev, name: e.target.value }))}
+                  required
+                />
               </div>
-              
-              <form onSubmit={handleConsultationSubmit} className="space-y-4">
-                <div>
-                  <Label htmlFor="name">Full Name *</Label>
-                  <Input
-                    id="name"
-                    value={consultationForm.name}
-                    onChange={(e) => setConsultationForm(prev => ({ ...prev, name: e.target.value }))}
-                    placeholder="Your full name"
-                    required
-                  />
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="email">Email *</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      value={consultationForm.email}
-                      onChange={(e) => setConsultationForm(prev => ({ ...prev, email: e.target.value }))}
-                      placeholder="your.email@company.com"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="phone">Phone *</Label>
-                    <Input
-                      id="phone"
-                      type="tel"
-                      value={consultationForm.phone}
-                      onChange={(e) => setConsultationForm(prev => ({ ...prev, phone: e.target.value }))}
-                      placeholder="+917852099010"
-                      required
-                    />
-                  </div>
-                </div>
-                
-                <div>
-                  <Label htmlFor="service">Service Interest</Label>
-                  <Select value={consultationForm.service} onValueChange={(value) => setConsultationForm(prev => ({ ...prev, service: value }))}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select service area" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="General Consultation">General Consultation</SelectItem>
-                      {SERVICES_DATA.map((service, index) => (
-                        <SelectItem key={index} value={service.title}>{service.title}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                
-                <div>
-                  <Label htmlFor="preferredDate">Preferred Date/Time</Label>
-                  <Input
-                    id="preferredDate"
-                    value={consultationForm.preferredDate}
-                    onChange={(e) => setConsultationForm(prev => ({ ...prev, preferredDate: e.target.value }))}
-                    placeholder="e.g., Tomorrow 2 PM, Next Monday morning"
-                  />
-                </div>
-                
-                <div>
-                  <Label htmlFor="message">Message</Label>
-                  <Textarea
-                    id="message"
-                    value={consultationForm.message}
-                    onChange={(e) => setConsultationForm(prev => ({ ...prev, message: e.target.value }))}
-                    placeholder="Brief description of what you'd like to discuss..."
-                    rows={3}
-                  />
-                </div>
-                
-                <Button 
-                  type="submit" 
-                  className="w-full bg-slate-900 hover:bg-slate-800"
-                  disabled={consultationMutation.isPending}
-                >
-                  <Calendar className="h-4 w-4 mr-2" />
-                  {consultationMutation.isPending ? 'Scheduling...' : 'Schedule Consultation'}
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
-        </div>
-      )}
+              <div>
+                <Label htmlFor="consultEmail">Email Address *</Label>
+                <Input
+                  id="consultEmail"
+                  type="email"
+                  value={consultationForm.email}
+                  onChange={(e) => setConsultationForm(prev => ({ ...prev, email: e.target.value }))}
+                  required
+                />
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="consultCompany">Company Name *</Label>
+                <Input
+                  id="consultCompany"
+                  value={consultationForm.company}
+                  onChange={(e) => setConsultationForm(prev => ({ ...prev, company: e.target.value }))}
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="consultPhone">Phone Number</Label>
+                <Input
+                  id="consultPhone"
+                  value={consultationForm.phone}
+                  onChange={(e) => setConsultationForm(prev => ({ ...prev, phone: e.target.value }))}
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="consultServiceType">Service of Interest *</Label>
+              <Select value={consultationForm.serviceType} onValueChange={(value) => setConsultationForm(prev => ({ ...prev, serviceType: value }))}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a service" />
+                </SelectTrigger>
+                <SelectContent>
+                  {SERVICES_DATA.map((service) => (
+                    <SelectItem key={service.id} value={service.title}>
+                      {service.title}
+                    </SelectItem>
+                  ))}
+                  <SelectItem value="General Consultation">General Consultation</SelectItem>
+                  <SelectItem value="Multiple Services">Multiple Services</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="preferredDate">Preferred Date</Label>
+                <Input
+                  id="preferredDate"
+                  type="date"
+                  value={consultationForm.preferredDate}
+                  onChange={(e) => setConsultationForm(prev => ({ ...prev, preferredDate: e.target.value }))}
+                  min={new Date().toISOString().split('T')[0]}
+                />
+              </div>
+              <div>
+                <Label htmlFor="preferredTime">Preferred Time</Label>
+                <Select value={consultationForm.preferredTime} onValueChange={(value) => setConsultationForm(prev => ({ ...prev, preferredTime: value }))}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select time" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Morning (9 AM - 12 PM)">Morning (9 AM - 12 PM)</SelectItem>
+                    <SelectItem value="Afternoon (12 PM - 5 PM)">Afternoon (12 PM - 5 PM)</SelectItem>
+                    <SelectItem value="Evening (5 PM - 8 PM)">Evening (5 PM - 8 PM)</SelectItem>
+                    <SelectItem value="Flexible">Flexible</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="consultMessage">Additional Message</Label>
+              <Textarea
+                id="consultMessage"
+                value={consultationForm.message}
+                onChange={(e) => setConsultationForm(prev => ({ ...prev, message: e.target.value }))}
+                rows={3}
+                placeholder="Tell us about your project or any specific questions you'd like to discuss..."
+              />
+            </div>
+
+            <div className="flex gap-3 pt-4">
+              <Button type="submit" disabled={consultationMutation.isPending} className="flex-1">
+                {consultationMutation.isPending ? 'Scheduling...' : 'Schedule Consultation'}
+              </Button>
+              <Button type="button" variant="outline" onClick={() => setShowConsultationModal(false)}>
+                Cancel
+              </Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
 
       <Footer />
     </div>
