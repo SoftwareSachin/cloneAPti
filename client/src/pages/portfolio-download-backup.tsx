@@ -1045,7 +1045,7 @@ export default function PortfolioDownload() {
                     <div class="service-description">Cloud migration, infrastructure setup, and managed services across AWS, Azure, and Google Cloud platforms.</div>
                 </div>
                 <div class="service-item">
-                    <div class="service-icon">🔧</div>
+                    <div class="service-icon">⚙️</div>
                     <div class="service-title">Digital Transformation</div>
                     <div class="service-description">Complete digital transformation strategies to modernize your business processes and technology infrastructure.</div>
                 </div>

@@ -743,7 +743,7 @@ export default function CaseStudies() {
               { name: "Education", icon: "🎓" },
               { name: "Logistics", icon: "🚛" },
               { name: "Real Estate", icon: "🏢" },
-              { name: "Media & Entertainment", icon: "🎬" }
+              { name: "Media & Entertainment", icon: "📺" }
             ].map((industry, index) => (
               <div key={index} className="text-center p-6 bg-slate-50 rounded-lg border hover:shadow-lg transition-shadow">
                 <div className="text-4xl mb-3">{industry.icon}</div>

@@ -625,7 +625,7 @@ export default function Home() {
                                 </head>
                                 <body>
                                   <div class="container">
-                                    <h1><span class="emoji">🚀</span>PROJECT SHOWCASE</h1>
+                                    <h1>PROJECT SHOWCASE</h1>
                                     <h2>${project.title}</h2>
                                     
                                     <div class="section">
@@ -660,7 +660,7 @@ export default function Home() {
                                     </div>
                                     
                                     <div class="section">
-                                      <h3><span class="emoji">🎯</span>Key Achievements</h3>
+                                      <h3>Key Achievements</h3>
                                       <ul>
                                         <li>✅ On-time project delivery with zero delays</li>
                                         <li>✅ Exceeded client expectations and requirements</li>
