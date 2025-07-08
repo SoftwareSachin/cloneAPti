@@ -55,6 +55,13 @@ export default function HeroSection() {
               </span>
             </h1>
             
+            {/* Additional visible content for SEO */}
+            <div className="prose prose-lg max-w-none mb-8">
+              <p className="text-lg text-slate-700 leading-relaxed">
+                <strong>Aptivon Solutions</strong> is a leading enterprise technology consulting firm specializing in <strong>cloud migration</strong>, <strong>AI/ML implementation</strong>, <strong>DevOps automation</strong>, and <strong>custom software development</strong>. We deliver proven technology solutions that transform operations and drive business growth.
+              </p>
+            </div>
+            
             <p className="text-xl text-slate-600 mb-10 leading-relaxed max-w-lg">
               Aptivon Solutions is a leading enterprise technology consulting firm specializing in cloud migration, AI/ML implementation, DevOps automation, and custom software development. We serve businesses across India and globally, delivering proven technology solutions that transform operations and drive growth. Our expert team of developers, cloud architects, and AI specialists work with cutting-edge technologies including React, Node.js, Python, AWS, Azure, Google Cloud, Docker, Kubernetes, TensorFlow, and PyTorch to deliver enterprise-grade solutions.
             </p>

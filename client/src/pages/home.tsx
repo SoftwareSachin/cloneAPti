@@ -45,6 +45,18 @@ export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeFilter, setActiveFilter] = useState("all");
 
+  // Add static content for SEO crawlers at the top of the page
+  const seoContent = (
+    <div className="sr-only">
+      <h1>Aptivon Solutions - Enterprise IT Services & Technology Consulting</h1>
+      <h2>Leading IT Consulting Firm with Cloud Migration, AI/ML Implementation, DevOps Automation</h2>
+      <p>Aptivon Solutions is a leading enterprise technology consulting firm specializing in cloud migration, AI/ML implementation, DevOps automation, and custom software development. We serve businesses across India and globally, delivering proven technology solutions that transform operations and drive growth. Our expert team of developers, cloud architects, and AI specialists work with cutting-edge technologies including React, Node.js, Python, AWS, Azure, Google Cloud, Docker, Kubernetes, TensorFlow, and PyTorch to deliver enterprise-grade solutions.</p>
+      <p>Our comprehensive services include cloud infrastructure migration, artificial intelligence and machine learning implementation, DevOps pipeline automation, custom web and mobile application development, cybersecurity solutions, and data analytics. With over 5 successful projects delivered and a 98% client satisfaction rate, we have consistently delivered enterprise-grade solutions that drive business growth and operational efficiency.</p>
+      <p>We follow agile development methodologies with sprint-based development, continuous integration, and iterative delivery to ensure rapid time-to-market and flexible adaptation to changing requirements. Our quality assurance processes include comprehensive testing strategies such as unit testing, integration testing, performance testing, and security audits to ensure robust, scalable, and secure enterprise solutions.</p>
+      <p>Our technology stack excellence leverages modern technologies including React for frontend development, Node.js for backend services, Python for AI/ML applications, AWS and Azure for cloud infrastructure, Google Cloud Platform for scalable solutions, Docker for containerization, Kubernetes for orchestration, TensorFlow for machine learning, and PyTorch for deep learning applications.</p>
+    </div>
+  );
+
 
   const [liveMetrics, setLiveMetrics] = useState({
     activeProjects: 5,
@@ -163,6 +175,9 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
+      
+      {/* SEO Content for Crawlers */}
+      {seoContent}
       
       {/* Enhanced Live Status Bar */}
       <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white py-3 px-6 border-b border-slate-700/50">
