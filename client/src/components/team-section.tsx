@@ -41,7 +41,7 @@ const teamMembers = [
   {
     id: 2,
     name: "Chetan Suthar",
-    role: "Senior Software Developer",
+    role: "Developer",
     title: "Full Stack Developer",
     avatar: "CS",
     expertise: ["Full Stack Development", "React & Node.js", "Modern Web Technologies"],
