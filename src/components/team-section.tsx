@@ -15,8 +15,10 @@ import {
   Globe,
   LinkedIn,
   Mail,
-  Calendar
+  Calendar,
+  Code
 } from "lucide-react";
+import chetanImage from "@assets/image_1751990536872.png";
 
 const teamMembers = [
   {
@@ -50,6 +52,23 @@ const teamMembers = [
     gradient: "from-emerald-500 to-teal-600",
     accentColor: "emerald",
     metrics: { revenue: "$10M+", products: "5+", clients: "50+" }
+  },
+  {
+    id: 3,
+    name: "Chetan Suthar",
+    role: "Senior Software Developer",
+    title: "Full Stack Developer",
+    avatar: "CS",
+    expertise: ["Full Stack Development", "React & Node.js", "Modern Web Technologies"],
+    experience: "5+ years",
+    icon: Code,
+    achievements: ["React Expert", "Node.js Specialist", "UI/UX Design Excellence"],
+    background: "Specialized in building scalable web applications using React, Node.js, and modern frontend frameworks. Expert in creating responsive, user-friendly interfaces and robust backend systems.",
+    specialization: "Full Stack Web Development",
+    gradient: "from-purple-500 to-pink-600",
+    accentColor: "purple",
+    metrics: { projects: "20+", technologies: "15+", apps: "10+" },
+    image: chetanImage
   }
 ];
 
@@ -86,8 +105,16 @@ export default function TeamSection() {
                   {/* Avatar & Header */}
                   <div className="text-center mb-6">
                     <div className="relative mb-4 mx-auto w-20 h-20">
-                      <div className={`w-20 h-20 rounded-2xl bg-gradient-to-r ${member.gradient} flex items-center justify-center text-white text-xl font-bold shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                        {member.avatar}
+                      <div className={`w-20 h-20 rounded-2xl bg-gradient-to-r ${member.gradient} flex items-center justify-center text-white text-xl font-bold shadow-lg group-hover:scale-110 transition-transform duration-300 overflow-hidden`}>
+                        {member.image ? (
+                          <img 
+                            src={member.image} 
+                            alt={member.name} 
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          member.avatar
+                        )}
                       </div>
                       <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-white rounded-lg shadow-md flex items-center justify-center">
                         <member.icon className={`w-4 h-4 text-${member.accentColor}-600`} />

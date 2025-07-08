@@ -15,9 +15,11 @@ import {
   Globe,
   LinkedIn,
   Mail,
-  Calendar
+  Calendar,
+  Code
 } from "lucide-react";
 import sachinCtoImage from "@/assets/sachin-cto.gif";
+import chetanImage from "@/assets/chetan-profile.png";
 
 const teamMembers = [
   {
@@ -35,6 +37,23 @@ const teamMembers = [
     gradient: "from-blue-500 to-cyan-600",
     accentColor: "blue",
     metrics: { projects: "5+", teams: "2+", systems: "10+" }
+  },
+  {
+    id: 2,
+    name: "Chetan Suthar",
+    role: "Senior Software Developer",
+    title: "Full Stack Developer",
+    avatar: "CS",
+    expertise: ["Full Stack Development", "React & Node.js", "Modern Web Technologies"],
+    experience: "5+ years",
+    icon: Code,
+    achievements: ["React Expert", "Node.js Specialist", "UI/UX Design Excellence"],
+    background: "Specialized in building scalable web applications using React, Node.js, and modern frontend frameworks. Expert in creating responsive, user-friendly interfaces and robust backend systems.",
+    specialization: "Full Stack Web Development",
+    gradient: "from-purple-500 to-pink-600",
+    accentColor: "purple",
+    metrics: { projects: "20+", technologies: "15+", apps: "10+" },
+    image: chetanImage
   }
 ];
 
@@ -74,14 +93,24 @@ export default function TeamSection() {
                   {/* Profile header */}
                   <div className="text-center mb-6">
                     <div className="relative mx-auto mb-4">
-                      <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xl font-bold shadow-xl mx-auto overflow-hidden ring-4 ring-white">
-                        <img 
-                          src={sachinCtoImage} 
-                          alt="Sachin - CTO" 
-                          className="w-full h-full object-cover"
-                        />
+                      <div className={`w-24 h-24 rounded-3xl bg-gradient-to-br ${member.gradient} flex items-center justify-center text-white text-xl font-bold shadow-xl mx-auto overflow-hidden ring-4 ring-white`}>
+                        {member.id === 1 ? (
+                          <img 
+                            src={sachinCtoImage} 
+                            alt={`${member.name} - ${member.role}`} 
+                            className="w-full h-full object-cover"
+                          />
+                        ) : member.image ? (
+                          <img 
+                            src={member.image} 
+                            alt={`${member.name} - ${member.role}`} 
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          member.avatar
+                        )}
                       </div>
-                      <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl shadow-xl flex items-center justify-center border-2 border-white">
+                      <div className={`absolute -bottom-2 -right-2 w-10 h-10 bg-gradient-to-br ${member.gradient} rounded-2xl shadow-xl flex items-center justify-center border-2 border-white`}>
                         <IconComponent className="w-5 h-5 text-white" />
                       </div>
                     </div>
