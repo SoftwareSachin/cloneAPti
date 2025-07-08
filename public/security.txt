@@ -1,17 +1,9 @@
 Contact: mailto:singhal3.sachin7@gmail.com
+Contact: https://aptivon-solutions.vercel.app/contact
 Expires: 2025-12-31T23:59:59.000Z
-Acknowledgments: https://aptivon-solutions.vercel.app/security
-Preferred-Languages: en
+Encryption: https://aptivon-solutions.vercel.app/pgp-key.asc
+Acknowledgments: https://aptivon-solutions.vercel.app/security-acknowledgments
+Preferred-Languages: en, hi
 Canonical: https://aptivon-solutions.vercel.app/.well-known/security.txt
-
-# Security Policy for Aptivon Solutions
-# We take security seriously and appreciate responsible disclosure
-# Contact us at: singhal3.sachin7@gmail.com
-# 
-# Please include:
-# - Detailed description of the vulnerability
-# - Steps to reproduce the issue
-# - Impact assessment
-# - Suggested fixes (if any)
-#
-# We will respond within 72 hours and provide updates on our progress
+Policy: https://aptivon-solutions.vercel.app/security-policy
+Hiring: https://aptivon-solutions.vercel.app/careers
