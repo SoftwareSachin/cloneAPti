@@ -86,10 +86,21 @@ export default function TechnologySection() {
           <h2 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6">
             Enterprise <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Technology Stack</span>
           </h2>
-          <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed mb-8">
             Cutting-edge technologies and proven frameworks that power scalable, secure, 
-            and maintainable solutions for enterprise success.
+            and maintainable solutions for enterprise success. Our technology stack includes React, Node.js, Python, AWS, Azure, Google Cloud, Docker, Kubernetes, TensorFlow, and PyTorch for enterprise-grade solutions.
           </p>
+          
+          {/* Social Media Sharing */}
+          <div className="flex justify-center gap-4 mb-8">
+            <h3 className="text-lg font-semibold text-slate-700 mr-4">Share Our Technology Stack:</h3>
+            <a href={`https://twitter.com/intent/tweet?text=Check out Aptivon Solutions' cutting-edge technology stack - React, Node.js, Python, AWS, Azure, Google Cloud&url=https://aptivonsolin.vercel.app/`} target="_blank" rel="noopener noreferrer" className="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+              Share on Twitter
+            </a>
+            <a href={`https://www.linkedin.com/sharing/share-offsite/?url=https://aptivonsolin.vercel.app/`} target="_blank" rel="noopener noreferrer" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+              Share on LinkedIn
+            </a>
+          </div>
         </div>
 
         {/* Technology Stats */}

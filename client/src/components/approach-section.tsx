@@ -87,10 +87,33 @@ export default function ApproachSection() {
           <h2 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6">
             Proven <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Approach</span>
           </h2>
-          <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed mb-8">
             A systematic methodology that ensures successful delivery, exceptional quality, 
-            and measurable long-term value for your business.
+            and measurable long-term value for your business. Our approach combines agile development practices with enterprise-grade security, scalability optimization, and comprehensive testing to deliver solutions that drive business growth.
           </p>
+          
+          {/* Additional SEO Content */}
+          <div className="max-w-4xl mx-auto text-left bg-slate-50 p-8 rounded-2xl mb-8">
+            <h3 className="text-2xl font-bold text-slate-900 mb-4">Enterprise Development Methodology</h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <h4 className="text-lg font-semibold text-slate-800 mb-2">Agile Development Process</h4>
+                <p className="text-slate-600">We follow agile methodologies with sprint-based development, continuous integration, and iterative delivery to ensure rapid time-to-market and flexible adaptation to changing requirements.</p>
+              </div>
+              <div>
+                <h4 className="text-lg font-semibold text-slate-800 mb-2">Quality Assurance</h4>
+                <p className="text-slate-600">Comprehensive testing strategies including unit testing, integration testing, performance testing, and security audits to ensure robust, scalable, and secure enterprise solutions.</p>
+              </div>
+              <div>
+                <h4 className="text-lg font-semibold text-slate-800 mb-2">Technology Stack Excellence</h4>
+                <p className="text-slate-600">Leveraging modern technologies including React, Node.js, Python, AWS, Azure, Google Cloud, Docker, Kubernetes, TensorFlow, and PyTorch to build enterprise-grade applications.</p>
+              </div>
+              <div>
+                <h4 className="text-lg font-semibold text-slate-800 mb-2">Continuous Support</h4>
+                <p className="text-slate-600">Ongoing maintenance, monitoring, and optimization services to ensure long-term success with 24/7 support, performance monitoring, and regular updates.</p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Approach Stats */}

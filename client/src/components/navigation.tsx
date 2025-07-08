@@ -40,9 +40,9 @@ export default function Navigation() {
               }`}
             />
             <div>
-              <h1 className="text-xl font-bold text-slate-900 tracking-tight">
+              <div className="text-xl font-bold text-slate-900 tracking-tight">
                 Aptivon Solutions
-              </h1>
+              </div>
               <p className="text-xs text-slate-500 font-medium">Enterprise Technology</p>
             </div>
           </a>

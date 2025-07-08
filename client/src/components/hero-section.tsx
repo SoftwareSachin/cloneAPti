@@ -51,15 +51,15 @@ export default function HeroSection() {
             
             <h1 className="text-6xl md:text-7xl font-bold mb-8 leading-tight">
               <span className="bg-gradient-to-r from-slate-900 via-blue-800 to-purple-800 bg-clip-text text-transparent">
-                Transform Your
+                Enterprise IT Services & Technology Consulting
               </span>
               <span className="block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Digital Future
+                Transform Your Digital Future
               </span>
             </h1>
             
             <p className="text-xl text-slate-600 mb-10 leading-relaxed max-w-lg">
-              Pioneering enterprise technology solutions that revolutionize businesses through cutting-edge cloud infrastructure, AI-driven analytics, and seamless digital transformation.
+              Aptivon Solutions is a leading enterprise technology consulting firm specializing in cloud migration, AI/ML implementation, DevOps automation, and custom software development. We serve businesses across India and globally, delivering proven technology solutions that transform operations and drive growth. Our expert team of developers, cloud architects, and AI specialists work with cutting-edge technologies including React, Node.js, Python, AWS, Azure, Google Cloud, Docker, Kubernetes, TensorFlow, and PyTorch to deliver enterprise-grade solutions.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
