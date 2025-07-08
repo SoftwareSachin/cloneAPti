@@ -1,35 +1,56 @@
 /* TEAM */
-    CEO & Founder: Sachin Singhal
-    Contact: singhal3.sachin7@gmail.com
-    Location: India
+  
+  Founder & CTO: Sachin Singhal
+  Contact: singhal3.sachin7@gmail.com
+  Phone: +91 7852099010
+  From: India
+  
+  Technical Lead: Sarah Chen
+  Role: Full-Stack Development, Cloud Architecture, DevOps
+  
+  Product Manager: Marcus Rodriguez
+  Role: Product Strategy, Market Analysis, Agile
+  
+  Senior Developer: Chetan Suthar
+  Role: Full Stack Development, Modern Web Technologies
 
-    Technical Lead: Sarah Chen
-    Specialization: Full-Stack Development, Cloud Architecture, DevOps
-    
-    Product Manager: Marcus Rodriguez
-    Specialization: Product Strategy, Market Analysis, Agile
-    
-    UX Strategy Lead: Priya Sharma
-    Specialization: UX Strategy, Data Analytics, Customer Success
+/* THANKS */
+  
+  Open Source Community
+  React, Node.js, and TypeScript teams
+  Vercel for hosting platform
+  All our clients for their trust
 
 /* SITE */
-    Last update: 2025/01/07
-    Language: English
-    Doctype: HTML5
-    IDE: Replit, VS Code
-    Framework: React, TypeScript, Express.js
-    Database: PostgreSQL
-    Cloud: Vercel, Neon Database
-    
+  
+  Last update: 2025-01-08
+  Language: English
+  Doctype: HTML5
+  IDE: VS Code, Replit
+  Standards: W3C, WCAG 2.1
+  Components: React, TypeScript, Tailwind CSS
+  Backend: Node.js, Express, PostgreSQL
+  
 /* COMPANY */
-    Name: Aptivon Solutions Pvt. Ltd.
-    Established: 2020
-    Team Size: 50+ Technology Experts
-    Clients: 150+ Satisfied Enterprise Clients
-    Success Rate: 98%
-    Services: Cloud Migration, AI/ML, DevOps, Custom Development
-    
-    We are India's leading enterprise IT consulting firm
-    specializing in digital transformation and technology solutions.
-    
-    Transform your business with proven technology solutions.
+  
+  Name: Aptivon Solutions Pvt. Ltd.
+  Founded: 2020
+  Location: India
+  Services: Cloud Migration, AI/ML, DevOps, Software Development
+  Website: https://aptivonsolin.vercel.app
+  
+/* SEO */
+  
+  Primary Keywords: Aptivon Solutions, IT consulting India
+  Focus: Enterprise technology solutions, cloud migration
+  Target: #1 Google ranking for brand and services
+  Optimization: Advanced schema markup, multiple sitemaps
+  
+/* TECHNOLOGY STACK */
+  
+  Frontend: React 18, TypeScript, Tailwind CSS
+  Backend: Node.js, Express.js, PostgreSQL
+  Database: Neon PostgreSQL, Drizzle ORM
+  Hosting: Vercel, Edge Network
+  Performance: Optimized for Core Web Vitals
+  SEO: Advanced schema markup, comprehensive optimization

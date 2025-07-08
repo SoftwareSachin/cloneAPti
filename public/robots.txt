@@ -1,81 +1,138 @@
-User-agent: *
-Allow: /
+# Advanced robots.txt for maximum SEO ranking - Aptivon Solutions
+# Optimized for all major search engines and AI crawlers
+# Website: https://aptivonsolin.vercel.app
+# Contact: singhal3.sachin7@gmail.com
 
-# Sitemap
-Sitemap: https://aptivonsolin.vercel.app/sitemap.xml
-
-# Additional SEO files
-Sitemap: https://aptivonsolin.vercel.app/sitemap.xml
-Host: https://aptivonsolin.vercel.app
-
-# Crawl-delay for bots (reduced for faster indexing)
-Crawl-delay: 0
-
-# Allow all search engines to index the site
+# Primary Search Engines - Maximum Crawl Efficiency
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 0
+Crawl-delay: 0.5
+Request-rate: 1/1
 
-User-agent: Bingbot
+User-agent: Googlebot-Image
 Allow: /
-Crawl-delay: 0
+Crawl-delay: 0.5
 
-User-agent: Slurp
+User-agent: Googlebot-News
 Allow: /
-Crawl-delay: 0
+Crawl-delay: 0.5
+
+User-agent: Googlebot-Video
+Allow: /
+Crawl-delay: 0.5
+
+User-agent: bingbot
+Allow: /
+Crawl-delay: 0.5
+
+User-agent: YandexBot
+Allow: /
+Crawl-delay: 0.5
 
 User-agent: DuckDuckBot
 Allow: /
-Crawl-delay: 0
+Crawl-delay: 0.5
 
-User-agent: facebookexternalhit
+User-agent: Baiduspider
 Allow: /
+Crawl-delay: 1
 
-User-agent: Twitterbot
-Allow: /
-
-User-agent: LinkedInBot
-Allow: /
-
-# AI/ML Crawlers for ChatGPT and other AI services
+# AI Crawlers for Maximum AI Accessibility and Understanding
 User-agent: GPTBot
 Allow: /
+Crawl-delay: 0.5
 
 User-agent: ChatGPT-User
 Allow: /
+Crawl-delay: 0.5
 
 User-agent: CCBot
 Allow: /
-
-User-agent: anthropic-ai
-Allow: /
+Crawl-delay: 0.5
 
 User-agent: Claude-Web
 Allow: /
+Crawl-delay: 0.5
 
-# Block certain paths if needed (none currently)
-# Disallow: /admin/
-# Disallow: /api/
+User-agent: anthropic-ai
+Allow: /
+Crawl-delay: 0.5
 
-# Allow all static assets
-Allow: /src/
-Allow: /*.css$
-Allow: /*.js$
-Allow: /*.gif$
-Allow: /*.png$
-Allow: /*.jpg$
-Allow: /*.jpeg$
-Allow: /*.svg$
-Allow: /*.ico$
-Allow: /*.webp$
-Allow: /*.json$
-Allow: /*.txt$
-Allow: /*.xml$
+User-agent: PerplexityBot
+Allow: /
+Crawl-delay: 0.5
 
-# Important SEO files
-Allow: /sitemap.xml
-Allow: /robots.txt
-Allow: /manifest.json
-Allow: /humans.txt
-Allow: /security.txt
-Allow: /ads.txt
+User-agent: YouBot
+Allow: /
+Crawl-delay: 0.5
+
+User-agent: Meta-ExternalAgent
+Allow: /
+Crawl-delay: 0.5
+
+# Social Media Crawlers for Enhanced Sharing
+User-agent: facebookexternalhit
+Allow: /
+Crawl-delay: 0.5
+
+User-agent: Twitterbot
+Allow: /
+Crawl-delay: 0.5
+
+User-agent: LinkedInBot
+Allow: /
+Crawl-delay: 0.5
+
+User-agent: WhatsApp
+Allow: /
+Crawl-delay: 0.5
+
+# Additional Search and Analysis Crawlers
+User-agent: GoogleOther
+Allow: /
+Crawl-delay: 0.5
+
+User-agent: AhrefsBot
+Allow: /
+Crawl-delay: 1
+
+User-agent: SemrushBot
+Allow: /
+Crawl-delay: 1
+
+User-agent: MJ12bot
+Allow: /
+Crawl-delay: 1
+
+# All other crawlers
+User-agent: *
+Allow: /
+Crawl-delay: 1
+
+# Disallow admin and utility pages only
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/internal/
+Disallow: /*.pdf$
+Disallow: /temp/
+Disallow: /cache/
+
+# High-priority pages for crawling
+Allow: /services/
+Allow: /portfolio/
+Allow: /about/
+Allow: /contact/
+Allow: /blog/
+
+# Sitemap locations for enhanced crawling and indexing
+Sitemap: https://aptivonsolin.vercel.app/sitemap.xml
+Sitemap: https://aptivonsolin.vercel.app/sitemap-images.xml
+Sitemap: https://aptivonsolin.vercel.app/sitemap-services.xml
+Sitemap: https://aptivonsolin.vercel.app/blog/rss.xml
+
+# Host declaration for primary domain
+Host: https://aptivonsolin.vercel.app
+
+# Additional SEO directives
+Clean-param: utm_source&utm_medium&utm_campaign
+Clean-param: ref&source&from

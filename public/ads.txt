@@ -1,9 +1,14 @@
-# Ads.txt for Aptivon Solutions
-# This file helps prevent ad fraud by identifying authorized sellers
-# Currently no advertising partners - professional IT services only
+# ads.txt file for aptivonsolin.vercel.app
+# This file is used by search engines to understand advertising relationships
+# and improve content quality assessment for SEO ranking
 
-# Google AdSense (if needed in future)
+# Google AdSense (placeholder - replace with actual publisher ID if using ads)
 # google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
 
-# For now, indicating no advertising partnerships
-# Direct professional IT services only
+# Contact information for advertising inquiries
+# Contact: singhal3.sachin7@gmail.com
+# Website: https://aptivonsolin.vercel.app
+
+# Aptivon Solutions focuses on professional IT services
+# No current advertising partnerships - professional business website
+# Last updated: 2025-01-08
