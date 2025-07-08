@@ -53,9 +53,6 @@ export default function HeroSection() {
               <span className="bg-gradient-to-r from-slate-900 via-blue-800 to-purple-800 bg-clip-text text-transparent">
                 Enterprise IT Services & Technology Consulting
               </span>
-              <span className="block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Transform Your Digital Future
-              </span>
             </h1>
             
             <p className="text-xl text-slate-600 mb-10 leading-relaxed max-w-lg">
