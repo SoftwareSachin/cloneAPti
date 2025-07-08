@@ -87,10 +87,10 @@ export default function Careers() {
   const handleApplicationSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!applicationData.fullName || !applicationData.email || !applicationData.phone || !applicationData.coverLetter) {
+    if (!applicationData.fullName || !applicationData.email || !applicationData.phone) {
       toast({
         title: "Missing Information",
-        description: "Please fill in all required fields.",
+        description: "Please fill in all required fields (Name, Email, Phone).",
         variant: "destructive"
       });
       return;
@@ -143,9 +143,19 @@ export default function Careers() {
       }
     } catch (error: any) {
       console.error('Error submitting application:', error);
+      let errorMessage = "There was an error submitting your application. Please try again.";
+      
+      if (error.message?.includes('Failed to fetch')) {
+        errorMessage = "Network error. Please check your connection and try again.";
+      } else if (error.message?.includes('500')) {
+        errorMessage = "Server error. Please try again later or contact support.";
+      } else if (error.message?.includes('400')) {
+        errorMessage = "Invalid form data. Please check your information and try again.";
+      }
+      
       toast({
         title: "Submission Failed", 
-        description: error.message || "There was an error submitting your application. Please try again.",
+        description: errorMessage,
         variant: "destructive"
       });
     }
@@ -494,7 +504,7 @@ export default function Careers() {
                               </div>
                               
                               <div className="space-y-2">
-                                <Label htmlFor="coverLetter">Cover Letter</Label>
+                                <Label htmlFor="coverLetter">Cover Letter (Optional)</Label>
                                 <Textarea
                                   id="coverLetter"
                                   value={applicationData.coverLetter}
