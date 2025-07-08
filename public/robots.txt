@@ -1,138 +1,54 @@
-# Advanced robots.txt for maximum SEO ranking - Aptivon Solutions
-# Optimized for all major search engines and AI crawlers
-# Website: https://aptivonsolin.vercel.app
-# Contact: singhal3.sachin7@gmail.com
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /private/
 
-# Primary Search Engines - Maximum Crawl Efficiency
+# Sitemap
+Sitemap: https://aptivonsolin.vercel.app/sitemap.xml
+
+# Crawl delay
+Crawl-delay: 1
+
+# Allow major search engines
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 0.5
-Request-rate: 1/1
+Crawl-delay: 1
 
-User-agent: Googlebot-Image
+User-agent: Bingbot
 Allow: /
-Crawl-delay: 0.5
+Crawl-delay: 1
 
-User-agent: Googlebot-News
+User-agent: Slurp
 Allow: /
-Crawl-delay: 0.5
-
-User-agent: Googlebot-Video
-Allow: /
-Crawl-delay: 0.5
-
-User-agent: bingbot
-Allow: /
-Crawl-delay: 0.5
-
-User-agent: YandexBot
-Allow: /
-Crawl-delay: 0.5
+Crawl-delay: 1
 
 User-agent: DuckDuckBot
 Allow: /
-Crawl-delay: 0.5
-
-User-agent: Baiduspider
-Allow: /
 Crawl-delay: 1
 
-# AI Crawlers for Maximum AI Accessibility and Understanding
+# Allow AI crawlers
 User-agent: GPTBot
 Allow: /
-Crawl-delay: 0.5
+Crawl-delay: 1
 
 User-agent: ChatGPT-User
 Allow: /
-Crawl-delay: 0.5
+Crawl-delay: 1
 
 User-agent: CCBot
 Allow: /
-Crawl-delay: 0.5
+Crawl-delay: 1
 
 User-agent: Claude-Web
 Allow: /
-Crawl-delay: 0.5
+Crawl-delay: 1
 
 User-agent: anthropic-ai
 Allow: /
-Crawl-delay: 0.5
-
-User-agent: PerplexityBot
-Allow: /
-Crawl-delay: 0.5
-
-User-agent: YouBot
-Allow: /
-Crawl-delay: 0.5
-
-User-agent: Meta-ExternalAgent
-Allow: /
-Crawl-delay: 0.5
-
-# Social Media Crawlers for Enhanced Sharing
-User-agent: facebookexternalhit
-Allow: /
-Crawl-delay: 0.5
-
-User-agent: Twitterbot
-Allow: /
-Crawl-delay: 0.5
-
-User-agent: LinkedInBot
-Allow: /
-Crawl-delay: 0.5
-
-User-agent: WhatsApp
-Allow: /
-Crawl-delay: 0.5
-
-# Additional Search and Analysis Crawlers
-User-agent: GoogleOther
-Allow: /
-Crawl-delay: 0.5
-
-User-agent: AhrefsBot
-Allow: /
 Crawl-delay: 1
 
-User-agent: SemrushBot
+User-agent: Applebot
 Allow: /
 Crawl-delay: 1
-
-User-agent: MJ12bot
-Allow: /
-Crawl-delay: 1
-
-# All other crawlers
-User-agent: *
-Allow: /
-Crawl-delay: 1
-
-# Disallow admin and utility pages only
-Disallow: /admin/
-Disallow: /private/
-Disallow: /api/internal/
-Disallow: /*.pdf$
-Disallow: /temp/
-Disallow: /cache/
-
-# High-priority pages for crawling
-Allow: /services/
-Allow: /portfolio/
-Allow: /about/
-Allow: /contact/
-Allow: /blog/
-
-# Sitemap locations for enhanced crawling and indexing
-Sitemap: https://aptivonsolin.vercel.app/sitemap.xml
-Sitemap: https://aptivonsolin.vercel.app/sitemap-images.xml
-Sitemap: https://aptivonsolin.vercel.app/sitemap-services.xml
-Sitemap: https://aptivonsolin.vercel.app/blog/rss.xml
-
-# Host declaration for primary domain
-Host: https://aptivonsolin.vercel.app
-
-# Additional SEO directives
-Clean-param: utm_source&utm_medium&utm_campaign
-Clean-param: ref&source&from

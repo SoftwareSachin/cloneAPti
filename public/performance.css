@@ -1,0 +1,40 @@
+/* Performance optimizations for better Core Web Vitals */
+body {
+  font-display: swap;
+  will-change: auto;
+}
+
+/* Preload critical resources */
+.hero-section {
+  contain: layout style;
+}
+
+/* Optimize largest contentful paint */
+.hero-title {
+  font-display: swap;
+  will-change: auto;
+}
+
+/* Reduce cumulative layout shift */
+.loading-placeholder {
+  aspect-ratio: 16/9;
+  background-color: #f1f5f9;
+  border-radius: 8px;
+}
+
+/* Optimize images */
+img {
+  height: auto;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+/* Reduce DOM size */
+.service-card {
+  contain: layout style;
+}
+
+/* Email obfuscation styles */
+[data-email]:after {
+  content: attr(data-email) "@" attr(data-domain);
+}

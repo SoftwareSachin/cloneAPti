@@ -1,198 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-  
-  <!-- Homepage - Highest Priority -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://aptivonsolin.vercel.app/</loc>
     <lastmod>2025-01-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://aptivonsolin.vercel.app/logo.gif</image:loc>
-      <image:title>Aptivon Solutions - Enterprise IT Services Logo</image:title>
-      <image:caption>Aptivon Solutions company logo for IT consulting services</image:caption>
-    </image:image>
   </url>
-  
-  <!-- About Page -->
   <url>
     <loc>https://aptivonsolin.vercel.app/about</loc>
     <lastmod>2025-01-08</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
-  
-  <!-- Services Page -->
   <url>
     <loc>https://aptivonsolin.vercel.app/services</loc>
     <lastmod>2025-01-08</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-  
-  <!-- Portfolio Page -->
   <url>
     <loc>https://aptivonsolin.vercel.app/portfolio</loc>
     <lastmod>2025-01-08</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
-  <!-- Blog Page -->
-  <url>
-    <loc>https://aptivonsolin.vercel.app/blog</loc>
-    <lastmod>2025-01-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <!-- Contact Page -->
   <url>
     <loc>https://aptivonsolin.vercel.app/contact</loc>
     <lastmod>2025-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  
-  <!-- Careers Page -->
   <url>
     <loc>https://aptivonsolin.vercel.app/careers</loc>
     <lastmod>2025-01-08</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <!-- Architecture Page -->
-  <url>
-    <loc>https://aptivonsolin.vercel.app/architecture</loc>
-    <lastmod>2025-01-08</lastmod>
-    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-  
-  <!-- Portfolio Download Page -->
   <url>
-    <loc>https://aptivonsolin.vercel.app/portfolio-download</loc>
+    <loc>https://aptivonsolin.vercel.app/blog</loc>
     <lastmod>2025-01-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <!-- Legal Pages -->
-  <url>
-    <loc>https://aptivonsolin.vercel.app/privacy-policy</loc>
-    <lastmod>2025-01-08</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
-  </url>
-  
-  <url>
-    <loc>https://aptivonsolin.vercel.app/terms-of-service</loc>
-    <lastmod>2025-01-08</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
-  </url>
-  
-  <url>
-    <loc>https://aptivonsolin.vercel.app/cookie-policy</loc>
-    <lastmod>2025-01-08</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
-  </url>
-  
-  <url>
-    <loc>https://aptivonsolin.vercel.app/security</loc>
-    <lastmod>2025-01-08</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
-  </url>
-  
-  <!-- Individual Blog Posts -->
-  <url>
-    <loc>https://aptivonsolin.vercel.app/blog/ai-transformation-guide</loc>
-    <lastmod>2025-01-08</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-  
-  <url>
-    <loc>https://aptivonsolin.vercel.app/blog/cloud-migration-strategies</loc>
-    <lastmod>2025-01-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <url>
-    <loc>https://aptivonsolin.vercel.app/blog/devops-best-practices</loc>
-    <lastmod>2025-01-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <url>
-    <loc>https://aptivonsolin.vercel.app/blog/cybersecurity-essentials</loc>
-    <lastmod>2025-01-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <url>
-    <loc>https://aptivonsolin.vercel.app/blog/mobile-app-development</loc>
-    <lastmod>2025-01-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <url>
-    <loc>https://aptivonsolin.vercel.app/blog/data-analytics-insights</loc>
-    <lastmod>2025-01-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <!-- Service-specific pages -->
-  <url>
-    <loc>https://aptivonsolin.vercel.app/services/cloud-migration</loc>
-    <lastmod>2025-01-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>https://aptivonsolin.vercel.app/services/ai-implementation</loc>
-    <lastmod>2025-01-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>https://aptivonsolin.vercel.app/services/devops-automation</loc>
-    <lastmod>2025-01-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>https://aptivonsolin.vercel.app/services/custom-software</loc>
-    <lastmod>2025-01-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>https://aptivonsolin.vercel.app/services/cybersecurity</loc>
-    <lastmod>2025-01-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>https://aptivonsolin.vercel.app/services/data-analytics</loc>
-    <lastmod>2025-01-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
 </urlset>
