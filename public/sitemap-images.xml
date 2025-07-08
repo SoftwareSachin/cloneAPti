@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <url>
+    <loc>https://aptivonsolin.vercel.app/</loc>
+    <image:image>
+      <image:loc>https://aptivonsolin.vercel.app/logo.gif</image:loc>
+      <image:title>Aptivon Solutions - Enterprise IT Services Logo</image:title>
+      <image:caption>Aptivon Solutions company logo for IT consulting and technology services</image:caption>
+      <image:geo_location>India</image:geo_location>
+      <image:license>https://aptivonsolin.vercel.app/terms-of-service</image:license>
+    </image:image>
+    <image:image>
+      <image:loc>https://aptivonsolin.vercel.app/favicon.ico</image:loc>
+      <image:title>Aptivon Solutions Favicon</image:title>
+      <image:caption>Website favicon for Aptivon Solutions</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://aptivonsolin.vercel.app/favicon.gif</image:loc>
+      <image:title>Aptivon Solutions Animated Favicon</image:title>
+      <image:caption>Animated favicon for Aptivon Solutions website</image:caption>
+    </image:image>
+  </url>
+  
+  <url>
+    <loc>https://aptivonsolin.vercel.app/services</loc>
+    <image:image>
+      <image:loc>https://aptivonsolin.vercel.app/logo.gif</image:loc>
+      <image:title>Cloud Migration Services</image:title>
+      <image:caption>Enterprise cloud migration and infrastructure modernization services</image:caption>
+    </image:image>
+  </url>
+  
+  <url>
+    <loc>https://aptivonsolin.vercel.app/portfolio</loc>
+    <image:image>
+      <image:loc>https://aptivonsolin.vercel.app/logo.gif</image:loc>
+      <image:title>Portfolio Projects</image:title>
+      <image:caption>Showcase of completed IT projects and technology implementations</image:caption>
+    </image:image>
+  </url>
+  
+  <url>
+    <loc>https://aptivonsolin.vercel.app/about</loc>
+    <image:image>
+      <image:loc>https://aptivonsolin.vercel.app/logo.gif</image:loc>
+      <image:title>About Aptivon Solutions</image:title>
+      <image:caption>Company information and team expertise in enterprise IT services</image:caption>
+    </image:image>
+  </url>
+  
+</urlset>

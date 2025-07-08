@@ -3,8 +3,8 @@
     "name": "Aptivon Solutions API",
     "version": "1.0.0",
     "description": "API endpoints for Aptivon Solutions website",
-    "baseUrl": "https://aptivon-solutions.vercel.app/api",
-    "documentation": "https://aptivon-solutions.vercel.app/api-docs",
+    "baseUrl": "https://aptivonsolin.vercel.app/api",
+    "documentation": "https://aptivonsolin.vercel.app/api-docs",
     "contact": {
       "email": "singhal3.sachin7@gmail.com",
       "phone": "+91 7852099010"

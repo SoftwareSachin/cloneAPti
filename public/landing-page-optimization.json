@@ -1,0 +1,89 @@
+{
+  "landing_page_seo": {
+    "homepage": {
+      "primary_keyword": "Aptivon Solutions",
+      "secondary_keywords": ["IT consulting India", "enterprise technology solutions", "cloud migration services"],
+      "title_optimization": "Aptivon Solutions - #1 Enterprise IT Services & Technology Consulting",
+      "meta_description": "Aptivon Solutions - India's leading IT consulting firm with 3+ satisfied clients, 98% success rate. Expert cloud migration, AI/ML implementation, DevOps automation, custom software development.",
+      "h1_tag": "Enterprise IT Solutions & Technology Consulting",
+      "content_optimization": {
+        "keyword_density": "2-3%",
+        "semantic_keywords": ["digital transformation", "business automation", "technology innovation"],
+        "related_entities": ["cloud computing", "artificial intelligence", "software development"],
+        "content_length": "1500+ words",
+        "readability_score": "60-70"
+      }
+    },
+    "service_pages": {
+      "cloud_migration": {
+        "primary_keyword": "cloud migration services",
+        "long_tail_keywords": ["enterprise cloud migration India", "AWS migration consulting", "cloud infrastructure modernization"],
+        "title_optimization": "Cloud Migration Services - Enterprise Infrastructure Modernization | Aptivon Solutions",
+        "content_structure": ["benefits", "process", "case studies", "technologies", "pricing"]
+      },
+      "ai_implementation": {
+        "primary_keyword": "AI implementation services",
+        "long_tail_keywords": ["machine learning consulting India", "AI development company", "enterprise AI solutions"],
+        "title_optimization": "AI/ML Implementation Services - Enterprise Artificial Intelligence | Aptivon Solutions",
+        "content_structure": ["AI strategy", "implementation process", "technologies", "use cases", "ROI"]
+      },
+      "devops_automation": {
+        "primary_keyword": "DevOps automation services",
+        "long_tail_keywords": ["CI/CD implementation", "DevOps consulting India", "infrastructure automation"],
+        "title_optimization": "DevOps Automation Services - CI/CD Pipeline Implementation | Aptivon Solutions",
+        "content_structure": ["DevOps benefits", "automation tools", "implementation methodology", "case studies"]
+      }
+    }
+  },
+  "conversion_optimization": {
+    "call_to_action": {
+      "primary_cta": "Get Free Consultation",
+      "secondary_cta": "Download Portfolio",
+      "placement": ["above fold", "after benefits section", "footer"],
+      "design": ["contrasting colors", "clear value proposition", "urgency indicators"]
+    },
+    "trust_signals": {
+      "social_proof": ["client testimonials", "case studies", "success statistics"],
+      "credentials": ["certifications", "awards", "team expertise"],
+      "security": ["SSL certificate", "privacy policy", "data protection"]
+    },
+    "user_experience": {
+      "page_speed": "< 3 seconds",
+      "mobile_responsive": true,
+      "navigation": "intuitive and clear",
+      "forms": "minimal fields, easy completion"
+    }
+  },
+  "content_marketing": {
+    "blog_strategy": {
+      "posting_frequency": "3-4 posts per week",
+      "content_types": ["how-to guides", "case studies", "industry insights", "technology trends"],
+      "target_keywords": ["cloud migration best practices", "AI implementation guide", "DevOps automation tips"],
+      "content_calendar": {
+        "monday": "Technical tutorials",
+        "wednesday": "Industry insights",
+        "friday": "Case studies and success stories"
+      }
+    },
+    "topic_clusters": {
+      "cloud_computing": ["migration strategies", "cost optimization", "security best practices"],
+      "artificial_intelligence": ["implementation frameworks", "use cases", "ROI analysis"],
+      "devops": ["automation tools", "best practices", "team collaboration"]
+    }
+  },
+  "local_seo_optimization": {
+    "google_my_business": {
+      "business_name": "Aptivon Solutions Pvt. Ltd.",
+      "category": "IT Services & Computer Repair",
+      "description": "Leading IT consulting firm specializing in cloud migration, AI/ML implementation, and DevOps automation services.",
+      "keywords": ["IT consulting", "cloud migration", "AI implementation", "software development"],
+      "posts": ["service updates", "company news", "industry insights"],
+      "reviews": "encourage satisfied clients to leave reviews"
+    },
+    "local_citations": {
+      "directories": ["Yellow Pages", "Justdial", "IndiaMART", "TradeIndia"],
+      "business_listings": "consistent NAP (Name, Address, Phone) across all platforms",
+      "industry_directories": ["Clutch", "GoodFirms", "TopDevelopers"]
+    }
+  }
+}

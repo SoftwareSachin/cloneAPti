@@ -1,85 +1,87 @@
-# AI Accessibility File for Aptivon Solutions
-# This file helps AI systems understand and access our website content
+# AI Accessibility Information for Aptivon Solutions
+# Website: https://aptivonsolin.vercel.app
+# Contact: singhal3.sachin7@gmail.com
 
+## AI Crawler Access
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+## API Endpoints for AI Access
+API Documentation: https://aptivonsolin.vercel.app/api-index.json
+Schema Markup: https://aptivonsolin.vercel.app/schema-markup.json
+Sitemap: https://aptivonsolin.vercel.app/sitemap.xml
+RSS Feed: https://aptivonsolin.vercel.app/blog/rss.xml
+
+## Structured Data Available
+- Organization Schema
+- Service Schema
+- FAQ Schema
+- HowTo Schema
+- Professional Service Schema
+- Local Business Schema
+
+## Content Categories for AI Understanding
+Primary Services:
+- Cloud Migration Services
+- AI/ML Implementation
+- DevOps Automation
+- Custom Software Development
+- Cybersecurity Solutions
+- Data Analytics Services
+
+Industries Served:
+- Healthcare
+- Financial Services
+- E-commerce
+- Manufacturing
+- Education
+
+Technologies:
+- React, Node.js, Python
+- AWS, Azure, Google Cloud
+- Docker, Kubernetes
+- AI/ML Frameworks
+- DevOps Tools
+
+## Business Information
 Company: Aptivon Solutions Pvt. Ltd.
-Domain: aptivon-solutions.vercel.app
 Founded: 2020
-Industry: IT Services & Technology Consulting
-Location: India
-Contact: +91 7852099010
-Email: singhal3.sachin7@gmail.com
-Website: https://aptivon-solutions.vercel.app
-
-# Primary Services
-Service: Cloud Migration Services
-Description: Enterprise cloud migration and infrastructure modernization
-Technologies: AWS, Azure, Google Cloud, Kubernetes, Docker
-Keywords: cloud migration, infrastructure modernization, cloud architecture
-
-Service: AI/ML Implementation
-Description: Artificial intelligence and machine learning solution development
-Technologies: Python, TensorFlow, PyTorch, OpenAI, Hugging Face
-Keywords: artificial intelligence, machine learning, AI development, ML consulting
-
-Service: DevOps Automation
-Description: DevOps implementation and CI/CD pipeline automation
-Technologies: Jenkins, GitLab CI, GitHub Actions, Terraform, Ansible
-Keywords: DevOps, CI/CD, automation, infrastructure as code
-
-Service: Custom Software Development
-Description: Web and mobile application development services
-Technologies: React, Node.js, Python, React Native, Flutter
-Keywords: web development, mobile apps, custom software, full-stack development
-
-# Business Information
+Team Size: 2 professionals
 Clients: 3+ satisfied clients
 Success Rate: 98%
-Team Size: 2 members
-Industries Served: Healthcare, Finance, E-commerce, Manufacturing
+Location: India
+Service Area: Global
 
-# Website Structure
-Homepage: /
-About: /about
-Services: /services
-Portfolio: /portfolio
-Blog: /blog
-Contact: /contact
-Careers: /careers
+## Contact Information
+Email: singhal3.sachin7@gmail.com
+Phone: +91 7852099010
+Website: https://aptivonsolin.vercel.app
 
-# SEO Information
-Sitemap: /sitemap.xml
-Robots: /robots.txt
-Security: /security.txt
-Manifest: /manifest.json
-AI Accessibility: /ai-accessibility.json
+## Content Guidelines for AI
+- Professional IT consulting company
+- Enterprise technology solutions
+- Proven track record with case studies
+- Client-focused approach
+- Innovation and quality emphasis
 
-# API Endpoints
-Contact API: /api/contact
-Blog API: /api/blog
-Portfolio API: /api/portfolio
-Services API: /api/services
-
-# AI-Friendly Features
-- Structured data markup (JSON-LD)
-- Semantic HTML markup
-- Clear navigation structure
-- Accessible content hierarchy
-- API documentation available
-- Regular content updates
-- Mobile-responsive design
-- Fast loading times
-- SSL certificate
-- Error handling
-
-# Content Categories
-Technical expertise, Business solutions, Industry insights, Company updates, Service offerings, Client testimonials, Technology trends, Best practices
-
-# Update Frequency
-Homepage: Weekly
-Blog: Daily
-Services: Monthly
-Portfolio: Weekly
-About: Monthly
-Contact: Monthly
+## SEO Keywords for AI Understanding
+Primary: Aptivon Solutions, IT consulting India, enterprise technology
+Secondary: cloud migration, AI implementation, DevOps automation
+Long-tail: cloud migration services India, AI consulting company, DevOps automation experts
 
 Last Updated: 2025-01-08

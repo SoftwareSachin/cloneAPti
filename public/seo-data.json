@@ -1,0 +1,153 @@
+{
+  "seo_profile": {
+    "domain": "aptivonsolin.vercel.app",
+    "primary_keywords": [
+      "Aptivon Solutions",
+      "IT consulting India",
+      "cloud migration services",
+      "AI implementation",
+      "DevOps automation",
+      "software development company",
+      "enterprise technology solutions",
+      "digital transformation India"
+    ],
+    "secondary_keywords": [
+      "best IT company India",
+      "top software development India",
+      "leading technology consulting",
+      "premier AI consulting services",
+      "enterprise cloud solutions",
+      "DevOps consulting services",
+      "machine learning consulting",
+      "custom software development India"
+    ],
+    "long_tail_keywords": [
+      "Aptivon Solutions cloud migration services India",
+      "AI ML implementation consulting company",
+      "DevOps automation services enterprise",
+      "custom software development for businesses",
+      "digital transformation consulting firm India",
+      "enterprise technology solutions provider",
+      "cloud architecture consulting services",
+      "software development company with AI expertise"
+    ],
+    "location_keywords": [
+      "IT services India",
+      "software company India",
+      "technology consulting India",
+      "cloud services India",
+      "AI consulting India",
+      "DevOps services India"
+    ],
+    "competitive_keywords": [
+      "enterprise IT solutions",
+      "business automation services",
+      "technology transformation",
+      "cloud modernization",
+      "AI-driven solutions",
+      "scalable software architecture"
+    ]
+  },
+  "content_strategy": {
+    "pillar_pages": [
+      {
+        "title": "Cloud Migration Services",
+        "url": "/services/cloud-migration",
+        "target_keywords": ["cloud migration", "infrastructure modernization", "enterprise cloud"],
+        "related_topics": ["AWS migration", "Azure migration", "Google Cloud migration"]
+      },
+      {
+        "title": "AI/ML Implementation",
+        "url": "/services/ai-implementation", 
+        "target_keywords": ["AI implementation", "machine learning", "artificial intelligence"],
+        "related_topics": ["AI strategy", "ML deployment", "AI consulting"]
+      },
+      {
+        "title": "DevOps Automation",
+        "url": "/services/devops-automation",
+        "target_keywords": ["DevOps automation", "CI/CD", "infrastructure as code"],
+        "related_topics": ["Jenkins", "Docker", "Kubernetes"]
+      }
+    ],
+    "cluster_topics": [
+      "Cloud Computing Best Practices",
+      "AI Implementation Strategies",
+      "DevOps Methodologies",
+      "Enterprise Software Development",
+      "Digital Transformation Approaches",
+      "Technology Consulting Services",
+      "Business Process Automation",
+      "Scalable Architecture Design"
+    ]
+  },
+  "technical_seo": {
+    "page_speed": {
+      "target_score": 95,
+      "optimizations": ["image compression", "code splitting", "lazy loading", "CDN usage"]
+    },
+    "mobile_optimization": {
+      "responsive_design": true,
+      "mobile_first": true,
+      "amp_pages": false
+    },
+    "core_web_vitals": {
+      "largest_contentful_paint": "< 2.5s",
+      "first_input_delay": "< 100ms",
+      "cumulative_layout_shift": "< 0.1"
+    },
+    "structured_data": {
+      "organization": true,
+      "website": true,
+      "professional_service": true,
+      "breadcrumbs": true,
+      "faq": true,
+      "how_to": true
+    }
+  },
+  "link_building_strategy": {
+    "internal_linking": {
+      "hub_pages": ["/services", "/portfolio", "/about"],
+      "spoke_pages": ["/services/*", "/blog/*", "/portfolio/*"],
+      "anchor_text_distribution": {
+        "exact_match": "10%",
+        "partial_match": "30%",
+        "branded": "40%",
+        "generic": "20%"
+      }
+    },
+    "external_linking": {
+      "authority_domains": ["github.com", "stackoverflow.com", "medium.com"],
+      "industry_publications": ["techcrunch.com", "wired.com", "computerworld.com"],
+      "documentation": ["docs.aws.amazon.com", "cloud.google.com", "docs.microsoft.com"]
+    }
+  },
+  "local_seo": {
+    "business_name": "Aptivon Solutions Pvt. Ltd.",
+    "address": "India",
+    "phone": "+91 7852099010",
+    "email": "singhal3.sachin7@gmail.com",
+    "business_categories": ["IT Services", "Software Development", "Technology Consulting"],
+    "service_areas": ["India", "Global"]
+  },
+  "ranking_factors": {
+    "content_quality": {
+      "expertise": "High - 5+ years experience",
+      "authoritativeness": "Strong industry presence",
+      "trustworthiness": "Client testimonials and case studies",
+      "freshness": "Regular content updates"
+    },
+    "user_experience": {
+      "navigation": "Clear and intuitive",
+      "loading_speed": "Optimized for performance",
+      "mobile_experience": "Fully responsive",
+      "accessibility": "WCAG compliant"
+    },
+    "technical_factors": {
+      "ssl_certificate": true,
+      "xml_sitemap": true,
+      "robots_txt": true,
+      "canonical_urls": true,
+      "meta_tags": "Comprehensive"
+    }
+  }
+}

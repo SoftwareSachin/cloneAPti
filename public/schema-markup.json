@@ -3,21 +3,21 @@
   "@graph": [
     {
       "@type": "Organization",
-      "@id": "https://aptivon-solutions.vercel.app/#organization",
+      "@id": "https://aptivonsolin.vercel.app/#organization",
       "name": "Aptivon Solutions Pvt. Ltd.",
-      "url": "https://aptivon-solutions.vercel.app",
+      "url": "https://aptivonsolin.vercel.app",
       "sameAs": [
-        "https://aptivon-solutions.vercel.app"
+        "https://aptivonsolin.vercel.app"
       ],
       "logo": {
         "@type": "ImageObject",
-        "url": "https://aptivon-solutions.vercel.app/logo.gif",
+        "url": "https://aptivonsolin.vercel.app/logo.gif",
         "width": 600,
         "height": 200
       },
       "image": {
         "@type": "ImageObject",
-        "url": "https://aptivon-solutions.vercel.app/logo.gif"
+        "url": "https://aptivonsolin.vercel.app/logo.gif"
       },
       "description": "India's leading enterprise IT consulting firm specializing in cloud migration, AI/ML implementation, DevOps automation, and custom software development.",
       "address": {
@@ -42,19 +42,19 @@
     },
     {
       "@type": "WebSite",
-      "@id": "https://aptivon-solutions.vercel.app/#website",
-      "url": "https://aptivon-solutions.vercel.app",
+      "@id": "https://aptivonsolin.vercel.app/#website",
+      "url": "https://aptivonsolin.vercel.app",
       "name": "Aptivon Solutions - Enterprise IT Services & Technology Consulting",
       "description": "India's leading enterprise IT consulting firm with 3+ satisfied clients, 98% success rate. Expert cloud migration, AI/ML implementation, DevOps automation, custom software development.",
       "publisher": {
-        "@id": "https://aptivon-solutions.vercel.app/#organization"
+        "@id": "https://aptivonsolin.vercel.app/#organization"
       },
       "potentialAction": [
         {
           "@type": "SearchAction",
           "target": {
             "@type": "EntryPoint",
-            "urlTemplate": "https://aptivon-solutions.vercel.app/search?q={search_term_string}"
+            "urlTemplate": "https://aptivonsolin.vercel.app/search?q={search_term_string}"
           },
           "query-input": "required name=search_term_string"
         }
@@ -63,39 +63,39 @@
     },
     {
       "@type": "WebPage",
-      "@id": "https://aptivon-solutions.vercel.app/#webpage",
-      "url": "https://aptivon-solutions.vercel.app",
+      "@id": "https://aptivonsolin.vercel.app/#webpage",
+      "url": "https://aptivonsolin.vercel.app",
       "name": "Aptivon Solutions - #1 Enterprise IT Services & Technology Consulting",
       "isPartOf": {
-        "@id": "https://aptivon-solutions.vercel.app/#website"
+        "@id": "https://aptivonsolin.vercel.app/#website"
       },
       "about": {
-        "@id": "https://aptivon-solutions.vercel.app/#organization"
+        "@id": "https://aptivonsolin.vercel.app/#organization"
       },
       "description": "Aptivon Solutions - India's leading IT consulting firm with 3+ satisfied clients, 98% success rate. Expert cloud migration, AI/ML implementation, DevOps automation, custom software development.",
       "breadcrumb": {
-        "@id": "https://aptivon-solutions.vercel.app/#breadcrumb"
+        "@id": "https://aptivonsolin.vercel.app/#breadcrumb"
       },
       "inLanguage": "en-US"
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://aptivon-solutions.vercel.app/#breadcrumb",
+      "@id": "https://aptivonsolin.vercel.app/#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://aptivon-solutions.vercel.app"
+          "item": "https://aptivonsolin.vercel.app"
         }
       ]
     },
     {
       "@type": "ProfessionalService",
-      "@id": "https://aptivon-solutions.vercel.app/#service",
+      "@id": "https://aptivonsolin.vercel.app/#service",
       "name": "Aptivon Solutions IT Services",
       "provider": {
-        "@id": "https://aptivon-solutions.vercel.app/#organization"
+        "@id": "https://aptivonsolin.vercel.app/#organization"
       },
       "areaServed": {
         "@type": "Country",
