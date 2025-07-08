@@ -25,7 +25,7 @@ const teamMembers = [
   {
     id: 1,
     name: "Sachin",
-    role: "Chief Technology Officer",
+    role: "Developer",
     title: "Technical Lead",
     avatar: "S",
     expertise: ["Full-Stack Development", "Cloud Architecture", "System Design"],
