@@ -4,6 +4,8 @@ import { storage } from "./storage";
 import { insertContactSchema } from "@shared/schema";
 import { z } from "zod";
 import sgMail from '@sendgrid/mail';
+import path from "path";
+import fs from "fs";
 
 type DownloadRequest = {
   email: string;
@@ -1569,7 +1571,41 @@ This application was submitted through the Aptivon Solutions careers page.
     }
   });
 
+  // Add favicon routes to serve them with correct MIME types
+  app.get('/favicon.ico', (req, res) => {
+    const faviconPath = path.join(process.cwd(), 'public', 'favicon.ico');
+    res.setHeader('Content-Type', 'image/x-icon');
+    res.setHeader('Cache-Control', 'public, max-age=31536000');
+    res.sendFile(faviconPath);
+  });
 
+  app.get('/favicon.gif', (req, res) => {
+    const faviconPath = path.join(process.cwd(), 'public', 'favicon.gif');
+    res.setHeader('Content-Type', 'image/gif');
+    res.setHeader('Cache-Control', 'public, max-age=31536000');
+    res.sendFile(faviconPath);
+  });
+
+  app.get('/logo.gif', (req, res) => {
+    const logoPath = path.join(process.cwd(), 'public', 'logo.gif');
+    res.setHeader('Content-Type', 'image/gif');
+    res.setHeader('Cache-Control', 'public, max-age=31536000');
+    res.sendFile(logoPath);
+  });
+
+  app.get('/favicon.png', (req, res) => {
+    const faviconPath = path.join(process.cwd(), 'public', 'favicon.png');
+    res.setHeader('Content-Type', 'image/png');
+    res.setHeader('Cache-Control', 'public, max-age=31536000');
+    res.sendFile(faviconPath);
+  });
+
+  app.get('/favicon.svg', (req, res) => {
+    const faviconPath = path.join(process.cwd(), 'public', 'favicon.svg');
+    res.setHeader('Content-Type', 'image/svg+xml');
+    res.setHeader('Cache-Control', 'public, max-age=31536000');
+    res.sendFile(faviconPath);
+  });
 
   const httpServer = createServer(app);
   return httpServer;

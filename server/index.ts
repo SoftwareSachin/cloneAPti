@@ -51,6 +51,16 @@ app.use((req, res, next) => {
   // setting up all the other routes so the catch-all route
   // doesn't interfere with the other routes
   if (app.get("env") === "development") {
+    // Setup static file serving for public assets BEFORE Vite middleware
+    app.use(express.static('public', {
+      setHeaders: (res, path) => {
+        if (path.endsWith('.ico')) {
+          res.set('Content-Type', 'image/x-icon');
+        } else if (path.endsWith('.gif')) {
+          res.set('Content-Type', 'image/gif');
+        }
+      }
+    }));
     await setupVite(app, server);
   } else {
     serveStatic(app);
