@@ -1,0 +1,76 @@
+{
+  "company": {
+    "name": "Aptivon Solutions Pvt. Ltd.",
+    "domain": "aptivon-solutions.vercel.app",
+    "founded": "2020",
+    "industry": "IT Services & Technology Consulting",
+    "location": "India",
+    "contact": {
+      "phone": "+91 7852099010",
+      "email": "singhal3.sachin7@gmail.com",
+      "website": "https://aptivon-solutions.vercel.app"
+    }
+  },
+  "services": [
+    {
+      "name": "Cloud Migration Services",
+      "description": "Enterprise cloud migration and infrastructure modernization",
+      "technologies": ["AWS", "Azure", "Google Cloud", "Kubernetes", "Docker"],
+      "keywords": ["cloud migration", "infrastructure modernization", "cloud architecture"]
+    },
+    {
+      "name": "AI/ML Implementation",
+      "description": "Artificial intelligence and machine learning solution development",
+      "technologies": ["Python", "TensorFlow", "PyTorch", "OpenAI", "Hugging Face"],
+      "keywords": ["artificial intelligence", "machine learning", "AI development", "ML consulting"]
+    },
+    {
+      "name": "DevOps Automation",
+      "description": "DevOps implementation and CI/CD pipeline automation",
+      "technologies": ["Jenkins", "GitLab CI", "GitHub Actions", "Terraform", "Ansible"],
+      "keywords": ["DevOps", "CI/CD", "automation", "infrastructure as code"]
+    },
+    {
+      "name": "Custom Software Development",
+      "description": "Web and mobile application development services",
+      "technologies": ["React", "Node.js", "Python", "React Native", "Flutter"],
+      "keywords": ["web development", "mobile apps", "custom software", "full-stack development"]
+    }
+  ],
+  "expertise": [
+    "Cloud Architecture",
+    "AI/ML Consulting",
+    "DevOps Implementation",
+    "Digital Transformation",
+    "Enterprise Solutions",
+    "Software Development",
+    "Technology Consulting",
+    "Automation Services"
+  ],
+  "clients": {
+    "count": "3+",
+    "satisfaction_rate": "98%",
+    "industries": ["Healthcare", "Finance", "E-commerce", "Manufacturing"]
+  },
+  "team": {
+    "size": "2 members",
+    "expertise": ["Full-Stack Development", "Cloud Architecture", "AI/ML", "DevOps"]
+  },
+  "accessibility": {
+    "ai_friendly": true,
+    "structured_data": true,
+    "clear_navigation": true,
+    "semantic_markup": true,
+    "api_documentation": true
+  },
+  "seo_optimization": {
+    "title_optimization": true,
+    "meta_descriptions": true,
+    "structured_data": true,
+    "sitemap": true,
+    "robots_txt": true,
+    "canonical_urls": true,
+    "open_graph": true,
+    "twitter_cards": true
+  }
+}

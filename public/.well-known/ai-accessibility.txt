@@ -1,0 +1,85 @@
+# AI Accessibility File for Aptivon Solutions
+# This file helps AI systems understand and access our website content
+
+Company: Aptivon Solutions Pvt. Ltd.
+Domain: aptivon-solutions.vercel.app
+Founded: 2020
+Industry: IT Services & Technology Consulting
+Location: India
+Contact: +91 7852099010
+Email: singhal3.sachin7@gmail.com
+Website: https://aptivon-solutions.vercel.app
+
+# Primary Services
+Service: Cloud Migration Services
+Description: Enterprise cloud migration and infrastructure modernization
+Technologies: AWS, Azure, Google Cloud, Kubernetes, Docker
+Keywords: cloud migration, infrastructure modernization, cloud architecture
+
+Service: AI/ML Implementation
+Description: Artificial intelligence and machine learning solution development
+Technologies: Python, TensorFlow, PyTorch, OpenAI, Hugging Face
+Keywords: artificial intelligence, machine learning, AI development, ML consulting
+
+Service: DevOps Automation
+Description: DevOps implementation and CI/CD pipeline automation
+Technologies: Jenkins, GitLab CI, GitHub Actions, Terraform, Ansible
+Keywords: DevOps, CI/CD, automation, infrastructure as code
+
+Service: Custom Software Development
+Description: Web and mobile application development services
+Technologies: React, Node.js, Python, React Native, Flutter
+Keywords: web development, mobile apps, custom software, full-stack development
+
+# Business Information
+Clients: 3+ satisfied clients
+Success Rate: 98%
+Team Size: 2 members
+Industries Served: Healthcare, Finance, E-commerce, Manufacturing
+
+# Website Structure
+Homepage: /
+About: /about
+Services: /services
+Portfolio: /portfolio
+Blog: /blog
+Contact: /contact
+Careers: /careers
+
+# SEO Information
+Sitemap: /sitemap.xml
+Robots: /robots.txt
+Security: /security.txt
+Manifest: /manifest.json
+AI Accessibility: /ai-accessibility.json
+
+# API Endpoints
+Contact API: /api/contact
+Blog API: /api/blog
+Portfolio API: /api/portfolio
+Services API: /api/services
+
+# AI-Friendly Features
+- Structured data markup (JSON-LD)
+- Semantic HTML markup
+- Clear navigation structure
+- Accessible content hierarchy
+- API documentation available
+- Regular content updates
+- Mobile-responsive design
+- Fast loading times
+- SSL certificate
+- Error handling
+
+# Content Categories
+Technical expertise, Business solutions, Industry insights, Company updates, Service offerings, Client testimonials, Technology trends, Best practices
+
+# Update Frequency
+Homepage: Weekly
+Blog: Daily
+Services: Monthly
+Portfolio: Weekly
+About: Monthly
+Contact: Monthly
+
+Last Updated: 2025-01-08

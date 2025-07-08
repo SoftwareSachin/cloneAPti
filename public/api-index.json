@@ -1,0 +1,73 @@
+{
+  "api": {
+    "name": "Aptivon Solutions API",
+    "version": "1.0.0",
+    "description": "API endpoints for Aptivon Solutions website",
+    "baseUrl": "https://aptivon-solutions.vercel.app/api",
+    "documentation": "https://aptivon-solutions.vercel.app/api-docs",
+    "contact": {
+      "email": "singhal3.sachin7@gmail.com",
+      "phone": "+91 7852099010"
+    }
+  },
+  "endpoints": [
+    {
+      "path": "/api/contact",
+      "methods": ["POST"],
+      "description": "Submit contact form",
+      "parameters": ["name", "email", "message", "company", "phone"]
+    },
+    {
+      "path": "/api/blog",
+      "methods": ["GET", "POST"],
+      "description": "Blog posts management",
+      "parameters": ["title", "content", "category", "tags"]
+    },
+    {
+      "path": "/api/portfolio",
+      "methods": ["GET", "POST"],
+      "description": "Portfolio projects",
+      "parameters": ["title", "description", "technologies", "industry"]
+    },
+    {
+      "path": "/api/services",
+      "methods": ["GET", "POST"],
+      "description": "Service inquiries",
+      "parameters": ["service", "requirements", "budget", "timeline"]
+    },
+    {
+      "path": "/api/business",
+      "methods": ["GET", "POST"],
+      "description": "Business information",
+      "parameters": ["company", "industry", "size", "requirements"]
+    },
+    {
+      "path": "/api/forms",
+      "methods": ["POST"],
+      "description": "General form submissions",
+      "parameters": ["type", "data", "source"]
+    },
+    {
+      "path": "/api/resources",
+      "methods": ["GET"],
+      "description": "Resources and downloads",
+      "parameters": ["type", "category", "format"]
+    },
+    {
+      "path": "/api/search",
+      "methods": ["GET"],
+      "description": "Search functionality",
+      "parameters": ["query", "type", "filters"]
+    }
+  ],
+  "authentication": {
+    "type": "none",
+    "description": "Public API endpoints"
+  },
+  "rateLimit": {
+    "requests": 100,
+    "period": "hour"
+  },
+  "status": "active",
+  "lastUpdated": "2025-01-08"
+}
