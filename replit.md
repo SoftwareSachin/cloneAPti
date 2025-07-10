@@ -99,6 +99,12 @@ This is a modern, responsive company website for Aptivon Solutions Pvt. Ltd., an
 
 ## Changelog
 
+- July 10, 2025. College Projects page updated to display only Azure project:
+  * Modified filtering logic to show only "Azure Hub-and-Spoke Network Automation Platform" project
+  * Updated stats to reflect single project display (1 project, technologies from Azure project only)
+  * Removed all other projects from college projects page per user request
+  * Maintained full functionality of search/filter UI components
+  * API still returns all 6 projects but frontend filters to show only Azure project
 - July 08, 2025. Migration complete with critical SEO fixes for improved search rankings:
   * Successfully completed migration from Replit Agent to standard Replit environment
   * Fixed critical SEO issues identified in site analysis: added proper H1 heading structure

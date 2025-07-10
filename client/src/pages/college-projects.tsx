@@ -79,33 +79,14 @@ export default function CollegeProjects() {
     );
   }
 
-  // Debug logging
-  console.log('Projects data:', projects);
-  console.log('Search term:', searchTerm);
-  console.log('Filter industry:', filterIndustry);
-  console.log('Filter technology:', filterTechnology);
-
-  // Filter projects based on search and filters
+  // Filter to only show Azure Hub-and-Spoke Network Automation Platform project
   const filteredProjects = projects?.filter(project => {
-    const matchesSearch = searchTerm === "" || 
-                         project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         project.technologies.some(tech => tech.toLowerCase().includes(searchTerm.toLowerCase()));
-    
-    const matchesIndustry = filterIndustry === "all" || project.industry === filterIndustry;
-    const matchesTechnology = filterTechnology === "all" || 
-                            project.technologies.some(tech => tech.toLowerCase().includes(filterTechnology.toLowerCase()));
-    
-    console.log(`Project: ${project.title}, matches search: ${matchesSearch}, matches industry: ${matchesIndustry}, matches tech: ${matchesTechnology}`);
-    
-    return matchesSearch && matchesIndustry && matchesTechnology;
+    return project.title === "Azure Hub-and-Spoke Network Automation Platform";
   }) || [];
 
-  console.log('Filtered projects:', filteredProjects);
-
-  // Get unique industries and technologies for filters
-  const industries = [...new Set(projects?.map(p => p.industry) || [])];
-  const technologies = [...new Set(projects?.flatMap(p => p.technologies) || [])];
+  // Get unique industries and technologies for filters (only from Azure project)
+  const industries = [...new Set(filteredProjects?.map(p => p.industry) || [])];
+  const technologies = [...new Set(filteredProjects?.flatMap(p => p.technologies) || [])];
 
   return (
     <div className="min-h-screen bg-white">
@@ -147,7 +128,7 @@ export default function CollegeProjects() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center">
               <div className="text-3xl font-bold text-slate-900 mb-2">
-                {projects?.length || 0}
+                {filteredProjects?.length || 0}
               </div>
               <div className="text-slate-600">Total Projects</div>
             </div>
@@ -165,7 +146,7 @@ export default function CollegeProjects() {
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-slate-900 mb-2">
-                {projects?.filter(p => p.featured).length || 0}
+                {filteredProjects?.filter(p => p.featured).length || 0}
               </div>
               <div className="text-slate-600">Featured</div>
             </div>
