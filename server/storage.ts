@@ -609,8 +609,7 @@ Ready to start your cloud migration journey? Our team has the experience and exp
         results: [
           "50% faster deployment of new regional networks",
           "100% policy compliance through automated audits",
-          "30% cost savings by centralizing shared services",
-          "Awarded Innovation Partner of the Quarter by Fortune 500 client"
+          "30% cost savings by centralizing shared services"
         ],
         challenges: "Manual ARM/CLI workflows, strict compliance requirements, cost control, policy-driven provisioning",
         solution: "Self-service portal with Infrastructure as Code, centralized security orchestration, and automated compliance scanning",
