@@ -79,9 +79,16 @@ export default function CollegeProjects() {
     );
   }
 
+  // Debug logging
+  console.log('Projects data:', projects);
+  console.log('Search term:', searchTerm);
+  console.log('Filter industry:', filterIndustry);
+  console.log('Filter technology:', filterTechnology);
+
   // Filter projects based on search and filters
   const filteredProjects = projects?.filter(project => {
-    const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    const matchesSearch = searchTerm === "" || 
+                         project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          project.technologies.some(tech => tech.toLowerCase().includes(searchTerm.toLowerCase()));
     
@@ -89,8 +96,12 @@ export default function CollegeProjects() {
     const matchesTechnology = filterTechnology === "all" || 
                             project.technologies.some(tech => tech.toLowerCase().includes(filterTechnology.toLowerCase()));
     
+    console.log(`Project: ${project.title}, matches search: ${matchesSearch}, matches industry: ${matchesIndustry}, matches tech: ${matchesTechnology}`);
+    
     return matchesSearch && matchesIndustry && matchesTechnology;
   }) || [];
+
+  console.log('Filtered projects:', filteredProjects);
 
   // Get unique industries and technologies for filters
   const industries = [...new Set(projects?.map(p => p.industry) || [])];
