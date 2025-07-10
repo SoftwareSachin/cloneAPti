@@ -11,8 +11,6 @@ import { useState } from "react";
 import { 
   ExternalLink, 
   Github, 
-  Calendar, 
-  Users, 
   Code, 
   Search,
   Filter,
@@ -22,8 +20,18 @@ import {
   BookOpen,
   Lightbulb,
   Target,
-  Award
+  Award,
+  ImageIcon
 } from "lucide-react";
+
+// Import Azure project screenshots
+import complianceAuditImage from "@assets/compliance-audit_1752170702133.png";
+import dashboardOverviewImage from "@assets/dashboard-overview_1752170711656.png";
+import networkHealthImage from "@assets/network-health_1752170721168.png";
+import networkMonitoringImage from "@assets/network-monitoring_1752170733521.png";
+import networkTopologyImage from "@assets/network-topology_1752170742561.png";
+import provisionSpokeImage from "@assets/provision-spoke_1752170752568.png";
+import securityPoliciesImage from "@assets/security-policies_1752170762246.png";
 
 interface Project {
   id: number;
@@ -244,24 +252,6 @@ export default function CollegeProjects() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      {/* Project Details */}
-                      <div className="grid grid-cols-2 gap-4 text-sm">
-                        <div>
-                          <div className="flex items-center text-slate-600 mb-1">
-                            <Calendar className="h-4 w-4 mr-2" />
-                            Duration
-                          </div>
-                          <div className="font-medium">{project.duration}</div>
-                        </div>
-                        <div>
-                          <div className="flex items-center text-slate-600 mb-1">
-                            <Users className="h-4 w-4 mr-2" />
-                            Team
-                          </div>
-                          <div className="font-medium">{project.team}</div>
-                        </div>
-                      </div>
-
                       {/* Industry */}
                       <div>
                         <Badge variant="outline" className="mb-2">
@@ -285,6 +275,64 @@ export default function CollegeProjects() {
                           )}
                         </div>
                       </div>
+
+                      {/* Azure Project Screenshots */}
+                      {project.title === "Azure Hub-and-Spoke Network Automation Platform" && (
+                        <div>
+                          <div className="flex items-center text-sm text-slate-600 mb-3">
+                            <ImageIcon className="h-4 w-4 mr-2" />
+                            Project Screenshots
+                          </div>
+                          <div className="grid grid-cols-2 gap-2 mb-4">
+                            <div className="space-y-2">
+                              <img 
+                                src={dashboardOverviewImage} 
+                                alt="Dashboard Overview" 
+                                className="w-full h-24 object-cover rounded border hover:scale-105 transition-transform cursor-pointer"
+                                title="Dashboard Overview"
+                              />
+                              <img 
+                                src={networkTopologyImage} 
+                                alt="Network Topology" 
+                                className="w-full h-24 object-cover rounded border hover:scale-105 transition-transform cursor-pointer"
+                                title="Network Topology"
+                              />
+                              <img 
+                                src={networkMonitoringImage} 
+                                alt="Network Monitoring" 
+                                className="w-full h-24 object-cover rounded border hover:scale-105 transition-transform cursor-pointer"
+                                title="Network Monitoring"
+                              />
+                              <img 
+                                src={complianceAuditImage} 
+                                alt="Compliance Audit" 
+                                className="w-full h-24 object-cover rounded border hover:scale-105 transition-transform cursor-pointer"
+                                title="Compliance & Audit"
+                              />
+                            </div>
+                            <div className="space-y-2">
+                              <img 
+                                src={networkHealthImage} 
+                                alt="Network Health" 
+                                className="w-full h-24 object-cover rounded border hover:scale-105 transition-transform cursor-pointer"
+                                title="Network Health Dashboard"
+                              />
+                              <img 
+                                src={provisionSpokeImage} 
+                                alt="Provision Spoke" 
+                                className="w-full h-24 object-cover rounded border hover:scale-105 transition-transform cursor-pointer"
+                                title="Provision Spoke Network"
+                              />
+                              <img 
+                                src={securityPoliciesImage} 
+                                alt="Security Policies" 
+                                className="w-full h-24 object-cover rounded border hover:scale-105 transition-transform cursor-pointer"
+                                title="Security Policies"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      )}
 
                       {/* Key Results */}
                       <div>
