@@ -115,12 +115,6 @@ export default function CollegeProjects() {
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            {/* Date Badge */}
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white/90 text-sm font-medium mb-8">
-              <Calendar className="h-4 w-4 mr-2" />
-              July 10, 2025
-            </div>
-            
             {/* Icon with Glow Effect */}
             <div className="flex justify-center mb-8">
               <div className="relative">
@@ -131,12 +125,12 @@ export default function CollegeProjects() {
               </div>
             </div>
             
-            <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-white via-white to-white/80 bg-clip-text text-transparent mb-12">
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-12 leading-tight">
               College Projects
             </h1>
             
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 shadow-lg shadow-blue-500/25">
                 <Target className="mr-2 h-5 w-5" />
                 Explore Project
@@ -145,17 +139,6 @@ export default function CollegeProjects() {
                 <Award className="mr-2 h-5 w-5" />
                 View Architecture
               </Button>
-            </div>
-            
-            {/* Powered By Badge */}
-            <div className="inline-flex items-center px-6 py-3 rounded-full bg-black/20 backdrop-blur-sm border border-white/10">
-              <div className="flex items-center space-x-3">
-                <div className="h-2 w-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full animate-pulse"></div>
-                <span className="text-white/60 text-sm font-medium tracking-wide">POWERED BY</span>
-                <span className="text-white font-bold text-lg bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                  Aptivon Solutions
-                </span>
-              </div>
             </div>
           </div>
         </div>
