@@ -53,13 +53,14 @@ export default function CollegeProjects() {
   const [filterTechnology, setFilterTechnology] = useState("all");
 
   const { data: projects, isLoading } = useQuery<Project[]>({
-    queryKey: ['/api/portfolio'],
+    queryKey: ['/api/portfolio', 'projects'],
     queryFn: async () => {
-      const response = await fetch('/api/portfolio');
+      const response = await fetch('/api/portfolio?action=projects');
       if (!response.ok) {
         throw new Error('Failed to fetch projects');
       }
-      return response.json();
+      const data = await response.json();
+      return data;
     },
   });
 

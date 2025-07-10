@@ -595,6 +595,29 @@ Ready to start your cloud migration journey? Our team has the experience and exp
         published: true,
         views: 890,
         likes: 63
+      },
+      {
+        title: "Azure Hub-and-Spoke Network Automation Platform",
+        slug: "azure-hub-spoke-network-automation-platform",
+        client: "Aptivon Solutions",
+        industry: "Cloud Infrastructure",
+        duration: "8 months",
+        team: "12 engineers",
+        description: "Turnkey web-based network management platform that automates design, deployment, security enforcement, and monitoring of Azure hub-and-spoke architectures with policy-driven provisioning.",
+        image: "/api/placeholder/600/400",
+        technologies: ["React", "TypeScript", "Tailwind CSS", "Node.js", "Azure Functions", "ARM Templates", "Terraform", "Azure DevOps", "Azure Key Vault", "Cosmos DB", "Azure Monitor", "Grafana"],
+        results: [
+          "50% faster deployment of new regional networks",
+          "100% policy compliance through automated audits",
+          "30% cost savings by centralizing shared services",
+          "Awarded Innovation Partner of the Quarter by Fortune 500 client"
+        ],
+        challenges: "Manual ARM/CLI workflows, strict compliance requirements, cost control, policy-driven provisioning",
+        solution: "Self-service portal with Infrastructure as Code, centralized security orchestration, and automated compliance scanning",
+        featured: true,
+        published: true,
+        views: 245,
+        likes: 18
       }
     ];
 

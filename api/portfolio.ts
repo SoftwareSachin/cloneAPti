@@ -44,6 +44,20 @@ let portfolioProjects: any[] = [
     likes: 67,
     createdAt: new Date('2024-01-05'),
     updatedAt: new Date('2024-01-05')
+  },
+  {
+    id: 3,
+    title: 'Azure Hub-and-Spoke Network Automation Platform',
+    slug: 'azure-hub-spoke-network-automation-platform',
+    description: 'Turnkey web-based network management platform for Azure hub-and-spoke architectures',
+    industry: 'Cloud Infrastructure',
+    technologies: ['React', 'TypeScript', 'Node.js', 'Azure Functions', 'ARM Templates', 'Terraform'],
+    featured: true,
+    coverImage: '/api/placeholder/800/600',
+    views: 245,
+    likes: 18,
+    createdAt: new Date('2024-01-10'),
+    updatedAt: new Date('2024-01-10')
   }
 ];
 

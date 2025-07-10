@@ -1,0 +1,49 @@
+**Project: Azure Hub‑and‑Spoke Network Automation Platform**
+**Company:** Aptivon Solutions
+
+**Overview:**
+Developed a turnkey, web‑based network‑management platform that automates the design, deployment, security enforcement, and ongoing monitoring of Azure hub‑and‑spoke architectures. This solution replaced manual ARM/CLI workflows with a self‑service portal, enabling rapid, policy‑driven provisioning of virtual networks and related services—while maintaining strict compliance and cost controls.
+
+**Key Features:**
+
+* **Infrastructure as Code**
+
+  * One‑click generation of ARM templates or Terraform plans for hub and spoke VNets
+  * Automated configuration of VPN/ExpressRoute gateways, VNet peering, and user‑defined routes
+* **Centralized Security Orchestration**
+
+  * Unified console to author, version, and deploy Azure Firewall and NSG policies
+  * RBAC‑powered approval workflows and full audit logging
+* **Self‑Service Portal**
+
+  * Guided “spoke” creation wizard: define subnets, IP ranges, tags, and compliance templates
+  * Role‑based access to isolate development, test, and production environments
+* **Monitoring & Cost Insights**
+
+  * Real‑time dashboards integrated with Azure Monitor and Network Watcher for traffic flows, top talkers, and alerting
+  * Per‑spoke bandwidth and egress reporting with monthly cost breakdowns
+* **Compliance & Drift Detection**
+
+  * Scheduled compliance scans (PCI, ISO, GDPR) on firewall rules and NSGs
+  * Change‑history tracking with automated drift alerts
+
+**Technology Stack:**
+
+* **Frontend:** React, TypeScript, Tailwind CSS
+* **Backend & Automation:**
+
+  * Node.js server that orchestrates ARM/CLI and Terraform workflows
+  * Azure Functions for event‑driven tasks (audit reports, drift checks)
+* **Infrastructure:** Azure DevOps pipelines, Azure Key Vault, Cosmos DB for metadata storage
+* **Monitoring:** Azure Monitor, Log Analytics, Grafana integration
+
+**Impact & Outcomes:**
+
+* **50% faster** deployment of new regional or departmental networks
+* **100% policy compliance** through codified security templates and automated audits
+* **30% cost savings** by centralizing shared services in the hub and preventing resource sprawl
+* Awarded “Innovation Partner of the Quarter” by a Fortune 500 client for delivering the platform under aggressive SLAs.
+
+---
+
+*This project showcases Aptivon Solutions’ expertise in leveraging cloud automation and best‑practice architectures to drive security, efficiency, and governance across enterprise networks.*
