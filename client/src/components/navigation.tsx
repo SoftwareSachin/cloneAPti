@@ -54,6 +54,7 @@ export default function Navigation() {
             <a href="/solutions" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium text-sm">Solutions</a>
             <a href="/industries" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium text-sm">Industries</a>
             <a href="/portfolio" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium text-sm">Portfolio</a>
+            <a href="/college-projects" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium text-sm">College Projects</a>
             <a href="/blog" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium text-sm">Blog</a>
             <a href="/case-studies" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium text-sm">Cases</a>
             <a href="/resources" className="text-slate-700 hover:text-slate-900 transition-all duration-300 font-medium text-sm">Resources</a>
@@ -103,6 +104,7 @@ export default function Navigation() {
               <a href="/solutions" className="block py-2 text-slate-700 hover:text-slate-900 font-medium" onClick={() => setIsMenuOpen(false)}>Solutions</a>
               <a href="/industries" className="block py-2 text-slate-700 hover:text-slate-900 font-medium" onClick={() => setIsMenuOpen(false)}>Industries</a>
               <a href="/portfolio" className="block py-2 text-slate-700 hover:text-slate-900 font-medium" onClick={() => setIsMenuOpen(false)}>Portfolio</a>
+              <a href="/college-projects" className="block py-2 text-slate-700 hover:text-slate-900 font-medium" onClick={() => setIsMenuOpen(false)}>College Projects</a>
               <a href="/blog" className="block py-2 text-slate-700 hover:text-slate-900 font-medium" onClick={() => setIsMenuOpen(false)}>Blog</a>
               <a href="/case-studies" className="block py-2 text-slate-700 hover:text-slate-900 font-medium" onClick={() => setIsMenuOpen(false)}>Case Studies</a>
               <a href="/resources" className="block py-2 text-slate-700 hover:text-slate-900 font-medium" onClick={() => setIsMenuOpen(false)}>Resources</a>
