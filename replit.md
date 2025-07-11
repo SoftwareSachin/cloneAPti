@@ -114,6 +114,9 @@ This is a modern, responsive company website for Aptivon Solutions Pvt. Ltd., an
   * All data now served statically for improved performance and reliability
   * **VERIFIED**: College projects API returns only 1 project (Azure Hub-and-Spoke), Portfolio projects API returns all other projects
   * Updated Azure Hub-and-Spoke Network Automation Platform client from "Aptivon Solutions" to "SKIT college student"
+  * **VERCEL DEPLOYMENT FIX**: Updated serverless functions (`api/portfolio.ts` and `api/blog.ts`) to include static data directly instead of importing from shared modules for Vercel compatibility
+  * Fixed API endpoints to work correctly in Vercel serverless environment without external dependencies
+  * Resolved "0 projects" and "Error Loading Portfolio" issues in deployed version
   * Migration completed successfully with all checklist items verified and tested
 - July 10, 2025. College Projects page updated with modern professional UI/UX:
   * Modernized entire page with professional design and gradient backgrounds
