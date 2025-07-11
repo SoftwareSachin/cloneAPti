@@ -111,6 +111,7 @@ This is a modern, responsive company website for Aptivon Solutions Pvt. Ltd., an
   * Maintained all functionality while significantly improving page performance and loading speed
   * Site lag eliminated through comprehensive animation and effects optimization
   * Fixed text overlapping issues with proper line height (leading-tight) for all large headings
+  * Specifically fixed "Let's Build Something Amazing Together" text overlapping by reducing font size and adding relaxed line height
   * Removed remaining blur effects and animations from hero section and other components
 - July 11, 2025. Updated ad logos to match navigation logo:
   * Changed academic projects ad logo from favicon.gif to new-logo.gif
