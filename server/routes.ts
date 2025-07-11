@@ -6,6 +6,7 @@ import { z } from "zod";
 import sgMail from '@sendgrid/mail';
 import path from "path";
 import fs from "fs";
+import { getStaticCollegeProjects, getStaticPortfolioProjects, getStaticProjectBySlug } from "@shared/static-data";
 
 type DownloadRequest = {
   email: string;
@@ -369,23 +370,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Consolidated Portfolio API endpoint
+  // Consolidated Portfolio API endpoint - Using static data
   app.all("/api/portfolio", async (req, res) => {
-    const { action } = req.query;
+    const { action, type } = req.query;
     
     try {
       switch (action) {
         case 'projects':
           if (req.method === 'GET') {
-            const projects = await storage.getPortfolioProjects();
-            return res.json(projects);
+            // Check if requesting college projects or portfolio projects
+            if (type === 'college') {
+              return res.json(getStaticCollegeProjects());
+            } else {
+              return res.json(getStaticPortfolioProjects());
+            }
           }
           break;
           
         case 'project':
           if (req.method === 'GET') {
             const { slug } = req.query;
-            const project = await storage.getPortfolioProject(slug as string);
+            const project = getStaticProjectBySlug(slug as string);
             if (!project) return res.status(404).json({ error: 'Project not found' });
             return res.json(project);
           }
