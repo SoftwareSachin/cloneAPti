@@ -109,6 +109,15 @@ This is a modern, responsive company website for Aptivon Solutions Pvt. Ltd., an
   * Located in `/client/src/components/ad-section.tsx` with config at `/client/src/config/ad-config.ts`
   * Currently displaying "25% OFF Your First Project" promotion with 7-day expiry
   * Easy to toggle on/off and customize for future marketing campaigns
+- July 11, 2025. Added SKIT Students Special Discount Ad:
+  * Created dedicated SKIT student discount ad component (`/client/src/components/skit-students-ad.tsx`)
+  * Features special 25% discount exclusively for SKIT College students
+  * Includes discounted pricing display: Final Year/Minor/Major Projects ₹1,875 (was ₹2,500), PPT ₹375 (was ₹500)
+  * Added professional validation process requiring valid SKIT student ID
+  * Integrated email template for discount claims with student verification
+  * Enhanced with college-themed design and SKIT-specific benefits
+  * Direct contact integration with pre-filled email and phone functionality
+  * Positioned after Academic Projects Ad for targeted student audience
 - July 11, 2025. Migration from Replit Agent to Replit environment completed:
   * Successfully completed all migration checklist items
   * Verified project functionality with proper client/server separation
