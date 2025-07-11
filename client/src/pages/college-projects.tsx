@@ -68,9 +68,9 @@ export default function CollegeProjects() {
   const [filterTechnology, setFilterTechnology] = useState("all");
 
   const { data: projects, isLoading } = useQuery<Project[]>({
-    queryKey: ['/api/portfolio', 'projects'],
+    queryKey: ['/api/portfolio', 'college-projects'],
     queryFn: async () => {
-      const response = await fetch('/api/portfolio?action=projects');
+      const response = await fetch('/api/portfolio?action=projects&type=college');
       if (!response.ok) {
         throw new Error('Failed to fetch projects');
       }
@@ -94,10 +94,8 @@ export default function CollegeProjects() {
     );
   }
 
-  // Filter to only show Azure Hub-and-Spoke Network Automation Platform project
-  const filteredProjects = projects?.filter(project => {
-    return project.title === "Azure Hub-and-Spoke Network Automation Platform";
-  }) || [];
+  // Show all college projects from static data
+  const filteredProjects = projects || [];
 
   // Get unique industries and technologies for filters (only from Azure project)
   const industries = [...new Set(filteredProjects?.map(p => p.industry) || [])];

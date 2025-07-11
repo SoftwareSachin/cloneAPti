@@ -1,6 +1,7 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import { z } from 'zod';
 import { fromZodError } from 'zod-validation-error';
+import { getStaticPortfolioProjects, getStaticCollegeProjects, getStaticProjectBySlug } from '../shared/static-data';
 
 // Portfolio schemas
 const portfolioInquirySchema = z.object({
@@ -15,51 +16,7 @@ const portfolioInquirySchema = z.object({
   similarProject: z.string().optional()
 });
 
-// In-memory storage
-let portfolioProjects: any[] = [
-  {
-    id: 1,
-    title: 'E-commerce Platform Modernization',
-    slug: 'ecommerce-platform-modernization',
-    description: 'Complete digital transformation of legacy e-commerce system',
-    industry: 'Retail',
-    technologies: ['React', 'Node.js', 'MongoDB', 'AWS'],
-    featured: true,
-    coverImage: '/api/placeholder/800/600',
-    views: 1234,
-    likes: 89,
-    createdAt: new Date('2024-01-01'),
-    updatedAt: new Date('2024-01-01')
-  },
-  {
-    id: 2,
-    title: 'Healthcare Management System',
-    slug: 'healthcare-management-system',
-    description: 'Comprehensive patient management and scheduling system',
-    industry: 'Healthcare',
-    technologies: ['Vue.js', 'Python', 'PostgreSQL', 'Docker'],
-    featured: true,
-    coverImage: '/api/placeholder/800/600',
-    views: 987,
-    likes: 67,
-    createdAt: new Date('2024-01-05'),
-    updatedAt: new Date('2024-01-05')
-  },
-  {
-    id: 3,
-    title: 'Azure Hub-and-Spoke Network Automation Platform',
-    slug: 'azure-hub-spoke-network-automation-platform',
-    description: 'Turnkey web-based network management platform for Azure hub-and-spoke architectures',
-    industry: 'Cloud Infrastructure',
-    technologies: ['React', 'TypeScript', 'Node.js', 'Azure Functions', 'ARM Templates', 'Terraform'],
-    featured: true,
-    coverImage: '/api/placeholder/800/600',
-    views: 245,
-    likes: 18,
-    createdAt: new Date('2024-01-10'),
-    updatedAt: new Date('2024-01-10')
-  }
-];
+// Static data is now imported from shared/static-data.ts
 
 let portfolioInquiries: any[] = [];
 
@@ -83,17 +40,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 }
 
 async function handleGet(req: VercelRequest, res: VercelResponse) {
-  const { action, slug } = req.query;
+  const { action, slug, type } = req.query;
 
   switch (action) {
     case 'projects':
-      return res.json(portfolioProjects);
+      // Check if requesting college projects or portfolio projects
+      if (type === 'college') {
+        return res.json(getStaticCollegeProjects());
+      } else {
+        return res.json(getStaticPortfolioProjects());
+      }
     
     case 'project':
       if (!slug) {
         return res.status(400).json({ error: 'Slug is required' });
       }
-      const project = portfolioProjects.find(p => p.slug === slug);
+      const project = getStaticProjectBySlug(slug as string);
       if (!project) {
         return res.status(404).json({ error: 'Project not found' });
       }

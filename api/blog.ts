@@ -1,6 +1,7 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import { z } from 'zod';
 import { fromZodError } from 'zod-validation-error';
+import { getStaticBlogPosts, getStaticBlogPostBySlug } from '../shared/static-data';
 
 // Blog post schema
 const blogPostSchema = z.object({
@@ -29,43 +30,7 @@ const blogSubscriberSchema = z.object({
   name: z.string().min(1, 'Name is required').optional()
 });
 
-// In-memory storage for blog data
-let blogPosts: any[] = [
-  {
-    id: 1,
-    title: 'The Future of AI in Business Automation',
-    slug: 'future-ai-business-automation',
-    content: 'Artificial Intelligence is revolutionizing how businesses operate...',
-    excerpt: 'Explore how AI is transforming business processes and creating new opportunities.',
-    category: 'AI & Machine Learning',
-    tags: ['AI', 'Automation', 'Business', 'Technology'],
-    featured: true,
-    published: true,
-    coverImage: '/api/placeholder/800/400',
-    readTime: 5,
-    views: 2847,
-    likes: 234,
-    createdAt: new Date('2024-01-15'),
-    updatedAt: new Date('2024-01-15')
-  },
-  {
-    id: 2,
-    title: 'Cloud Migration Best Practices for Enterprises',
-    slug: 'cloud-migration-best-practices',
-    content: 'Moving to the cloud requires careful planning and execution...',
-    excerpt: 'Learn essential strategies for successful enterprise cloud migration.',
-    category: 'Cloud Computing',
-    tags: ['Cloud', 'Migration', 'Enterprise', 'Strategy'],
-    featured: false,
-    published: true,
-    coverImage: '/api/placeholder/800/400',
-    readTime: 7,
-    views: 1923,
-    likes: 156,
-    createdAt: new Date('2024-01-10'),
-    updatedAt: new Date('2024-01-10')
-  }
-];
+// Static data is now imported from shared/static-data.ts
 
 let blogComments: any[] = [];
 let blogSubscribers: any[] = [];
@@ -94,13 +59,13 @@ async function handleGet(req: VercelRequest, res: VercelResponse) {
 
   switch (action) {
     case 'posts':
-      return res.json(blogPosts);
+      return res.json(getStaticBlogPosts());
     
     case 'post':
       if (!slug) {
         return res.status(400).json({ error: 'Slug is required' });
       }
-      const post = blogPosts.find(p => p.slug === slug);
+      const post = getStaticBlogPostBySlug(slug as string);
       if (!post) {
         return res.status(404).json({ error: 'Post not found' });
       }

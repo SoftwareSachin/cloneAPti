@@ -92,7 +92,7 @@ export default function Portfolio() {
   const { data: projects = [], isLoading, error } = useQuery({
     queryKey: ['/api/portfolio-projects'],
     queryFn: async () => {
-      const response = await fetch('/api/portfolio?action=projects');
+      const response = await fetch('/api/portfolio?action=projects&type=portfolio');
       if (!response.ok) {
         throw new Error('Failed to fetch projects');
       }
