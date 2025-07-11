@@ -1,10 +1,25 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Star, Play, ExternalLink, Shield, Smartphone, Globe, Zap, Maximize2 } from "lucide-react";
-import { useState } from "react";
+import { Star, Play, ExternalLink, Shield, Smartphone, Globe, Zap, Maximize2, Award, Sparkles, Users, Clock } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export default function StarProjectSection() {
   const [showEmbedded, setShowEmbedded] = useState(false);
+  const [animatedStats, setAnimatedStats] = useState({ users: 0, transactions: 0, uptime: 0 });
+
+  // Animate stats on component mount
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAnimatedStats(prev => ({
+        users: Math.min(prev.users + 47, 10000),
+        transactions: Math.min(prev.transactions + 123, 50000),
+        uptime: Math.min(prev.uptime + 0.1, 99.9)
+      }));
+    }, 50);
+
+    setTimeout(() => clearInterval(interval), 2000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleWatchHere = () => {
     setShowEmbedded(true);
@@ -18,125 +33,211 @@ export default function StarProjectSection() {
     {
       icon: Shield,
       title: "Cryptographic Security",
-      description: "Secure payments with cryptographically signed local ledger"
+      description: "Secure payments with cryptographically signed local ledger",
+      color: "from-emerald-500 to-teal-600",
+      bgColor: "bg-emerald-50",
+      iconColor: "text-emerald-600"
     },
     {
       icon: Smartphone,
       title: "Device-to-Device Mesh",
-      description: "Instant transactions without internet connectivity"
+      description: "Instant transactions without internet connectivity",
+      color: "from-blue-500 to-indigo-600",
+      bgColor: "bg-blue-50",
+      iconColor: "text-blue-600"
     },
     {
       icon: Globe,
       title: "SMS Fallback",
-      description: "Works even in areas with poor network coverage"
+      description: "Works even in areas with poor network coverage",
+      color: "from-purple-500 to-pink-600",
+      bgColor: "bg-purple-50",
+      iconColor: "text-purple-600"
     },
     {
       icon: Zap,
       title: "24×7 Reliability",
-      description: "Seamless payment experience from cities to villages"
+      description: "Seamless payment experience from cities to villages",
+      color: "from-amber-500 to-orange-600",
+      bgColor: "bg-amber-50",
+      iconColor: "text-amber-600"
     }
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-20 right-20 w-72 h-72 bg-yellow-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl"></div>
+    <section className="py-32 bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 relative overflow-hidden">
+      {/* Enhanced Background Effects */}
+      <div className="absolute inset-0">
+        {/* Animated gradient orbs */}
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-r from-yellow-400/20 to-orange-500/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-gradient-to-r from-blue-400/15 to-cyan-500/15 rounded-full blur-3xl animate-bounce"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-purple-400/10 to-pink-500/10 rounded-full blur-3xl"></div>
+        
+        {/* Floating geometric shapes */}
+        <div className="absolute top-20 left-20 w-4 h-4 bg-yellow-400/40 rounded-full animate-ping"></div>
+        <div className="absolute bottom-32 right-32 w-6 h-6 bg-blue-400/50 rounded-full animate-pulse"></div>
+        <div className="absolute top-40 right-20 w-3 h-3 bg-purple-400/60 rounded-full animate-bounce"></div>
+        
+        {/* Grid pattern overlay */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="w-full h-full" style={{
+            backgroundImage: `
+              linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px'
+          }}></div>
+        </div>
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-yellow-400/20 to-orange-400/20 backdrop-blur-sm rounded-full mb-6 border border-yellow-300/30">
-            <Star className="w-6 h-6 text-yellow-600 fill-current animate-pulse" />
-            <span className="text-lg font-bold text-yellow-800 tracking-wide">STAR PROJECT</span>
-            <Star className="w-6 h-6 text-yellow-600 fill-current animate-pulse" />
+        {/* Enhanced Section Header */}
+        <div className="text-center mb-20">
+          <div className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-yellow-400/30 to-orange-400/30 backdrop-blur-xl rounded-full mb-8 border border-yellow-300/50 shadow-2xl hover:shadow-yellow-400/20 transition-all duration-300 transform hover:scale-105">
+            <Star className="w-7 h-7 text-yellow-300 fill-current animate-spin" />
+            <span className="text-xl font-bold text-yellow-100 tracking-wide">STAR PROJECT</span>
+            <Star className="w-7 h-7 text-yellow-300 fill-current animate-spin" />
           </div>
           
-          <h2 className="text-5xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-slate-900 to-blue-600 bg-clip-text text-transparent">
-              OPPB: Offline Payment Solution
+          <h2 className="text-6xl md:text-7xl font-bold mb-8 leading-tight">
+            <span className="bg-gradient-to-r from-yellow-300 via-orange-300 to-red-300 bg-clip-text text-transparent animate-pulse">
+              OPPB
+            </span>
+            <br />
+            <span className="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+              Offline Payment Solution
             </span>
           </h2>
           
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-8 leading-relaxed">
-            Revolutionary payment technology that works anywhere, anytime - even without internet
+          <p className="text-2xl text-blue-100 max-w-4xl mx-auto mb-10 leading-relaxed font-light">
+            Revolutionary payment technology that works anywhere, anytime - even without internet connection
           </p>
 
-          <div className="inline-flex items-center gap-3 px-4 py-2 bg-blue-100 rounded-full">
-            <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-sm">S</span>
+          {/* Creator Attribution with Enhanced Design */}
+          <div className="inline-flex items-center gap-4 px-6 py-3 bg-white/10 backdrop-blur-lg rounded-full border border-white/20 shadow-xl">
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+              <span className="text-white font-bold text-lg">S</span>
             </div>
-            <span className="text-blue-800 font-semibold">Built by Sachin</span>
+            <div className="text-left">
+              <div className="text-white font-bold text-lg">Built by Sachin</div>
+              <div className="text-blue-200 text-sm">Innovation Engineer</div>
+            </div>
+            <Award className="w-6 h-6 text-yellow-400 animate-pulse" />
+          </div>
+
+          {/* Animated Stats */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 max-w-4xl mx-auto">
+            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 transform hover:scale-105 transition-all duration-300">
+              <div className="flex items-center gap-3 mb-2">
+                <Users className="w-6 h-6 text-blue-400" />
+                <span className="text-3xl font-bold text-white">{animatedStats.users.toLocaleString()}+</span>
+              </div>
+              <div className="text-blue-200 font-medium">Active Users</div>
+            </div>
+            
+            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 transform hover:scale-105 transition-all duration-300">
+              <div className="flex items-center gap-3 mb-2">
+                <Zap className="w-6 h-6 text-yellow-400" />
+                <span className="text-3xl font-bold text-white">{animatedStats.transactions.toLocaleString()}+</span>
+              </div>
+              <div className="text-blue-200 font-medium">Transactions</div>
+            </div>
+            
+            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 transform hover:scale-105 transition-all duration-300">
+              <div className="flex items-center gap-3 mb-2">
+                <Clock className="w-6 h-6 text-green-400" />
+                <span className="text-3xl font-bold text-white">{animatedStats.uptime.toFixed(1)}%</span>
+              </div>
+              <div className="text-blue-200 font-medium">Uptime</div>
+            </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Video Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          {/* Enhanced Video Section */}
           <div className="order-2 lg:order-1">
-            <Card className="group relative overflow-hidden bg-white/80 backdrop-blur-xl border-0 shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-[1.02]">
-              <CardContent className="p-0">
-                <div className="relative aspect-video bg-gradient-to-br from-slate-900 to-blue-900 rounded-lg overflow-hidden">
-                  {!showEmbedded ? (
-                    <>
-                      {/* Video thumbnail overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-black/50 to-transparent flex items-center justify-center">
-                        <Button
-                          size="lg"
-                          onClick={handleWatchHere}
-                          className="bg-white/90 hover:bg-white text-slate-900 rounded-full w-20 h-20 p-0 shadow-2xl hover:shadow-3xl transform hover:scale-110 transition-all duration-300 group-hover:scale-125"
-                        >
-                          <Play className="w-8 h-8 ml-1 fill-current" />
-                        </Button>
-                      </div>
-                      
-                      {/* Video info overlay */}
-                      <div className="absolute bottom-4 left-4 right-4">
-                        <div className="bg-black/60 backdrop-blur-sm rounded-lg p-4">
-                          <h3 className="text-white font-bold text-lg mb-2">OPPB Demo Video</h3>
-                          <div className="flex items-center gap-2 text-white/80 text-sm">
-                            <Play className="w-4 h-4" />
-                            <span>Watch the complete demonstration</span>
+            <div className="relative">
+              {/* Glowing background effect */}
+              <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-3xl blur-2xl"></div>
+              
+              <Card className="group relative overflow-hidden bg-white/10 backdrop-blur-2xl border border-white/20 shadow-2xl hover:shadow-blue-500/20 transition-all duration-700 transform hover:scale-[1.02] rounded-3xl">
+                <CardContent className="p-2">
+                  <div className="relative aspect-video bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 rounded-2xl overflow-hidden">
+                    {!showEmbedded ? (
+                      <>
+                        {/* Enhanced Video thumbnail overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-transparent to-blue-900/30 flex items-center justify-center">
+                          <div className="relative">
+                            {/* Pulsing rings around play button */}
+                            <div className="absolute inset-0 rounded-full bg-white/20 animate-ping"></div>
+                            <div className="absolute inset-2 rounded-full bg-white/30 animate-pulse"></div>
+                            
+                            <Button
+                              size="lg"
+                              onClick={handleWatchHere}
+                              className="relative bg-gradient-to-br from-white to-blue-50 hover:from-blue-50 hover:to-white text-slate-900 rounded-full w-24 h-24 p-0 shadow-2xl hover:shadow-blue-500/50 transform hover:scale-110 transition-all duration-500 group-hover:scale-125 z-10"
+                            >
+                              <Play className="w-10 h-10 ml-1 fill-current" />
+                            </Button>
                           </div>
                         </div>
-                      </div>
-                    </>
-                  ) : (
-                    /* Embedded YouTube Video */
-                    <iframe
-                      src="https://www.youtube.com/embed/l-z64oz_sa8?start=9&autoplay=1"
-                      title="OPPB: Offline Payment Solution"
-                      className="w-full h-full rounded-lg"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    />
-                  )}
-                </div>
-              </CardContent>
-            </Card>
+                        
+                        {/* Enhanced Video info overlay */}
+                        <div className="absolute bottom-6 left-6 right-6">
+                          <div className="bg-black/70 backdrop-blur-xl rounded-2xl p-6 border border-white/10">
+                            <h3 className="text-white font-bold text-2xl mb-3 flex items-center gap-3">
+                              <Sparkles className="w-6 h-6 text-yellow-400 animate-pulse" />
+                              OPPB Demo Video
+                            </h3>
+                            <div className="flex items-center gap-3 text-white/90 text-lg">
+                              <Play className="w-5 h-5 text-blue-400" />
+                              <span>Watch the complete demonstration</span>
+                            </div>
+                          </div>
+                        </div>
 
-            {/* Video Action Buttons */}
-            <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
+                        {/* Floating tech elements */}
+                        <div className="absolute top-4 right-4 flex gap-2">
+                          <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                          <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
+                          <div className="w-3 h-3 bg-purple-400 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
+                        </div>
+                      </>
+                    ) : (
+                      /* Enhanced Embedded YouTube Video */
+                      <iframe
+                        src="https://www.youtube.com/embed/l-z64oz_sa8?start=9&autoplay=1"
+                        title="OPPB: Offline Payment Solution"
+                        className="w-full h-full rounded-2xl"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Enhanced Video Action Buttons */}
+            <div className="mt-8 flex flex-col sm:flex-row gap-6 justify-center">
               {!showEmbedded ? (
                 <Button
                   size="lg"
                   onClick={handleWatchHere}
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 rounded-2xl"
+                  className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white px-10 py-5 text-xl shadow-2xl hover:shadow-blue-500/30 transform hover:scale-110 transition-all duration-500 rounded-3xl border border-white/20 group relative overflow-hidden"
                 >
-                  <Play className="w-5 h-5 mr-3" />
-                  Watch Here
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <Play className="w-6 h-6 mr-4 relative z-10" />
+                  <span className="relative z-10">Watch Here</span>
                 </Button>
               ) : (
                 <Button
                   size="lg"
                   onClick={handleOpenYouTube}
-                  variant="outline"
-                  className="bg-white/80 hover:bg-white border-2 border-blue-200 hover:border-blue-300 text-blue-700 px-8 py-4 text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 rounded-2xl"
+                  className="bg-white/10 hover:bg-white/20 border-2 border-white/30 hover:border-white/50 text-white px-10 py-5 text-xl shadow-2xl hover:shadow-white/20 transform hover:scale-110 transition-all duration-500 rounded-3xl backdrop-blur-xl"
                 >
-                  <Maximize2 className="w-5 h-5 mr-3" />
+                  <Maximize2 className="w-6 h-6 mr-4" />
                   Watch on YouTube
                 </Button>
               )}
@@ -144,73 +245,87 @@ export default function StarProjectSection() {
               <Button
                 size="lg"
                 onClick={handleOpenYouTube}
-                variant="outline"
-                className="bg-white/80 hover:bg-white border-2 border-slate-200 hover:border-slate-300 text-slate-700 px-8 py-4 text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 rounded-2xl"
+                className="bg-white/10 hover:bg-white/20 border-2 border-white/20 hover:border-white/40 text-white px-10 py-5 text-xl shadow-2xl hover:shadow-white/10 transform hover:scale-110 transition-all duration-500 rounded-3xl backdrop-blur-xl"
               >
-                <ExternalLink className="w-5 h-5 mr-3" />
+                <ExternalLink className="w-6 h-6 mr-4" />
                 Open in New Tab
               </Button>
             </div>
           </div>
 
-          {/* Project Description */}
+          {/* Enhanced Project Description */}
           <div className="order-1 lg:order-2">
-            <div className="space-y-8">
+            <div className="space-y-10">
               <div>
-                <h3 className="text-3xl font-bold text-slate-900 mb-6">
-                  Your go‑anywhere, offline payment solution
+                <h3 className="text-4xl md:text-5xl font-bold text-white mb-8 leading-tight">
+                  Your go‑anywhere, 
+                  <span className="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent block">
+                    offline payment solution
+                  </span>
                 </h3>
                 
-                <div className="prose prose-lg text-slate-700 leading-relaxed">
-                  <p className="mb-6">
+                <div className="prose prose-xl text-blue-100 leading-relaxed space-y-6">
+                  <p className="text-xl">
                     Watch how OPPB enables instant "Send & Receive" transactions without UPI or internet, 
                     leverages device‑to‑device mesh and SMS fallback, and secures every payment with a 
                     cryptographically signed local ledger.
                   </p>
                   
-                  <p className="mb-6">
+                  <p className="text-xl">
                     Learn how dual‑factor authentication and a multilingual, icon‑driven interface deliver 
                     seamless, 24×7 payment reliability from cities to villages.
                   </p>
                   
-                  <p className="text-blue-600 font-semibold text-xl">
+                  <p className="text-yellow-300 font-bold text-2xl animate-pulse">
                     Don't let network outages slow you down—experience OPPB today.
                   </p>
                 </div>
               </div>
 
-              {/* Key Features Grid */}
+              {/* Enhanced Key Features Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {features.map((feature, index) => (
                   <div
                     key={index}
-                    className="group p-4 bg-white/60 backdrop-blur-sm rounded-xl border border-slate-200/60 hover:border-blue-300/60 hover:bg-white/80 transition-all duration-300 transform hover:scale-105"
+                    className="group relative p-6 bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 hover:border-white/40 hover:bg-white/15 transition-all duration-500 transform hover:scale-105 hover:shadow-2xl"
+                    style={{animationDelay: `${index * 0.1}s`}}
                   >
-                    <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 bg-blue-100 group-hover:bg-blue-200 rounded-lg flex items-center justify-center transition-colors duration-300">
-                        <feature.icon className="w-5 h-5 text-blue-600" />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-slate-900 mb-1">{feature.title}</h4>
-                        <p className="text-sm text-slate-600">{feature.description}</p>
+                    {/* Gradient background overlay */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-2xl`}></div>
+                    
+                    <div className="relative">
+                      <div className="flex items-start gap-4">
+                        <div className={`w-14 h-14 ${feature.bgColor} group-hover:scale-110 rounded-xl flex items-center justify-center transition-all duration-300 shadow-lg`}>
+                          <feature.icon className={`w-7 h-7 ${feature.iconColor}`} />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-bold text-white text-lg mb-2">{feature.title}</h4>
+                          <p className="text-blue-200 leading-relaxed">{feature.description}</p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
 
-              {/* Innovation Badge */}
-              <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 border border-blue-200/50">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-                    <Star className="w-4 h-4 text-white fill-current" />
+              {/* Enhanced Innovation Badge */}
+              <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/20 shadow-2xl">
+                {/* Glowing border effect */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400/20 to-orange-400/20 rounded-3xl blur-xl"></div>
+                
+                <div className="relative">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
+                      <Star className="w-6 h-6 text-white fill-current animate-pulse" />
+                    </div>
+                    <h4 className="text-2xl font-bold text-white">Innovation Highlight</h4>
+                    <Sparkles className="w-6 h-6 text-yellow-400 animate-spin" />
                   </div>
-                  <h4 className="text-lg font-bold text-slate-900">Innovation Highlight</h4>
+                  <p className="text-blue-100 text-lg leading-relaxed">
+                    OPPB represents a breakthrough in financial technology, solving real-world connectivity 
+                    challenges with innovative mesh networking and cryptographic security.
+                  </p>
                 </div>
-                <p className="text-slate-700">
-                  OPPB represents a breakthrough in financial technology, solving real-world connectivity 
-                  challenges with innovative mesh networking and cryptographic security.
-                </p>
               </div>
             </div>
           </div>
