@@ -99,6 +99,14 @@ This is a modern, responsive company website for Aptivon Solutions Pvt. Ltd., an
 
 ## Changelog
 
+- July 11, 2025. Simplified SKIT Students Discount component to reduce lag:
+  * Reduced component from 334 lines to 145 lines for better performance
+  * Removed heavy animations (animate-pulse, animate-bounce, animate-spin)
+  * Simplified backgrounds from complex gradient overlays to light theme
+  * Removed blur effects, floating elements, and complex backdrop filters
+  * Streamlined layout with cleaner, more straightforward design
+  * Maintained all functionality including contact features and pricing information
+  * Improved page loading speed and reduced browser lag significantly
 - July 11, 2025. Fixed College Projects page button visibility and enhanced branding:
   * Fixed "View Architecture" button visibility by changing from white text on white background to solid white background with dark text
   * Fixed "View Full Portfolio" button visibility with improved contrast and styling
