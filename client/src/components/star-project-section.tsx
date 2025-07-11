@@ -1,25 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Star, Play, ExternalLink, Shield, Smartphone, Globe, Zap, Maximize2, Award, Sparkles, Users, Clock } from "lucide-react";
-import { useState, useEffect } from "react";
+import { Star, Play, ExternalLink, Shield, Smartphone, Globe, Zap, Maximize2, Award, Sparkles } from "lucide-react";
+import { useState } from "react";
 
 export default function StarProjectSection() {
   const [showEmbedded, setShowEmbedded] = useState(false);
-  const [animatedStats, setAnimatedStats] = useState({ users: 0, transactions: 0, uptime: 0 });
 
-  // Animate stats on component mount
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setAnimatedStats(prev => ({
-        users: Math.min(prev.users + 47, 10000),
-        transactions: Math.min(prev.transactions + 123, 50000),
-        uptime: Math.min(prev.uptime + 0.1, 99.9)
-      }));
-    }, 50);
-
-    setTimeout(() => clearInterval(interval), 2000);
-    return () => clearInterval(interval);
-  }, []);
 
   const handleWatchHere = () => {
     setShowEmbedded(true);
@@ -141,33 +127,6 @@ export default function StarProjectSection() {
                 <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
                 <span className="text-green-300 text-sm font-medium">Certified Integration</span>
               </div>
-            </div>
-          </div>
-
-          {/* Animated Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 max-w-4xl mx-auto">
-            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 transform hover:scale-105 transition-all duration-300">
-              <div className="flex items-center gap-3 mb-2">
-                <Users className="w-6 h-6 text-blue-400" />
-                <span className="text-3xl font-bold text-white">{animatedStats.users.toLocaleString()}+</span>
-              </div>
-              <div className="text-blue-200 font-medium">Active Users</div>
-            </div>
-            
-            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 transform hover:scale-105 transition-all duration-300">
-              <div className="flex items-center gap-3 mb-2">
-                <Zap className="w-6 h-6 text-yellow-400" />
-                <span className="text-3xl font-bold text-white">{animatedStats.transactions.toLocaleString()}+</span>
-              </div>
-              <div className="text-blue-200 font-medium">Transactions</div>
-            </div>
-            
-            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 transform hover:scale-105 transition-all duration-300">
-              <div className="flex items-center gap-3 mb-2">
-                <Clock className="w-6 h-6 text-green-400" />
-                <span className="text-3xl font-bold text-white">{animatedStats.uptime.toFixed(1)}%</span>
-              </div>
-              <div className="text-blue-200 font-medium">Uptime</div>
             </div>
           </div>
         </div>
