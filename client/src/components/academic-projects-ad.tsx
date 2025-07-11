@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Mail, Phone, Code, BookOpen, Zap, Clock, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import academicProjectsImage from "@assets/Poster - Aptivon Solutions_1752236135540.png";
+import newLogo from "@assets/image_1752236269914.png";
 
 interface AcademicProjectsAdProps {
   isVisible?: boolean;
@@ -72,7 +73,7 @@ export default function AcademicProjectsAd({ isVisible = true }: AcademicProject
             <div className="flex flex-col justify-center space-y-6">
               <div>
                 <div className="flex items-center gap-2 mb-3">
-                  <img src="/favicon.gif" alt="Aptivon Solutions" className="w-8 h-8" />
+                  <img src={newLogo} alt="Aptivon Solutions" className="w-8 h-8" />
                   <span className="text-2xl font-bold text-blue-600">Aptivon Solutions</span>
                 </div>
                 

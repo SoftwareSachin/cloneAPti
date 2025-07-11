@@ -1,7 +1,7 @@
 import { Linkedin, Twitter, Github, Mail, Phone, MapPin, Clock, Award, TrendingUp, ArrowRight, Send, CheckCircle, Star, Cloud, Settings, Cpu, Smartphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import logoGif from "../assets/new-logo.gif";
+import newLogo from "@assets/image_1752236269914.png";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -107,7 +107,7 @@ export default function Footer() {
               <div className="flex items-center space-x-4 mb-8">
                 <div className="relative">
                   <img 
-                    src={logoGif} 
+                    src={newLogo} 
                     alt="Aptivon Solutions" 
                     className="h-12 w-auto rounded-lg shadow-lg"
                   />

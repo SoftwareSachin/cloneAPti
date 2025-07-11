@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import logoGif from "../assets/new-logo.gif";
+import newLogo from "@assets/image_1752236269914.png";
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -33,7 +33,7 @@ export default function Navigation() {
         <div className="flex justify-between items-center">
           <a href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity cursor-pointer">
             <img 
-              src={logoGif} 
+              src={newLogo} 
               alt="Aptivon Solutions" 
               className={`w-auto transition-all duration-300 ${
                 isScrolled ? 'h-8' : 'h-10'
