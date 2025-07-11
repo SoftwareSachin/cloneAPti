@@ -1,9 +1,20 @@
 import { Button } from "@/components/ui/button";
-import { Handshake, Gift, Users, ArrowRight } from "lucide-react";
+import { Handshake, Gift, Users, ArrowRight, DollarSign, Star, TrendingUp, Coins } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useState, useEffect } from "react";
 
 export default function ReferralCommissionAd() {
   const { toast } = useToast();
+  const [earnings] = useState(["₹5,000", "₹12,500", "₹8,750", "₹15,000"]);
+  const [currentEarning, setCurrentEarning] = useState(0);
+
+  // Rotate earning examples every 2 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentEarning((prev) => (prev + 1) % earnings.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [earnings.length]);
 
   const handleReferralClick = () => {
     const emailSubject = "Referral Commission Program - Partner with Us";
@@ -17,75 +28,129 @@ export default function ReferralCommissionAd() {
   };
 
   return (
-    <section className="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 py-12 relative overflow-hidden">
-      {/* Background effects */}
+    <section className="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 py-20 relative overflow-hidden">
+      {/* Enhanced Background effects */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 right-1/4 w-56 h-56 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 left-1/4 w-40 h-40 bg-emerald-300/20 rounded-full blur-2xl animate-bounce"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-r from-white/5 to-emerald-300/10 rounded-full blur-3xl"></div>
-        {/* Floating particles */}
-        <div className="absolute top-16 left-16 w-2 h-2 bg-emerald-300/70 rounded-full animate-ping"></div>
-        <div className="absolute bottom-24 right-24 w-3 h-3 bg-white/50 rounded-full animate-pulse"></div>
-        <div className="absolute top-32 right-16 w-1 h-1 bg-teal-200/80 rounded-full animate-bounce"></div>
+        {/* Animated gradient orbs */}
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-r from-emerald-400/20 to-teal-300/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 left-1/4 w-64 h-64 bg-gradient-to-r from-cyan-400/15 to-emerald-400/15 rounded-full blur-2xl animate-bounce"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-r from-white/8 to-emerald-300/12 rounded-full blur-3xl"></div>
+        
+        {/* Money floating icons */}
+        <div className="absolute top-20 left-20 w-8 h-8 text-emerald-300/40 animate-ping">
+          <DollarSign className="w-full h-full" />
+        </div>
+        <div className="absolute bottom-32 right-32 w-6 h-6 text-teal-300/50 animate-pulse">
+          <Coins className="w-full h-full" />
+        </div>
+        <div className="absolute top-40 right-20 w-4 h-4 text-cyan-300/60 animate-bounce">
+          <Star className="w-full h-full" />
+        </div>
+        
+        {/* Geometric patterns */}
+        <div className="absolute top-16 right-16 w-2 h-2 bg-emerald-300/70 rounded-full animate-ping"></div>
+        <div className="absolute bottom-24 left-24 w-3 h-3 bg-white/50 rounded-full animate-pulse"></div>
+        <div className="absolute top-32 left-1/3 w-1 h-1 bg-teal-200/80 rounded-full animate-bounce"></div>
       </div>
       
       <div className="relative max-w-7xl mx-auto px-6">
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-400/30 backdrop-blur-lg rounded-full mb-6 border border-emerald-300/40 shadow-2xl hover:shadow-emerald-300/20 transition-all duration-300 transform hover:scale-105">
-            <Gift className="w-5 h-5 text-emerald-200 animate-bounce" />
-            <span className="text-sm font-bold text-emerald-100 tracking-wide">PARTNERSHIP PROGRAM</span>
-            <Gift className="w-5 h-5 text-emerald-200 animate-bounce" />
+          {/* Enhanced Badge */}
+          <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-emerald-400/30 to-teal-400/30 backdrop-blur-xl rounded-full mb-8 border border-emerald-300/50 shadow-2xl hover:shadow-emerald-300/30 transition-all duration-300 transform hover:scale-105">
+            <Gift className="w-6 h-6 text-emerald-200 animate-bounce" />
+            <span className="text-base font-bold text-emerald-100 tracking-wide">EARN MONEY BY REFERRING</span>
+            <TrendingUp className="w-6 h-6 text-emerald-200 animate-pulse" />
           </div>
           
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 tracking-tight">
-            Refer a client and earn a 10% commission
-          </h2>
+          {/* Main Title with Dynamic Earnings */}
+          <div className="mb-6">
+            <h2 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight leading-tight">
+              Refer a client and earn a{" "}
+              <span className="bg-gradient-to-r from-yellow-300 to-yellow-100 bg-clip-text text-transparent animate-pulse">
+                10% commission
+              </span>
+            </h2>
+            
+            {/* Dynamic earnings display */}
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <span className="text-emerald-200 text-lg font-medium">Last payout:</span>
+              <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg border border-emerald-300/30">
+                <span className="text-2xl font-bold text-yellow-300 animate-pulse">
+                  {earnings[currentEarning]}
+                </span>
+              </div>
+            </div>
+          </div>
           
-          <p className="text-xl text-emerald-100 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Join our referral program and earn rewards for every successful project you refer to us.
-            <span className="font-bold text-emerald-300 animate-pulse"> Start earning today!</span>
+          <p className="text-2xl text-emerald-100 mb-10 max-w-4xl mx-auto leading-relaxed font-light">
+            Join our referral program and earn substantial rewards for every successful project you refer to us.
+            <span className="font-bold text-yellow-300 animate-pulse block mt-2"> Start building your passive income today!</span>
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
+          {/* Enhanced CTA Section */}
+          <div className="flex flex-col sm:flex-row gap-8 justify-center items-center mb-12">
             <Button 
               size="lg" 
-              className="bg-white text-emerald-600 hover:bg-emerald-50 font-bold px-10 py-4 text-xl shadow-2xl hover:shadow-3xl transform hover:scale-110 transition-all duration-500 rounded-2xl border-2 border-emerald-300/30 hover:border-emerald-300/60 group"
+              className="bg-gradient-to-r from-white to-emerald-50 text-emerald-700 hover:from-emerald-50 hover:to-white font-bold px-12 py-6 text-2xl shadow-2xl hover:shadow-3xl transform hover:scale-110 transition-all duration-500 rounded-3xl border-2 border-emerald-300/40 hover:border-emerald-300/70 group relative overflow-hidden"
               onClick={handleReferralClick}
             >
-              <Handshake className="w-6 h-6 mr-3 group-hover:animate-bounce" />
-              Start Referring Now
-              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              {/* Button glow effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/20 to-teal-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <Handshake className="w-8 h-8 mr-4 group-hover:animate-bounce relative z-10" />
+              <span className="relative z-10">Start Referring Now</span>
+              <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform relative z-10" />
             </Button>
+            
+            <div className="flex items-center gap-3 text-emerald-200 text-lg bg-black/20 backdrop-blur-sm px-6 py-3 rounded-full border border-emerald-300/30">
+              <DollarSign className="w-6 h-6 animate-pulse" />
+              <span className="font-semibold">Unlimited earning potential</span>
+            </div>
           </div>
 
-          {/* Benefits showcase */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-emerald-300/20">
-              <div className="w-12 h-12 bg-emerald-400/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Gift className="w-6 h-6 text-emerald-200" />
+          {/* Enhanced Benefits Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-8">
+            <div className="group bg-white/15 backdrop-blur-lg rounded-2xl p-8 border border-emerald-300/30 hover:border-emerald-300/50 transform hover:scale-105 transition-all duration-300 hover:shadow-2xl">
+              <div className="w-16 h-16 bg-gradient-to-br from-emerald-400/40 to-teal-400/40 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Gift className="w-8 h-8 text-emerald-200" />
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">10% Commission</h3>
-              <p className="text-emerald-100 text-sm">Earn 10% of the project value for every successful referral</p>
+              <h3 className="text-2xl font-bold text-white mb-3">10% Commission</h3>
+              <p className="text-emerald-100 text-base leading-relaxed">Earn 10% of the total project value for every successful referral - no caps, no limits</p>
             </div>
             
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-emerald-300/20">
-              <div className="w-12 h-12 bg-emerald-400/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="w-6 h-6 text-emerald-200" />
+            <div className="group bg-white/15 backdrop-blur-lg rounded-2xl p-8 border border-emerald-300/30 hover:border-emerald-300/50 transform hover:scale-105 transition-all duration-300 hover:shadow-2xl">
+              <div className="w-16 h-16 bg-gradient-to-br from-teal-400/40 to-cyan-400/40 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Users className="w-8 h-8 text-teal-200" />
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">No Limit</h3>
-              <p className="text-emerald-100 text-sm">Refer unlimited clients and keep earning commissions</p>
+              <h3 className="text-2xl font-bold text-white mb-3">Unlimited Referrals</h3>
+              <p className="text-emerald-100 text-base leading-relaxed">Refer as many clients as you want and keep earning commissions on every project</p>
             </div>
             
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-emerald-300/20">
-              <div className="w-12 h-12 bg-emerald-400/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Handshake className="w-6 h-6 text-emerald-200" />
+            <div className="group bg-white/15 backdrop-blur-lg rounded-2xl p-8 border border-emerald-300/30 hover:border-emerald-300/50 transform hover:scale-105 transition-all duration-300 hover:shadow-2xl">
+              <div className="w-16 h-16 bg-gradient-to-br from-cyan-400/40 to-emerald-400/40 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Handshake className="w-8 h-8 text-cyan-200" />
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">Quick Payout</h3>
-              <p className="text-emerald-100 text-sm">Get paid within 30 days of project completion</p>
+              <h3 className="text-2xl font-bold text-white mb-3">Quick Payout</h3>
+              <p className="text-emerald-100 text-base leading-relaxed">Get paid within 30 days of project completion - fast, reliable, and transparent</p>
             </div>
           </div>
           
-          <div className="mt-6 text-xs text-emerald-200 opacity-80">
+          {/* Trust indicators */}
+          <div className="flex flex-wrap justify-center items-center gap-6 mb-6">
+            <div className="flex items-center gap-2 text-emerald-200">
+              <Star className="w-5 h-5 text-yellow-400 fill-current" />
+              <span className="text-sm font-medium">Trusted by 50+ partners</span>
+            </div>
+            <div className="flex items-center gap-2 text-emerald-200">
+              <DollarSign className="w-5 h-5 text-green-400" />
+              <span className="text-sm font-medium">₹2.5L+ paid in commissions</span>
+            </div>
+            <div className="flex items-center gap-2 text-emerald-200">
+              <TrendingUp className="w-5 h-5 text-blue-400" />
+              <span className="text-sm font-medium">Growing network</span>
+            </div>
+          </div>
+          
+          <div className="text-sm text-emerald-200 opacity-90 bg-black/20 backdrop-blur-sm rounded-lg px-4 py-2 inline-block">
             *Commission paid after successful project completion and payment. Terms and conditions apply.
           </div>
         </div>
