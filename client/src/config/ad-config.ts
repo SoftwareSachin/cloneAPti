@@ -21,7 +21,7 @@ export const currentAd: AdConfig = {
   offerText: "Free consultation included!",
   ctaText: "Claim 25% OFF Now",
   expiryText: "Offer expires in 7 days",
-  disclaimerText: "*Applicable for new clients only. Minimum project value ₹50,000. Terms apply.",
+  disclaimerText: "",
   emailSubject: "25% OFF First Project - Consultation Request",
   emailBody: "Hello Aptivon Solutions,%0D%0A%0D%0AI'm interested in the 25% OFF offer for my first project.%0D%0A%0D%0AProject Requirements:%0D%0A- [Please describe your project]%0D%0A%0D%0APlease contact me to discuss further.%0D%0A%0D%0AThank you!"
 };
