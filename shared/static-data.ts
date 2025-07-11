@@ -40,7 +40,7 @@ export interface StaticBlogPost {
   updatedAt: Date;
 }
 
-// Static College Projects Data
+// Static College Projects Data - Only Azure Hub-and-Spoke Network Automation Platform
 export const staticCollegeProjects: StaticProject[] = [
   {
     id: 1,
