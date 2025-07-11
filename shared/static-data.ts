@@ -188,6 +188,70 @@ export const staticPortfolioProjects: StaticProject[] = [
     likes: 52,
     createdAt: new Date('2024-01-15'),
     updatedAt: new Date('2024-01-15')
+  },
+  {
+    id: 4,
+    title: "Digital Banking Platform",
+    slug: "digital-banking-platform",
+    client: "Regional Bank",
+    industry: "Banking",
+    description: "Modern digital banking platform with mobile-first design, real-time fraud detection, and comprehensive account management capabilities.",
+    image: "/api/placeholder/800/600",
+    technologies: [
+      "React Native",
+      "Spring Boot",
+      "Oracle Database",
+      "Kubernetes",
+      "Apache Kafka",
+      "Machine Learning",
+      "JWT Authentication"
+    ],
+    results: [
+      "90% reduction in account opening time",
+      "Real-time fraud detection with 99.8% accuracy",
+      "Mobile app with 4.8-star rating",
+      "24/7 digital banking services"
+    ],
+    challenges: "Legacy banking systems were slow, required manual processes, and lacked modern security features needed for digital banking.",
+    solution: "Built modern digital banking platform with mobile-first approach, integrated ML-powered fraud detection, and implemented real-time transaction processing.",
+    featured: true,
+    published: true,
+    views: 892,
+    likes: 74,
+    createdAt: new Date('2024-01-20'),
+    updatedAt: new Date('2024-01-20')
+  },
+  {
+    id: 5,
+    title: "Smart Manufacturing IoT Platform",
+    slug: "smart-manufacturing-iot-platform",
+    client: "Manufacturing Corporation",
+    industry: "Manufacturing",
+    description: "IoT-enabled smart manufacturing platform with predictive maintenance, real-time monitoring, and automated quality control systems.",
+    image: "/api/placeholder/800/600",
+    technologies: [
+      "Angular",
+      "Node.js",
+      "InfluxDB",
+      "Docker",
+      "IoT Sensors",
+      "Machine Learning",
+      "Apache Kafka"
+    ],
+    results: [
+      "35% reduction in equipment downtime",
+      "Predictive maintenance with 95% accuracy",
+      "Real-time monitoring of 1000+ devices",
+      "Automated quality control reducing defects by 80%"
+    ],
+    challenges: "Manual equipment monitoring and reactive maintenance led to costly downtime and quality issues in manufacturing processes.",
+    solution: "Implemented IoT-enabled smart manufacturing platform with predictive analytics, real-time monitoring, and automated quality control systems.",
+    featured: true,
+    published: true,
+    views: 654,
+    likes: 43,
+    createdAt: new Date('2024-01-25'),
+    updatedAt: new Date('2024-01-25')
   }
 ];
 
