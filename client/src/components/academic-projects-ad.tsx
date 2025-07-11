@@ -5,6 +5,7 @@ import { Mail, Phone, Code, BookOpen, Zap, Clock, CheckCircle } from "lucide-rea
 import { useToast } from "@/hooks/use-toast";
 import academicProjectsImage from "@assets/Poster - Aptivon Solutions_1752236135540.png";
 import AcademicFormModal from "./academic-form-modal";
+import logoGif from "../assets/new-logo.gif";
 
 interface AcademicProjectsAdProps {
   isVisible?: boolean;
@@ -83,7 +84,7 @@ export default function AcademicProjectsAd({ isVisible = true }: AcademicProject
             <div className="flex flex-col justify-center space-y-6">
               <div>
                 <div className="flex items-center gap-2 mb-3">
-                  <img src="/favicon.gif" alt="Aptivon Solutions" className="w-8 h-8" />
+                  <img src={logoGif} alt="Aptivon Solutions" className="w-8 h-8" />
                   <span className="text-2xl font-bold text-blue-600">Aptivon Solutions</span>
                 </div>
                 

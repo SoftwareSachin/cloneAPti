@@ -99,6 +99,11 @@ This is a modern, responsive company website for Aptivon Solutions Pvt. Ltd., an
 
 ## Changelog
 
+- July 11, 2025. Updated ad logos to match navigation logo:
+  * Changed academic projects ad logo from favicon.gif to new-logo.gif
+  * Updated logo imports to use the same animated logo as navigation
+  * Ensured consistent branding across all ad components and navigation
+  * All ads now display the same professional animated company logo
 - July 11, 2025. Simplified SKIT Students Discount component to reduce lag:
   * Reduced component from 334 lines to 145 lines for better performance
   * Removed heavy animations (animate-pulse, animate-bounce, animate-spin)
