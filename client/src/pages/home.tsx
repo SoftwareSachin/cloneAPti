@@ -2,6 +2,7 @@ import Navigation from "@/components/navigation";
 import HeroSection from "@/components/hero-section";
 import AdSection from "@/components/ad-section";
 import ReferralCommissionAd from "@/components/referral-commission-ad";
+import StarProjectSection from "@/components/star-project-section";
 import PortfolioAdSection from "@/components/portfolio-ad-section";
 import AcademicProjectsAd from "@/components/academic-projects-ad";
 import SKITStudentsAd from "@/components/skit-students-ad";
@@ -242,6 +243,9 @@ export default function Home() {
 
       {/* SKIT Students Special Discount Ad */}
       <SKITStudentsAd />
+
+      {/* Star Project Section */}
+      <StarProjectSection />
 
       {/* Enhanced Interactive Dashboard Section */}
       <section className="py-24 bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 relative overflow-hidden">
