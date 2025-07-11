@@ -1,6 +1,7 @@
 import Navigation from "@/components/navigation";
 import HeroSection from "@/components/hero-section";
 import AdSection from "@/components/ad-section";
+import PortfolioAdSection from "@/components/portfolio-ad-section";
 import ServicesSection from "@/components/services-section";
 import TechnologySection from "@/components/technology-section";
 import IndustriesSection from "@/components/industries-section";
@@ -732,7 +733,13 @@ export default function Home() {
       <AdvancedCapabilities />
       <ApproachSection />
       <TeamSection />
-      <ContactSection />
+      
+      {/* Portfolio Service Ad */}
+      <PortfolioAdSection />
+      
+      <div id="contact">
+        <ContactSection />
+      </div>
       <Footer />
     </div>
   );
