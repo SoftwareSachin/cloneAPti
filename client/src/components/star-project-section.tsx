@@ -1,14 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Star, Play, ExternalLink, Shield, Smartphone, Globe, Zap } from "lucide-react";
+import { Star, Play, ExternalLink, Shield, Smartphone, Globe, Zap, Maximize2 } from "lucide-react";
 import { useState } from "react";
 
 export default function StarProjectSection() {
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [showEmbedded, setShowEmbedded] = useState(false);
 
-  const handlePlayVideo = () => {
+  const handleWatchHere = () => {
+    setShowEmbedded(true);
+  };
+
+  const handleOpenYouTube = () => {
     window.open("https://www.youtube.com/watch?v=l-z64oz_sa8&t=9s", '_blank');
-    setIsVideoPlaying(true);
   };
 
   const features = [
@@ -76,40 +79,76 @@ export default function StarProjectSection() {
             <Card className="group relative overflow-hidden bg-white/80 backdrop-blur-xl border-0 shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-[1.02]">
               <CardContent className="p-0">
                 <div className="relative aspect-video bg-gradient-to-br from-slate-900 to-blue-900 rounded-lg overflow-hidden">
-                  {/* Video thumbnail overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-black/50 to-transparent flex items-center justify-center">
-                    <Button
-                      size="lg"
-                      onClick={handlePlayVideo}
-                      className="bg-white/90 hover:bg-white text-slate-900 rounded-full w-20 h-20 p-0 shadow-2xl hover:shadow-3xl transform hover:scale-110 transition-all duration-300 group-hover:scale-125"
-                    >
-                      <Play className="w-8 h-8 ml-1 fill-current" />
-                    </Button>
-                  </div>
-                  
-                  {/* Video info overlay */}
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <div className="bg-black/60 backdrop-blur-sm rounded-lg p-4">
-                      <h3 className="text-white font-bold text-lg mb-2">OPPB Demo Video</h3>
-                      <div className="flex items-center gap-2 text-white/80 text-sm">
-                        <Play className="w-4 h-4" />
-                        <span>Watch the complete demonstration</span>
+                  {!showEmbedded ? (
+                    <>
+                      {/* Video thumbnail overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-black/50 to-transparent flex items-center justify-center">
+                        <Button
+                          size="lg"
+                          onClick={handleWatchHere}
+                          className="bg-white/90 hover:bg-white text-slate-900 rounded-full w-20 h-20 p-0 shadow-2xl hover:shadow-3xl transform hover:scale-110 transition-all duration-300 group-hover:scale-125"
+                        >
+                          <Play className="w-8 h-8 ml-1 fill-current" />
+                        </Button>
                       </div>
-                    </div>
-                  </div>
+                      
+                      {/* Video info overlay */}
+                      <div className="absolute bottom-4 left-4 right-4">
+                        <div className="bg-black/60 backdrop-blur-sm rounded-lg p-4">
+                          <h3 className="text-white font-bold text-lg mb-2">OPPB Demo Video</h3>
+                          <div className="flex items-center gap-2 text-white/80 text-sm">
+                            <Play className="w-4 h-4" />
+                            <span>Watch the complete demonstration</span>
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    /* Embedded YouTube Video */
+                    <iframe
+                      src="https://www.youtube.com/embed/l-z64oz_sa8?start=9&autoplay=1"
+                      title="OPPB: Offline Payment Solution"
+                      className="w-full h-full rounded-lg"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  )}
                 </div>
               </CardContent>
             </Card>
 
-            {/* Video Action Button */}
-            <div className="mt-6 text-center">
+            {/* Video Action Buttons */}
+            <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
+              {!showEmbedded ? (
+                <Button
+                  size="lg"
+                  onClick={handleWatchHere}
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 rounded-2xl"
+                >
+                  <Play className="w-5 h-5 mr-3" />
+                  Watch Here
+                </Button>
+              ) : (
+                <Button
+                  size="lg"
+                  onClick={handleOpenYouTube}
+                  variant="outline"
+                  className="bg-white/80 hover:bg-white border-2 border-blue-200 hover:border-blue-300 text-blue-700 px-8 py-4 text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 rounded-2xl"
+                >
+                  <Maximize2 className="w-5 h-5 mr-3" />
+                  Watch on YouTube
+                </Button>
+              )}
+              
               <Button
                 size="lg"
-                onClick={handlePlayVideo}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 rounded-2xl"
+                onClick={handleOpenYouTube}
+                variant="outline"
+                className="bg-white/80 hover:bg-white border-2 border-slate-200 hover:border-slate-300 text-slate-700 px-8 py-4 text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 rounded-2xl"
               >
                 <ExternalLink className="w-5 h-5 mr-3" />
-                Watch on YouTube
+                Open in New Tab
               </Button>
             </div>
           </div>
