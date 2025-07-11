@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { GraduationCap, BookOpen, Star, Clock, CheckCircle, Zap, Heart, Trophy, Users } from "lucide-react";
+import { GraduationCap, BookOpen, Star, Clock, CheckCircle, Zap, Award, Trophy, Users, Shield, Sparkles, Target, Mail, Phone } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface SKITStudentsAdProps {
@@ -68,7 +68,7 @@ export default function SKITStudentsAd({ isVisible = true }: SKITStudentsAdProps
             {/* Left side - Discount Highlight */}
             <div className="flex flex-col justify-center space-y-6">
               <div className="bg-gradient-to-r from-green-500 to-blue-500 text-white p-8 rounded-2xl text-center transform hover:scale-105 transition-all duration-300">
-                <div className="text-6xl font-bold mb-2">25%</div>
+                <div className="text-6xl font-bold mb-2">7.5%</div>
                 <div className="text-2xl font-semibold mb-2">SPECIAL DISCOUNT</div>
                 <div className="text-lg opacity-90">For SKIT College Students</div>
               </div>
@@ -122,7 +122,7 @@ export default function SKITStudentsAd({ isVisible = true }: SKITStudentsAdProps
                       </div>
                       <div className="text-right">
                         <div className="text-sm text-slate-500 line-through">₹2,500</div>
-                        <div className="text-xl font-bold text-green-600">₹1,875</div>
+                        <div className="text-xl font-bold text-green-600">₹2,313</div>
                       </div>
                     </div>
                   </div>
@@ -135,7 +135,7 @@ export default function SKITStudentsAd({ isVisible = true }: SKITStudentsAdProps
                       </div>
                       <div className="text-right">
                         <div className="text-sm text-slate-500 line-through">₹2,500</div>
-                        <div className="text-xl font-bold text-blue-600">₹1,875</div>
+                        <div className="text-xl font-bold text-blue-600">₹2,313</div>
                       </div>
                     </div>
                   </div>
@@ -148,7 +148,7 @@ export default function SKITStudentsAd({ isVisible = true }: SKITStudentsAdProps
                       </div>
                       <div className="text-right">
                         <div className="text-sm text-slate-500 line-through">₹500</div>
-                        <div className="text-xl font-bold text-purple-600">₹375</div>
+                        <div className="text-xl font-bold text-purple-600">₹463</div>
                       </div>
                     </div>
                   </div>
@@ -156,15 +156,15 @@ export default function SKITStudentsAd({ isVisible = true }: SKITStudentsAdProps
 
                 <div className="bg-gradient-to-r from-yellow-50 to-orange-50 p-6 rounded-2xl border border-yellow-200 mt-6 transform hover:scale-105 transition-all duration-300 shadow-lg">
                   <div className="flex items-center gap-3 mb-2">
-                    <Heart className="w-5 h-5 text-red-500 animate-pulse" />
+                    <Award className="w-5 h-5 text-red-500 animate-pulse" />
                     <span className="font-bold text-slate-800">SKIT Student Benefits:</span>
                   </div>
                   <ul className="text-sm text-slate-700 space-y-1">
-                    <li>✓ 25% discount on all academic projects</li>
-                    <li>✓ Free project consultation and planning</li>
-                    <li>✓ Priority delivery within deadline</li>
-                    <li>✓ Free revisions and support</li>
-                    <li>✓ Complete source code and documentation</li>
+                    <li><CheckCircle className="w-4 h-4 text-green-500 inline mr-2" />7.5% discount on all academic projects</li>
+                    <li><Shield className="w-4 h-4 text-blue-500 inline mr-2" />Free project consultation and planning</li>
+                    <li><Clock className="w-4 h-4 text-purple-500 inline mr-2" />Priority delivery within deadline</li>
+                    <li><Target className="w-4 h-4 text-orange-500 inline mr-2" />Free revisions and support</li>
+                    <li><BookOpen className="w-4 h-4 text-indigo-500 inline mr-2" />Complete source code and documentation</li>
                   </ul>
                 </div>
               </div>
@@ -196,7 +196,7 @@ export default function SKITStudentsAd({ isVisible = true }: SKITStudentsAdProps
                       <div>1. Contact us via email or phone</div>
                       <div>2. Provide your valid SKIT student ID</div>
                       <div>3. Share your project requirements</div>
-                      <div>4. Get instant 25% discount confirmation</div>
+                      <div>4. Get instant 7.5% discount confirmation</div>
                     </div>
                   </div>
                 </div>
@@ -211,10 +211,12 @@ export default function SKITStudentsAd({ isVisible = true }: SKITStudentsAdProps
           </p>
           <div className="flex items-center justify-center gap-4 mt-4">
             <div className="flex items-center gap-2 text-slate-600">
-              <span className="text-sm">📧 singhal3.sachin7@gmail.com</span>
+              <Mail className="w-4 h-4 text-blue-500" />
+              <span className="text-sm">singhal3.sachin7@gmail.com</span>
             </div>
             <div className="flex items-center gap-2 text-slate-600">
-              <span className="text-sm">📞 +91 7852099010</span>
+              <Phone className="w-4 h-4 text-green-500" />
+              <span className="text-sm">+91 7852099010</span>
             </div>
           </div>
         </div>
