@@ -510,7 +510,7 @@ export default function CollegeProjects() {
                   <div className="flex items-center space-x-6">
                     {/* Animated Logo */}
                     <div className="relative">
-                      <img src="/favicon.gif" alt="Aptivon Solutions" className="w-12 h-12" />
+                      <img src="/logo.gif" alt="Aptivon Solutions" className="w-12 h-12" />
                       <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full opacity-20 blur animate-pulse"></div>
                     </div>
                     
