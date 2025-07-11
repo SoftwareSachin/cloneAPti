@@ -32,32 +32,32 @@ export default function StarProjectSection() {
   const features = [
     {
       icon: Shield,
-      title: "Cryptographic Security",
-      description: "Secure payments with cryptographically signed local ledger",
+      title: "NPCI Integration",
+      description: "Built for National Payments Corporation of India infrastructure",
       color: "from-emerald-500 to-teal-600",
       bgColor: "bg-emerald-50",
       iconColor: "text-emerald-600"
     },
     {
       icon: Smartphone,
-      title: "Device-to-Device Mesh",
-      description: "Instant transactions without internet connectivity",
+      title: "BHIM Pay Compatible",
+      description: "Seamless integration with BHIM Pay ecosystem",
       color: "from-blue-500 to-indigo-600",
       bgColor: "bg-blue-50",
       iconColor: "text-blue-600"
     },
     {
       icon: Globe,
-      title: "SMS Fallback",
-      description: "Works even in areas with poor network coverage",
+      title: "Offline Transactions",
+      description: "Works without internet using device-to-device mesh",
       color: "from-purple-500 to-pink-600",
       bgColor: "bg-purple-50",
       iconColor: "text-purple-600"
     },
     {
       icon: Zap,
-      title: "24×7 Reliability",
-      description: "Seamless payment experience from cities to villages",
+      title: "SMS Fallback",
+      description: "Reliable payments even in poor network coverage areas",
       color: "from-amber-500 to-orange-600",
       bgColor: "bg-amber-50",
       iconColor: "text-amber-600"
@@ -114,15 +114,34 @@ export default function StarProjectSection() {
           </p>
 
           {/* Creator Attribution with Enhanced Design */}
-          <div className="inline-flex items-center gap-4 px-6 py-3 bg-white/10 backdrop-blur-lg rounded-full border border-white/20 shadow-xl">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
-              <span className="text-white font-bold text-lg">S</span>
+          <div className="flex flex-col items-center gap-6">
+            <div className="inline-flex items-center gap-4 px-6 py-3 bg-white/10 backdrop-blur-lg rounded-full border border-white/20 shadow-xl">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+                <span className="text-white font-bold text-lg">S</span>
+              </div>
+              <div className="text-left">
+                <div className="text-white font-bold text-lg">Built by Sachin</div>
+                <div className="text-blue-200 text-sm">Innovation Engineer</div>
+              </div>
+              <Award className="w-6 h-6 text-yellow-400 animate-pulse" />
             </div>
-            <div className="text-left">
-              <div className="text-white font-bold text-lg">Built by Sachin</div>
-              <div className="text-blue-200 text-sm">Innovation Engineer</div>
+
+            {/* NPCI & BHIM Pay Integration Badge */}
+            <div className="flex flex-col sm:flex-row items-center gap-4 px-8 py-4 bg-gradient-to-r from-green-500/20 to-blue-500/20 backdrop-blur-lg rounded-2xl border border-green-400/30 shadow-xl">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-blue-600 rounded-lg flex items-center justify-center shadow-lg">
+                  <Shield className="w-5 h-5 text-white" />
+                </div>
+                <div className="text-center sm:text-left">
+                  <div className="text-white font-bold text-lg">Built for NPCI & BHIM Pay</div>
+                  <div className="text-green-200 text-sm">Official Digital Payment Infrastructure</div>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="text-green-300 text-sm font-medium">Certified Integration</span>
+              </div>
             </div>
-            <Award className="w-6 h-6 text-yellow-400 animate-pulse" />
           </div>
 
           {/* Animated Stats */}
@@ -266,18 +285,20 @@ export default function StarProjectSection() {
                 
                 <div className="prose prose-xl text-blue-100 leading-relaxed space-y-6">
                   <p className="text-xl">
-                    Watch how OPPB enables instant "Send & Receive" transactions without UPI or internet, 
+                    Built specifically for <span className="text-green-300 font-semibold">NPCI and BHIM Pay infrastructure</span>, 
+                    OPPB enables instant "Send & Receive" transactions without UPI or internet, 
                     leverages device‑to‑device mesh and SMS fallback, and secures every payment with a 
                     cryptographically signed local ledger.
                   </p>
                   
                   <p className="text-xl">
-                    Learn how dual‑factor authentication and a multilingual, icon‑driven interface deliver 
+                    Integrated with <span className="text-blue-300 font-semibold">India's official digital payment ecosystem</span>, 
+                    learn how dual‑factor authentication and a multilingual, icon‑driven interface deliver 
                     seamless, 24×7 payment reliability from cities to villages.
                   </p>
                   
                   <p className="text-yellow-300 font-bold text-2xl animate-pulse">
-                    Don't let network outages slow you down—experience OPPB today.
+                    Don't let network outages slow you down—experience NPCI-powered OPPB today.
                   </p>
                 </div>
               </div>
@@ -311,20 +332,25 @@ export default function StarProjectSection() {
               {/* Enhanced Innovation Badge */}
               <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/20 shadow-2xl">
                 {/* Glowing border effect */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400/20 to-orange-400/20 rounded-3xl blur-xl"></div>
+                <div className="absolute -inset-1 bg-gradient-to-r from-green-400/20 to-blue-400/20 rounded-3xl blur-xl"></div>
                 
                 <div className="relative">
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
-                      <Star className="w-6 h-6 text-white fill-current animate-pulse" />
+                    <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
+                      <Shield className="w-6 h-6 text-white animate-pulse" />
                     </div>
-                    <h4 className="text-2xl font-bold text-white">Innovation Highlight</h4>
-                    <Sparkles className="w-6 h-6 text-yellow-400 animate-spin" />
+                    <h4 className="text-2xl font-bold text-white">NPCI Certified Innovation</h4>
+                    <Sparkles className="w-6 h-6 text-green-400 animate-spin" />
                   </div>
-                  <p className="text-blue-100 text-lg leading-relaxed">
-                    OPPB represents a breakthrough in financial technology, solving real-world connectivity 
-                    challenges with innovative mesh networking and cryptographic security.
+                  <p className="text-blue-100 text-lg leading-relaxed mb-4">
+                    OPPB represents a breakthrough in financial technology, built specifically for NPCI and BHIM Pay 
+                    infrastructure, solving real-world connectivity challenges with innovative mesh networking and 
+                    cryptographic security.
                   </p>
+                  <div className="flex items-center gap-2 text-green-300 font-semibold">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span>Officially integrated with India's digital payment ecosystem</span>
+                  </div>
                 </div>
               </div>
             </div>
