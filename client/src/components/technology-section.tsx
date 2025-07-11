@@ -83,7 +83,7 @@ export default function TechnologySection() {
             <Zap className="w-4 h-4" />
             <span className="font-medium text-sm">TECHNOLOGY EXCELLENCE</span>
           </div>
-          <h2 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6">
+          <h2 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight">
             Enterprise <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Technology Stack</span>
           </h2>
           <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed mb-8">

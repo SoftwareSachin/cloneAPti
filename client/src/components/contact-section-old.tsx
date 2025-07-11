@@ -99,7 +99,7 @@ export default function ContactSection() {
               <span className="text-white font-semibold text-sm">GET IN TOUCH</span>
             </div>
           </div>
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 font-display">Let's Build Something Amazing</h2>
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 font-display leading-tight">Let's Build Something Amazing</h2>
           <p className="text-xl max-w-4xl mx-auto text-white/90 leading-relaxed">
             Ready to transform your business with intelligent technology? Let's discuss your vision and create solutions that drive real results.
           </p>

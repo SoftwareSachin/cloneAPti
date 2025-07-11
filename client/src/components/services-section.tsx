@@ -40,7 +40,7 @@ export default function ServicesSection() {
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 rounded-full mb-6">
             <span className="text-slate-700 font-medium">Enterprise Services</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
             Technology Solutions That Drive Results
           </h2>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-8">

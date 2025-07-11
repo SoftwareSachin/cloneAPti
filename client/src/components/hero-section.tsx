@@ -34,10 +34,10 @@ export default function HeroSection() {
       {/* Modern gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
         <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/5 via-transparent to-purple-600/5"></div>
-        {/* Animated floating elements */}
-        <div className="absolute top-20 left-10 w-20 h-20 bg-blue-500/10 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute top-40 right-20 w-32 h-32 bg-purple-500/10 rounded-full blur-xl animate-pulse delay-1000"></div>
-        <div className="absolute bottom-40 left-1/4 w-16 h-16 bg-green-500/10 rounded-full blur-xl animate-pulse delay-2000"></div>
+        {/* Static background elements */}
+        <div className="absolute top-20 left-10 w-20 h-20 bg-blue-500/10 rounded-full"></div>
+        <div className="absolute top-40 right-20 w-32 h-32 bg-purple-500/10 rounded-full"></div>
+        <div className="absolute bottom-40 left-1/4 w-16 h-16 bg-green-500/10 rounded-full"></div>
       </div>
       
       <div className="relative max-w-7xl mx-auto px-6 z-10">

@@ -110,6 +110,8 @@ This is a modern, responsive company website for Aptivon Solutions Pvt. Ltd., an
   * Fixed syntax errors and removed redundant div elements in star-project-section
   * Maintained all functionality while significantly improving page performance and loading speed
   * Site lag eliminated through comprehensive animation and effects optimization
+  * Fixed text overlapping issues with proper line height (leading-tight) for all large headings
+  * Removed remaining blur effects and animations from hero section and other components
 - July 11, 2025. Updated ad logos to match navigation logo:
   * Changed academic projects ad logo from favicon.gif to new-logo.gif
   * Updated logo imports to use the same animated logo as navigation

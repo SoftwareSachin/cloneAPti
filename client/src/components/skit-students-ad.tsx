@@ -43,7 +43,7 @@ export default function SKITStudentsAd({ isVisible = true }: SKITStudentsAdProps
             <span className="text-emerald-800 font-semibold">SKIT STUDENTS EXCLUSIVE</span>
           </div>
           
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4 leading-tight">
             Special SKIT Student Discount
           </h2>
           
@@ -92,7 +92,7 @@ export default function SKITStudentsAd({ isVisible = true }: SKITStudentsAdProps
             {/* Right side - Benefits & Contact */}
             <div className="space-y-6">
               <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">SKIT Student Benefits</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 leading-tight">SKIT Student Benefits</h3>
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     <CheckCircle className="w-5 h-5 text-emerald-500" />
