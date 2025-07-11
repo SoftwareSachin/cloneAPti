@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Mail, Phone, Code, BookOpen, Zap, Clock, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import academicProjectsImage from "@assets/Poster - Aptivon Solutions_1752236135540.png";
+import AcademicFormModal from "./academic-form-modal";
 
 interface AcademicProjectsAdProps {
   isVisible?: boolean;
@@ -10,18 +12,15 @@ interface AcademicProjectsAdProps {
 
 export default function AcademicProjectsAd({ isVisible = true }: AcademicProjectsAdProps) {
   const { toast } = useToast();
+  const [isFormModalOpen, setIsFormModalOpen] = useState(false);
 
   if (!isVisible) return null;
 
   const handleContactClick = () => {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    }
-    
+    setIsFormModalOpen(true);
     toast({
-      title: "Academic Projects Inquiry",
-      description: "Scrolling to contact section for project details",
+      title: "Academic Projects Form",
+      description: "Fill out the detailed form for your project requirements",
     });
   };
 
@@ -140,7 +139,7 @@ export default function AcademicProjectsAd({ isVisible = true }: AcademicProject
                     }}
                   >
                     <BookOpen className="w-5 h-5 mr-3 group-hover:animate-bounce" />
-                    Order Project Now
+                    Fill Project Form
                   </Button>
                   
                   <Button 
@@ -189,6 +188,12 @@ export default function AcademicProjectsAd({ isVisible = true }: AcademicProject
           </p>
         </div>
       </div>
+
+      {/* Academic Form Modal */}
+      <AcademicFormModal 
+        isOpen={isFormModalOpen} 
+        onClose={() => setIsFormModalOpen(false)} 
+      />
     </section>
   );
 }
