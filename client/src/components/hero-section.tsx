@@ -15,12 +15,13 @@ export default function HeroSection() {
     { icon: Globe, value: "15+", label: "Technologies" }
   ];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentStat((prev) => (prev + 1) % stats.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
+  // Removed timer to eliminate lag
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setCurrentStat((prev) => (prev + 1) % stats.length);
+  //   }, 3000);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -44,7 +45,7 @@ export default function HeroSection() {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Content */}
           <div className="text-left">
-            <div className="inline-flex items-center gap-2 px-6 py-3 bg-white/80 backdrop-blur-sm rounded-full mb-8 border border-slate-200/60 shadow-lg">
+            <div className="inline-flex items-center gap-2 px-6 py-3 bg-white rounded-full mb-8 border border-slate-200">
               <Sparkles className="w-4 h-4 text-blue-600" />
               <span className="text-slate-700 text-sm font-medium">Next-Gen Enterprise Solutions</span>
             </div>
@@ -62,7 +63,7 @@ export default function HeroSection() {
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
               <Button
                 onClick={() => scrollToSection("contact")}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-10 py-4 text-lg font-semibold rounded-xl transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 text-lg font-semibold rounded-xl"
               >
                 Start Your Journey
                 <ArrowRight className="ml-2 w-5 h-5" />
@@ -70,7 +71,7 @@ export default function HeroSection() {
               <Button
                 onClick={() => scrollToSection("services")}
                 variant="outline"
-                className="border-2 border-slate-300 text-slate-700 hover:bg-slate-100 hover:border-slate-400 px-10 py-4 text-lg font-semibold rounded-xl transition-all duration-300 backdrop-blur-sm"
+                className="border-2 border-slate-300 text-slate-700 hover:bg-slate-100 hover:border-slate-400 px-10 py-4 text-lg font-semibold rounded-xl"
               >
                 Explore Services
               </Button>

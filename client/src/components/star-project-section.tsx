@@ -85,7 +85,7 @@ export default function StarProjectSection() {
                 <div className="text-white font-bold text-lg">Built by Sachin</div>
                 <div className="text-blue-200 text-sm">Innovation Engineer</div>
               </div>
-              <Award className="w-6 h-6 text-yellow-400 animate-pulse" />
+              <Award className="w-6 h-6 text-yellow-400" />
             </div>
 
             {/* NPCI & BHIM Pay Integration Badge */}
@@ -100,7 +100,7 @@ export default function StarProjectSection() {
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                <div className="w-3 h-3 bg-green-400 rounded-full"></div>
                 <span className="text-green-300 text-sm font-medium">Certified Integration</span>
               </div>
             </div>
@@ -123,8 +123,8 @@ export default function StarProjectSection() {
                         <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-transparent to-blue-900/30 flex items-center justify-center">
                           <div className="relative">
                             {/* Pulsing rings around play button */}
-                            <div className="absolute inset-0 rounded-full bg-white/20 animate-ping"></div>
-                            <div className="absolute inset-2 rounded-full bg-white/30 animate-pulse"></div>
+                            <div className="absolute inset-0 rounded-full bg-white/20"></div>
+                            <div className="absolute inset-2 rounded-full bg-white/30"></div>
                             
                             <Button
                               size="lg"
@@ -140,7 +140,7 @@ export default function StarProjectSection() {
                         <div className="absolute bottom-6 left-6 right-6">
                           <div className="bg-black/70 backdrop-blur-xl rounded-2xl p-6 border border-white/10">
                             <h3 className="text-white font-bold text-2xl mb-3 flex items-center gap-3">
-                              <Sparkles className="w-6 h-6 text-yellow-400 animate-pulse" />
+                              <Sparkles className="w-6 h-6 text-yellow-400" />
                               OPPB Demo Video
                             </h3>
                             <div className="flex items-center gap-3 text-white/90 text-lg">
@@ -152,9 +152,9 @@ export default function StarProjectSection() {
 
                         {/* Floating tech elements */}
                         <div className="absolute top-4 right-4 flex gap-2">
-                          <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                          <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
-                          <div className="w-3 h-3 bg-purple-400 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
+                          <div className="w-3 h-3 bg-green-400 rounded-full"></div>
+                          <div className="w-3 h-3 bg-blue-400 rounded-full"></div>
+                          <div className="w-3 h-3 bg-purple-400 rounded-full"></div>
                         </div>
                       </>
                     ) : (
@@ -232,7 +232,7 @@ export default function StarProjectSection() {
                     seamless, 24×7 payment reliability from cities to villages.
                   </p>
                   
-                  <p className="text-yellow-300 font-bold text-2xl animate-pulse">
+                  <p className="text-yellow-300 font-bold text-2xl">
                     Don't let network outages slow you down—experience NPCI-powered OPPB today.
                   </p>
                 </div>
@@ -272,10 +272,10 @@ export default function StarProjectSection() {
                 <div className="relative">
                   <div className="flex items-center gap-4 mb-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
-                      <Shield className="w-6 h-6 text-white animate-pulse" />
+                      <Shield className="w-6 h-6 text-white" />
                     </div>
                     <h4 className="text-2xl font-bold text-white">NPCI Certified Innovation</h4>
-                    <Sparkles className="w-6 h-6 text-green-400 animate-spin" />
+                    <Sparkles className="w-6 h-6 text-green-400" />
                   </div>
                   <p className="text-blue-100 text-lg leading-relaxed mb-4">
                     OPPB represents a breakthrough in financial technology, built specifically for NPCI and BHIM Pay 
@@ -283,7 +283,7 @@ export default function StarProjectSection() {
                     cryptographic security.
                   </p>
                   <div className="flex items-center gap-2 text-green-300 font-semibold">
-                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
                     <span>Officially integrated with India's digital payment ecosystem</span>
                   </div>
                 </div>

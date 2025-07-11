@@ -54,9 +54,9 @@ export default function Footer() {
       </div>
 
       {/* CTA Section with Advanced Design */}
-      <section className="relative py-24 bg-gradient-to-r from-blue-900/20 to-purple-900/20 border-b border-slate-700/50 backdrop-blur-sm">
+      <section className="relative py-24 bg-slate-800 border-b border-slate-700/50">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 rounded-full border border-blue-500/20 mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 rounded-full border border-blue-500/40 mb-8">
             <TrendingUp className="w-4 h-4 text-blue-400" />
             <span className="text-sm font-medium text-blue-300">Ready to Transform Your Business?</span>
           </div>
@@ -71,7 +71,7 @@ export default function Footer() {
           {/* Quick Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12 max-w-4xl mx-auto">
             {quickStats.map((stat) => (
-              <div key={stat.label} className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+              <div key={stat.label} className="bg-white/5 rounded-2xl p-6 border border-white/10">
                 <stat.icon className="w-6 h-6 text-blue-400 mx-auto mb-2" />
                 <div className="text-2xl font-bold text-white">{stat.value}</div>
                 <div className="text-sm text-slate-400">{stat.label}</div>
@@ -82,14 +82,14 @@ export default function Footer() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               size="lg" 
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 shadow-lg shadow-blue-500/25 transform hover:scale-105 transition-all duration-300 group"
+              className="bg-blue-600 hover:bg-blue-700 text-white border-0"
               onClick={() => window.location.href = '/contact'}
             >
               Start Your Project
-              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
             <button 
-              className="h-11 px-8 rounded-lg border-2 border-white/20 text-white bg-white/5 hover:bg-white hover:text-slate-900 transition-all duration-300 font-medium text-sm backdrop-blur-sm hover:scale-105"
+              className="h-11 px-8 rounded-lg border-2 border-white/20 text-white bg-white/5 hover:bg-white hover:text-slate-900 font-medium text-sm"
               onClick={() => window.location.href = '/contact'}
             >
               Schedule a Consultation

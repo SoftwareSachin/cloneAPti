@@ -44,7 +44,7 @@ export default function ReferralCommissionAd() {
             <div className="flex items-center justify-center gap-4 mb-4">
               <span className="text-emerald-200 text-lg font-medium">Last payout:</span>
               <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg border border-emerald-300/30">
-                <span className="text-2xl font-bold text-yellow-300 animate-pulse">
+                <span className="text-2xl font-bold text-yellow-300">
                   {earnings[currentEarning]}
                 </span>
               </div>
@@ -53,7 +53,7 @@ export default function ReferralCommissionAd() {
           
           <p className="text-2xl text-emerald-100 mb-10 max-w-4xl mx-auto leading-relaxed font-light">
             Join our referral program and earn substantial rewards for every successful project you refer to us.
-            <span className="font-bold text-yellow-300 animate-pulse block mt-2"> Start building your passive income today!</span>
+            <span className="font-bold text-yellow-300 block mt-2"> Start building your passive income today!</span>
           </p>
           
           {/* Enhanced CTA Section */}
@@ -65,13 +65,13 @@ export default function ReferralCommissionAd() {
             >
               {/* Button glow effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/20 to-teal-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <Handshake className="w-8 h-8 mr-4 group-hover:animate-bounce relative z-10" />
+              <Handshake className="w-8 h-8 mr-4 relative z-10" />
               <span className="relative z-10">Start Referring Now</span>
-              <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform relative z-10" />
+              <ArrowRight className="w-6 h-6 ml-3 relative z-10" />
             </Button>
             
             <div className="flex items-center gap-3 text-emerald-200 text-lg bg-black/20 backdrop-blur-sm px-6 py-3 rounded-full border border-emerald-300/30">
-              <DollarSign className="w-6 h-6 animate-pulse" />
+              <DollarSign className="w-6 h-6" />
               <span className="font-semibold">Unlimited earning potential</span>
             </div>
           </div>

@@ -36,17 +36,17 @@ export default function AcademicProjectsAd({ isVisible = true }: AcademicProject
   ];
 
   return (
-    <section className="py-16 bg-gradient-to-br from-blue-50 to-purple-50">
+    <section className="py-16 bg-blue-50">
       
       <div className="relative max-w-7xl mx-auto px-6">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full mb-6 border border-blue-300/50">
+          <div className="inline-flex items-center gap-3 px-6 py-3 bg-blue-100 rounded-full mb-6 border border-blue-300/50">
             <BookOpen className="w-5 h-5 text-blue-600" />
             <span className="text-base font-bold text-blue-800 tracking-wide">ACADEMIC PROJECT SERVICES</span>
             <Code className="w-5 h-5 text-purple-600" />
           </div>
           <h2 className="text-4xl md:text-6xl font-bold text-slate-900 mb-4 tracking-tight">
-            Academic <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Excellence</span>
+            Academic <span className="text-blue-600">Excellence</span>
           </h2>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto">
             Professional project development for students and academic institutions
@@ -97,10 +97,10 @@ export default function AcademicProjectsAd({ isVisible = true }: AcademicProject
                   ))}
                 </div>
 
-                <div className="bg-gradient-to-r from-red-50 to-orange-50 p-6 rounded-2xl border border-red-200 mb-6 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                <div className="bg-red-50 p-6 rounded-2xl border border-red-200 mb-6">
                   <p className="text-slate-800 font-medium text-lg leading-relaxed">
-                    <span className="text-red-600 font-bold animate-pulse">Get projects from every domain</span> for ₹2,500 
-                    and their <span className="text-red-600 font-bold animate-pulse">PPT from just ₹500</span>
+                    <span className="text-red-600 font-bold">Get projects from every domain</span> for ₹2,500 
+                    and their <span className="text-red-600 font-bold">PPT from just ₹500</span>
                   </p>
                 </div>
 
@@ -129,7 +129,7 @@ export default function AcademicProjectsAd({ isVisible = true }: AcademicProject
                       handleContactClick();
                     }}
                   >
-                    <BookOpen className="w-5 h-5 mr-3 group-hover:animate-bounce" />
+                    <BookOpen className="w-5 h-5 mr-3" />
                     Fill Project Form
                   </Button>
                   
