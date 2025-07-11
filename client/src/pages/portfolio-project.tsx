@@ -38,6 +38,9 @@ export default function PortfolioProject() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   
+  // Check if this is the Azure college project by slug
+  const isCollegeProject = slug === 'azure-hub-spoke-network-automation-platform';
+  
   const [inquiryForm, setInquiryForm] = useState({
     name: "",
     email: "",
@@ -155,9 +158,9 @@ export default function PortfolioProject() {
           <div className="max-w-4xl mx-auto px-6 text-center">
             <h1 className="text-3xl font-bold text-slate-900 mb-4">Project Not Found</h1>
             <p className="text-slate-600 mb-8">The project you're looking for doesn't exist.</p>
-            <Button onClick={() => setLocation("/portfolio")} variant="outline">
+            <Button onClick={() => setLocation(isCollegeProject ? "/college-projects" : "/portfolio")} variant="outline">
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Portfolio
+              {isCollegeProject ? "Back to College Projects" : "Back to Portfolio"}
             </Button>
           </div>
         </div>
@@ -176,10 +179,10 @@ export default function PortfolioProject() {
             <Button 
               variant="ghost" 
               className="mb-4 -ml-4"
-              onClick={() => setLocation("/portfolio")}
+              onClick={() => setLocation(isCollegeProject ? "/college-projects" : "/portfolio")}
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Portfolio
+              {isCollegeProject ? "Back to College Projects" : "Back to Portfolio"}
             </Button>
             
             <div className="flex items-center gap-2 text-sm text-slate-600 mb-4">

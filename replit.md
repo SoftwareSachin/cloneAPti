@@ -117,6 +117,8 @@ This is a modern, responsive company website for Aptivon Solutions Pvt. Ltd., an
   * **VERCEL DEPLOYMENT FIX**: Updated serverless functions (`api/portfolio.ts` and `api/blog.ts`) to include static data directly instead of importing from shared modules for Vercel compatibility
   * Fixed API endpoints to work correctly in Vercel serverless environment without external dependencies
   * Resolved "0 projects" and "Error Loading Portfolio" issues in deployed version
+  * **NAVIGATION FIX**: Fixed portfolio-project.tsx navigation to redirect "Back to College Projects" for Azure project and "Back to Portfolio" for other projects
+  * Implemented dynamic navigation detection based on project slug to ensure correct page routing
   * Migration completed successfully with all checklist items verified and tested
 - July 10, 2025. College Projects page updated with modern professional UI/UX:
   * Modernized entire page with professional design and gradient backgrounds
