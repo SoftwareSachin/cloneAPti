@@ -1,5 +1,6 @@
 import Navigation from "@/components/navigation";
 import HeroSection from "@/components/hero-section";
+import AdSection from "@/components/ad-section";
 import ServicesSection from "@/components/services-section";
 import TechnologySection from "@/components/technology-section";
 import IndustriesSection from "@/components/industries-section";
@@ -8,6 +9,7 @@ import ApproachSection from "@/components/approach-section";
 import TeamSection from "@/components/team-section";
 import ContactSection from "@/components/contact-section";
 import Footer from "@/components/footer";
+import { currentAd } from "@/config/ad-config";
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -221,6 +223,9 @@ export default function Home() {
       </div>
 
       <HeroSection />
+
+      {/* Promotional Ad Section */}
+      <AdSection {...currentAd} />
 
       {/* Enhanced Interactive Dashboard Section */}
       <section className="py-24 bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 relative overflow-hidden">

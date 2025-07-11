@@ -99,6 +99,22 @@ This is a modern, responsive company website for Aptivon Solutions Pvt. Ltd., an
 
 ## Changelog
 
+- July 11, 2025. Added promotional ad section to homepage:
+  * Created flexible ad section component for displaying promotional offers
+  * Built comprehensive ad management system with configuration file
+  * Added pre-built templates: discount, free service, holiday special, and disabled options
+  * Implemented email integration for call-to-action buttons
+  * Created responsive design with gradient backgrounds and animations
+  * Added documentation for easy ad management and updates
+  * Located in `/client/src/components/ad-section.tsx` with config at `/client/src/config/ad-config.ts`
+  * Currently displaying "25% OFF Your First Project" promotion with 7-day expiry
+  * Easy to toggle on/off and customize for future marketing campaigns
+- July 11, 2025. Migration from Replit Agent to Replit environment completed:
+  * Successfully completed all migration checklist items
+  * Verified project functionality with proper client/server separation
+  * Express server running correctly on port 5000 with Vite frontend
+  * All packages installed and dependencies verified
+  * Website loads properly with all components functional
 - July 11, 2025. Static data migration for Vercel deployment - COMPLETED:
   * Successfully migrated college projects and portfolio projects from database to static data structure
   * Created comprehensive static data file `shared/static-data.ts` with college projects, portfolio projects, and blog posts
