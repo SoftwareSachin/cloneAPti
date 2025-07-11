@@ -1,6 +1,7 @@
 import Navigation from "@/components/navigation";
 import HeroSection from "@/components/hero-section";
 import AdSection from "@/components/ad-section";
+import ReferralCommissionAd from "@/components/referral-commission-ad";
 import PortfolioAdSection from "@/components/portfolio-ad-section";
 import AcademicProjectsAd from "@/components/academic-projects-ad";
 import SKITStudentsAd from "@/components/skit-students-ad";
@@ -229,6 +230,9 @@ export default function Home() {
 
       {/* Promotional Ad Section */}
       <AdSection {...currentAd} />
+
+      {/* Referral Commission Ad */}
+      <ReferralCommissionAd />
 
       {/* Portfolio Service Ad */}
       <PortfolioAdSection />
