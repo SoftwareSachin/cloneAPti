@@ -228,6 +228,9 @@ export default function Home() {
       {/* Promotional Ad Section */}
       <AdSection {...currentAd} />
 
+      {/* Portfolio Service Ad */}
+      <PortfolioAdSection />
+
       {/* Enhanced Interactive Dashboard Section */}
       <section className="py-24 bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 relative overflow-hidden">
         {/* Background decoration */}
@@ -733,9 +736,6 @@ export default function Home() {
       <AdvancedCapabilities />
       <ApproachSection />
       <TeamSection />
-      
-      {/* Portfolio Service Ad */}
-      <PortfolioAdSection />
       
       <div id="contact">
         <ContactSection />
