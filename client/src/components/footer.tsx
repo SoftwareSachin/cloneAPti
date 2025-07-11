@@ -61,8 +61,8 @@ export default function Footer() {
             <span className="text-sm font-medium text-blue-300">Ready to Transform Your Business?</span>
           </div>
           
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent leading-relaxed">
-            Let's Build Something Amazing Together
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent" style={{lineHeight: '1.4'}}>
+            Let's Build Something Amazing<br />Together
           </h2>
           <p className="text-xl text-slate-300 mb-12 max-w-3xl mx-auto leading-relaxed">
             Join industry leaders who trust us to deliver cutting-edge solutions that drive real business results and competitive advantage.
