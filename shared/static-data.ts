@@ -46,7 +46,7 @@ export const staticCollegeProjects: StaticProject[] = [
     id: 1,
     title: "Azure Hub-and-Spoke Network Automation Platform",
     slug: "azure-hub-spoke-network-automation-platform",
-    client: "Aptivon Solutions",
+    client: "SKIT college student",
     industry: "Cloud Infrastructure",
     description: "Turnkey web-based network management platform for Azure hub-and-spoke architectures with comprehensive automation, monitoring, and security management capabilities.",
     image: "/api/placeholder/800/600",
