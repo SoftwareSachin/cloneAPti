@@ -99,6 +99,18 @@ This is a modern, responsive company website for Aptivon Solutions Pvt. Ltd., an
 
 ## Changelog
 
+- July 11, 2025. Fixed College Projects page button visibility and enhanced branding:
+  * Fixed "View Architecture" button visibility by changing from white text on white background to solid white background with dark text
+  * Fixed "View Full Portfolio" button visibility with improved contrast and styling
+  * Enhanced button sizing with larger px-8 py-4 padding and text-lg font-semibold styling
+  * Completely redesigned "POWERED BY Aptivon Solutions" section with premium branding
+  * Added glowing background effects and glassmorphism design for branding card
+  * Integrated animated company logo with subtle glow effects
+  * Enhanced with LIVE status indicator and gradient text effects
+  * Added professional description and company achievements
+  * Included enterprise-grade security, uptime, and award badges
+  * Applied consistent blue/purple/cyan gradient color scheme throughout
+  * All buttons now have proper contrast and are fully visible and readable
 - July 11, 2025. Enhanced SKIT Students Special Discount ad with premium dark theme design:
   * Transformed background from light theme to stunning dark gradient (emerald-900 via blue-900 to purple-900)
   * Added enhanced backdrop effects with larger glowing orbs and grid pattern overlay

@@ -128,13 +128,13 @@ export default function CollegeProjects() {
             </h1>
             
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 shadow-lg shadow-blue-500/25">
-                <Target className="mr-2 h-5 w-5" />
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 shadow-xl shadow-blue-500/25 px-8 py-4 text-lg font-semibold">
+                <Target className="mr-3 h-6 w-6" />
                 Explore Project
               </Button>
-              <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm">
-                <Award className="mr-2 h-5 w-5" />
+              <Button size="lg" className="bg-white/95 hover:bg-white text-slate-800 hover:text-slate-900 border border-white/50 shadow-xl backdrop-blur-sm px-8 py-4 text-lg font-semibold">
+                <Award className="mr-3 h-6 w-6" />
                 View Architecture
               </Button>
             </div>
@@ -483,14 +483,14 @@ export default function CollegeProjects() {
           
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
-            <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 shadow-xl shadow-blue-500/25 px-8 py-4 text-lg">
+            <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 shadow-xl shadow-blue-500/25 px-8 py-4 text-lg font-semibold">
               <Link href="/contact" className="flex items-center">
                 <Target className="mr-3 h-6 w-6" />
                 Start Your Project
                 <ChevronRight className="ml-3 h-5 w-5" />
               </Link>
             </Button>
-            <Button size="lg" variant="outline" className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-8 py-4 text-lg">
+            <Button size="lg" className="bg-white/95 hover:bg-white text-slate-800 hover:text-slate-900 border border-white/50 shadow-xl backdrop-blur-sm px-8 py-4 text-lg font-semibold">
               <Link href="/portfolio" className="flex items-center">
                 <Monitor className="mr-3 h-6 w-6" />
                 View Full Portfolio
@@ -498,21 +498,60 @@ export default function CollegeProjects() {
             </Button>
           </div>
           
-          {/* Powered By Footer */}
-          <div className="border-t border-white/10 pt-12">
-            <div className="flex flex-col items-center space-y-4">
-              <div className="inline-flex items-center px-8 py-4 rounded-full bg-black/20 backdrop-blur-sm border border-white/10">
-                <div className="flex items-center space-x-4">
-                  <div className="h-3 w-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full animate-pulse"></div>
-                  <span className="text-white/70 text-lg font-medium tracking-wide">POWERED BY</span>
-                  <span className="text-white font-bold text-2xl bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                    Aptivon Solutions
-                  </span>
+          {/* Enhanced Powered By Footer */}
+          <div className="border-t border-white/20 pt-16">
+            <div className="flex flex-col items-center space-y-8">
+              {/* Main Branding Card */}
+              <div className="relative group">
+                {/* Glowing background effect */}
+                <div className="absolute -inset-2 bg-gradient-to-r from-blue-500/30 via-purple-500/30 to-cyan-500/30 rounded-2xl blur-xl opacity-60 group-hover:opacity-80 transition-all duration-500"></div>
+                
+                <div className="relative inline-flex items-center px-12 py-6 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl">
+                  <div className="flex items-center space-x-6">
+                    {/* Animated Logo */}
+                    <div className="relative">
+                      <img src="/favicon.gif" alt="Aptivon Solutions" className="w-12 h-12" />
+                      <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full opacity-20 blur animate-pulse"></div>
+                    </div>
+                    
+                    {/* Brand Text */}
+                    <div className="flex flex-col">
+                      <span className="text-white/80 text-sm font-medium tracking-[0.2em] uppercase">POWERED BY</span>
+                      <span className="text-white font-bold text-3xl bg-gradient-to-r from-blue-300 via-purple-300 to-cyan-300 bg-clip-text text-transparent">
+                        Aptivon Solutions
+                      </span>
+                    </div>
+                    
+                    {/* Status Indicator */}
+                    <div className="flex items-center space-x-2">
+                      <div className="w-3 h-3 bg-gradient-to-r from-emerald-400 to-blue-400 rounded-full animate-pulse shadow-lg shadow-emerald-400/50"></div>
+                      <span className="text-emerald-300 text-sm font-semibold">LIVE</span>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <p className="text-white/60 text-sm max-w-2xl mx-auto">
-                Leading innovation in cloud infrastructure automation and enterprise solutions since 2024
+              
+              {/* Description */}
+              <p className="text-white/70 text-lg max-w-3xl mx-auto text-center leading-relaxed">
+                Leading innovation in cloud infrastructure automation and enterprise solutions. 
+                <span className="text-blue-300 font-semibold"> Transforming businesses since 2024</span> with cutting-edge Azure technology.
               </p>
+              
+              {/* Additional Stats */}
+              <div className="flex flex-col sm:flex-row items-center gap-8">
+                <div className="flex items-center gap-3 bg-white/5 px-6 py-3 rounded-full border border-white/10">
+                  <Shield className="w-5 h-5 text-blue-300" />
+                  <span className="text-white/80 font-medium">Enterprise Grade Security</span>
+                </div>
+                <div className="flex items-center gap-3 bg-white/5 px-6 py-3 rounded-full border border-white/10">
+                  <Zap className="w-5 h-5 text-purple-300" />
+                  <span className="text-white/80 font-medium">99.9% Uptime Guaranteed</span>
+                </div>
+                <div className="flex items-center gap-3 bg-white/5 px-6 py-3 rounded-full border border-white/10">
+                  <Award className="w-5 h-5 text-cyan-300" />
+                  <span className="text-white/80 font-medium">Award Winning Solutions</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
