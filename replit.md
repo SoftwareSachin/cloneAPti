@@ -99,6 +99,17 @@ This is a modern, responsive company website for Aptivon Solutions Pvt. Ltd., an
 
 ## Changelog
 
+- July 11, 2025. Major performance optimization to eliminate lag:
+  * Removed all heavy animations (animate-pulse, animate-bounce, animate-spin, animate-ping)
+  * Eliminated complex blur effects (blur-3xl, blur-2xl, backdrop-blur-xl) from all components
+  * Simplified background effects by removing floating geometric shapes and animated orbs
+  * Removed performance-heavy shadow effects (shadow-2xl, shadow-3xl) and transform scaling
+  * Disabled dynamic earnings rotation in referral commission ad to stop timer intervals
+  * Cleaned up unused useEffect imports and simplified component state management
+  * Optimized Academic Projects Ad, Referral Commission Ad, Ad Section, Portfolio Ad, and Star Project components
+  * Fixed syntax errors and removed redundant div elements in star-project-section
+  * Maintained all functionality while significantly improving page performance and loading speed
+  * Site lag eliminated through comprehensive animation and effects optimization
 - July 11, 2025. Updated ad logos to match navigation logo:
   * Changed academic projects ad logo from favicon.gif to new-logo.gif
   * Updated logo imports to use the same animated logo as navigation

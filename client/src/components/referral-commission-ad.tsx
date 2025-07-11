@@ -1,20 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Handshake, Gift, Users, ArrowRight, DollarSign, Star, TrendingUp, Coins } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function ReferralCommissionAd() {
   const { toast } = useToast();
   const [earnings] = useState(["₹5,000", "₹12,500", "₹8,750", "₹15,000"]);
-  const [currentEarning, setCurrentEarning] = useState(0);
-
-  // Rotate earning examples every 2 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentEarning((prev) => (prev + 1) % earnings.length);
-    }, 2000);
-    return () => clearInterval(interval);
-  }, [earnings.length]);
+  const [currentEarning] = useState(0);
 
   const handleReferralClick = () => {
     const emailSubject = "Referral Commission Program - Partner with Us";
@@ -28,45 +20,22 @@ export default function ReferralCommissionAd() {
   };
 
   return (
-    <section className="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 py-20 relative overflow-hidden">
-      {/* Enhanced Background effects */}
-      <div className="absolute inset-0">
-        {/* Animated gradient orbs */}
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-r from-emerald-400/20 to-teal-300/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 left-1/4 w-64 h-64 bg-gradient-to-r from-cyan-400/15 to-emerald-400/15 rounded-full blur-2xl animate-bounce"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-r from-white/8 to-emerald-300/12 rounded-full blur-3xl"></div>
-        
-        {/* Money floating icons */}
-        <div className="absolute top-20 left-20 w-8 h-8 text-emerald-300/40 animate-ping">
-          <DollarSign className="w-full h-full" />
-        </div>
-        <div className="absolute bottom-32 right-32 w-6 h-6 text-teal-300/50 animate-pulse">
-          <Coins className="w-full h-full" />
-        </div>
-        <div className="absolute top-40 right-20 w-4 h-4 text-cyan-300/60 animate-bounce">
-          <Star className="w-full h-full" />
-        </div>
-        
-        {/* Geometric patterns */}
-        <div className="absolute top-16 right-16 w-2 h-2 bg-emerald-300/70 rounded-full animate-ping"></div>
-        <div className="absolute bottom-24 left-24 w-3 h-3 bg-white/50 rounded-full animate-pulse"></div>
-        <div className="absolute top-32 left-1/3 w-1 h-1 bg-teal-200/80 rounded-full animate-bounce"></div>
-      </div>
+    <section className="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 py-20">
       
       <div className="relative max-w-7xl mx-auto px-6">
         <div className="text-center">
           {/* Enhanced Badge */}
-          <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-emerald-400/30 to-teal-400/30 backdrop-blur-xl rounded-full mb-8 border border-emerald-300/50 shadow-2xl hover:shadow-emerald-300/30 transition-all duration-300 transform hover:scale-105">
-            <Gift className="w-6 h-6 text-emerald-200 animate-bounce" />
+          <div className="inline-flex items-center gap-3 px-6 py-3 bg-emerald-400/30 rounded-full mb-8 border border-emerald-300/50">
+            <Gift className="w-6 h-6 text-emerald-200" />
             <span className="text-base font-bold text-emerald-100 tracking-wide">EARN MONEY BY REFERRING</span>
-            <TrendingUp className="w-6 h-6 text-emerald-200 animate-pulse" />
+            <TrendingUp className="w-6 h-6 text-emerald-200" />
           </div>
           
           {/* Main Title with Dynamic Earnings */}
           <div className="mb-6">
             <h2 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight leading-tight">
               Refer a client and earn a{" "}
-              <span className="bg-gradient-to-r from-yellow-300 to-yellow-100 bg-clip-text text-transparent animate-pulse">
+              <span className="bg-gradient-to-r from-yellow-300 to-yellow-100 bg-clip-text text-transparent">
                 10% commission
               </span>
             </h2>

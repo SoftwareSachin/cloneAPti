@@ -51,42 +51,18 @@ export default function StarProjectSection() {
   ];
 
   return (
-    <section className="py-32 bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 relative overflow-hidden">
-      {/* Enhanced Background Effects */}
-      <div className="absolute inset-0">
-        {/* Animated gradient orbs */}
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-r from-yellow-400/20 to-orange-500/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-gradient-to-r from-blue-400/15 to-cyan-500/15 rounded-full blur-3xl animate-bounce"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-purple-400/10 to-pink-500/10 rounded-full blur-3xl"></div>
-        
-        {/* Floating geometric shapes */}
-        <div className="absolute top-20 left-20 w-4 h-4 bg-yellow-400/40 rounded-full animate-ping"></div>
-        <div className="absolute bottom-32 right-32 w-6 h-6 bg-blue-400/50 rounded-full animate-pulse"></div>
-        <div className="absolute top-40 right-20 w-3 h-3 bg-purple-400/60 rounded-full animate-bounce"></div>
-        
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="w-full h-full" style={{
-            backgroundImage: `
-              linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
-            `,
-            backgroundSize: '50px 50px'
-          }}></div>
-        </div>
-      </div>
-
+    <section className="py-32 bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900">
       <div className="relative max-w-7xl mx-auto px-6">
         {/* Enhanced Section Header */}
         <div className="text-center mb-20">
-          <div className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-yellow-400/30 to-orange-400/30 backdrop-blur-xl rounded-full mb-8 border border-yellow-300/50 shadow-2xl hover:shadow-yellow-400/20 transition-all duration-300 transform hover:scale-105">
-            <Star className="w-7 h-7 text-yellow-300 fill-current animate-spin" />
+          <div className="inline-flex items-center gap-3 px-8 py-4 bg-yellow-400/30 rounded-full mb-8 border border-yellow-300/50">
+            <Star className="w-7 h-7 text-yellow-300 fill-current" />
             <span className="text-xl font-bold text-yellow-100 tracking-wide">STAR PROJECT</span>
-            <Star className="w-7 h-7 text-yellow-300 fill-current animate-spin" />
+            <Star className="w-7 h-7 text-yellow-300 fill-current" />
           </div>
           
           <h2 className="text-6xl md:text-7xl font-bold mb-8 leading-tight">
-            <span className="bg-gradient-to-r from-yellow-300 via-orange-300 to-red-300 bg-clip-text text-transparent animate-pulse">
+            <span className="bg-gradient-to-r from-yellow-300 via-orange-300 to-red-300 bg-clip-text text-transparent">
               OPPB
             </span>
             <br />
@@ -101,7 +77,7 @@ export default function StarProjectSection() {
 
           {/* Creator Attribution with Enhanced Design */}
           <div className="flex flex-col items-center gap-6">
-            <div className="inline-flex items-center gap-4 px-6 py-3 bg-white/10 backdrop-blur-lg rounded-full border border-white/20 shadow-xl">
+            <div className="inline-flex items-center gap-4 px-6 py-3 bg-white/10 rounded-full border border-white/20">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
                 <span className="text-white font-bold text-lg">S</span>
               </div>

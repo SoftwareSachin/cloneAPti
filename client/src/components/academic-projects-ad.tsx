@@ -36,24 +36,14 @@ export default function AcademicProjectsAd({ isVisible = true }: AcademicProject
   ];
 
   return (
-    <section className="py-16 bg-gradient-to-br from-blue-50 via-white to-purple-50 relative overflow-hidden">
-      {/* Enhanced Background effects */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-20 w-56 h-56 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-40 h-40 bg-purple-500/15 rounded-full blur-2xl animate-bounce"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-full blur-3xl"></div>
-        {/* Academic themed floating elements */}
-        <div className="absolute top-32 right-32 w-3 h-3 bg-blue-400/60 rounded-full animate-ping"></div>
-        <div className="absolute bottom-48 left-48 w-2 h-2 bg-purple-400/50 rounded-full animate-pulse"></div>
-        <div className="absolute top-48 left-32 w-1 h-1 bg-green-400/70 rounded-full animate-bounce"></div>
-      </div>
+    <section className="py-16 bg-gradient-to-br from-blue-50 to-purple-50">
       
       <div className="relative max-w-7xl mx-auto px-6">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full mb-6 border border-blue-300/50 shadow-xl hover:shadow-blue-200/50 transition-all duration-300 transform hover:scale-105">
-            <BookOpen className="w-5 h-5 text-blue-600 animate-pulse" />
+          <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full mb-6 border border-blue-300/50">
+            <BookOpen className="w-5 h-5 text-blue-600" />
             <span className="text-base font-bold text-blue-800 tracking-wide">ACADEMIC PROJECT SERVICES</span>
-            <Code className="w-5 h-5 text-purple-600 animate-bounce" />
+            <Code className="w-5 h-5 text-purple-600" />
           </div>
           <h2 className="text-4xl md:text-6xl font-bold text-slate-900 mb-4 tracking-tight">
             Academic <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Excellence</span>
@@ -64,7 +54,7 @@ export default function AcademicProjectsAd({ isVisible = true }: AcademicProject
         </div>
 
         <Card 
-          className="max-w-6xl mx-auto bg-white/95 backdrop-blur-xl border-0 shadow-2xl hover:shadow-3xl transition-all duration-500 cursor-pointer transform hover:scale-[1.02] rounded-3xl overflow-hidden group"
+          className="max-w-6xl mx-auto bg-white border-0 shadow-lg rounded-3xl overflow-hidden cursor-pointer"
           onClick={handleContactClick}
         >
           <div className="grid lg:grid-cols-2 gap-8 p-8">
