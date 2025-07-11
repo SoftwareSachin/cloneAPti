@@ -36,23 +36,35 @@ export default function AcademicProjectsAd({ isVisible = true }: AcademicProject
   ];
 
   return (
-    <section className="py-12 bg-gradient-to-br from-blue-50 via-white to-purple-50 relative overflow-hidden">
-      {/* Background effects */}
+    <section className="py-16 bg-gradient-to-br from-blue-50 via-white to-purple-50 relative overflow-hidden">
+      {/* Enhanced Background effects */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 left-20 w-40 h-40 bg-blue-500/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-20 w-32 h-32 bg-purple-500/5 rounded-full blur-2xl"></div>
+        <div className="absolute top-20 left-20 w-56 h-56 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-40 h-40 bg-purple-500/15 rounded-full blur-2xl animate-bounce"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-full blur-3xl"></div>
+        {/* Academic themed floating elements */}
+        <div className="absolute top-32 right-32 w-3 h-3 bg-blue-400/60 rounded-full animate-ping"></div>
+        <div className="absolute bottom-48 left-48 w-2 h-2 bg-purple-400/50 rounded-full animate-pulse"></div>
+        <div className="absolute top-48 left-32 w-1 h-1 bg-green-400/70 rounded-full animate-bounce"></div>
       </div>
       
       <div className="relative max-w-7xl mx-auto px-6">
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 rounded-full mb-4 border border-blue-200">
-            <BookOpen className="w-4 h-4 text-blue-600" />
-            <span className="text-sm font-bold text-blue-800">ACADEMIC PROJECT SERVICES</span>
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full mb-6 border border-blue-300/50 shadow-xl hover:shadow-blue-200/50 transition-all duration-300 transform hover:scale-105">
+            <BookOpen className="w-5 h-5 text-blue-600 animate-pulse" />
+            <span className="text-base font-bold text-blue-800 tracking-wide">ACADEMIC PROJECT SERVICES</span>
+            <Code className="w-5 h-5 text-purple-600 animate-bounce" />
           </div>
+          <h2 className="text-4xl md:text-6xl font-bold text-slate-900 mb-4 tracking-tight">
+            Academic <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Excellence</span>
+          </h2>
+          <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+            Professional project development for students and academic institutions
+          </p>
         </div>
 
         <Card 
-          className="max-w-5xl mx-auto bg-white/95 backdrop-blur-xl border-0 shadow-2xl hover:shadow-3xl transition-all duration-500 cursor-pointer transform hover:scale-[1.01]"
+          className="max-w-6xl mx-auto bg-white/95 backdrop-blur-xl border-0 shadow-2xl hover:shadow-3xl transition-all duration-500 cursor-pointer transform hover:scale-[1.02] rounded-3xl overflow-hidden group"
           onClick={handleContactClick}
         >
           <div className="grid lg:grid-cols-2 gap-8 p-8">
@@ -95,10 +107,10 @@ export default function AcademicProjectsAd({ isVisible = true }: AcademicProject
                   ))}
                 </div>
 
-                <div className="bg-gradient-to-r from-red-50 to-orange-50 p-4 rounded-lg border border-red-200 mb-4">
-                  <p className="text-slate-800 font-medium">
-                    <span className="text-red-600 font-bold">Get projects from every domain</span> for ₹2,500 
-                    and their <span className="text-red-600 font-bold">PPT from just ₹500</span>
+                <div className="bg-gradient-to-r from-red-50 to-orange-50 p-6 rounded-2xl border border-red-200 mb-6 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                  <p className="text-slate-800 font-medium text-lg leading-relaxed">
+                    <span className="text-red-600 font-bold animate-pulse">Get projects from every domain</span> for ₹2,500 
+                    and their <span className="text-red-600 font-bold animate-pulse">PPT from just ₹500</span>
                   </p>
                 </div>
 
@@ -119,27 +131,27 @@ export default function AcademicProjectsAd({ isVisible = true }: AcademicProject
               </div>
 
               <div className="space-y-4">
-                <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex flex-col sm:flex-row gap-4">
                   <Button 
-                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                    className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 text-lg shadow-xl hover:shadow-2xl transform hover:scale-110 transition-all duration-500 rounded-2xl group"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleContactClick();
                     }}
                   >
-                    <BookOpen className="w-4 h-4 mr-2" />
+                    <BookOpen className="w-5 h-5 mr-3 group-hover:animate-bounce" />
                     Order Project Now
                   </Button>
                   
                   <Button 
                     variant="outline"
-                    className="flex-1 border-blue-600 text-blue-600 hover:bg-blue-50 font-bold py-3"
+                    className="flex-1 border-2 border-blue-600 text-blue-600 hover:bg-blue-50 font-bold py-4 text-lg rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleEmailClick();
                     }}
                   >
-                    <Mail className="w-4 h-4 mr-2" />
+                    <Mail className="w-5 h-5 mr-3" />
                     Get Quote
                   </Button>
                 </div>
