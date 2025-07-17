@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Shield, Zap, Globe, Award, Users, TrendingUp } from "lucide-react";
-import { useState } from "react";
+import { ArrowRight, Award, Users, TrendingUp, Globe } from "lucide-react";
 
 export default function HeroSection() {
   const stats = [
@@ -23,9 +22,8 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-white">
         {/* Subtle gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-gray-50/50 via-white to-gray-50/30"></div>
-        {/* Minimal geometric elements */}
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-full blur-3xl opacity-20"></div>
-        <div className="absolute bottom-1/3 left-1/4 w-80 h-80 bg-gradient-to-br from-purple-50 to-pink-50 rounded-full blur-3xl opacity-15"></div>
+        {/* Ultra-minimal background elements */}
+        <div className="absolute top-1/3 right-1/3 w-72 h-72 bg-gradient-to-br from-gray-50 to-gray-100 rounded-full blur-3xl opacity-10"></div>
       </div>
       
       <div className="relative max-w-6xl mx-auto px-6 z-10">
@@ -80,37 +78,32 @@ export default function HeroSection() {
             ))}
           </div>
           
-          {/* Anthropic-style feature preview */}
-          <div className="max-w-5xl mx-auto">
-            <div className="bg-gradient-to-br from-gray-50 to-white border border-gray-200 rounded-2xl p-8 md:p-12">
-              <div className="grid md:grid-cols-3 gap-8">
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <Shield className="w-6 h-6 text-blue-600" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Enterprise Ready</h3>
+          {/* Pure Linear/Anthropic text-based features */}
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center">
+              <p className="text-gray-500 text-sm uppercase tracking-wide font-medium mb-8">
+                Trusted by forward-thinking companies
+              </p>
+              
+              <div className="grid md:grid-cols-3 gap-12 text-center">
+                <div>
+                  <h3 className="text-lg font-medium text-gray-900 mb-3">Enterprise Ready</h3>
                   <p className="text-gray-600 text-sm leading-relaxed">
-                    Built for scale with enterprise-grade security and compliance standards.
+                    Built for scale with enterprise-grade security and compliance standards
                   </p>
                 </div>
                 
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <Zap className="w-6 h-6 text-green-600" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Lightning Fast</h3>
+                <div>
+                  <h3 className="text-lg font-medium text-gray-900 mb-3">Lightning Fast</h3>
                   <p className="text-gray-600 text-sm leading-relaxed">
-                    Optimized performance with modern architecture and best practices.
+                    Optimized performance with modern architecture and best practices
                   </p>
                 </div>
                 
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <Globe className="w-6 h-6 text-purple-600" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Global Scale</h3>
+                <div>
+                  <h3 className="text-lg font-medium text-gray-900 mb-3">Global Scale</h3>
                   <p className="text-gray-600 text-sm leading-relaxed">
-                    Worldwide infrastructure with multi-region deployment capabilities.
+                    Worldwide infrastructure with multi-region deployment capabilities
                   </p>
                 </div>
               </div>
