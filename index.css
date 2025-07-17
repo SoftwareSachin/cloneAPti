@@ -92,9 +92,29 @@
   nav:not(.primary-navigation),
   header nav,
   .nav,
-  .navigation {
+  .navigation,
+  header,
+  .header,
+  div[role="banner"],
+  div[role="navigation"],
+  /* Hide any potential SEO navigation or breadcrumbs */
+  .seo-nav,
+  .breadcrumb,
+  .breadcrumbs,
+  /* Hide any replit banner or dev elements */
+  .replit-banner,
+  .dev-banner,
+  /* Hide any other potential navigation bars */
+  [class*="nav"],
+  [id*="nav"],
+  [class*="header"]:not(.primary-navigation),
+  [id*="header"]:not(.primary-navigation) {
     display: none !important;
     visibility: hidden !important;
+    position: absolute !important;
+    left: -9999px !important;
+    top: -9999px !important;
+    z-index: -1 !important;
   }
   
   nav * {
