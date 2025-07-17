@@ -1,27 +1,14 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Shield, Zap, Globe, Sparkles, Award, Users, TrendingUp } from "lucide-react";
-import { useState, useEffect } from "react";
-import lightningFastGif from "@assets/fetchpik.com-iconscout-NSEC10nAzj_1751913193156.gif";
-import fortKnoxSecurityGif from "@assets/fetchpik.com-iconscout-83wO1kiIYP_1751913411852.gif";
-import globalReachGif from "@assets/fetchpik.com-iconscout-agj3wec09D_1751913432099.gif";
+import { ArrowRight, Shield, Zap, Globe, Award, Users, TrendingUp } from "lucide-react";
+import { useState } from "react";
 
 export default function HeroSection() {
-  const [currentStat, setCurrentStat] = useState(0);
-  
   const stats = [
     { icon: Award, value: "5+", label: "Projects Delivered" },
     { icon: Users, value: "3+", label: "Happy Clients" },
     { icon: TrendingUp, value: "98%", label: "Success Rate" },
     { icon: Globe, value: "15+", label: "Technologies" }
   ];
-
-  // Removed timer to eliminate lag
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setCurrentStat((prev) => (prev + 1) % stats.length);
-  //   }, 3000);
-  //   return () => clearInterval(interval);
-  // }, []);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -31,121 +18,100 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden pt-24">
-      {/* Modern gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
-        <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/5 via-transparent to-purple-600/5"></div>
-        {/* Static background elements */}
-        <div className="absolute top-20 left-10 w-20 h-20 bg-blue-500/10 rounded-full"></div>
-        <div className="absolute top-40 right-20 w-32 h-32 bg-purple-500/10 rounded-full"></div>
-        <div className="absolute bottom-40 left-1/4 w-16 h-16 bg-green-500/10 rounded-full"></div>
+    <section className="relative min-h-screen flex items-center overflow-hidden pt-16">
+      {/* Anthropic/Linear-style clean background */}
+      <div className="absolute inset-0 bg-white">
+        {/* Subtle gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-50/50 via-white to-gray-50/30"></div>
+        {/* Minimal geometric elements */}
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-full blur-3xl opacity-20"></div>
+        <div className="absolute bottom-1/3 left-1/4 w-80 h-80 bg-gradient-to-br from-purple-50 to-pink-50 rounded-full blur-3xl opacity-15"></div>
       </div>
       
-      <div className="relative max-w-7xl mx-auto px-6 z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Content */}
-          <div className="text-left">
-            <div className="inline-flex items-center gap-2 px-6 py-3 bg-white rounded-full mb-8 border border-slate-200">
-              <Sparkles className="w-4 h-4 text-blue-600" />
-              <span className="text-slate-700 text-sm font-medium">Next-Gen Enterprise Solutions</span>
-            </div>
-            
-            <h1 className="text-6xl md:text-7xl font-bold mb-8 leading-tight">
-              <span className="bg-gradient-to-r from-slate-900 via-blue-800 to-purple-800 bg-clip-text text-transparent">
-                Enterprise IT Services & Technology Consulting
-              </span>
-            </h1>
-            
-            <p className="text-xl text-slate-600 mb-10 leading-relaxed max-w-lg">
-              <strong>Aptivon Solutions</strong> is a leading enterprise technology consulting firm specializing in <strong>cloud migration</strong>, <strong>AI/ML implementation</strong>, <strong>DevOps automation</strong>, and <strong>custom software development</strong>. We deliver proven technology solutions that transform operations and drive business growth.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 mb-12">
-              <Button
-                onClick={() => scrollToSection("contact")}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 text-lg font-semibold rounded-xl"
-              >
-                Start Your Journey
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
-              <Button
-                onClick={() => scrollToSection("services")}
-                variant="outline"
-                className="border-2 border-slate-300 text-slate-700 hover:bg-slate-100 hover:border-slate-400 px-10 py-4 text-lg font-semibold rounded-xl"
-              >
-                Explore Services
-              </Button>
-            </div>
-            
-            {/* Animated Stats */}
-            <div className="grid grid-cols-3 gap-6">
-              {stats.map((stat, index) => {
-                const IconComponent = stat.icon;
-                return (
-                  <div 
-                    key={index}
-                    className={`text-center p-4 rounded-xl transition-all duration-500 ${
-                      currentStat === index 
-                        ? 'bg-white/80 backdrop-blur-sm border border-blue-200/60 shadow-lg transform scale-105' 
-                        : 'bg-white/40 backdrop-blur-sm'
-                    }`}
-                  >
-                    <IconComponent className={`w-6 h-6 mx-auto mb-2 ${
-                      currentStat === index ? 'text-blue-600' : 'text-slate-500'
-                    }`} />
-                    <div className={`text-2xl font-bold mb-1 ${
-                      currentStat === index ? 'text-blue-600' : 'text-slate-900'
-                    }`}>
-                      {stat.value}
-                    </div>
-                    <div className="text-slate-600 text-sm">{stat.label}</div>
-                  </div>
-                );
-              })}
-            </div>
+      <div className="relative max-w-6xl mx-auto px-6 z-10">
+        <div className="text-center max-w-4xl mx-auto">
+          {/* Linear/Anthropic-style badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-50 border border-gray-200 rounded-full mb-8">
+            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            <span className="text-gray-700 text-sm font-medium">Available for new projects</span>
           </div>
           
-          {/* Enhanced Visual Content */}
-          <div className="relative lg:block">
-            <div className="relative">
-              {/* Background glow effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-3xl blur-3xl"></div>
-              
-              <div className="relative bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20">
-                <div className="grid grid-cols-2 gap-6 mb-6">
-                  <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 shadow-lg transform hover:scale-105 transition-all duration-300">
-                    <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-4 shadow-md">
-                      <img 
-                        src={lightningFastGif} 
-                        alt="Lightning Fast" 
-                        className="w-10 h-10 object-contain"
-                      />
-                    </div>
-                    <h3 className="font-bold text-slate-900 mb-2">Lightning Fast</h3>
-                    <p className="text-slate-600 text-sm">Deploy in minutes, not months with our automated solutions</p>
+          {/* Clean, centered headline */}
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 leading-[1.1] tracking-tight">
+            <span className="text-gray-900">
+              Build the future with
+            </span>
+            <br />
+            <span className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 bg-clip-text text-transparent">
+              enterprise technology
+            </span>
+          </h1>
+          
+          {/* Anthropic-style description */}
+          <p className="text-xl md:text-2xl text-gray-600 mb-12 leading-relaxed max-w-3xl mx-auto font-light">
+            We help companies transform their operations through cloud infrastructure, AI implementation, and modern software development. Built for scale, designed for impact.
+          </p>
+          
+          {/* Linear-style CTA buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <Button
+              onClick={() => scrollToSection("contact")}
+              className="bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 text-base font-medium rounded-lg transition-all duration-200 shadow-sm"
+            >
+              Start a project
+              <ArrowRight className="ml-2 w-4 h-4" />
+            </Button>
+            <Button
+              onClick={() => scrollToSection("services")}
+              variant="outline"
+              className="border border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400 px-8 py-4 text-base font-medium rounded-lg transition-all duration-200"
+            >
+              Explore services
+            </Button>
+          </div>
+          
+          {/* Clean stats display */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
+            {stats.map((stat, index) => (
+              <div key={index} className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">{stat.value}</div>
+                <div className="text-gray-600 text-sm uppercase tracking-wide font-medium">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Anthropic-style feature preview */}
+          <div className="max-w-5xl mx-auto">
+            <div className="bg-gradient-to-br from-gray-50 to-white border border-gray-200 rounded-2xl p-8 md:p-12">
+              <div className="grid md:grid-cols-3 gap-8">
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <Shield className="w-6 h-6 text-blue-600" />
                   </div>
-                  <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 shadow-lg transform hover:scale-105 transition-all duration-300">
-                    <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-4 shadow-md">
-                      <img 
-                        src={fortKnoxSecurityGif} 
-                        alt="Fort Knox Security" 
-                        className="w-10 h-10 object-contain"
-                      />
-                    </div>
-                    <h3 className="font-bold text-slate-900 mb-2">Fort Knox Security</h3>
-                    <p className="text-slate-600 text-sm">Enterprise-grade security with zero-trust architecture</p>
-                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Enterprise Ready</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    Built for scale with enterprise-grade security and compliance standards.
+                  </p>
                 </div>
-                <div className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-xl p-6 shadow-lg transform hover:scale-105 transition-all duration-300">
-                  <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-4 shadow-md">
-                    <img 
-                      src={globalReachGif} 
-                      alt="Global Reach" 
-                      className="w-10 h-10 object-contain"
-                    />
+                
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <Zap className="w-6 h-6 text-green-600" />
                   </div>
-                  <h3 className="font-bold text-slate-900 mb-2">Global Reach</h3>
-                  <p className="text-slate-600 text-sm">Scalable infrastructure spanning multiple regions worldwide</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Lightning Fast</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    Optimized performance with modern architecture and best practices.
+                  </p>
+                </div>
+                
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <Globe className="w-6 h-6 text-purple-600" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Global Scale</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    Worldwide infrastructure with multi-region deployment capabilities.
+                  </p>
                 </div>
               </div>
             </div>
