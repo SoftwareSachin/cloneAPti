@@ -47,20 +47,7 @@ export default function ServicesSection() {
             Comprehensive enterprise technology services designed to accelerate growth and optimize operations. Our expert team delivers cloud migration, AI/ML implementation, DevOps automation, and custom software development solutions that transform businesses and drive measurable results.
           </p>
           
-          {/* Internal Navigation Links */}
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
-            <a href="/about" className="text-blue-600 hover:text-blue-800 font-medium">About Us</a>
-            <span className="text-slate-300">|</span>
-            <a href="/services" className="text-blue-600 hover:text-blue-800 font-medium">Our Services</a>
-            <span className="text-slate-300">|</span>
-            <a href="/portfolio" className="text-blue-600 hover:text-blue-800 font-medium">Portfolio</a>
-            <span className="text-slate-300">|</span>
-            <a href="/contact" className="text-blue-600 hover:text-blue-800 font-medium">Contact</a>
-            <span className="text-slate-300">|</span>
-            <a href="/careers" className="text-blue-600 hover:text-blue-800 font-medium">Careers</a>
-            <span className="text-slate-300">|</span>
-            <a href="/blog" className="text-blue-600 hover:text-blue-800 font-medium">Blog</a>
-          </div>
+
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
