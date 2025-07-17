@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Suspense, lazy, useEffect } from "react";
 import { initGA } from "../lib/analytics";
 import { useAnalytics } from "../hooks/use-analytics";
+import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
 import Home from "@/pages/home";
 import NotFound from "@/pages/not-found";
 
@@ -48,6 +49,9 @@ function Loading() {
 function Router() {
   // Track page views when routes change
   useAnalytics();
+  
+  // Initialize smooth scrolling
+  useSmoothScroll();
   
   return (
     <Switch>

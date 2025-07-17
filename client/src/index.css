@@ -71,7 +71,29 @@
   }
 
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto; /* Disable native smooth scroll for Lenis */
+  }
+
+  /* Performance optimizations */
+  * {
+    will-change: auto;
+  }
+
+  /* Smooth scrolling container */
+  body {
+    overscroll-behavior: none;
+  }
+
+  /* GPU acceleration for transform elements */
+  .gpu-accelerated {
+    will-change: transform;
+    transform: translateZ(0);
+  }
+
+  /* Anti-aliased text for smooth scrolling */
+  body, * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   /* Modern gradients */

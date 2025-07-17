@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
 import logoGif from "../assets/new-logo.gif";
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { scrollTo } = useSmoothScroll();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,7 +20,7 @@ export default function Navigation() {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      scrollTo(element, { offset: -80, duration: 1.2 });
     }
     setIsMenuOpen(false);
   };

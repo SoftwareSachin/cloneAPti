@@ -14,6 +14,8 @@ import ApproachSection from "@/components/approach-section";
 import TeamSection from "@/components/team-section";
 import ContactSection from "@/components/contact-section";
 import Footer from "@/components/footer";
+import { LazySection } from "@/components/lazy-section";
+import { ScrollToTop } from "@/components/scroll-to-top";
 import { currentAd } from "@/config/ad-config";
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
@@ -230,22 +232,34 @@ export default function Home() {
       <HeroSection />
 
       {/* Promotional Ad Section */}
-      <AdSection {...currentAd} />
+      <LazySection animationType="slideUp" delay={100}>
+        <AdSection {...currentAd} />
+      </LazySection>
 
       {/* Referral Commission Ad */}
-      <ReferralCommissionAd />
+      <LazySection animationType="slideUp" delay={200}>
+        <ReferralCommissionAd />
+      </LazySection>
 
       {/* Portfolio Service Ad */}
-      <PortfolioAdSection />
+      <LazySection animationType="slideUp" delay={300}>
+        <PortfolioAdSection />
+      </LazySection>
 
       {/* Academic Projects Ad */}
-      <AcademicProjectsAd />
+      <LazySection animationType="slideUp" delay={100}>
+        <AcademicProjectsAd />
+      </LazySection>
 
       {/* SKIT Students Special Discount Ad */}
-      <SKITStudentsAd />
+      <LazySection animationType="slideUp" delay={200}>
+        <SKITStudentsAd />
+      </LazySection>
 
       {/* Star Project Section */}
-      <StarProjectSection />
+      <LazySection animationType="scale" delay={300}>
+        <StarProjectSection />
+      </LazySection>
 
       {/* Enhanced Interactive Dashboard Section */}
       <section className="py-24 bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 relative overflow-hidden">
@@ -746,17 +760,38 @@ export default function Home() {
         </div>
       </section>
 
-      <ServicesSection />
-      <TechnologySection />
-      <IndustriesSection />
-      <AdvancedCapabilities />
-      <ApproachSection />
-      <TeamSection />
+      <LazySection animationType="slideUp" delay={100}>
+        <ServicesSection />
+      </LazySection>
       
-      <div id="contact">
-        <ContactSection />
-      </div>
+      <LazySection animationType="slideUp" delay={200}>
+        <TechnologySection />
+      </LazySection>
+      
+      <LazySection animationType="slideUp" delay={300}>
+        <IndustriesSection />
+      </LazySection>
+      
+      <LazySection animationType="slideUp" delay={100}>
+        <AdvancedCapabilities />
+      </LazySection>
+      
+      <LazySection animationType="slideUp" delay={200}>
+        <ApproachSection />
+      </LazySection>
+      
+      <LazySection animationType="scale" delay={300}>
+        <TeamSection />
+      </LazySection>
+      
+      <LazySection animationType="slideUp" delay={100}>
+        <div id="contact">
+          <ContactSection />
+        </div>
+      </LazySection>
+      
       <Footer />
+      <ScrollToTop />
     </div>
   );
 }
