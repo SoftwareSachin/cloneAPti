@@ -18,13 +18,14 @@ export default function Navigation() {
 
   return (
     <nav 
-      className="fixed top-0 w-full z-50 backdrop-blur-xl" 
+      className="primary-navigation fixed top-0 w-full z-50 backdrop-blur-xl" 
       style={{
         border: 'none',
         boxShadow: 'none',
         outline: 'none',
         backgroundColor: 'rgba(255, 255, 255, 0.9)',
-        borderBottom: 'none'
+        borderBottom: 'none',
+        display: 'block'
       }}
     >
       <div className="max-w-6xl mx-auto px-6">
