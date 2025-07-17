@@ -6,16 +6,7 @@ import logoGif from "../assets/new-logo.gif";
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const { scrollTo } = useSmoothScroll();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -26,11 +17,7 @@ export default function Navigation() {
   };
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-      isScrolled 
-        ? 'bg-white/80 backdrop-blur-xl border-b border-black/10' 
-        : 'bg-white/80 backdrop-blur-xl'
-    }`}>
+    <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl">
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex justify-between items-center h-11">
           <a href="/" className="flex items-center space-x-2 hover:opacity-70 transition-opacity duration-200 cursor-pointer">
@@ -52,12 +39,7 @@ export default function Navigation() {
             <a href="/blog" className="text-black/80 hover:text-black transition-colors duration-200 text-xs font-normal">Blog</a>
             <a href="/support" className="text-black/80 hover:text-black transition-colors duration-200 text-xs font-normal">Support</a>
             <a href="/careers" className="text-black/80 hover:text-black transition-colors duration-200 text-xs font-normal">Careers</a>
-            <a
-              href="/contact"
-              className="text-black/80 hover:text-black transition-colors duration-200 text-xs font-normal"
-            >
-              Contact
-            </a>
+            <a href="/contact" className="text-black/80 hover:text-black transition-colors duration-200 text-xs font-normal">Contact</a>
           </div>
 
           {/* Mobile Menu Button - Apple Style */}
@@ -75,7 +57,7 @@ export default function Navigation() {
 
         {/* Mobile Menu - Apple Style */}
         {isMenuOpen && (
-          <div className="lg:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-b border-black/10">
+          <div className="lg:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl">
             <div className="max-w-6xl mx-auto px-6 py-4">
               <div className="flex flex-col space-y-4">
                 <a href="/about" className="text-black/80 hover:text-black transition-colors duration-200 text-sm font-normal py-1" onClick={() => setIsMenuOpen(false)}>About</a>

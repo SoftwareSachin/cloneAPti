@@ -99,6 +99,19 @@ This is a modern, responsive company website for Aptivon Solutions Pvt. Ltd., an
 
 ## Changelog
 
+- July 17, 2025. Apple.com-style navigation redesign:
+  * Completely redesigned navigation header to match Apple.com's exact design aesthetic
+  * Removed all borders and background styling that was creating black lines
+  * Implemented clean translucent white background (bg-white/80) with backdrop blur
+  * Updated typography to Apple's style: text-xs font-normal with black/80 opacity
+  * Reduced navigation height to compact 44px (h-11) for premium look
+  * Simplified logo display with consistent 6 height (h-6) scaling
+  * Applied subtle hover effects with opacity transitions (hover:opacity-70)
+  * Enhanced mobile menu with clean backdrop blur and proper spacing
+  * Removed all decorative elements for minimalist Apple aesthetic
+  * Updated color scheme to pure black text (#000) with 80% opacity for secondary links
+  * Improved responsive design with proper lg breakpoints
+  * Created seamless integration with existing smooth scrolling system
 - July 11, 2025. Major performance optimization to eliminate lag:
   * Removed all heavy animations (animate-pulse, animate-bounce, animate-spin, animate-ping)
   * Eliminated complex blur effects (blur-3xl, blur-2xl, backdrop-blur-xl) from all components
