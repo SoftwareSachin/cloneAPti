@@ -1,0 +1,69 @@
+Here are some of the most popular, easy‑to‑integrate libraries for crafting custom cursor effects—both in vanilla JS and React:
+
+| Library / Package         | Type            | Key Features                                                                   | When to Use                                        |
+| ------------------------- | --------------- | ------------------------------------------------------------------------------ | -------------------------------------------------- |
+| **cursor-effects**        | Vanilla JS      | Tiny (\~3 KB), built‑in particle trails, ripples, confetti, emoji “emoji rain” | You want plug‑and‑play flair with zero deps.       |
+| **Magic Mouse Cursor**    | Vanilla JS      | Magnetic “hover” magnets, dual‑circle cursor, inertia, links highlight         | For ultra‑slick, interactive site cursors.         |
+| **Custom Cursor**         | Vanilla JS      | Swap the native pointer for any image or HTML element; supports offsets        | When you need a completely unique pointer.         |
+| **Hover Cursor**          | Vanilla JS      | Cursor follow, hover scaling on elements, custom easing                        | Simple hover‑based cursor transforms.              |
+| **react-cursor-fx**       | React           | React hooks & components, magnetic hover, ripple, magnets, customizable styles | React projects where you want cursor “magic.”      |
+| **react-custom-cursor**   | React           | Define multiple cursor layers, follow‑mouse container, CSS animations          | When you need multi‑layer, themed cursors.         |
+| **react-cursor-position** | React utility   | Tracks cursor X/Y, proximity to components                                     | Use as a primitive for your own cursor logic.      |
+| **Framer Motion**         | React animation | Animate a `<motion.div>` that follows pointer, spring physics                  | When you need total control via React’s ecosystem. |
+
+---
+
+### Quick Recommendations
+
+* **Zero‑config particle trails, bursts, emojis** → **cursor-effects**
+* **Designer‑grade magnetic pointer** → **Magic Mouse Cursor** (by Robin Delaporte)
+* **Fully custom HTML/CSS cursor** → **Custom Cursor** (vanilla) or **react-custom-cursor**
+* **Build your own in React** → **Framer Motion** + your own follow‑mouse component
+
+---
+
+#### Example: Vanilla JS with `cursor-effects`
+
+```html
+<script src="https://unpkg.com/cursor-effects"></script>
+<script>
+  new CursorFx({
+    type: 'circle',      // 'circle', 'emoji', 'star', 'trail'
+    color: '255, 100, 100',
+    size: 2,
+    zIndex: 9999
+  });
+</script>
+```
+
+#### Example: React + Framer Motion
+
+```jsx
+import { useEffect, useState } from 'react';
+import { motion, useSpring } from 'framer-motion';
+
+function CustomCursor() {
+  const [pos, setPos] = useState({ x: -100, y: -100 });
+  const spring = useSpring(pos, { stiffness: 300, damping: 30 });
+
+  useEffect(() => {
+    return window.addEventListener('pointermove', e => {
+      setPos({ x: e.clientX, y: e.clientY });
+    });
+  }, []);
+
+  return (
+    <motion.div
+      style={{
+        position: 'fixed', top: 0, left: 0,
+        translateX: spring.x, translateY: spring.y,
+        width: 20, height: 20,
+        borderRadius: '50%', background: 'rgba(0,0,0,0.6)',
+        pointerEvents: 'none', zIndex: 9999
+      }}
+    />
+  );
+}
+```
+
+Pick the one that matches your framework and desired effect—whether you want a quick drop‑in, or full control to code your own.

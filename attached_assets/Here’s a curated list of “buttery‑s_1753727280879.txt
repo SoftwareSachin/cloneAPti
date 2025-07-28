@@ -1,0 +1,46 @@
+Here’s a curated list of “buttery‑smooth” libraries across three needs—scrolling, transitions, and text animations—so you can pick the right tool for each:
+
+---
+
+## 1. Smooth Scrolling
+
+| Library                 | Key Features                                                       | When to Use                                                                 |
+| ----------------------- | ------------------------------------------------------------------ | --------------------------------------------------------------------------- |
+| **Lenis**               | Inertia, easing curves, scroll events, super‑lightweight           | You want full control over easing & inertia without tons of config.         |
+| **Locomotive Scroll**   | Smooth scroll + native parallax + easy data‑attribute API          | You need built‑in parallax effects or handle complex scroll triggers.       |
+| **Smooth Scrollbar**    | GPU‑accelerated, custom damping, thumb styling                     | You want a virtualized “scrollbar” container so native scroll doesn’t fire. |
+| **GSAP ScrollSmoother** | Pairs with GSAP’s ScrollTrigger for fluid scroll‑linked animations | You’re already using GSAP and need tight scroll-animation sync.             |
+
+---
+
+## 2. Smooth Page & Component Transitions
+
+| Library           | Key Features                                        | When to Use                                                 |
+| ----------------- | --------------------------------------------------- | ----------------------------------------------------------- |
+| **Framer Motion** | React‑first, physics springs, layout transitions    | React/Vue apps—page, component, and layout transitions.     |
+| **Motion One**    | Tiny (\~4 KB), Web Animations API, vanilla or React | You need super‑lightweight, standard‑based API.             |
+| **GSAP**          | Timeline control, staggering, advanced easing       | Complex, choreographed sequences across any framework.      |
+| **barba.js**      | PJAX‑style page swaps + lifecycle hooks             | Framework‑agnostic page transitions. Combine with GSAP/CSS. |
+| **Swup**          | Plugin ecosystem, cache, prefetch, analytics        | Quick setup for static sites or multi‑page apps.            |
+
+---
+
+## 3. Smooth Text & Typography Animations
+
+| Library               | Key Features                                           | When to Use                                                              |
+| --------------------- | ------------------------------------------------------ | ------------------------------------------------------------------------ |
+| **GSAP + TextPlugin** | Animate words, characters, scrambling, typewriter      | Full control over every letter—perfect for headlines.                    |
+| **Splitting.js**      | Break text into words/letters, add CSS‑based effects   | You want low‑overhead CSS or basic JS animations.                        |
+| **TypeIt**            | Typewriter effects, smart speed, cursor options        | Classic “typed” text—or multi‑sentence loops.                            |
+| **Typed.js**          | Lightweight typewriter, loopable, configurable delays  | Quick, no‑frills typewriter effect.                                      |
+| **Anime.js**          | Promise‑based, simple API, can animate text attributes | You need chaining/motion of CSS properties (e.g. letter‑spacing, color). |
+
+---
+
+### TL;DR Combos
+
+* **All‑in‑one React** → **Framer Motion** (transitions) + **Lenis** (scroll) + **GSAP TextPlugin** (text)
+* **Vanilla/Any Framework** → **Motion One** (transitions) + **Locomotive Scroll** (scroll) + **Splitting.js** (text)
+* **GSAP Power‑User** → **GSAP + ScrollSmoother** + **TextPlugin**
+
+Feel free to mix‑and‑match based on your perf and bundle‑size needs—each of these has battle‑tested docs and examples to get you up and running in minutes.

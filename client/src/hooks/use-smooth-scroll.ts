@@ -1,51 +1,68 @@
-import { useEffect, useRef } from 'react';
-import Lenis from 'lenis';
+import { useEffect, useCallback } from 'react';
+import { initSmoothScroll, scrollTo, destroySmoothScroll, getLenis } from '@/lib/smooth-scroll';
 
 export function useSmoothScroll() {
-  const lenisRef = useRef<Lenis | null>(null);
-
   useEffect(() => {
-    // Initialize Lenis
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
-      infinite: false,
-    });
+    // Initialize smooth scroll
+    const lenis = initSmoothScroll();
 
-    lenisRef.current = lenis;
-
-    // Animation loop
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-
-    // Cleanup
+    // Cleanup on unmount
     return () => {
-      lenis.destroy();
-      lenisRef.current = null;
+      destroySmoothScroll();
     };
   }, []);
 
-  const scrollTo = (target: string | number, options?: { offset?: number; duration?: number }) => {
-    if (lenisRef.current) {
-      lenisRef.current.scrollTo(target, {
-        offset: options?.offset || 0,
-        duration: options?.duration || 1.2,
-      });
-    }
-  };
+  // Return scroll utilities
+  const smoothScrollTo = useCallback((target: string | number, options?: { offset?: number; duration?: number }) => {
+    scrollTo(target, options);
+  }, []);
 
-  const scrollToTop = () => {
+  const scrollToTop = useCallback(() => {
     scrollTo(0, { duration: 1.5 });
-  };
+  }, []);
 
-  return { scrollTo, scrollToTop, lenis: lenisRef.current };
+  const scrollToElement = useCallback((selector: string, offset: number = 0) => {
+    scrollTo(selector, { offset, duration: 1.2 });
+  }, []);
+
+  return {
+    scrollTo: smoothScrollTo,
+    scrollToTop,
+    scrollToElement,
+    lenis: getLenis()
+  };
+}
+
+// Hook for scroll-triggered animations
+export function useScrollTrigger(callback: (scrollY: number, direction: 'up' | 'down') => void) {
+  useEffect(() => {
+    let lastScrollY = 0;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const direction = currentScrollY > lastScrollY ? 'down' : 'up';
+      
+      callback(currentScrollY, direction);
+      lastScrollY = currentScrollY;
+    };
+
+    // Use Lenis scroll event if available, otherwise fallback to window scroll
+    const lenis = getLenis();
+    if (lenis) {
+      lenis.on('scroll', (e: any) => {
+        const direction = e.velocity > 0 ? 'down' : 'up';
+        callback(e.scroll, direction);
+      });
+    } else {
+      window.addEventListener('scroll', handleScroll, { passive: true });
+    }
+
+    return () => {
+      if (lenis) {
+        lenis.off('scroll', handleScroll);
+      } else {
+        window.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, [callback]);
 }

@@ -3,6 +3,8 @@ import { ArrowRight, Award, Users, TrendingUp, Globe } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { LazySection } from "./lazy-section";
+import { TypewriterText, StaggeredText, MotionText } from "@/components/smooth-text";
+import { StaggeredItem } from "@/components/enhanced-transitions";
 
 export default function HeroSection() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -63,40 +65,26 @@ export default function HeroSection() {
               <span className="text-gray-700 text-sm font-medium">Available for new projects</span>
             </motion.div>
           
-            {/* Clean, centered headline with staggered animation */}
-            <motion.h1 
-              className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 leading-[1.1] tracking-tight"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 30 }}
-              transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
-            >
-              <motion.span 
+            {/* Clean, centered headline with buttery-smooth text animation */}
+            <div className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 leading-[1.1] tracking-tight">
+              <StaggeredText 
+                text="Enterprise Software Solutions" 
                 className="text-gray-900 block"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: isLoaded ? 1 : 0 }}
-                transition={{ delay: 0.6, duration: 0.6 }}
-              >
-                Build the future with
-              </motion.span>
-              <motion.span 
-                className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 bg-clip-text text-transparent block"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: isLoaded ? 1 : 0 }}
-                transition={{ delay: 0.8, duration: 0.6 }}
-              >
-                enterprise technology
-              </motion.span>
-            </motion.h1>
+              />
+              <TypewriterText 
+                text="Built for Scale & Performance" 
+                speed={80}
+                className="text-gray-600 block mt-2"
+              />
+            </div>
           
-            {/* Anthropic-style description with fade-in */}
-            <motion.p 
+            {/* Professional description with smooth reveal animation */}
+            <MotionText 
+              delay={1.0}
               className="text-xl md:text-2xl text-gray-600 mb-12 leading-relaxed max-w-3xl mx-auto font-light"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
-              transition={{ delay: 1.0, duration: 0.6, ease: "easeOut" }}
             >
               We help companies transform their operations through cloud infrastructure, AI implementation, and modern software development. Built for scale, designed for impact.
-            </motion.p>
+            </MotionText>
           
             {/* Linear-style CTA buttons with staggered animation */}
             <motion.div 

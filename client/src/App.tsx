@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Suspense, lazy, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 import { PageTransition } from "@/components/page-transition";
+import { DirectionalPageTransition, StaggeredLayout } from "@/components/enhanced-transitions";
 import { initGA } from "../lib/analytics";
 import { useAnalytics } from "../hooks/use-analytics";
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
