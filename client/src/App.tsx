@@ -9,6 +9,8 @@ import { PageTransition } from "@/components/page-transition";
 import { initGA } from "../lib/analytics";
 import { useAnalytics } from "../hooks/use-analytics";
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
+import { useProgress } from "@/hooks/use-progress";
+import { ProgressBar } from "@/components/progress-bar";
 import Home from "@/pages/home";
 import NotFound from "@/pages/not-found";
 
@@ -56,6 +58,9 @@ function AnimatedRouter() {
   
   // Initialize smooth scrolling
   useSmoothScroll();
+  
+  // Initialize progress bar
+  useProgress();
   
   return (
     <AnimatePresence mode="wait" initial={false}>
@@ -229,6 +234,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
+        <ProgressBar />
         <Toaster />
         <AnimatedRouter />
       </TooltipProvider>

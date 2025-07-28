@@ -99,7 +99,7 @@ This is a modern, responsive company website for Aptivon Solutions Pvt. Ltd., an
 
 ## Changelog
 
-- July 28, 2025. Complete Framer Motion page transitions implementation:
+- July 28, 2025. Complete Framer Motion page transitions and NProgress implementation:
   * Implemented comprehensive AnimatePresence system with exit animations using mode="wait"
   * Created production-ready PageTransition component with spring physics (stiffness: 400, damping: 40)
   * Added advanced transition variants: pageVariants with opacity/scale/y transforms, slideVariants for directional navigation
@@ -111,6 +111,12 @@ This is a modern, responsive company website for Aptivon Solutions Pvt. Ltd., an
   * Performance optimized with GPU acceleration and spring-based transitions
   * All 20+ routes now feature smooth page transitions with proper entry/exit animations
   * Migration from static navigation to fluid, professional page transitions completed
+  * Added NProgress integration with custom styled top-of-page progress bars
+  * Implemented useProgress hook for automatic route change detection and progress tracking
+  * Created ProgressBar component with Framer Motion animations and gradient styling
+  * Added comprehensive CSS styling for NProgress with dark mode support
+  * Progress bars now show smooth blue-to-purple gradient during page transitions
+  * Enhanced loading states with animated progress indicators
 - July 17, 2025. Apple.com-style navigation redesign:
   * Completely redesigned navigation header to match Apple.com's exact design aesthetic
   * Removed all borders and background styling that was creating black lines
