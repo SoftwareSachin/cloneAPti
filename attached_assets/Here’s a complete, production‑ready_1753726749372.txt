@@ -1,0 +1,195 @@
+Here’s a complete, production‑ready pattern for wiring up **Framer Motion** + **AnimatePresence** in a React app—with both React Router and Next.js examples, plus tips on variants, layout animations, and performance.
+
+---
+
+## 1. Installation
+
+```bash
+npm install framer-motion
+# if using React Router:
+npm install react-router-dom
+```
+
+---
+
+## 2. Core Concepts
+
+* **AnimatePresence**
+  Wraps your routes (or any conditional children) to enable exit animations when components unmount.
+
+  * `mode="wait"` ensures the exit animation fully finishes before the next component enters.
+
+* **motion components**
+  Replace plain `<div>`, `<main>`, etc. with `<motion.div>`, `<motion.main>`, etc., and pass `initial`, `animate`, and `exit` props—or better, use **variants**.
+
+* **Variants**
+  Encapsulate animation states in an object for reusability and cleaner code.
+
+---
+
+## 3. React Router Example
+
+```jsx
+// App.jsx
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
+import HomePage from './HomePage';
+import AboutPage from './AboutPage';
+
+const pageVariants = {
+  initial: { opacity: 0, y: 20 },
+  in:      { opacity: 1, y: 0 },
+  out:     { opacity: 0, y: -20 },
+};
+
+const pageTransition = {
+  type: 'spring',
+  stiffness: 300,
+  damping: 30,
+};
+
+function AnimatedRoutes() {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <Routes location={location} key={location.pathname}>
+        <Route
+          path="/"
+          element={
+            <motion.main
+              variants={pageVariants}
+              initial="initial"
+              animate="in"
+              exit="out"
+              transition={pageTransition}
+              style={{ position: 'absolute', width: '100%' }}
+            >
+              <HomePage />
+            </motion.main>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <motion.main
+              variants={pageVariants}
+              initial="initial"
+              animate="in"
+              exit="out"
+              transition={pageTransition}
+              style={{ position: 'absolute', width: '100%' }}
+            >
+              <AboutPage />
+            </motion.main>
+          }
+        />
+        {/* …other routes… */}
+      </Routes>
+    </AnimatePresence>
+  );
+}
+
+export default function App() {
+  return (
+    <Router>
+      <AnimatedRoutes />
+    </Router>
+  );
+}
+```
+
+### Notes
+
+* **`style={{ position: 'absolute' }}`** prevents pages stacking—so the exiting page stays in the same spot while animating out.
+* **`initial={false}`** on `AnimatePresence` avoids replaying the entry animation on the very first load.
+
+---
+
+## 4. Next.js (App Router) Example
+
+```jsx
+// app/layout.js
+'use client';
+
+import { usePathname } from 'next/navigation';
+import { AnimatePresence, motion } from 'framer-motion';
+
+const pageVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -20 },
+};
+
+const pageTransition = { duration: 0.4, ease: 'easeInOut' };
+
+export default function RootLayout({ children }) {
+  const path = usePathname();
+
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={path}
+        variants={pageVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        transition={pageTransition}
+        style={{ position: 'relative' }}
+      >
+        {children}
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+```
+
+### Tips for Next.js
+
+* Place this in your **root layout** so every page is wrapped automatically.
+* If you have nested layouts, you can apply `AnimatePresence` at any level (e.g. per section).
+
+---
+
+## 5. Advanced Tips
+
+1. **Staggering child animations**
+
+   ```jsx
+   const containerVariants = {
+     visible: { transition: { staggerChildren: 0.1 } },
+   };
+   const childVariants = {
+     hidden: { opacity: 0, y: 10 },
+     visible: { opacity: 1, y: 0 },
+   };
+
+   <motion.div variants={containerVariants} initial="hidden" animate="visible">
+     <motion.div variants={childVariants}>Item 1</motion.div>
+     <motion.div variants={childVariants}>Item 2</motion.div>
+   </motion.div>
+   ```
+
+2. **Layout animations** (for reordering or shared layouts)
+
+   ```jsx
+   <motion.div layout transition={{ duration: 0.3 }}>
+     {/* content that changes size or position */}
+   </motion.div>
+   ```
+
+3. **Performance**
+
+   * Use **`will-change`** via CSS or Framer’s `useOptimizedMove` hook for heavy GPU‑accelerated transitions.
+   * Avoid animating large DOM hierarchies at once—stagger or chunk animations.
+
+4. **Exit delays**
+   If you need the exiting page to linger while some async work finishes:
+
+   ```jsx
+   exit={{ opacity: 0, transition: { delay: 0.2, duration: 0.3 } }}
+   ```
+
+---
+
+With **Framer Motion + AnimatePresence**, you get a declarative, React‑idiomatic way to orchestrate every aspect of page transitions—springs, easings, sequencing—while keeping your code clean and maintainable.
