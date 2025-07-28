@@ -1,9 +1,11 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Suspense, lazy, useEffect } from "react";
+import { AnimatePresence } from "framer-motion";
+import { PageTransition } from "@/components/page-transition";
 import { initGA } from "../lib/analytics";
 import { useAnalytics } from "../hooks/use-analytics";
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
@@ -34,7 +36,7 @@ const TermsOfService = lazy(() => import("@/pages/terms-of-service"));
 const CookiePolicy = lazy(() => import("@/pages/cookie-policy"));
 const Security = lazy(() => import("@/pages/security"));
 
-// Loading component
+// Enhanced loading component with Framer Motion
 function Loading() {
   return (
     <div className="min-h-screen bg-white flex items-center justify-center">
@@ -46,7 +48,9 @@ function Loading() {
   );
 }
 
-function Router() {
+function AnimatedRouter() {
+  const [location] = useLocation();
+  
   // Track page views when routes change
   useAnalytics();
   
@@ -54,110 +58,160 @@ function Router() {
   useSmoothScroll();
   
   return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/about">
-        <Suspense fallback={<Loading />}>
-          <About />
-        </Suspense>
-      </Route>
-      <Route path="/services">
-        <Suspense fallback={<Loading />}>
-          <Services />
-        </Suspense>
-      </Route>
-      <Route path="/solutions">
-        <Suspense fallback={<Loading />}>
-          <Solutions />
-        </Suspense>
-      </Route>
-      <Route path="/industries">
-        <Suspense fallback={<Loading />}>
-          <Industries />
-        </Suspense>
-      </Route>
-      <Route path="/case-studies">
-        <Suspense fallback={<Loading />}>
-          <CaseStudies />
-        </Suspense>
-      </Route>
-      <Route path="/resources">
-        <Suspense fallback={<Loading />}>
-          <Resources />
-        </Suspense>
-      </Route>
-      <Route path="/support">
-        <Suspense fallback={<Loading />}>
-          <Support />
-        </Suspense>
-      </Route>
-      <Route path="/portfolio">
-        <Suspense fallback={<Loading />}>
-          <Portfolio />
-        </Suspense>
-      </Route>
-      <Route path="/portfolio-project/:slug">
-        <Suspense fallback={<Loading />}>
-          <PortfolioProject />
-        </Suspense>
-      </Route>
-      <Route path="/careers">
-        <Suspense fallback={<Loading />}>
-          <Careers />
-        </Suspense>
-      </Route>
-      <Route path="/blog">
-        <Suspense fallback={<Loading />}>
-          <Blog />
-        </Suspense>
-      </Route>
-      <Route path="/blog/:slug">
-        <Suspense fallback={<Loading />}>
-          <BlogPost />
-        </Suspense>
-      </Route>
-      <Route path="/contact">
-        <Suspense fallback={<Loading />}>
-          <Contact />
-        </Suspense>
-      </Route>
-      <Route path="/architecture">
-        <Suspense fallback={<Loading />}>
-          <Architecture />
-        </Suspense>
-      </Route>
-      <Route path="/portfolio-download">
-        <Suspense fallback={<Loading />}>
-          <PortfolioDownload />
-        </Suspense>
-      </Route>
-      <Route path="/college-projects">
-        <Suspense fallback={<Loading />}>
-          <CollegeProjects />
-        </Suspense>
-      </Route>
-      <Route path="/privacy-policy">
-        <Suspense fallback={<Loading />}>
-          <PrivacyPolicy />
-        </Suspense>
-      </Route>
-      <Route path="/terms-of-service">
-        <Suspense fallback={<Loading />}>
-          <TermsOfService />
-        </Suspense>
-      </Route>
-      <Route path="/cookie-policy">
-        <Suspense fallback={<Loading />}>
-          <CookiePolicy />
-        </Suspense>
-      </Route>
-      <Route path="/security">
-        <Suspense fallback={<Loading />}>
-          <Security />
-        </Suspense>
-      </Route>
-      <Route component={NotFound} />
-    </Switch>
+    <AnimatePresence mode="wait" initial={false}>
+      <Switch location={location} key={location}>
+        <Route path="/">
+          <PageTransition>
+            <Home />
+          </PageTransition>
+        </Route>
+        <Route path="/about">
+          <PageTransition>
+            <Suspense fallback={<Loading />}>
+              <About />
+            </Suspense>
+          </PageTransition>
+        </Route>
+        <Route path="/services">
+          <PageTransition>
+            <Suspense fallback={<Loading />}>
+              <Services />
+            </Suspense>
+          </PageTransition>
+        </Route>
+        <Route path="/solutions">
+          <PageTransition>
+            <Suspense fallback={<Loading />}>
+              <Solutions />
+            </Suspense>
+          </PageTransition>
+        </Route>
+        <Route path="/industries">
+          <PageTransition>
+            <Suspense fallback={<Loading />}>
+              <Industries />
+            </Suspense>
+          </PageTransition>
+        </Route>
+        <Route path="/case-studies">
+          <PageTransition>
+            <Suspense fallback={<Loading />}>
+              <CaseStudies />
+            </Suspense>
+          </PageTransition>
+        </Route>
+        <Route path="/resources">
+          <PageTransition>
+            <Suspense fallback={<Loading />}>
+              <Resources />
+            </Suspense>
+          </PageTransition>
+        </Route>
+        <Route path="/support">
+          <PageTransition>
+            <Suspense fallback={<Loading />}>
+              <Support />
+            </Suspense>
+          </PageTransition>
+        </Route>
+        <Route path="/portfolio">
+          <PageTransition>
+            <Suspense fallback={<Loading />}>
+              <Portfolio />
+            </Suspense>
+          </PageTransition>
+        </Route>
+        <Route path="/portfolio-project/:slug">
+          <PageTransition>
+            <Suspense fallback={<Loading />}>
+              <PortfolioProject />
+            </Suspense>
+          </PageTransition>
+        </Route>
+        <Route path="/careers">
+          <PageTransition>
+            <Suspense fallback={<Loading />}>
+              <Careers />
+            </Suspense>
+          </PageTransition>
+        </Route>
+        <Route path="/blog">
+          <PageTransition>
+            <Suspense fallback={<Loading />}>
+              <Blog />
+            </Suspense>
+          </PageTransition>
+        </Route>
+        <Route path="/blog/:slug">
+          <PageTransition>
+            <Suspense fallback={<Loading />}>
+              <BlogPost />
+            </Suspense>
+          </PageTransition>
+        </Route>
+        <Route path="/contact">
+          <PageTransition>
+            <Suspense fallback={<Loading />}>
+              <Contact />
+            </Suspense>
+          </PageTransition>
+        </Route>
+        <Route path="/architecture">
+          <PageTransition>
+            <Suspense fallback={<Loading />}>
+              <Architecture />
+            </Suspense>
+          </PageTransition>
+        </Route>
+        <Route path="/portfolio-download">
+          <PageTransition>
+            <Suspense fallback={<Loading />}>
+              <PortfolioDownload />
+            </Suspense>
+          </PageTransition>
+        </Route>
+        <Route path="/college-projects">
+          <PageTransition>
+            <Suspense fallback={<Loading />}>
+              <CollegeProjects />
+            </Suspense>
+          </PageTransition>
+        </Route>
+        <Route path="/privacy-policy">
+          <PageTransition>
+            <Suspense fallback={<Loading />}>
+              <PrivacyPolicy />
+            </Suspense>
+          </PageTransition>
+        </Route>
+        <Route path="/terms-of-service">
+          <PageTransition>
+            <Suspense fallback={<Loading />}>
+              <TermsOfService />
+            </Suspense>
+          </PageTransition>
+        </Route>
+        <Route path="/cookie-policy">
+          <PageTransition>
+            <Suspense fallback={<Loading />}>
+              <CookiePolicy />
+            </Suspense>
+          </PageTransition>
+        </Route>
+        <Route path="/security">
+          <PageTransition>
+            <Suspense fallback={<Loading />}>
+              <Security />
+            </Suspense>
+          </PageTransition>
+        </Route>
+        <Route>
+          <PageTransition>
+            <NotFound />
+          </PageTransition>
+        </Route>
+      </Switch>
+    </AnimatePresence>
   );
 }
 
@@ -176,7 +230,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
-        <Router />
+        <AnimatedRouter />
       </TooltipProvider>
     </QueryClientProvider>
   );
