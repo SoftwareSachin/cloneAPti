@@ -25,15 +25,20 @@ export function CustomCursor() {
     };
 
     const handleMouseEnter = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
+      const target = e.target;
       
-      if (target.matches('button, a, [data-cursor-hover]')) {
-        setIsHovered(true);
-        setCursorSize(40);
+      // Check if target is an Element and has the matches method
+      if (target && target instanceof Element) {
+        const element = target as HTMLElement;
         
-        // Get custom cursor text if available
-        const text = target.getAttribute('data-cursor-text');
-        if (text) setCursorText(text);
+        if (element.matches && element.matches('button, a, [data-cursor-hover]')) {
+          setIsHovered(true);
+          setCursorSize(40);
+          
+          // Get custom cursor text if available
+          const text = element.getAttribute('data-cursor-text');
+          if (text) setCursorText(text);
+        }
       }
     };
 
@@ -44,13 +49,13 @@ export function CustomCursor() {
     };
 
     window.addEventListener('mousemove', moveCursor);
-    document.addEventListener('mouseenter', handleMouseEnter, true);
-    document.addEventListener('mouseleave', handleMouseLeave, true);
+    document.addEventListener('mouseover', handleMouseEnter, true);
+    document.addEventListener('mouseout', handleMouseLeave, true);
 
     return () => {
       window.removeEventListener('mousemove', moveCursor);
-      document.removeEventListener('mouseenter', handleMouseEnter, true);
-      document.removeEventListener('mouseleave', handleMouseLeave, true);
+      document.removeEventListener('mouseover', handleMouseEnter, true);
+      document.removeEventListener('mouseout', handleMouseLeave, true);
     };
   }, [cursorX, cursorY, cursorSize]);
 
