@@ -12,8 +12,10 @@ import { useAnalytics } from "../hooks/use-analytics";
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
 import { useProgress } from "@/hooks/use-progress";
 import { ProgressBar } from "@/components/progress-bar";
+import { CursorProvider } from "@/components/cursor-manager";
 import Home from "@/pages/home";
 import NotFound from "@/pages/not-found";
+import CursorDemo from "@/pages/cursor-demo";
 
 // Lazy load pages to reduce initial bundle size
 const About = lazy(() => import("@/pages/about"));
@@ -183,6 +185,13 @@ function AnimatedRouter() {
             </Suspense>
           </PageTransition>
         </Route>
+        <Route path="/cursor-demo">
+          <PageTransition>
+            <Suspense fallback={<Loading />}>
+              <CursorDemo />
+            </Suspense>
+          </PageTransition>
+        </Route>
         <Route path="/privacy-policy">
           <PageTransition>
             <Suspense fallback={<Loading />}>
@@ -235,9 +244,11 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <ProgressBar />
-        <Toaster />
-        <AnimatedRouter />
+        <CursorProvider>
+          <ProgressBar />
+          <Toaster />
+          <AnimatedRouter />
+        </CursorProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );

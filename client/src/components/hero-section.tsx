@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { LazySection } from "./lazy-section";
 import { TypewriterText, StaggeredText, MotionText } from "@/components/smooth-text";
 import { StaggeredItem } from "@/components/enhanced-transitions";
+import { MagneticCursor } from "@/components/custom-cursor";
 
 export default function HeroSection() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -93,32 +94,26 @@ export default function HeroSection() {
               animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
               transition={{ delay: 1.2, duration: 0.6, ease: "easeOut" }}
             >
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
+              <MagneticCursor strength={0.2}>
                 <Button
                   onClick={() => scrollToSection("contact")}
                   className="bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 text-base font-medium rounded-lg transition-all duration-200 shadow-sm"
+                  data-cursor-text="Start"
                 >
                   Start a project
                   <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
+              </MagneticCursor>
+              <MagneticCursor strength={0.15}>
                 <Button
                   onClick={() => scrollToSection("services")}
                   variant="outline"
                   className="border border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400 px-8 py-4 text-base font-medium rounded-lg transition-all duration-200"
+                  data-cursor-text="Explore"
                 >
                   Explore services
                 </Button>
-              </motion.div>
+              </MagneticCursor>
             </motion.div>
           
             {/* Clean stats display with staggered animation */}
