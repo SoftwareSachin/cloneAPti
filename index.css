@@ -10,6 +10,7 @@
 }
 
 :root {
+  /* Light theme (fallback) */
   --background: hsl(0, 0%, 100%);
   --foreground: hsl(222, 84%, 4.9%);
   --muted: hsl(210, 40%, 98%);
@@ -37,6 +38,7 @@
   --radius: 0.75rem;
 }
 
+/* Modern Dark Theme */
 .dark {
   --background: hsl(222, 84%, 4.9%);
   --foreground: hsl(210, 40%, 98%);
@@ -64,6 +66,34 @@
   --text-gray: hsl(215, 20%, 65%);
 }
 
+/* Enhanced Dark Theme with Premium Colors */
+.dark {
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: hsl(346.8, 77.2%, 49.8%);
+  --primary-foreground: hsl(355.7, 100%, 97.3%);
+  --primary-dark: hsl(240, 10%, 3.9%);
+  --secondary: hsl(240, 3.7%, 15.9%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(240, 3.7%, 15.9%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --success: hsl(142.1, 76.2%, 36.3%);
+  --success-foreground: hsl(355.7, 100%, 97.3%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(346.8, 77.2%, 49.8%);
+  --light-gray: hsl(240, 3.7%, 15.9%);
+  --text-gray: hsl(240, 5%, 64.9%);
+}
+
 @layer base {
   * {
     border: 0;
@@ -79,7 +109,7 @@
     border: none !important;
     box-shadow: none !important;
     outline: none !important;
-    background-color: rgba(255, 255, 255, 0.9) !important;
+    background-color: rgba(15, 15, 15, 0.9) !important;
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
@@ -125,7 +155,7 @@
   
   /* Fix text clashing */
   nav a {
-    color: rgba(0, 0, 0, 0.8) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
     text-decoration: none !important;
     font-weight: 400 !important;
     font-size: 12px !important;
@@ -133,76 +163,78 @@
   }
   
   nav a:hover {
-    color: rgba(0, 0, 0, 1) !important;
+    color: rgba(255, 255, 255, 1) !important;
   }
 
   body {
     @apply font-inter antialiased bg-background text-foreground;
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
+    background-color: hsl(240, 10%, 3.9%);
+    color: hsl(0, 0%, 98%);
   }
 
   html {
     scroll-behavior: smooth;
   }
 
-  /* Modern gradients */
+  /* Modern gradients for dark theme */
   .gradient-primary {
-    background: linear-gradient(135deg, hsl(270, 100%, 60%) 0%, hsl(280, 100%, 70%) 100%);
+    background: linear-gradient(135deg, hsl(346.8, 77.2%, 49.8%) 0%, hsl(346.8, 77.2%, 39.8%) 100%);
   }
   
   .gradient-secondary {
-    background: linear-gradient(135deg, hsl(210, 100%, 56%) 0%, hsl(270, 100%, 60%) 100%);
+    background: linear-gradient(135deg, hsl(240, 5%, 64.9%) 0%, hsl(240, 3.7%, 15.9%) 100%);
   }
   
   .gradient-accent {
-    background: linear-gradient(135deg, hsl(280, 100%, 70%) 0%, hsl(210, 100%, 56%) 100%);
+    background: linear-gradient(135deg, hsl(142.1, 76.2%, 36.3%) 0%, hsl(346.8, 77.2%, 49.8%) 100%);
   }
 
-  /* Premium text gradients */
+  /* Premium text gradients for dark theme */
   .gradient-text-primary {
-    background: linear-gradient(135deg, hsl(270, 100%, 60%) 0%, hsl(280, 100%, 70%) 100%);
+    background: linear-gradient(135deg, hsl(346.8, 77.2%, 49.8%) 0%, hsl(346.8, 77.2%, 39.8%) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .gradient-text-accent {
-    background: linear-gradient(135deg, hsl(210, 100%, 56%) 0%, hsl(270, 100%, 60%) 100%);
+    background: linear-gradient(135deg, hsl(142.1, 76.2%, 36.3%) 0%, hsl(346.8, 77.2%, 49.8%) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  /* Modern blur effects */
+  /* Modern blur effects for dark theme */
   .glass-effect {
     backdrop-filter: blur(20px);
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(15, 15, 15, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .glass-card {
     backdrop-filter: blur(16px);
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    background: rgba(15, 15, 15, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
   }
 
-  /* Premium shadows */
+  /* Premium shadows for dark theme */
   .shadow-modern {
-    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
   }
 
   .shadow-modern-lg {
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
   }
 
   .shadow-premium {
-    box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.15), 0 4px 16px -4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.6), 0 4px 16px -4px rgba(0, 0, 0, 0.4);
   }
 
   .shadow-glow {
-    box-shadow: 0 0 20px rgba(129, 140, 248, 0.3);
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
   }
 
   /* Premium typography */
@@ -222,27 +254,27 @@
 
 @layer utilities {
   .text-primary-dark {
-    color: hsl(222, 84%, 4.9%);
+    color: hsl(240, 10%, 3.9%);
   }
   
   .bg-primary-dark {
-    background-color: hsl(222, 84%, 4.9%);
+    background-color: hsl(240, 10%, 3.9%);
   }
   
   .text-text-gray {
-    color: hsl(215, 13.8%, 34.1%);
+    color: hsl(240, 5%, 64.9%);
   }
   
   .bg-light-gray {
-    background-color: hsl(210, 40%, 98%);
+    background-color: hsl(240, 3.7%, 15.9%);
   }
   
   .border-primary-dark {
-    border-color: hsl(222, 84%, 4.9%);
+    border-color: hsl(240, 10%, 3.9%);
   }
   
   .hover\:bg-primary-dark:hover {
-    background-color: hsl(222, 84%, 4.9%);
+    background-color: hsl(240, 10%, 3.9%);
   }
   
   .font-inter {
