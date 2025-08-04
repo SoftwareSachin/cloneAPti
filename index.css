@@ -38,30 +38,30 @@
 }
 
 .dark {
-  --background: hsl(222, 84%, 4.9%);
-  --foreground: hsl(210, 40%, 98%);
-  --muted: hsl(217, 32%, 17%);
-  --muted-foreground: hsl(215, 20%, 65%);
-  --popover: hsl(222, 84%, 4.9%);
-  --popover-foreground: hsl(210, 40%, 98%);
-  --card: hsl(222, 84%, 4.9%);
-  --card-foreground: hsl(210, 40%, 98%);
-  --border: hsl(217, 32%, 17%);
-  --input: hsl(217, 32%, 17%);
-  --primary: hsl(220, 91%, 50%);
-  --primary-foreground: hsl(220, 100%, 99%);
-  --primary-dark: hsl(222, 84%, 4.9%);
-  --secondary: hsl(217, 91%, 60%);
+  --background: hsl(224, 71%, 4%);
+  --foreground: hsl(213, 31%, 91%);
+  --muted: hsl(223, 47%, 11%);
+  --muted-foreground: hsl(215.4, 16.3%, 56.9%);
+  --popover: hsl(224, 71%, 4%);
+  --popover-foreground: hsl(213, 31%, 91%);
+  --card: hsl(224, 71%, 4%);
+  --card-foreground: hsl(213, 31%, 91%);
+  --border: hsl(216, 34%, 17%);
+  --input: hsl(216, 34%, 17%);
+  --primary: hsl(263, 70%, 50%);
+  --primary-foreground: hsl(210, 40%, 98%);
+  --primary-dark: hsl(224, 71%, 4%);
+  --secondary: hsl(222, 47%, 11%);
   --secondary-foreground: hsl(210, 40%, 98%);
-  --accent: hsl(188, 95%, 42%);
-  --accent-foreground: hsl(220, 100%, 99%);
-  --success: hsl(142, 71%, 45%);
-  --success-foreground: hsl(142, 100%, 99%);
-  --destructive: hsl(0, 62%, 30%);
+  --accent: hsl(216, 34%, 17%);
+  --accent-foreground: hsl(210, 40%, 98%);
+  --success: hsl(142, 76%, 36%);
+  --success-foreground: hsl(355.7, 100%, 97.3%);
+  --destructive: hsl(0, 63%, 31%);
   --destructive-foreground: hsl(210, 40%, 98%);
-  --ring: hsl(220, 91%, 50%);
-  --light-gray: hsl(217, 32%, 17%);
-  --text-gray: hsl(215, 20%, 65%);
+  --ring: hsl(263, 70%, 50%);
+  --light-gray: hsl(223, 47%, 11%);
+  --text-gray: hsl(215.4, 16.3%, 56.9%);
 }
 
 @layer base {
@@ -79,7 +79,8 @@
     border: none !important;
     box-shadow: none !important;
     outline: none !important;
-    background-color: rgba(255, 255, 255, 0.9) !important;
+    background-color: rgba(15, 23, 42, 0.9) !important;
+    backdrop-filter: blur(20px) !important;
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
@@ -125,7 +126,7 @@
   
   /* Fix text clashing */
   nav a {
-    color: rgba(0, 0, 0, 0.8) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
     text-decoration: none !important;
     font-weight: 400 !important;
     font-size: 12px !important;
@@ -133,7 +134,7 @@
   }
   
   nav a:hover {
-    color: rgba(0, 0, 0, 1) !important;
+    color: rgba(255, 255, 255, 1) !important;
   }
 
   body {
@@ -146,13 +147,13 @@
     scroll-behavior: smooth;
   }
 
-  /* Modern gradients */
+  /* Modern gradients for dark theme */
   .gradient-primary {
-    background: linear-gradient(135deg, hsl(270, 100%, 60%) 0%, hsl(280, 100%, 70%) 100%);
+    background: linear-gradient(135deg, hsl(263, 70%, 50%) 0%, hsl(280, 100%, 70%) 100%);
   }
   
   .gradient-secondary {
-    background: linear-gradient(135deg, hsl(210, 100%, 56%) 0%, hsl(270, 100%, 60%) 100%);
+    background: linear-gradient(135deg, hsl(210, 100%, 56%) 0%, hsl(263, 70%, 50%) 100%);
   }
   
   .gradient-accent {
@@ -161,48 +162,48 @@
 
   /* Premium text gradients */
   .gradient-text-primary {
-    background: linear-gradient(135deg, hsl(270, 100%, 60%) 0%, hsl(280, 100%, 70%) 100%);
+    background: linear-gradient(135deg, hsl(263, 70%, 50%) 0%, hsl(280, 100%, 70%) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .gradient-text-accent {
-    background: linear-gradient(135deg, hsl(210, 100%, 56%) 0%, hsl(270, 100%, 60%) 100%);
+    background: linear-gradient(135deg, hsl(210, 100%, 56%) 0%, hsl(263, 70%, 50%) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  /* Modern blur effects */
+  /* Modern blur effects for dark theme */
   .glass-effect {
     backdrop-filter: blur(20px);
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(15, 23, 42, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .glass-card {
     backdrop-filter: blur(16px);
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   }
 
-  /* Premium shadows */
+  /* Premium shadows for dark theme */
   .shadow-modern {
-    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.3);
   }
 
   .shadow-modern-lg {
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   }
 
   .shadow-premium {
-    box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.15), 0 4px 16px -4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.4), 0 4px 16px -4px rgba(0, 0, 0, 0.3);
   }
 
   .shadow-glow {
-    box-shadow: 0 0 20px rgba(129, 140, 248, 0.3);
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
   }
 
   /* Premium typography */
@@ -218,34 +219,81 @@
   .hover-lift {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
+
+  /* Dark theme specific styles */
+  .dark .glass-effect {
+    background: rgba(15, 23, 42, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .dark .glass-card {
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Animated background for dark theme */
+  .dark .animated-bg {
+    background: linear-gradient(-45deg, #0f172a, #1e293b, #334155, #475569);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
 }
 
 @layer utilities {
   .text-primary-dark {
-    color: hsl(222, 84%, 4.9%);
+    color: hsl(224, 71%, 4%);
   }
   
   .bg-primary-dark {
-    background-color: hsl(222, 84%, 4.9%);
+    background-color: hsl(224, 71%, 4%);
   }
   
   .text-text-gray {
-    color: hsl(215, 13.8%, 34.1%);
+    color: hsl(215.4, 16.3%, 56.9%);
   }
   
   .bg-light-gray {
-    background-color: hsl(210, 40%, 98%);
+    background-color: hsl(223, 47%, 11%);
   }
   
   .border-primary-dark {
-    border-color: hsl(222, 84%, 4.9%);
+    border-color: hsl(224, 71%, 4%);
   }
   
   .hover\:bg-primary-dark:hover {
-    background-color: hsl(222, 84%, 4.9%);
+    background-color: hsl(224, 71%, 4%);
   }
   
   .font-inter {
     font-family: 'Inter', sans-serif;
+  }
+
+  /* Dark theme utilities */
+  .dark .text-primary-dark {
+    color: hsl(213, 31%, 91%);
+  }
+  
+  .dark .bg-primary-dark {
+    background-color: hsl(224, 71%, 4%);
+  }
+  
+  .dark .text-text-gray {
+    color: hsl(215.4, 16.3%, 56.9%);
+  }
+  
+  .dark .bg-light-gray {
+    background-color: hsl(223, 47%, 11%);
   }
 }
