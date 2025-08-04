@@ -265,6 +265,23 @@
   }
 }
 
+/* Dark theme overrides for navigation */
+@layer base {
+  .dark .primary-navigation {
+    background-color: rgba(17, 17, 17, 0.9) !important;
+    box-shadow: none !important;
+  }
+  .dark .primary-navigation a {
+    color: rgba(255, 255, 255, 0.85) !important;
+  }
+  .dark .primary-navigation a:hover {
+    color: rgba(255, 255, 255, 1) !important;
+  }
+  .dark .primary-navigation svg {
+    color: rgba(255, 255, 255, 0.85) !important;
+  }
+}
+
 @layer utilities {
   .text-primary-dark {
     color: hsl(222, 84%, 4.9%);
