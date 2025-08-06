@@ -72,13 +72,12 @@ export default function HeroSection() {
                 text="Enterprise Software Solutions" 
                 className="text-gray-900 block"
               />
-              <TypewriterText 
-                text={["Built for Scale & Performance", "Engineered for Enterprise", "Designed for Innovation", "Optimized for Growth"]} 
-                speed={50}
-                dynamic={true}
-                loopDelay={2500}
+              <MotionText 
+                delay={0.8}
                 className="text-gray-600 block mt-2"
-              />
+              >
+                Built for Scale & Performance
+              </MotionText>
             </div>
           
             {/* Professional description with smooth reveal animation */}

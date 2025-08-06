@@ -115,8 +115,7 @@ export class GSAPTextAnimator {
         text: {
           value: text,
           delimiter: "",
-          speed: 1,
-          chars: chars
+          speed: 1
         },
         ease: "none"
       });
