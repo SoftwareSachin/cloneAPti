@@ -8,7 +8,7 @@ import { AnimatePresence } from "framer-motion";
 import { PageTransition } from "@/components/page-transition";
 import { DirectionalPageTransition, StaggeredLayout } from "@/components/enhanced-transitions";
 import { initGA } from "@/lib/analytics";
-import { useAnalytics } from "@/hooks/use-analytics";
+import { useAnalytics } from "@/hooks/use-analytics.tsx";
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
 import { useProgress } from "@/hooks/use-progress";
 import { ProgressBar } from "@/components/progress-bar";
