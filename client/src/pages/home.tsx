@@ -1,11 +1,6 @@
 import Navigation from "@/components/navigation";
 import HeroSection from "@/components/hero-section";
-import AdSection from "@/components/ad-section";
-import ReferralCommissionAd from "@/components/referral-commission-ad";
 import StarProjectSection from "@/components/star-project-section";
-import PortfolioAdSection from "@/components/portfolio-ad-section";
-import AcademicProjectsAd from "@/components/academic-projects-ad";
-import SKITStudentsAd from "@/components/skit-students-ad";
 import ServicesSection from "@/components/services-section";
 import TechnologySection from "@/components/technology-section";
 import IndustriesSection from "@/components/industries-section";
@@ -16,7 +11,7 @@ import ContactSection from "@/components/contact-section";
 import Footer from "@/components/footer";
 import { LazySection } from "@/components/lazy-section";
 import { ScrollToTop } from "@/components/scroll-to-top";
-import { currentAd } from "@/config/ad-config";
+
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -190,30 +185,7 @@ export default function Home() {
 
       <HeroSection />
 
-      {/* Promotional Ad Section */}
-      <LazySection animationType="slideUp" delay={100}>
-        <AdSection {...currentAd} />
-      </LazySection>
 
-      {/* Referral Commission Ad */}
-      <LazySection animationType="slideUp" delay={200}>
-        <ReferralCommissionAd />
-      </LazySection>
-
-      {/* Portfolio Service Ad */}
-      <LazySection animationType="slideUp" delay={300}>
-        <PortfolioAdSection />
-      </LazySection>
-
-      {/* Academic Projects Ad */}
-      <LazySection animationType="slideUp" delay={100}>
-        <AcademicProjectsAd />
-      </LazySection>
-
-      {/* SKIT Students Special Discount Ad */}
-      <LazySection animationType="slideUp" delay={200}>
-        <SKITStudentsAd />
-      </LazySection>
 
       {/* Star Project Section */}
       <LazySection animationType="scale" delay={300}>
