@@ -135,7 +135,7 @@ export function LiveTerminal() {
       {/* Terminal Content */}
       <div 
         ref={scrollRef}
-        className="h-full p-4 overflow-y-auto font-mono text-sm bg-transparent"
+        className="h-full p-4 overflow-y-auto font-mono text-sm bg-transparent custom-scrollbar"
         style={{ maxHeight: 'calc(60vh - 60px)' }}
       >
         <AnimatePresence>
