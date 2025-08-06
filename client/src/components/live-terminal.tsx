@@ -1253,7 +1253,7 @@ Comprehensive documentation maintained for all project phases`,
               value={currentInput}
               onChange={(e) => setCurrentInput(e.target.value)}
               onKeyDown={handleKeyPress}
-              className="w-full bg-transparent text-white outline-none font-mono placeholder-gray-400"
+              className="w-full bg-transparent text-white outline-none font-mono placeholder-gray-400 caret-teal-400"
               placeholder="Type a command... (Tab for suggestions, ↑↓ for history)"
               disabled={isTyping}
               data-testid="terminal-input"
@@ -1285,7 +1285,7 @@ Comprehensive documentation maintained for all project phases`,
           </div>
 
           <motion.div
-            className="w-3 h-5 bg-teal-400 rounded-sm"
+            className="w-0.5 h-5 bg-teal-400"
             animate={{ opacity: [1, 0] }}
             transition={{ duration: 1, repeat: Infinity }}
           />
