@@ -355,6 +355,9 @@ Ready to start your cloud migration journey? Our team has the experience and exp
     const post: BlogPost = {
       ...insertPost,
       id,
+      tags: insertPost.tags || [],
+      published: insertPost.published ?? true,
+      featured: insertPost.featured ?? false,
       views: 0,
       likes: 0,
       createdAt: new Date(),
@@ -637,6 +640,11 @@ Ready to start your cloud migration journey? Our team has the experience and exp
     const project: PortfolioProject = {
       ...insertProject,
       id,
+      image: insertProject.image || null,
+      published: insertProject.published ?? true,
+      featured: insertProject.featured ?? false,
+      views: insertProject.views ?? 0,
+      likes: insertProject.likes ?? 0,
       createdAt: new Date(),
       updatedAt: new Date()
     };
@@ -706,6 +714,9 @@ Ready to start your cloud migration journey? Our team has the experience and exp
     const inquiry: PortfolioInquiry = {
       ...insertInquiry,
       id,
+      company: insertInquiry.company || null,
+      phone: insertInquiry.phone || null,
+      projectId: insertInquiry.projectId || null,
       createdAt: new Date()
     };
     this.portfolioInquiries.set(id, inquiry);
