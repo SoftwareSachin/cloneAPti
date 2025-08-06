@@ -74,12 +74,18 @@ export function TypewriterText({
   text, 
   speed = 50, 
   className = '',
-  useTypeIt = true 
+  useTypeIt = true,
+  loop = false,
+  loopDelay = 2000,
+  dynamic = false
 }: { 
-  text: string; 
+  text: string | string[]; 
   speed?: number; 
   className?: string;
   useTypeIt?: boolean;
+  loop?: boolean;
+  loopDelay?: number;
+  dynamic?: boolean;
 }) {
   const elementRef = useRef<HTMLDivElement>(null);
 
@@ -87,19 +93,41 @@ export function TypewriterText({
     if (!elementRef.current) return;
 
     if (useTypeIt) {
-      const animator = createTypeItAnimator(elementRef.current, {
+      const options = {
         speed,
         cursor: true,
-        lifeLike: true
-      });
+        lifeLike: true,
+        loop: loop || dynamic,
+        loopDelay: dynamic ? loopDelay : (loopDelay || 750)
+      };
+
+      const animator = createTypeItAnimator(elementRef.current, options);
       
-      animator.type(text).go();
+      if (Array.isArray(text)) {
+        // Multiple texts with dynamic cycling
+        if (dynamic) {
+          animator.typeContinuous(text, loopDelay).go();
+        } else {
+          animator.typeMultiple(text, loopDelay).go();
+        }
+      } else if (dynamic) {
+        // Single text with continuous typing/deleting effect
+        animator
+          .type(text)
+          .pause(loopDelay)
+          .delete()
+          .pause(500)
+          .go();
+      } else {
+        // Single text, one time or simple loop
+        animator.type(text).go();
+      }
 
       return () => {
         animator.destroy();
       };
     }
-  }, [text, speed, useTypeIt]);
+  }, [text, speed, useTypeIt, loop, loopDelay, dynamic]);
 
   if (useTypeIt) {
     return <div ref={elementRef} className={className} />;
@@ -108,10 +136,10 @@ export function TypewriterText({
   return (
     <SmoothText 
       type="typewriter" 
-      options={{ speed: speed / 1000, cursor: true }} 
+      options={{ speed: speed / 1000, cursor: true, loop: loop || dynamic }} 
       className={className}
     >
-      {text}
+      {Array.isArray(text) ? text[0] : text}
     </SmoothText>
   );
 }

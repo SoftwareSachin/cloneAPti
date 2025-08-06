@@ -69,6 +69,20 @@ export class TypeItAnimator {
       this.type(text);
       if (index < texts.length - 1) {
         this.pause(pauseBetween).delete();
+      } else {
+        // For the last item, if loop is enabled, pause and delete to restart
+        this.pause(pauseBetween).delete();
+      }
+    });
+    return this;
+  }
+
+  // Method for continuous dynamic text cycling
+  typeContinuous(texts: string[], pauseBetween: number = 1000) {
+    texts.forEach((text, index) => {
+      this.type(text).pause(pauseBetween).delete();
+      if (index < texts.length - 1) {
+        this.pause(500);
       }
     });
     return this;
