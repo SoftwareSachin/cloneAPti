@@ -4,6 +4,27 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Global cursor fixes */
+* {
+  cursor: default;
+}
+
+body, html {
+  cursor: default;
+}
+
+input, textarea, select {
+  cursor: text;
+}
+
+button, a, [role="button"], .cursor-pointer {
+  cursor: pointer;
+}
+
+[disabled] {
+  cursor: not-allowed;
+}
+
 /* Enhanced Scrollbar Styles */
 .custom-scrollbar {
   scrollbar-width: thin;
