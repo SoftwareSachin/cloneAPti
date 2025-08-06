@@ -158,61 +158,7 @@ export default function HeroSection() {
               ))}
             </motion.div>
           
-            {/* Pure Linear/Anthropic text-based features with smooth animation */}
-            <motion.div 
-              className="max-w-4xl mx-auto"
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 40 }}
-              transition={{ delay: 1.8, duration: 0.8, ease: "easeOut" }}
-            >
-              <div className="text-center">
-                <motion.p 
-                  className="text-gray-500 text-sm uppercase tracking-wide font-medium mb-8"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: isLoaded ? 1 : 0 }}
-                  transition={{ delay: 2.0, duration: 0.6 }}
-                >
-                  Trusted by forward-thinking companies
-                </motion.p>
-                
-                <div className="grid md:grid-cols-3 gap-12 text-center">
-                  {[
-                    {
-                      title: "Enterprise Ready",
-                      description: "Built for scale with enterprise-grade security and compliance standards"
-                    },
-                    {
-                      title: "Lightning Fast", 
-                      description: "Optimized performance with modern architecture and best practices"
-                    },
-                    {
-                      title: "Global Scale",
-                      description: "Worldwide infrastructure with multi-region deployment capabilities"
-                    }
-                  ].map((feature, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
-                      transition={{ 
-                        delay: 2.2 + (index * 0.2), 
-                        duration: 0.6, 
-                        ease: "easeOut" 
-                      }}
-                      whileHover={{ 
-                        y: -2,
-                        transition: { type: "spring", stiffness: 300, damping: 20 }
-                      }}
-                    >
-                      <h3 className="text-lg font-medium text-gray-900 mb-3">{feature.title}</h3>
-                      <p className="text-gray-600 text-sm leading-relaxed">
-                        {feature.description}
-                      </p>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
+
           </div>
         </div>
       </section>
