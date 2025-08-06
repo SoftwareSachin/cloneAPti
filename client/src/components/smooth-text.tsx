@@ -74,7 +74,7 @@ export function TypewriterText({
   text, 
   speed = 50, 
   className = '',
-  useTypeIt = true,
+  useTypeIt = false, // Switch to GSAP-based approach
   loop = false,
   loopDelay = 2000,
   dynamic = false
@@ -88,60 +88,51 @@ export function TypewriterText({
   dynamic?: boolean;
 }) {
   const elementRef = useRef<HTMLDivElement>(null);
+  const animatorRef = useRef<any>(null);
+  const currentIndexRef = useRef(0);
 
   useEffect(() => {
     if (!elementRef.current) return;
 
-    if (useTypeIt) {
-      const options = {
-        speed,
-        cursor: true,
-        lifeLike: true,
-        loop: loop || dynamic,
-        loopDelay: dynamic ? loopDelay : (loopDelay || 750)
-      };
+    const textArray = Array.isArray(text) ? text : [text];
+    const element = elementRef.current;
 
-      const animator = createTypeItAnimator(elementRef.current, options);
+    // Use GSAP-based animation for reliability
+    const animate = () => {
+      const currentText = textArray[currentIndexRef.current];
       
-      if (Array.isArray(text)) {
-        // Multiple texts with dynamic cycling
-        if (dynamic) {
-          animator.typeContinuous(text, loopDelay).go();
-        } else {
-          animator.typeMultiple(text, loopDelay).go();
-        }
-      } else if (dynamic) {
-        // Single text with continuous typing/deleting effect
-        animator
-          .type(text)
-          .pause(loopDelay)
-          .delete()
-          .pause(500)
-          .go();
-      } else {
-        // Single text, one time or simple loop
-        animator.type(text).go();
+      if (animatorRef.current) {
+        animatorRef.current.kill();
       }
 
-      return () => {
-        animator.destroy();
-      };
-    }
-  }, [text, speed, useTypeIt, loop, loopDelay, dynamic]);
+      animatorRef.current = createTextAnimator(element);
+      animatorRef.current.typewriter(currentText, {
+        speed: speed / 1000,
+        cursor: true,
+        loop: false,
+        onComplete: () => {
+          if (dynamic && textArray.length > 1) {
+            setTimeout(() => {
+              // Clear and move to next text
+              element.textContent = '';
+              currentIndexRef.current = (currentIndexRef.current + 1) % textArray.length;
+              animate();
+            }, loopDelay);
+          }
+        }
+      }).play();
+    };
 
-  if (useTypeIt) {
-    return <div ref={elementRef} className={className} />;
-  }
+    animate();
 
-  return (
-    <SmoothText 
-      type="typewriter" 
-      options={{ speed: speed / 1000, cursor: true, loop: loop || dynamic }} 
-      className={className}
-    >
-      {Array.isArray(text) ? text[0] : text}
-    </SmoothText>
-  );
+    return () => {
+      if (animatorRef.current) {
+        animatorRef.current.kill();
+      }
+    };
+  }, [text, speed, loop, loopDelay, dynamic]);
+
+  return <div ref={elementRef} className={className} />;
 }
 
 export function ScrambleText({ 

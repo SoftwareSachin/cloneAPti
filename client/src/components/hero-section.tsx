@@ -74,9 +74,9 @@ export default function HeroSection() {
               />
               <TypewriterText 
                 text={["Built for Scale & Performance", "Engineered for Enterprise", "Designed for Innovation", "Optimized for Growth"]} 
-                speed={60}
+                speed={50}
                 dynamic={true}
-                loopDelay={3000}
+                loopDelay={2500}
                 className="text-gray-600 block mt-2"
               />
             </div>
