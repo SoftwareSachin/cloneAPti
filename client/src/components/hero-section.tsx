@@ -6,6 +6,7 @@ import { LazySection } from "./lazy-section";
 import { TypewriterText, StaggeredText, MotionText } from "@/components/smooth-text";
 import { StaggeredItem } from "@/components/enhanced-transitions";
 import { MagneticCursor } from "@/components/custom-cursor";
+import { LiveTerminal } from "@/components/live-terminal";
 
 export default function HeroSection() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -49,8 +50,10 @@ export default function HeroSection() {
           />
         </div>
       
-        <div className="relative max-w-6xl mx-auto px-6 z-10">
-          <div className="text-center max-w-4xl mx-auto">
+        <div className="relative max-w-7xl mx-auto px-6 z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left Pane - Content */}
+            <div className="text-center lg:text-left max-w-4xl">
             {/* Linear/Anthropic-style badge with micro-animation */}
             <motion.div 
               className="inline-flex items-center gap-2 px-4 py-2 bg-gray-50 border border-gray-200 rounded-full mb-8"
@@ -119,7 +122,7 @@ export default function HeroSection() {
           
             {/* Clean stats display with staggered animation */}
             <motion.div 
-              className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20"
+              className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-12"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 30 }}
               transition={{ delay: 1.4, duration: 0.8, ease: "easeOut" }}
@@ -127,7 +130,7 @@ export default function HeroSection() {
               {stats.map((stat, index) => (
                 <motion.div 
                   key={index} 
-                  className="text-center"
+                  className="text-center lg:text-left"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
                   transition={{ 
@@ -141,7 +144,7 @@ export default function HeroSection() {
                   }}
                 >
                   <motion.div 
-                    className="text-3xl md:text-4xl font-bold text-gray-900 mb-2"
+                    className="text-2xl md:text-3xl font-bold text-gray-900 mb-1"
                     animate={{ 
                       scale: [1, 1.02, 1] 
                     }}
@@ -153,12 +156,16 @@ export default function HeroSection() {
                   >
                     {stat.value}
                   </motion.div>
-                  <div className="text-gray-600 text-sm uppercase tracking-wide font-medium">{stat.label}</div>
+                  <div className="text-gray-600 text-xs uppercase tracking-wide font-medium">{stat.label}</div>
                 </motion.div>
               ))}
             </motion.div>
-          
+            </div>
 
+            {/* Right Pane - Live Terminal */}
+            <div className="relative">
+              <LiveTerminal />
+            </div>
           </div>
         </div>
       </section>
